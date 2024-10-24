@@ -1,0 +1,482 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "simple-spring-22c055",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/othersimples" : {
+      "get" : {
+        "tags" : [ "another-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__othersimples",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/othersimples/{id}" : {
+      "get" : {
+        "tags" : [ "another-controller" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__othersimples_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnotherSimple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/othersimples/{id}/{ssn}" : {
+      "get" : {
+        "tags" : [ "another-controller" ],
+        "summary" : "getByIdAndSsn",
+        "operationId" : "getByIdAndSsnUsingGET__othersimples_id_ssn",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "ssn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnotherSimple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/othersimples/string-test" : {
+      "get" : {
+        "tags" : [ "another-controller" ],
+        "summary" : "getFoos",
+        "operationId" : "getFoosUsingGET__othersimples_string-test",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/request-body-object" : {
+      "post" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__simples_request-body-object",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Simple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/unique-operation-ids" : {
+      "post" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__simples_unique-operation-ids",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/request-body-list" : {
+      "post" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__simples_request-body-list",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__simples_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
+          "208" : {
+            "description" : "Already Reported"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__simples_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__simples",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/void-response" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAllNoReturn",
+        "operationId" : "getAllNoReturnUsingGET__simples_void-response",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/simples/primitive-list" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAllPrimitiveList",
+        "operationId" : "getAllPrimitiveListUsingGET__simples_primitive-list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/raw-list" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAllRawList",
+        "operationId" : "getAllRawListUsingGET__simples_raw-list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/response-status/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getById2",
+        "operationId" : "getById2UsingGET__simples_response-status_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "208" : {
+            "description" : "Already Reported",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/enum" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getEnum",
+        "operationId" : "getEnumUsingGET__simples_enum",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleEnum"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/simple-superclass-property" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getSuperclassSimple",
+        "operationId" : "getSuperclassSimpleUsingGET__simples_simple-superclass-property",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AnotherSimple" : {
+        "required" : [ "avgGrade", "id", "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "avgGrade" : {
+            "maximum" : 10.0,
+            "minimum" : 0.0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string",
+            "description" : "social security number",
+            "readOnly" : true,
+            "deprecated" : false
+          }
+        }
+      },
+      "SimpleEnum" : {
+        "type" : "string",
+        "enum" : [ "NICE", "OK", "BAD" ]
+      },
+      "Simple" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

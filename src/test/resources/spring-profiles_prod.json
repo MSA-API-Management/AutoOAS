@@ -1,0 +1,148 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "spring-profiles-project",
+    "description" : "Spring Profile: prod",
+    "version" : ""
+  },
+  "paths" : {
+    "/api/all-profiles" : {
+      "get" : {
+        "tags" : [ "all-profiles-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_all-profiles",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entity/{id}" : {
+      "delete" : {
+        "tags" : [ "prod-controller" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__api_entity_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entity" : {
+      "get" : {
+        "tags" : [ "prod-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_entity",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/no-profiles" : {
+      "get" : {
+        "tags" : [ "no-profiles-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_no-profiles",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "AnotherSimple" : {
+        "required" : [ "avgGrade", "id", "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "avgGrade" : {
+            "maximum" : 10.0,
+            "minimum" : 0.0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string",
+            "description" : "social security number",
+            "readOnly" : true,
+            "deprecated" : false
+          }
+        }
+      }
+    }
+  }
+}

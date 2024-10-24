@@ -1,0 +1,599 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "simple-spring-misc",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/potentially-unsupported" : {
+      "get" : {
+        "tags" : [ "exceptions-controller" ],
+        "summary" : "potentiallyUnsupported",
+        "operationId" : "potentiallyUnsupportedUsingGET__potentially-unsupported",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/unsupported" : {
+      "get" : {
+        "tags" : [ "exceptions-controller" ],
+        "summary" : "unsupported",
+        "operationId" : "unsupportedUsingGET__unsupported",
+        "parameters" : [ ],
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/get-and-post-method" : {
+      "get" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getAndPostMethod",
+        "operationId" : "getAndPostMethodUsingGET__get-and-post-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getAndPostMethod",
+        "operationId" : "getAndPostMethodUsingPOST__get-and-post-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-and-post-method-reqmapping" : {
+      "get" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getAndPostRequestMappingMethod",
+        "operationId" : "getAndPostRequestMappingMethodUsingGET__get-and-post-method-reqmapping",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getAndPostRequestMappingMethod",
+        "operationId" : "getAndPostRequestMappingMethodUsingPOST__get-and-post-method-reqmapping",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unspecified-method" : {
+      "get" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingGET__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingPUT__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingPOST__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingDELETE__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingOPTIONS__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "head" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingHEAD__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingPATCH__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "trace" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "unspecifiedMethod",
+        "operationId" : "unspecifiedMethodUsingTRACE__unspecified-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/header-param" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "header_param",
+        "operationId" : "header_paramUsingGET__requests_header-param",
+        "parameters" : [ {
+          "name" : "req-test",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/header-param-required" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "header_param_required",
+        "operationId" : "header_param_requiredUsingGET__requests_header-param-required",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/regex/{lastname}/{firstname}" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "regexParam",
+        "operationId" : "regexParamUsingGET__requests_regex_lastname_firstname",
+        "parameters" : [ {
+          "name" : "lastname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[a-zA-Z0-9]*$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "firstname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[A-Za-z]*$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-empty" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getDeferredResult",
+        "operationId" : "getDeferredResultUsingGET__simples_deferred-empty",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-questionmark" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getDeferredResultGenericCapture",
+        "operationId" : "getDeferredResultGenericCaptureUsingGET__simples_deferred-questionmark",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-response-entity-simple-object" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getDeferredResultResponseEntityStringCapture",
+        "operationId" : "getDeferredResultResponseEntityStringCaptureUsingGET__simples_deferred-response-entity-simple-object",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-simple-object" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getDeferredResultStringCapture",
+        "operationId" : "getDeferredResultStringCaptureUsingGET__simples_deferred-simple-object",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/response-entity-generic" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getGenericResponseEntity",
+        "operationId" : "getGenericResponseEntityUsingGET__simples_response-entity-generic",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/response-entity-questionmark-capture" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getResponseEntityGenericCapture",
+        "operationId" : "getResponseEntityGenericCaptureUsingGET__simples_response-entity-questionmark-capture",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "SimpleObject" : {
+        "required" : [ "age" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "spring-advanced-behaviors",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/model-attribute-inheritance" : {
+      "get" : {
+        "tags" : [ "main-controller" ],
+        "summary" : "echoModelAttribute",
+        "operationId" : "echoModelAttributeUsingGET__model-attribute-inheritance",
+        "parameters" : [ {
+          "name" : "derivedFieldString",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "derivedFieldInt",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "baseFieldString",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DerivedObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "main-controller" ],
+        "summary" : "echoModelAttribute",
+        "operationId" : "echoModelAttributeUsingPOST__model-attribute-inheritance",
+        "parameters" : [ {
+          "name" : "derivedFieldString",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "derivedFieldInt",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "baseFieldString",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DerivedObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/model-attribute" : {
+      "get" : {
+        "tags" : [ "main-controller" ],
+        "summary" : "echoModelAttribute",
+        "operationId" : "echoModelAttributeUsingGET__model-attribute",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "age",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "main-controller" ],
+        "summary" : "echoModelAttribute",
+        "operationId" : "echoModelAttributeUsingPOST__model-attribute",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "age",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "SimpleObject" : {
+        "required" : [ "age" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "DerivedObject" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/BaseObject"
+        }, {
+          "required" : [ "derivedFieldInt" ],
+          "type" : "object",
+          "properties" : {
+            "derivedFieldInt" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "derivedFieldString" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "BaseObject" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "baseFieldString" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      }
+    }
+  }
+}

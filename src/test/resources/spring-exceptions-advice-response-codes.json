@@ -1,0 +1,99 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "spring-exceptions-advice-project",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/local-exception-handler" : {
+      "get" : {
+        "tags" : [ "local-handler-controller" ],
+        "summary" : "getOrNot",
+        "operationId" : "getOrNotUsingGET__local-exception-handler",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "418" : {
+            "description" : "I'm a teapot"
+          }
+        }
+      }
+    },
+    "/random-not-found" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getOrNot",
+        "operationId" : "getOrNotUsingGET__random-not-found",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    },
+    "/random-not-allowed" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getOrNotAllowed",
+        "operationId" : "getOrNotAllowedUsingGET__random-not-allowed",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "Method Not Allowed"
+          },
+          "501" : {
+            "description" : "Not Implemented"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "SimpleObject" : {
+        "required" : [ "age" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

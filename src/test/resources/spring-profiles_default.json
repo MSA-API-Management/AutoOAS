@@ -1,0 +1,67 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "spring-profiles-project",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/api/no-profiles" : {
+      "get" : {
+        "tags" : [ "no-profiles-controller" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_no-profiles",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AnotherSimple" : {
+        "required" : [ "avgGrade", "id", "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "avgGrade" : {
+            "maximum" : 10.0,
+            "minimum" : 0.0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string",
+            "description" : "social security number",
+            "readOnly" : true,
+            "deprecated" : false
+          }
+        }
+      }
+    }
+  }
+}
