@@ -19,6 +19,7 @@ import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.support.compiler.VirtualFolder;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -34,6 +35,9 @@ public class SpringParser {
     private CtModel model;
     private String projectName;
     private String outputFileName;
+
+    // todo jar arg
+    private boolean delete_spoon_tmp_file = true;
 
     public static void main(String[] args) {
         String projectPath;
@@ -348,26 +352,15 @@ public class SpringParser {
     private CtModel loadModel(String path) {
         System.out.println("Loading model: " + path);
 
+        // delete the spoon tmp file
+        if (delete_spoon_tmp_file)
+            new File(path+"/spoon.classpath-app.tmp").delete();
+
         MavenLauncher launcher = new MavenLauncher(path, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
 
         launcher.getEnvironment().setComplianceLevel(11);
         launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
         launcher.getEnvironment().setNoClasspath(true);
-
-// region set manual classpath
-
-        // Read classpath.txt file
-//        String classpath = null;
-//        try {
-//            classpath = new String(Files.readAllBytes(java.nio.file.Paths.get("/Users/alelercher/IdeaProjects/Respector/dataset/ohsome-api/classpath.txt")));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
-        // Initialize Spoon with the appropriate classpath
-//        launcher.getEnvironment().setSourceClasspath(classpath.split(":"));  // For Windows, split by ";"
-
-// endregion
 
         launcher.buildModel();
         CtModel model = launcher.getModel();

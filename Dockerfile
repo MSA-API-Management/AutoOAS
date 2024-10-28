@@ -5,9 +5,9 @@ RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 RUN apt-get install maven -y
 
-ARG JAR_FILE="./target/spring-openapi-generator-1.0.0-jar-with-dependencies.jar"
+ARG JAR_FILE="./target/auto-oas-1.0.0-jar-with-dependencies.jar"
 
 WORKDIR /app/
-COPY ${JAR_FILE} /app/oas-gen.jar
+COPY ${JAR_FILE} /app/auto-oas.jar
 
-ENTRYPOINT [ "java", "-jar", "/app/oas-gen.jar" ]
+ENTRYPOINT [ "java", "-jar", "/app/auto-oas.jar" ]
