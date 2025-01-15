@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SpringParserIntegration {
 
-    private static final String testResourcesPath = "src/test/resources/";
+    private static final String testResourcesPath = "src/test/resources/spring-boot/";
 
     private SpringParser parser;
 
