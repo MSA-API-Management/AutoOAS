@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class SpringParser {
+public class SpringParser implements FrameworkParser {
 
     private OperationsTransformer operationsTransformer;
     private ComponentSchemaTransformer schemaTransformer;
@@ -39,7 +39,7 @@ public class SpringParser {
     // todo jar arg
     private boolean delete_spoon_tmp_file = true;
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         String projectPath;
         String outputPath;
         if (args.length == 2) {
@@ -54,7 +54,7 @@ public class SpringParser {
 
         SpringParser sp = new SpringParser(projectPath, outputPath);
         sp.run();
-    }
+    }*/
 
     private SpringParser(String outputFileName) {
         this.outputFileName = outputFileName;
@@ -72,6 +72,7 @@ public class SpringParser {
         this.model = createVirtualModel(folder);
     }
 
+    @Override
     public void run() {
         generateOpenApi(model);
     }
@@ -162,6 +163,7 @@ public class SpringParser {
         return controllerClassesPerProfile;
     }
 
+    // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
     private RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
         List<CtType<?>> controllerClasses = new LinkedList<>();
         List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
