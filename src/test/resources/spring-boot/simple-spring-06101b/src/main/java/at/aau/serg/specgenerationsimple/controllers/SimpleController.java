@@ -2,7 +2,6 @@ package at.aau.serg.specgenerationsimple.controllers;
 
 import at.aau.serg.specgenerationsimple.models.ComplexType;
 import at.aau.serg.specgenerationsimple.models.Simple;
-//import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

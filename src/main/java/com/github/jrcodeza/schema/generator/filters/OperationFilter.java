@@ -1,8 +1,5 @@
 package com.github.jrcodeza.schema.generator.filters;
 
-import org.apache.commons.lang3.NotImplementedException;
-import spoon.reflect.declaration.CtMethod;
-
 import java.lang.reflect.Method;
 
 public interface OperationFilter {

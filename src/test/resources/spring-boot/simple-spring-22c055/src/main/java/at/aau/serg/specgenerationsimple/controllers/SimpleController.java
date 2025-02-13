@@ -1,7 +1,6 @@
 package at.aau.serg.specgenerationsimple.controllers;
 
 import at.aau.serg.specgenerationsimple.models.Simple;
-//import io.swagger.annotations.Api;
 import at.aau.serg.specgenerationsimple.models.SimpleEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

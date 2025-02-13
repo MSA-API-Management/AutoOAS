@@ -2,7 +2,6 @@ package at.aau.serg.specgenerationsimple.controllers;
 
 
 import at.aau.serg.specgenerationsimple.models.AnotherSimple;
-import at.aau.serg.specgenerationsimple.models.Simple;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
