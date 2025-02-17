@@ -25,51 +25,24 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class SpringParser implements FrameworkParser {
-
+public class SpringParser extends AbstractFrameworkParser {
     private OperationsTransformer operationsTransformer;
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
 
     private OpenApiGenerator openApiGen = new OpenApiGenerator();
-    private CtModel model;
-    private String projectName;
-    private String outputFileName;
 
-    // todo jar arg
-    private boolean delete_spoon_tmp_file = true;
-
-/*    public static void main(String[] args) {
-        String projectPath;
-        String outputPath;
-        if (args.length == 2) {
-//            var last_arg = args[args.length-1];
-            projectPath = args[0];
-            outputPath = args[1];
-        } else {
-            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
-//            projectPath = "src/test/resources/simple-spring-2cc389";
-//            outputPath = "target/openapi/swagger.json";
-        }
-
-        SpringParser sp = new SpringParser(projectPath, outputPath);
-        sp.run();
-    }*/
-
-    private SpringParser(String outputFileName) {
-        this.outputFileName = outputFileName;
+    public SpringParser(String outputFileName) {
+        super(outputFileName);
     }
 
     public SpringParser(String projectPath, String outputFileName) {
-        this(outputFileName);
-        this.projectName = projectPath.split("/")[projectPath.split("/").length - 1];
-        this.model = loadModel(projectPath);
+        super(projectPath, outputFileName);
     }
 
+    // TODO used?
     public SpringParser(String projectName, VirtualFolder folder, String outputFileName) {
-        this(outputFileName);
-        this.projectName = projectName;
-        this.model = createVirtualModel(folder);
+        super(projectName, folder, outputFileName);
     }
 
     @Override
@@ -347,37 +320,4 @@ public class SpringParser implements FrameworkParser {
         return "org.springframework.context.annotation.Profile";
 //        );
     }
-
-    /**
-     * @author Christian
-     */
-    private CtModel loadModel(String path) {
-        System.out.println("Loading model: " + path);
-
-        // delete the spoon tmp file
-        if (delete_spoon_tmp_file)
-            new File(path+"/spoon.classpath-app.tmp").delete();
-
-        MavenLauncher launcher = new MavenLauncher(path, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
-
-        launcher.getEnvironment().setComplianceLevel(11);
-        launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
-        launcher.getEnvironment().setNoClasspath(true);
-
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
-        return model;
-    }
-
-    private CtModel createVirtualModel(VirtualFolder folder) {
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(folder);
-
-        launcher.getEnvironment().setNoClasspath(true);
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
-
-        return model;
-    }
-
 }
