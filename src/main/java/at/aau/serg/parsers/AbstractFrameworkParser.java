@@ -7,6 +7,7 @@ import spoon.reflect.CtModel;
 import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
+import java.util.List;
 
 public abstract class AbstractFrameworkParser implements FrameworkParser {
     protected CtModel model;
@@ -32,6 +33,34 @@ public abstract class AbstractFrameworkParser implements FrameworkParser {
         this.projectName = projectName;
         this.model = createVirtualModel(folder);
     }
+
+    /**
+     * Contains the annotation for Spring profiles.
+     *
+     * @return
+     */
+    protected abstract String getProfileAnnotation();
+
+    /**
+     * Contains all annotations marking a class as a controller.
+     *
+     * @return
+     */
+    protected abstract List<String> getControllerAnnotations();
+
+    /**
+     * Contains all annotations marking a class as a controller advice for exception handling.
+     *
+     * @return
+     */
+    protected abstract List<String> getControllerAdviceAnnotations();
+
+    /**
+     * Contains all annotations marking a class as a controller advice for exception handling.
+     *
+     * @return
+     */
+    protected abstract List<String> getModelSchemaAnnotations();
 
     /**
      * @author Christian

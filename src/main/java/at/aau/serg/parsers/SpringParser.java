@@ -110,7 +110,7 @@ public class SpringParser extends AbstractFrameworkParser {
             boolean profileAnnotationFound = false;
 
             for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
-                if (getSpringProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
+                if (getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
                     profileAnnotationFound = true;
                     // add to annotated profiles
                     String[] profiles = (String[]) annotation.getValueAsObject("value");
@@ -273,35 +273,24 @@ public class SpringParser extends AbstractFrameworkParser {
         System.out.println(paramNames);
     }
 
-    /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
-     *
-     * @return
-     */
-    private List<String> getModelSchemaAnnotations() {
+
+    @Override
+    protected List<String> getModelSchemaAnnotations() {
         return Arrays.asList(
 //                 "io.swagger.v3.oas.annotations.media.Schema"
         );
     }
 
-    /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
-     *
-     * @return
-     */
-    private List<String> getControllerAdviceAnnotations() {
+    @Override
+    protected List<String> getControllerAdviceAnnotations() {
         return Arrays.asList(
                 "org.springframework.web.bind.annotation.ControllerAdvice",
                 "org.springframework.web.bind.annotation.RestControllerAdvice"
         );
     }
 
-    /**
-     * Contains all annotations marking a class as a controller.
-     *
-     * @return
-     */
-    private List<String> getControllerAnnotations() {
+    @Override
+    protected List<String> getControllerAnnotations() {
         return Arrays.asList(
                 "org.springframework.stereotype.Controller",
                 "org.springframework.web.bind.annotation.RestController"
@@ -310,14 +299,8 @@ public class SpringParser extends AbstractFrameworkParser {
         );
     }
 
-    /**
-     * Contains the annotation for Spring profiles.
-     *
-     * @return
-     */
-    private String getSpringProfileAnnotation() {
-//        return Arrays.asList(
+    @Override
+    protected String getProfileAnnotation() {
         return "org.springframework.context.annotation.Profile";
-//        );
     }
 }
