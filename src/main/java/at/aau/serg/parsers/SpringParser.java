@@ -264,16 +264,6 @@ public class SpringParser extends AbstractFrameworkParser {
         return components;
     }
 
-    private void getMethodParams(CtMethod<?> method) {
-//        System.out.println(method);
-
-        var params = method.getParameters();
-        List<String> paramNames = params.stream().map(CtNamedElement::getSimpleName).collect(Collectors.toList());
-
-        System.out.println(paramNames);
-    }
-
-
     @Override
     protected List<String> getModelSchemaAnnotations() {
         return Arrays.asList(

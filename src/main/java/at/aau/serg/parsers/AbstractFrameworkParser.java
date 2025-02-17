@@ -4,10 +4,13 @@ import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtNamedElement;
 import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractFrameworkParser implements FrameworkParser {
     protected CtModel model;
@@ -61,6 +64,14 @@ public abstract class AbstractFrameworkParser implements FrameworkParser {
      * @return
      */
     protected abstract List<String> getModelSchemaAnnotations();
+
+    // TODO used?
+    private void getMethodParams(CtMethod<?> method) {
+        var params = method.getParameters();
+        List<String> paramNames = params.stream().map(CtNamedElement::getSimpleName).collect(Collectors.toList());
+
+        System.out.println(paramNames);
+    }
 
     /**
      * @author Christian
