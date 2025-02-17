@@ -8,9 +8,8 @@ import spoon.reflect.declaration.*;
 import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.lang.annotation.Annotation;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractFrameworkParser implements FrameworkParser {
@@ -65,6 +64,41 @@ public abstract class AbstractFrameworkParser implements FrameworkParser {
      * @return A list of strings representing the annotations for model schema classes (e.g., "@Schema").
      */
     protected abstract List<String> getModelSchemaAnnotations();
+
+    protected Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
+        // split the classes based on spring profile annotations
+        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
+        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
+
+        for (CtType<?> clazz : controllerClasses) {
+            boolean profileAnnotationFound = false;
+
+            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
+                if (getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
+                    profileAnnotationFound = true;
+                    // add to annotated profiles
+                    String[] profiles = (String[]) annotation.getValueAsObject("value");
+                    for (String profile : profiles) {
+                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
+                        controllerClassesPerProfile.get(profile).add(clazz);
+                    }
+                    break;
+                }
+            }
+
+            if (!profileAnnotationFound) {
+                controllerClassesInDefaultProfile.add(clazz);
+            }
+        }
+
+        // add all classes without profile to each explicit profile
+        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
+
+        // also consider the default profile classes alone (e.g., if no profiles exist)
+        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
+
+        return controllerClassesPerProfile;
+    }
 
     // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
     protected RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {

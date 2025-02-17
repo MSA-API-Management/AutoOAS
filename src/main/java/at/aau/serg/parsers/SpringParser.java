@@ -12,14 +12,11 @@ import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Schema;
 import org.javatuples.Pair;
 import spoon.reflect.CtModel;
-import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.support.compiler.VirtualFolder;
 
-import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -98,41 +95,6 @@ public class SpringParser extends AbstractFrameworkParser {
         }
 
         return res;
-    }
-
-    private Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
-        // split the classes based on spring profile annotations
-        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
-        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
-
-        for (CtType<?> clazz : controllerClasses) {
-            boolean profileAnnotationFound = false;
-
-            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
-                if (getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
-                    profileAnnotationFound = true;
-                    // add to annotated profiles
-                    String[] profiles = (String[]) annotation.getValueAsObject("value");
-                    for (String profile : profiles) {
-                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
-                        controllerClassesPerProfile.get(profile).add(clazz);
-                    }
-                    break;
-                }
-            }
-
-            if (!profileAnnotationFound) {
-                controllerClassesInDefaultProfile.add(clazz);
-            }
-        }
-
-        // add all classes without profile to each explicit profile
-        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
-
-        // also consider the default profile classes alone (e.g., if no profiles exist)
-        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
-
-        return controllerClassesPerProfile;
     }
 
     private OpenAPI createOpenAPIFromControllers(String springProfileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
