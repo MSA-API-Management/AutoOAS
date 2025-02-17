@@ -26,7 +26,7 @@ public class SpringParser extends AbstractFrameworkParser {
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
 
-    private OpenApiGenerator openApiGen = new OpenApiGenerator();
+    private final OpenApiGenerator openApiGen = new OpenApiGenerator();
 
     public SpringParser(String outputFileName) {
         super(outputFileName);
@@ -89,9 +89,7 @@ public class SpringParser extends AbstractFrameworkParser {
                 continue;
             }
 
-            res.add(
-                    createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses)
-            );
+            res.add(createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses));
         }
 
         return res;
