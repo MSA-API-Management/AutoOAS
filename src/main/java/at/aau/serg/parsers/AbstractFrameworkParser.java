@@ -40,28 +40,28 @@ public abstract class AbstractFrameworkParser implements FrameworkParser {
     /**
      * Contains the annotation for Spring profiles.
      *
-     * @return
+     * @return A string representing the profile annotation for the framework (e.g., "@Profile" for Spring).
      */
     protected abstract String getProfileAnnotation();
 
     /**
      * Contains all annotations marking a class as a controller.
      *
-     * @return
+     * @return A list of strings representing the annotations for controller classes (e.g., "@RestController", "@Controller").
      */
     protected abstract List<String> getControllerAnnotations();
 
     /**
      * Contains all annotations marking a class as a controller advice for exception handling.
      *
-     * @return
+     * @return A list of strings representing the annotations for controller advice classes (e.g., "@ControllerAdvice").
      */
     protected abstract List<String> getControllerAdviceAnnotations();
 
     /**
      * Contains all annotations marking a class as a controller advice for exception handling.
      *
-     * @return
+     * @return A list of strings representing the annotations for model schema classes (e.g., "@Schema").
      */
     protected abstract List<String> getModelSchemaAnnotations();
 
