@@ -11,15 +11,14 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Schema;
 import org.javatuples.Pair;
-import spoon.Launcher;
-import spoon.MavenLauncher;
-import spoon.OutputType;
 import spoon.reflect.CtModel;
-import spoon.reflect.declaration.*;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.support.compiler.VirtualFolder;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -134,35 +133,6 @@ public class SpringParser extends AbstractFrameworkParser {
         controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
 
         return controllerClassesPerProfile;
-    }
-
-    // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
-    private RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
-        List<CtType<?>> controllerClasses = new LinkedList<>();
-        List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
-        List<CtType<?>> explicitModelClasses = new LinkedList<>();
-
-        for (CtPackage pkg : packages)
-            for (CtType<?> type : pkg.getTypes())
-                for (CtAnnotation<?> annotation : type.getAnnotations()) {
-                    String annotationName = annotation.getAnnotationType().toString();
-                    if (annotationName != null && getControllerAnnotations().contains(annotationName)) {
-                        controllerClasses.add(type);
-                        break; // annotations
-                    }
-
-                    if (annotationName != null && getControllerAdviceAnnotations().contains(annotationName)) {
-                        controllerAdviceClasses.add(type);
-                        break; // annotations
-                    }
-
-                    if (annotationName != null && getModelSchemaAnnotations().contains(annotationName)) {
-                        explicitModelClasses.add(type);
-                        break; // annotations
-                    }
-                }
-
-        return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
     }
 
     private OpenAPI createOpenAPIFromControllers(String springProfileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {

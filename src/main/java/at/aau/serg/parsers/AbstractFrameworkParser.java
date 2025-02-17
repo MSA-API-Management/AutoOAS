@@ -4,11 +4,12 @@ import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtNamedElement;
+import spoon.reflect.declaration.*;
 import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,35 @@ public abstract class AbstractFrameworkParser implements FrameworkParser {
      * @return A list of strings representing the annotations for model schema classes (e.g., "@Schema").
      */
     protected abstract List<String> getModelSchemaAnnotations();
+
+    // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
+    protected RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
+        List<CtType<?>> controllerClasses = new LinkedList<>();
+        List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
+        List<CtType<?>> explicitModelClasses = new LinkedList<>();
+
+        for (CtPackage pkg : packages)
+            for (CtType<?> type : pkg.getTypes())
+                for (CtAnnotation<?> annotation : type.getAnnotations()) {
+                    String annotationName = annotation.getAnnotationType().toString();
+                    if (annotationName != null && getControllerAnnotations().contains(annotationName)) {
+                        controllerClasses.add(type);
+                        break; // annotations
+                    }
+
+                    if (annotationName != null && getControllerAdviceAnnotations().contains(annotationName)) {
+                        controllerAdviceClasses.add(type);
+                        break; // annotations
+                    }
+
+                    if (annotationName != null && getModelSchemaAnnotations().contains(annotationName)) {
+                        explicitModelClasses.add(type);
+                        break; // annotations
+                    }
+                }
+
+        return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
+    }
 
     // TODO used?
     private void getMethodParams(CtMethod<?> method) {
