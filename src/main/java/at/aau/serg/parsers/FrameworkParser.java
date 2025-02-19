@@ -51,13 +51,6 @@ public class FrameworkParser {
         this.model = loadModel(projectPath);
     }
 
-    // TODO used?
-    protected FrameworkParser(String projectName, VirtualFolder folder, String outputFileName) {
-        this(outputFileName);
-        this.projectName = projectName;
-        this.model = createVirtualModel(folder);
-    }
-
     public void run() {
         generateOpenApi(model);
     }
@@ -297,16 +290,6 @@ public class FrameworkParser {
         launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
         launcher.getEnvironment().setNoClasspath(true);
 
-        launcher.buildModel();
-        return launcher.getModel();
-    }
-
-    // TODO used?
-    private CtModel createVirtualModel(VirtualFolder folder) {
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(folder);
-
-        launcher.getEnvironment().setNoClasspath(true);
         launcher.buildModel();
         return launcher.getModel();
     }
