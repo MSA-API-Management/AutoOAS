@@ -3,7 +3,7 @@ package at.aau.serg.parsers;
 public class ParserFactory {
     public static FrameworkParser createParser(Framework framework, String projectPath, String outputFileName) {
         if (framework == Framework.SPRING) {
-            return new SpringParser(projectPath, outputFileName);
+            return new FrameworkParser(projectPath, outputFileName, new SpringRestFramework());
         } else {
             throw new IllegalArgumentException("Unsupported framework: " + framework);
         }

@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ public class SpringParserIntegration {
 
     private static final String testResourcesPath = "src/test/resources/spring-boot/";
 
-    private SpringParser parser;
+    private FrameworkParser parser;
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -26,7 +27,7 @@ public class SpringParserIntegration {
     })
     public void integrationTest_OpenApiGeneration_Basics_DefaultStringProfile(String commitId) throws IOException {
         var outputPath = "target/openapi/swagger-" + commitId + ".json";
-        parser = new SpringParser(testResourcesPath + "simple-spring-" + commitId, outputPath);
+        parser = new FrameworkParser(testResourcesPath + "simple-spring-" + commitId, outputPath, new SpringRestFramework());
         parser.run();
 
         var outputPathWithProfiles = "target/openapi/swagger-" + commitId + "_default.json";
@@ -39,7 +40,7 @@ public class SpringParserIntegration {
     @Test
     public void integrationTest_OpenApiGeneration_MultipleProfiles() throws IOException {
         var outputPath = "target/openapi/swagger-profiles.json";
-        parser = new SpringParser(testResourcesPath + "spring-profiles-project", outputPath);
+        parser = new FrameworkParser(testResourcesPath + "spring-profiles-project", outputPath, new SpringRestFramework());
         parser.run();
 
         // check each profile
@@ -66,7 +67,7 @@ public class SpringParserIntegration {
     public void integrationTest_OpenApiGeneration_AdvancedBehaviors_SingleProfile(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";
 
-        parser = new SpringParser(testResourcesPath + projectFolder, genOutputPath);
+        parser = new FrameworkParser(testResourcesPath + projectFolder, genOutputPath, new SpringRestFramework());
         parser.run();
 
         assertTrue(FileUtils.contentEquals(
