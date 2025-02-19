@@ -267,14 +267,6 @@ public class FrameworkParser {
         return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
     }
 
-    // TODO used?
-    private void getMethodParams(CtMethod<?> method) {
-        var params = method.getParameters();
-        List<String> paramNames = params.stream().map(CtNamedElement::getSimpleName).collect(Collectors.toList());
-
-        System.out.println(paramNames);
-    }
-
     /**
      * @author Christian
      */
