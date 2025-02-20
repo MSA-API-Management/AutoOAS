@@ -1,6 +1,7 @@
 package at.aau.serg.parsers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
@@ -45,5 +46,10 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public Class<?> getFileType() {
         return MultipartFile.class;
+    }
+
+    @Override
+    public Class<?> getAsyncResultWrapper() {
+        return DeferredResult.class;
     }
 }

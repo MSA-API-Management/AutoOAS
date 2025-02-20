@@ -36,4 +36,6 @@ public interface RestFramework {
     Class<?> getResponseWrapper();
 
     Class<?> getFileType();
+
+    Class<?> getAsyncResultWrapper();
 }
