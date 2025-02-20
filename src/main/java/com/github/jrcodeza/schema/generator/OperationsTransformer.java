@@ -318,14 +318,6 @@ public class OperationsTransformer {
 		return methodReturnType;
 	}
 
-
-	private String resolveDefaultContentType(Class<?> responseBody) {
-		if (isFileResponse(responseBody)) {
-			return DEFAULT_FILE_RETURN_CONTENT_TYPE;
-		}
-		return DEFAULT_CONTENT_TYPE;
-	}
-
 	private String resolveDefaultContentType(CtTypeReference<?> responseBody) {
 		if (isFileResponse(responseBody)) {
 			return DEFAULT_FILE_RETURN_CONTENT_TYPE;
