@@ -139,14 +139,6 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
-    private boolean isList(Class<?> requestBodyParameter, List<Class<?>> genericTypes) {
-        Class<?> classToCheck = requestBodyParameter;
-        if (requestBodyParameter.isAssignableFrom(ResponseEntity.class) && !genericTypes.isEmpty()) {
-            classToCheck = genericTypes.get(genericTypes.size() - 1);
-        }
-        return classToCheck.isAssignableFrom(List.class);
-    }
-
     public boolean isFile(CtTypeReference<?> type){
         // todo when supporting other framework, keep in mind to update isFile method
         return type.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
