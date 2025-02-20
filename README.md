@@ -26,3 +26,7 @@ docker run -v <path-to-mvn-project>:/project alexx882/auto-oas:1.0 /project /pro
 # e.g., analyze current directory and write to target/docker-output/
 docker run -v `pwd`:/project alexx882/auto-oas:1.0 /project /project/target/docker-output/oas
 ```
+
+## Tasks to add new framework
+- SchemaGeneratorHelper.java
+  - Add specific file class to isFile() depending on the framework

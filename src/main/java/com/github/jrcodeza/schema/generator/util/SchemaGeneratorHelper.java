@@ -147,16 +147,9 @@ public class SchemaGeneratorHelper {
         return classToCheck.isAssignableFrom(List.class);
     }
 
-
-    public boolean isFile(Class<?> parameter) {
-        return parameter.isAssignableFrom(MultipartFile.class);
-    }
-
     public boolean isFile(CtTypeReference<?> type){
-        // todo
+        // todo when supporting other framework, keep in mind to update isFile method
         return type.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
-
-//        throw new NotImplementedException();
     }
 
 
