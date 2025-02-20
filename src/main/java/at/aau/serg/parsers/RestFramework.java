@@ -1,5 +1,7 @@
 package at.aau.serg.parsers;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface RestFramework {
@@ -30,4 +32,6 @@ public interface RestFramework {
      * @return A list of strings representing the annotations for model schema classes (e.g., "@Schema").
      */
     List<String> getModelSchemaAnnotations();
+
+    Class<?> getResponseWrapper();
 }

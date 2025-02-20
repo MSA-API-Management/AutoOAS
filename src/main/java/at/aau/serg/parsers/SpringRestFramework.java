@@ -1,9 +1,12 @@
 package at.aau.serg.parsers;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class SpringRestFramework implements RestFramework {
+
     @Override
     public String getProfileAnnotation() {
         return "org.springframework.context.annotation.Profile";
@@ -31,5 +34,10 @@ public class SpringRestFramework implements RestFramework {
         return Arrays.asList(
                 // "io.swagger.v3.oas.annotations.media.Schema"
         );
+    }
+
+    @Override
+    public Class<?> getResponseWrapper() {
+        return ResponseEntity.class;
     }
 }
