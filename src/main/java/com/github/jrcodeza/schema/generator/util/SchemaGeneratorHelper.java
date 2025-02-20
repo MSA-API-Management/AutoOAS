@@ -29,6 +29,10 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
+    private static final List<Class<?>> RESPONSE_WRAPPERS = List.of(
+            ResponseEntity.class                 // Spring
+    );
+
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
@@ -59,6 +63,7 @@ public class SchemaGeneratorHelper {
             }
         }
 
+        requestBodyType = unwrapFrameworkWrapper(requestBodyType, genericParams);
         Schema<?> rootMediaSchema = new Schema<>();
 
         if (isFile(requestBodyType)) {
@@ -85,21 +90,7 @@ public class SchemaGeneratorHelper {
             rootMediaSchema = parseDictSignature(getGenericParamAt(requestBodyType, 1), new Annotation[]{});
 
         } else if (!StringUtils.equalsIgnoreCase(requestBodyType.getSimpleName(), "void")) {
-            if (requestBodyType.isSubtypeOf(new TypeFactory().get(ResponseEntity.class).getReference())){
-                // handle ResponseEntity Spring wrapper
-                System.out.println("Stripping ResponseEntity, this should not be needed");
-                if (!CollectionUtils.isEmpty(genericParams)
-                        && !genericParams.get(0).isSubtypeOf(new TypeFactory().get(Void.class).getReference())) {
-                    rootMediaSchema.set$ref(prepareSchemaReference(genericParams.get(0)));
-                }
-                else {
-                    System.out.println("Unknown return type wrapped by ResponseEntity");
-                    return null;
-                }
-            } else {
-                rootMediaSchema = parseClassRefTypeSignature(requestBodyType, new Annotation[]{});
-
-            }
+            rootMediaSchema = parseClassRefTypeSignature(requestBodyType, new Annotation[]{});
         } else {
             // void
             return null;
@@ -130,13 +121,17 @@ public class SchemaGeneratorHelper {
     }
 
     private boolean isCollection(CtTypeReference<?> requestBodyParameter, List<CtTypeReference<?>> genericTypes) {
-        var potentialListType = requestBodyParameter;
-        // if the main type is a generic ResponseEntity remove that wrapper
-        if (potentialListType.isSubtypeOf(new TypeFactory().get(ResponseEntity.class).getReference())
-                && !CollectionUtils.isEmpty(genericTypes))
-            potentialListType = genericTypes.get(genericTypes.size()-1);
-
+        var potentialListType = unwrapFrameworkWrapper(requestBodyParameter, genericTypes);
         return isTypeEquivalent(potentialListType, Collection.class);
+    }
+
+    private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+        for (Class<?> wrapper : RESPONSE_WRAPPERS) {
+            if (type.isSubtypeOf(new TypeFactory().get(wrapper).getReference()) && !CollectionUtils.isEmpty(genericTypes)) {
+                return genericTypes.get(genericTypes.size() - 1);
+            }
+        }
+        return type; // If no known wrapper is found, return the original type
     }
 
     public boolean isFile(CtTypeReference<?> type){
