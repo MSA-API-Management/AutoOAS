@@ -89,26 +89,6 @@ public class OperationsTransformer {
 		this.operationParameterFilter = operationParameterFilter;
 	}
 
-	public Map<String, PathItem> transformOperations(List<Class<?>> restControllerClasses) {
-		throw new NotImplementedException("This method used Reflection and is not used currently");
-
-//		final Map<String, PathItem> operationsMap = new HashMap<>();
-//
-//		for (Class<?> clazz : restControllerClasses) {
-//			if (shouldBeIgnored(clazz)) {
-//				logger.info("Ignoring class {}", clazz.getName());
-//				continue;
-//			}
-//
-//			logger.debug("Transforming {} controller class", clazz.getName());
-//			String baseControllerPath = getBaseControllerPath(clazz);
-//			ReflectionUtils.doWithMethods(clazz, method -> createOperation(method, baseControllerPath, operationsMap, clazz.getSimpleName()),
-//					this::isOperationMethod);
-//		}
-//		fixDuplicateOperationIds(operationsMap);
-//		return operationsMap;
-	}
-
 	/**
 	 * Creates all the operations, e.g., HTTP Get, Post.
 	 * @param method
