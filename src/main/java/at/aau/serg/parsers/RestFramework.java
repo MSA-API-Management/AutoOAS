@@ -34,4 +34,6 @@ public interface RestFramework {
     List<String> getModelSchemaAnnotations();
 
     Class<?> getResponseWrapper();
+
+    Class<?> getFileType();
 }

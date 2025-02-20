@@ -133,8 +133,7 @@ public class SchemaGeneratorHelper {
     }
 
     public boolean isFile(CtTypeReference<?> type){
-        // todo when supporting other framework, keep in mind to update isFile method
-        return type.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
+        return type.isSubtypeOf(new TypeFactory().get(restFramework.getFileType()).getReference());
     }
 
 
