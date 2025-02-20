@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
+import at.aau.serg.parsers.RestFramework;
 import at.aau.serg.util.CollectionUtils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -30,18 +31,16 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
-    private static final List<Class<?>> RESPONSE_WRAPPERS = List.of(
-            ResponseEntity.class                 // Spring
-    );
-
+    private RestFramework restFramework;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
 
     public Set<CtTypeReference<?>> referencedModelClasses = new HashSet<>();
 
-    public SchemaGeneratorHelper(List<String> modelPackages) {
+    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
         this.modelPackages = modelPackages;
+        this.restFramework = restFramework;
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -127,10 +126,8 @@ public class SchemaGeneratorHelper {
     }
 
     private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
-        for (Class<?> wrapper : RESPONSE_WRAPPERS) {
-            if (type.isSubtypeOf(new TypeFactory().get(wrapper).getReference()) && !CollectionUtils.isEmpty(genericTypes)) {
-                return genericTypes.get(genericTypes.size() - 1);
-            }
+        if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference()) && !CollectionUtils.isEmpty(genericTypes)) {
+            return genericTypes.get(genericTypes.size() - 1);
         }
         return type; // If no known wrapper is found, return the original type
     }

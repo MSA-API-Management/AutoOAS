@@ -11,13 +11,11 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Schema;
 import org.javatuples.Pair;
-import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
-import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -75,7 +73,7 @@ public class FrameworkParser {
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
 
-        schemaHelper = new SchemaGeneratorHelper(packageNames); // just provide all packages of the project's module
+        schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
         operationsTransformer = new OperationsTransformer(schemaHelper,
                 new ArrayList<>(), Collections.singletonList(new OperationResponseCodeInterceptor(controllerAdviceClasses)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>());
