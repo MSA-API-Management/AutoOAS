@@ -325,11 +325,6 @@ public class OperationsTransformer {
 		return DEFAULT_CONTENT_TYPE;
 	}
 
-	private boolean isFileResponse(Class<?> responseBodyClass) {
-		return responseBodyClass.isAssignableFrom(MultipartFile.class);
-	}
-
-
 	private boolean isFileResponse(CtTypeReference<?> responseBodyClass) {
 		return responseBodyClass.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
 	}
