@@ -293,10 +293,6 @@ public class SchemaGeneratorHelper {
         return schema;
     }
 
-    public <T> StringSchema createEnumSchema(T[] enumConstants) {
-        return createEnumSchema(Stream.of(enumConstants).map(Object::toString));
-    }
-
     public StringSchema createEnumSchema(Stream<String> enumConstants) {
         StringSchema schema = new StringSchema();
         schema.setType("string");
