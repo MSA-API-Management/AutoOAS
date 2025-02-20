@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.parsers.RestFramework;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationParameterInterceptor;
@@ -20,9 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
@@ -65,7 +64,7 @@ public class OperationsTransformer {
 	private final List<OperationInterceptor> operationInterceptors;
 	private final List<RequestBodyInterceptor> requestBodyInterceptors;
 	private final List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders;
-
+	private final RestFramework restFramework;
 	private final AtomicReference<OperationParameterFilter> operationParameterFilter;
 
 	public OperationsTransformer(SchemaGeneratorHelper schemaGeneratorHelper,
@@ -73,13 +72,15 @@ public class OperationsTransformer {
 								 List<OperationInterceptor> operationInterceptors,
 								 List<RequestBodyInterceptor> requestBodyInterceptors,
 								 List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders,
-								 AtomicReference<OperationParameterFilter> operationParameterFilter) {
+								 AtomicReference<OperationParameterFilter> operationParameterFilter,
+								 RestFramework restFramework) {
 		this.schemaGeneratorHelper = schemaGeneratorHelper;
 		this.operationParameterInterceptors = operationParameterInterceptors;
 		this.operationInterceptors = operationInterceptors;
 		this.requestBodyInterceptors = requestBodyInterceptors;
 		this.globalHeaders = globalHeaders;
 		this.operationParameterFilter = operationParameterFilter;
+		this.restFramework = restFramework;
 	}
 
 	/**
@@ -240,12 +241,12 @@ public class OperationsTransformer {
 
 		CtTypeReference<?> methodReturnType = method.getType();
 		// strip the DeferredResult wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, DeferredResult.class)){
+		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getAsyncResultWrapper())){
 			methodReturnType = stripReturnValueWrapper(methodReturnType);
 		}
 
 		// strip the ResponseEntity wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, ResponseEntity.class)){
+		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getResponseWrapper())){
 			methodReturnType = stripReturnValueWrapper(methodReturnType);
 		}
 
