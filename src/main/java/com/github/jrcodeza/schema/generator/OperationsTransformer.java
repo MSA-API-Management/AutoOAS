@@ -18,11 +18,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -319,7 +317,7 @@ public class OperationsTransformer {
 	}
 
 	private boolean isFileResponse(CtTypeReference<?> responseBodyClass) {
-		return responseBodyClass.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
+		return responseBodyClass.isSubtypeOf(new TypeFactory().get(restFramework.getFileType()).getReference());
 	}
 
 	private List<CtTypeReference<?>> getGenericParams(CtTypeReference<?> methodType) {
@@ -627,7 +625,7 @@ public class OperationsTransformer {
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
-		} else if (parameter.getAnnotation(RequestParam.class) != null && !parameter.getType().getClass().isAssignableFrom(MultipartFile.class)) {
+		} else if (parameter.getAnnotation(RequestParam.class) != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getFileType())) {
 			RequestParam requestParamAnnotation = parameter.getAnnotation(RequestParam.class);
 			oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
 			oasParameter.setIn("query");
