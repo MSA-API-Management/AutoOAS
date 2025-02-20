@@ -789,24 +789,6 @@ public class OperationsTransformer {
 		return Optional.ofNullable(method.getAnnotation(annotationClass));
 	}
 
-//	private boolean shouldIgnoreMethod(Method method) {
-//		if (shouldBeIgnored(method)) {
-//			return true;
-//		}
-//		return this.operationFilter.get() != null && this.operationFilter.get().shouldIgnore(method);
-//	}
-//
-//	private boolean isOperationMethod(Method method) {
-//		if (shouldIgnoreMethod(method)) {
-//			logger.info("Ignoring operation {}", method.getName());
-//			return false;
-//		}
-//		return Stream.of(method.getAnnotations())
-//				.anyMatch(annotation -> OPERATION_ANNOTATIONS.stream()
-//						.anyMatch(operationAnnotation -> operationAnnotation.isAssignableFrom(annotation.getClass()))
-//				);
-//	}
-
 	public String getBaseControllerPath(CtType<?> clazz) {
 		RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
 		if (requestMapping == null) {
