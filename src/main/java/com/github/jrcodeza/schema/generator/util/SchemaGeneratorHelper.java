@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
+import at.aau.serg.util.CollectionUtils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.lang3.StringUtils;

@@ -1,4 +1,4 @@
-package com.github.jrcodeza.schema.generator.util;
+package at.aau.serg.util;
 
 import java.util.Collection;
 import java.util.Map;
