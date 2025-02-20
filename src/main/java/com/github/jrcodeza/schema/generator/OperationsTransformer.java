@@ -380,7 +380,6 @@ public class OperationsTransformer {
 	 * @param method
 	 * @return Optional.empty if no annotation was found
 	 */
-	@Nullable
 	private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
 		// TODO ApiResponses annotation
 
