@@ -54,7 +54,6 @@ public class OperationsTransformer {
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
 	private static final String MULTIPART_FORM_DATA_CONTENT_TYPE = "multipart/form-data";
-	private static final LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
 	private static final List<Class<?>> OPERATION_ANNOTATIONS = asList(RequestMapping.class, PostMapping.class, GetMapping.class, PutMapping.class,
 			PatchMapping.class, DeleteMapping.class);
