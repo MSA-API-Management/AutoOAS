@@ -78,8 +78,7 @@ public class FrameworkParser {
         schemaHelper = new SchemaGeneratorHelper(packageNames); // just provide all packages of the project's module
         operationsTransformer = new OperationsTransformer(schemaHelper,
                 new ArrayList<>(), Collections.singletonList(new OperationResponseCodeInterceptor(controllerAdviceClasses)),
-                new ArrayList<>(), new ArrayList<>(),
-                null, new AtomicReference<>());
+                new ArrayList<>(), new ArrayList<>(), new AtomicReference<>());
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper);
 
 

@@ -1,6 +1,5 @@
 package com.github.jrcodeza.schema.generator;
 
-import com.github.jrcodeza.schema.generator.filters.OperationFilter;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationParameterInterceptor;
@@ -14,7 +13,6 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,7 +21,6 @@ import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +33,6 @@ import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -70,7 +66,6 @@ public class OperationsTransformer {
 	private final List<RequestBodyInterceptor> requestBodyInterceptors;
 	private final List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders;
 
-	private final AtomicReference<OperationFilter> operationFilter;
 	private final AtomicReference<OperationParameterFilter> operationParameterFilter;
 
 	public OperationsTransformer(SchemaGeneratorHelper schemaGeneratorHelper,
@@ -78,14 +73,12 @@ public class OperationsTransformer {
 								 List<OperationInterceptor> operationInterceptors,
 								 List<RequestBodyInterceptor> requestBodyInterceptors,
 								 List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders,
-								 AtomicReference<OperationFilter> operationFilter,
 								 AtomicReference<OperationParameterFilter> operationParameterFilter) {
 		this.schemaGeneratorHelper = schemaGeneratorHelper;
 		this.operationParameterInterceptors = operationParameterInterceptors;
 		this.operationInterceptors = operationInterceptors;
 		this.requestBodyInterceptors = requestBodyInterceptors;
 		this.globalHeaders = globalHeaders;
-		this.operationFilter = operationFilter;
 		this.operationParameterFilter = operationParameterFilter;
 	}
 
