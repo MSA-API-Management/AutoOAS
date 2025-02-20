@@ -333,15 +333,6 @@ public class OperationsTransformer {
 		return schemaGeneratorHelper.getGenericParams(methodType);
 	}
 
-	private Class<?> classForName(Type innerGenericType) {
-		try {
-			return Class.forName(innerGenericType.getTypeName());
-		} catch (ClassNotFoundException e) {
-			logger.error("Exception occurred", e);
-			return null;
-		}
-	}
-
 	/**
 	 * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
 	 * @param method
