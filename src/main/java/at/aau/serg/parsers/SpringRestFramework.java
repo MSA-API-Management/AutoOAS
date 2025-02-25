@@ -7,6 +7,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtMethod;
 
+import javax.sound.midi.Patch;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
@@ -92,16 +93,28 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public String getPathFromAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
-            PostMapping postMapping = (PostMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(postMapping.value()), getFirstFromArray(postMapping.path()));
+            PostMapping mapping = (PostMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
         }
         if (annotation instanceof PutMapping) {
-            PutMapping putMapping = (PutMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(putMapping.value()), getFirstFromArray(putMapping.path()));
+            PutMapping mapping = (PutMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+        }
+        if (annotation instanceof PatchMapping) {
+            PatchMapping mapping = (PatchMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+        }
+        if (annotation instanceof GetMapping) {
+            GetMapping mapping = (GetMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+        }
+        if (annotation instanceof DeleteMapping) {
+            DeleteMapping mapping = (DeleteMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
         }
         if (annotation instanceof RequestMapping) {
-            RequestMapping requestMapping = (RequestMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(requestMapping.value()), getFirstFromArray(requestMapping.path()));
+            RequestMapping mapping = (RequestMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
         }
         return "";
     }
@@ -113,6 +126,15 @@ public class SpringRestFramework implements RestFramework {
         }
         if (annotation instanceof PutMapping) {
             return ((PutMapping) annotation).name();
+        }
+        if (annotation instanceof DeleteMapping) {
+            return ((DeleteMapping) annotation).name();
+        }
+        if (annotation instanceof GetMapping) {
+            return ((GetMapping) annotation).name();
+        }
+        if (annotation instanceof PatchMapping) {
+            return ((PatchMapping) annotation).name();
         }
         if (annotation instanceof RequestMapping) {
             return ((RequestMapping) annotation).name();
@@ -128,6 +150,12 @@ public class SpringRestFramework implements RestFramework {
         if (annotation instanceof PutMapping) {
             return getFirstFromArray(((PutMapping) annotation).produces());
         }
+        if (annotation instanceof PatchMapping) {
+            return getFirstFromArray(((PatchMapping) annotation).produces());
+        }
+        if (annotation instanceof GetMapping) {
+            return getFirstFromArray(((GetMapping) annotation).produces());
+        }
         if (annotation instanceof RequestMapping) {
             return getFirstFromArray(((RequestMapping) annotation).produces());
         }
@@ -142,6 +170,9 @@ public class SpringRestFramework implements RestFramework {
         if (annotation instanceof PutMapping) {
             return getFirstFromArray(((PutMapping) annotation).consumes());
         }
+        if (annotation instanceof PatchMapping) {
+            return getFirstFromArray(((PatchMapping) annotation).consumes());
+        }
         if (annotation instanceof RequestMapping) {
             return getFirstFromArray(((RequestMapping) annotation).consumes());
         }
@@ -153,7 +184,7 @@ public class SpringRestFramework implements RestFramework {
         return Optional.ofNullable(method.getAnnotation(annotationClass));
     }
 
-//    TODO
+    //    TODO
     public String getFirstFromArray(String[] strings) {
         return strings == null || strings.length == 0 ? null : strings[0];
     }

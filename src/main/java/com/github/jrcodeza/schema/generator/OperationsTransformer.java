@@ -369,35 +369,35 @@ public class OperationsTransformer {
 		return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;
 	}
 
-	private void mapGet(GetMapping getMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(getMapping.value()), getFirstFromArray(getMapping.path()));
+	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		String path = restFramework.getPathFromAnnotation(annotation);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, getMapping.name(), method, HttpMethod.GET));
-		operation.setSummary(!StringUtils.isBlank(getMapping.name()) ? getMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.GET));
+		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(getMapping.produces())));
+		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
 	}
 
-	private void mapPatch(PatchMapping patchMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(patchMapping.value()), getFirstFromArray(patchMapping.path()));
+	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		String path = restFramework.getPathFromAnnotation(annotation);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, patchMapping.name(), method, HttpMethod.PATCH));
-		operation.setSummary(!StringUtils.isBlank(patchMapping.name()) ? patchMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.PATCH));
+		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(patchMapping.consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(patchMapping.produces())));
+		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
+		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
