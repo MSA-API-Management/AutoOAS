@@ -156,6 +156,9 @@ public class SpringRestFramework implements RestFramework {
         if (annotation instanceof GetMapping) {
             return getFirstFromArray(((GetMapping) annotation).produces());
         }
+        if (annotation instanceof DeleteMapping) {
+            return getFirstFromArray(((DeleteMapping) annotation).produces());
+        }
         if (annotation instanceof RequestMapping) {
             return getFirstFromArray(((RequestMapping) annotation).produces());
         }

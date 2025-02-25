@@ -93,10 +93,10 @@ public class OperationsTransformer {
 	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.debug("Transforming {} controller method", method.getSimpleName());
 		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut((PutMapping) putMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch((PatchMapping) patchMapping, method, operationsMap, controllerClassName,
+		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet((GetMapping) getMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete((DeleteMapping) deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping((RequestMapping) requestMapping, method, operationsMap, controllerClassName,
@@ -218,19 +218,19 @@ public class OperationsTransformer {
 				.collect(Collectors.joining("-"));
 	}
 
-	private void mapDelete(DeleteMapping deleteMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 						   String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(deleteMapping.value()), getFirstFromArray(deleteMapping.path()));
+		String path = restFramework.getPathFromAnnotation(annotation);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, deleteMapping.name(), method, HttpMethod.DELETE));
-		operation.setSummary(!StringUtils.isBlank(deleteMapping.name()) ? deleteMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.DELETE));
+		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(deleteMapping.produces())));
+		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
