@@ -92,14 +92,14 @@ public class OperationsTransformer {
 	 */
 	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.debug("Transforming {} controller method", method.getSimpleName());
-		getAnnotation(method, PostMapping.class).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, PutMapping.class).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, PatchMapping.class).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
+		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost((PostMapping) postMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut((PutMapping) putMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch((PatchMapping) patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		getAnnotation(method, GetMapping.class).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, DeleteMapping.class).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
+		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet((GetMapping) getMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete((DeleteMapping) deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		getAnnotation(method, RequestMapping.class).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
+		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping((RequestMapping) requestMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 
 		// todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
