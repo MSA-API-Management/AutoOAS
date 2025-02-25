@@ -18,7 +18,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +53,6 @@ public class OperationsTransformer {
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
 	private static final String MULTIPART_FORM_DATA_CONTENT_TYPE = "multipart/form-data";
-	private static final LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
 	private static final List<Class<?>> OPERATION_ANNOTATIONS = asList(RequestMapping.class, PostMapping.class, GetMapping.class, PutMapping.class,
 			PatchMapping.class, DeleteMapping.class);
