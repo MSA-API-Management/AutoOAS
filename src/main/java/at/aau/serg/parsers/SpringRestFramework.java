@@ -88,11 +88,16 @@ public class SpringRestFramework implements RestFramework {
         return getAnnotation(method, RequestMapping.class);
     }
 
+    // TODO check if there is a better method to do that
     @Override
     public String getPathFromAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
             PostMapping postMapping = (PostMapping) annotation;
             return ObjectUtils.defaultIfNull(getFirstFromArray(postMapping.value()), getFirstFromArray(postMapping.path()));
+        }
+        if (annotation instanceof PutMapping) {
+            PutMapping putMapping = (PutMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(putMapping.value()), getFirstFromArray(putMapping.path()));
         }
         if (annotation instanceof RequestMapping) {
             RequestMapping requestMapping = (RequestMapping) annotation;
@@ -106,6 +111,9 @@ public class SpringRestFramework implements RestFramework {
         if (annotation instanceof PostMapping) {
             return ((PostMapping) annotation).name();
         }
+        if (annotation instanceof PutMapping) {
+            return ((PutMapping) annotation).name();
+        }
         if (annotation instanceof RequestMapping) {
             return ((RequestMapping) annotation).name();
         }
@@ -117,6 +125,9 @@ public class SpringRestFramework implements RestFramework {
         if (annotation instanceof PostMapping) {
             return getFirstFromArray(((PostMapping) annotation).produces());
         }
+        if (annotation instanceof PutMapping) {
+            return getFirstFromArray(((PutMapping) annotation).produces());
+        }
         if (annotation instanceof RequestMapping) {
             return getFirstFromArray(((RequestMapping) annotation).produces());
         }
@@ -127,6 +138,9 @@ public class SpringRestFramework implements RestFramework {
     public String getConsumesFromAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
             return getFirstFromArray(((PostMapping) annotation).consumes());
+        }
+        if (annotation instanceof PutMapping) {
+            return getFirstFromArray(((PutMapping) annotation).consumes());
         }
         if (annotation instanceof RequestMapping) {
             return getFirstFromArray(((RequestMapping) annotation).consumes());
