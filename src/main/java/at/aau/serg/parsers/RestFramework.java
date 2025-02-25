@@ -48,4 +48,9 @@ public interface RestFramework {
     Optional<Annotation> getGetMapping(CtMethod<?> method);
     Optional<Annotation> getDeleteMapping(CtMethod<?> method);
     Optional<Annotation> getRequestMapping(CtMethod<?> method);
+
+    String getPathFromAnnotation(Annotation annotation);
+    String getNameFromAnnotation(Annotation annotation);
+    String getProducesFromAnnotation(Annotation annotation);
+    String getConsumesFromAnnotation(Annotation annotation);
 }

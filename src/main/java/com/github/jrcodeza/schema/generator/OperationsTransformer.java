@@ -92,7 +92,7 @@ public class OperationsTransformer {
 	 */
 	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.debug("Transforming {} controller method", method.getSimpleName());
-		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost((PostMapping) postMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut((PutMapping) putMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch((PatchMapping) patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
@@ -422,18 +422,18 @@ public class OperationsTransformer {
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPut(operation));
 	}
 
-	private void mapPost(PostMapping postMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(postMapping.value()), getFirstFromArray(postMapping.path()));
+	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		String path = restFramework.getPathFromAnnotation(annotation);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, postMapping.name(), method, HttpMethod.POST));
-		operation.setSummary(!StringUtils.isBlank(postMapping.name()) ? postMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.POST));
+		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(postMapping.consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(postMapping.produces())));
+		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
+		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));

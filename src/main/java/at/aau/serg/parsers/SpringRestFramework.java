@@ -1,5 +1,6 @@
 package at.aau.serg.parsers;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -87,8 +88,59 @@ public class SpringRestFramework implements RestFramework {
         return getAnnotation(method, RequestMapping.class);
     }
 
+    @Override
+    public String getPathFromAnnotation(Annotation annotation) {
+        if (annotation instanceof PostMapping) {
+            PostMapping postMapping = (PostMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(postMapping.value()), getFirstFromArray(postMapping.path()));
+        }
+        if (annotation instanceof RequestMapping) {
+            RequestMapping requestMapping = (RequestMapping) annotation;
+            return ObjectUtils.defaultIfNull(getFirstFromArray(requestMapping.value()), getFirstFromArray(requestMapping.path()));
+        }
+        return "";
+    }
+
+    @Override
+    public String getNameFromAnnotation(Annotation annotation) {
+        if (annotation instanceof PostMapping) {
+            return ((PostMapping) annotation).name();
+        }
+        if (annotation instanceof RequestMapping) {
+            return ((RequestMapping) annotation).name();
+        }
+        return "";
+    }
+
+    @Override
+    public String getProducesFromAnnotation(Annotation annotation) {
+        if (annotation instanceof PostMapping) {
+            return getFirstFromArray(((PostMapping) annotation).produces());
+        }
+        if (annotation instanceof RequestMapping) {
+            return getFirstFromArray(((RequestMapping) annotation).produces());
+        }
+        return "";
+    }
+
+    @Override
+    public String getConsumesFromAnnotation(Annotation annotation) {
+        if (annotation instanceof PostMapping) {
+            return getFirstFromArray(((PostMapping) annotation).consumes());
+        }
+        if (annotation instanceof RequestMapping) {
+            return getFirstFromArray(((RequestMapping) annotation).consumes());
+        }
+        return "";
+    }
+
     //TODO
     private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
         return Optional.ofNullable(method.getAnnotation(annotationClass));
+    }
+
+//    TODO
+    public String getFirstFromArray(String[] strings) {
+        return strings == null || strings.length == 0 ? null : strings[0];
     }
 }
