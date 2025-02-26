@@ -95,7 +95,7 @@ public class OperationsTransformer {
 		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete((DeleteMapping) deleteMapping, method, operationsMap, controllerClassName,
+		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping((RequestMapping) requestMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
@@ -119,6 +119,7 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
+//		TODO in eigenen Adapter auslagern
 		var methods =
 				requestMapping.method() == null || requestMapping.method().length == 0
 						? getAllSupportedHttpMethods()
@@ -127,6 +128,7 @@ public class OperationsTransformer {
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
+//			TODO check out of  HttpMethod.valueOf(httpMethod.name())
 			operation.setOperationId(getOperationId(cleanedPath, requestMapping.name(), method, HttpMethod.valueOf(httpMethod.name())));
 			operation.setSummary(!StringUtils.isBlank(requestMapping.name()) ? requestMapping.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
@@ -145,6 +147,7 @@ public class OperationsTransformer {
 		}
 	}
 
+//	TODO extract and use generic ones
 	private RequestMethod[] getAllSupportedHttpMethods() {
 		return new RequestMethod[]{
 				RequestMethod.GET,
@@ -206,6 +209,7 @@ public class OperationsTransformer {
 		}
 	}
 
+//	TODO extract maybe auch ins restframework selbst mit abstrakter klasse und bereits implementieren (oder default interface)
 	private boolean isHttpMethodWithRequestBody(RequestMethod... methods) {
 		return Stream.of(methods).anyMatch(requestMethod -> asList(RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH).contains(requestMethod));
 	}
