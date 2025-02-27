@@ -1,8 +1,11 @@
 package at.aau.serg.parsers;
 
 import org.springframework.http.ResponseEntity;
+import spoon.reflect.declaration.CtMethod;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Optional;
 
 public interface RestFramework {
     /**
@@ -38,4 +41,16 @@ public interface RestFramework {
     Class<?> getFileType();
 
     Class<?> getAsyncResultWrapper();
+
+    Optional<Annotation> getPostMapping(CtMethod<?> method);
+    Optional<Annotation> getPutMapping(CtMethod<?> method);
+    Optional<Annotation> getPatchMapping(CtMethod<?> method);
+    Optional<Annotation> getGetMapping(CtMethod<?> method);
+    Optional<Annotation> getDeleteMapping(CtMethod<?> method);
+    Optional<Annotation> getRequestMapping(CtMethod<?> method);
+
+    String getPathFromAnnotation(Annotation annotation);
+    String getNameFromAnnotation(Annotation annotation);
+    String getProducesFromAnnotation(Annotation annotation);
+    String getConsumesFromAnnotation(Annotation annotation);
 }
