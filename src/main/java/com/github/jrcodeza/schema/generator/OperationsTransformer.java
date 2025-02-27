@@ -119,7 +119,7 @@ public class OperationsTransformer {
 				requestMapping.method() == null || requestMapping.method().length == 0
 						? getAllSupportedHttpMethods()
 						: requestMapping.method();*/
-		HttpMethod[] methods = (requestMapping.method() == null || requestMapping.method().length == 0)
+		HttpMethod[] methods = requestMapping.method().length == 0
 				? restFramework.getAllSupportedHttpMethods()
 				: Stream.of(requestMapping.method())
 				.map(requestMethod -> HttpMethod.valueOf(requestMethod.name()))
