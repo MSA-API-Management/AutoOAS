@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.parsers.RestFramework;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -18,7 +19,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import spoon.reflect.declaration.CtField;
@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.github.jrcodeza.schema.generator.util.GeneratorUtils.shouldBeIgnored;
-import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class OperationsTransformer {
@@ -52,9 +51,6 @@ public class OperationsTransformer {
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
 	private static final String MULTIPART_FORM_DATA_CONTENT_TYPE = "multipart/form-data";
-
-	private static final List<Class<?>> OPERATION_ANNOTATIONS = asList(RequestMapping.class, PostMapping.class, GetMapping.class, PutMapping.class,
-			PatchMapping.class, DeleteMapping.class);
 
 	private final SchemaGeneratorHelper schemaGeneratorHelper;
 	private final List<OperationParameterInterceptor> operationParameterInterceptors;
@@ -119,20 +115,24 @@ public class OperationsTransformer {
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
 //		TODO in eigenen Adapter auslagern
-		var methods =
+/*		var methods =
 				requestMapping.method() == null || requestMapping.method().length == 0
 						? getAllSupportedHttpMethods()
-						: requestMapping.method();
+						: requestMapping.method();*/
+		HttpMethod[] methods = (requestMapping.method() == null || requestMapping.method().length == 0)
+				? restFramework.getAllSupportedHttpMethods()
+				: Stream.of(requestMapping.method())
+				.map(requestMethod -> HttpMethod.valueOf(requestMethod.name()))
+				.toArray(HttpMethod[]::new);
 
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
-//			TODO check out of  HttpMethod.valueOf(httpMethod.name())
 			operation.setOperationId(getOperationId(cleanedPath, requestMapping.name(), method, HttpMethod.valueOf(httpMethod.name())));
 			operation.setSummary(!StringUtils.isBlank(requestMapping.name()) ? requestMapping.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-			if (isHttpMethodWithRequestBody(httpMethod)) {
+			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
 				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestMapping.consumes())));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
@@ -144,21 +144,6 @@ public class OperationsTransformer {
 					pathItem -> setContentBasedOnHttpMethod(pathItem, httpMethod, operation)
 			);
 		}
-	}
-
-//	TODO extract and use generic ones
-	private RequestMethod[] getAllSupportedHttpMethods() {
-		return new RequestMethod[]{
-				RequestMethod.GET,
-				RequestMethod.POST,
-				RequestMethod.PUT,
-				RequestMethod.PATCH,
-				RequestMethod.DELETE,
-
-				RequestMethod.HEAD,
-				RequestMethod.OPTIONS,
-				RequestMethod.TRACE
-		};
 	}
 
 	private String prepareUrl(String... url) {
@@ -180,7 +165,8 @@ public class OperationsTransformer {
 	 * @param method
 	 * @param operation
 	 */
-	private void setContentBasedOnHttpMethod(PathItem pathItem, RequestMethod method, Operation operation) {
+	private void setContentBasedOnHttpMethod(PathItem pathItem, HttpMethod method, Operation operation) {
+		// TODO enhanced switch
 		switch (method) {
 			case GET:
 				pathItem.setGet(operation);
@@ -206,11 +192,6 @@ public class OperationsTransformer {
 			case TRACE:
 				pathItem.setTrace(operation);
 		}
-	}
-
-//	TODO extract maybe auch ins restframework selbst mit abstrakter klasse und bereits implementieren (oder default interface)
-	private boolean isHttpMethodWithRequestBody(RequestMethod... methods) {
-		return Stream.of(methods).anyMatch(requestMethod -> asList(RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH).contains(requestMethod));
 	}
 
 	private String classNameToTag(String controllerClassName) {
