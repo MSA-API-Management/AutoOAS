@@ -1,7 +1,10 @@
 package at.aau.serg.parsers.spring;
 
+import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.parsers.RequestAnnotation;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Arrays;
 
 public class SpringRequestMappingAdapter implements RequestAnnotation {
     private final RequestMapping annotation;
@@ -33,5 +36,12 @@ public class SpringRequestMappingAdapter implements RequestAnnotation {
     @Override
     public String[] path() {
         return annotation.path();
+    }
+
+    @Override
+    public HttpMethod[] method() {
+        return Arrays.stream(annotation.method())
+                .map(requestMethod -> HttpMethod.valueOf(requestMethod.name()))
+                .toArray(HttpMethod[]::new);
     }
 }

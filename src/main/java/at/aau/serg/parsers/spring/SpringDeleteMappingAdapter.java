@@ -1,5 +1,6 @@
 package at.aau.serg.parsers.spring;
 
+import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.parsers.RequestAnnotation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -33,5 +34,10 @@ public class SpringDeleteMappingAdapter implements RequestAnnotation {
     @Override
     public String[] path() {
         return annotation.path();
+    }
+
+    @Override
+    public HttpMethod[] method() {
+        return new HttpMethod[] { HttpMethod.DELETE };
     }
 }

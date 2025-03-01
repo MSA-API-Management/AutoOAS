@@ -1,5 +1,6 @@
 package at.aau.serg.parsers.spring;
 
+import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.parsers.RequestAnnotation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,4 +36,11 @@ public class SpringPostMappingAdapter implements RequestAnnotation {
     public String[] path() {
         return annotation.path();
     }
+
+    @Override
+    public HttpMethod[] method() {
+        return new HttpMethod[] { HttpMethod.POST };
+    }
+
+
 }

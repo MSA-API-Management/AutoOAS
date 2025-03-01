@@ -6,4 +6,5 @@ public interface RequestAnnotation {
     String[] consumes();
     String[] value();
     String[] path();
+    HttpMethod[] method();
 }
