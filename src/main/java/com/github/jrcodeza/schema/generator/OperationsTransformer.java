@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.parsers.HttpMethod;
+import at.aau.serg.parsers.RequestAnnotation;
 import at.aau.serg.parsers.RestFramework;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -114,16 +115,10 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
-//		TODO in eigenen Adapter auslagern
-/*		var methods =
-				requestMapping.method() == null || requestMapping.method().length == 0
-						? getAllSupportedHttpMethods()
-						: requestMapping.method();*/
-		HttpMethod[] methods = requestMapping.method().length == 0
+		RequestAnnotation requestAnnotation = restFramework.getRequestAnnotation(requestMapping);
+		HttpMethod[] methods = requestAnnotation.method().length == 0
 				? restFramework.getAllSupportedHttpMethods()
-				: Stream.of(requestMapping.method())
-				.map(requestMethod -> HttpMethod.valueOf(requestMethod.name()))
-				.toArray(HttpMethod[]::new);
+				: requestAnnotation.method();
 
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
