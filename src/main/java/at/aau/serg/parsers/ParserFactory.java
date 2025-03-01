@@ -1,5 +1,7 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.parsers.spring.SpringRestFramework;
+
 public class ParserFactory {
     public static FrameworkParser createParser(Framework framework, String projectPath, String outputFileName) {
         if (framework == Framework.SPRING) {

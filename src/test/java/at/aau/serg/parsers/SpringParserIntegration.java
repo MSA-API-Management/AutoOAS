@@ -1,12 +1,12 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.parsers.spring.SpringRestFramework;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 

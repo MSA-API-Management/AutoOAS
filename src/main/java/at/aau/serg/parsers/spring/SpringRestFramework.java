@@ -1,5 +1,6 @@
-package at.aau.serg.parsers;
+package at.aau.serg.parsers.spring;
 
+import at.aau.serg.parsers.RestFramework;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
