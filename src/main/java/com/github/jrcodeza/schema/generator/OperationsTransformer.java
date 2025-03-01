@@ -16,7 +16,6 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +92,7 @@ public class OperationsTransformer {
 		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping((RequestMapping) requestMapping, method, operationsMap, controllerClassName,
+		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 
 		// todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
@@ -102,20 +101,20 @@ public class OperationsTransformer {
 	/**
 	 * Handling the @RequestMapping annotation with its http methods.
 	 * e.g., @RequestMapping(value = "/get-and-post-method", method = {RequestMethod.GET, RequestMethod.POST})
-	 * @param requestMapping
+	 * @param annotation
 	 * @param method
 	 * @param operationsMap
 	 * @param controllerClassName
 	 * @param baseControllerPath
 	 */
-	private void mapRequestMapping(RequestMapping requestMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 								   String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestMapping.value()), getFirstFromArray(requestMapping.path()));
+		String path = restFramework.getPathFromAnnotation(annotation);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
-		RequestAnnotation requestAnnotation = restFramework.getRequestAnnotation(requestMapping);
+		RequestAnnotation requestAnnotation = restFramework.getRequestAnnotation(annotation);
 		HttpMethod[] methods = requestAnnotation.method().length == 0
 				? restFramework.getAllSupportedHttpMethods()
 				: requestAnnotation.method();
@@ -123,15 +122,15 @@ public class OperationsTransformer {
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
-			operation.setOperationId(getOperationId(cleanedPath, requestMapping.name(), method, HttpMethod.valueOf(httpMethod.name())));
-			operation.setSummary(!StringUtils.isBlank(requestMapping.name()) ? requestMapping.name() : method.getSimpleName());
+			operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.valueOf(httpMethod.name())));
+			operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
-				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestMapping.consumes())));
+				operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
-			operation.setResponses(createApiResponses(method, getFirstFromArray(requestMapping.produces())));
+			operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 
