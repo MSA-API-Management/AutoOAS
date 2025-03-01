@@ -1,5 +1,6 @@
 package at.aau.serg.parsers.spring;
 
+import at.aau.serg.parsers.RequestAnnotation;
 import at.aau.serg.parsers.RestFramework;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
@@ -89,97 +90,56 @@ public class SpringRestFramework implements RestFramework {
         return getAnnotation(method, RequestMapping.class);
     }
 
-    // TODO check if there is a better method to do that
-    @Override
-    public String getPathFromAnnotation(Annotation annotation) {
+    public RequestAnnotation getRequestAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
-            PostMapping mapping = (PostMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringPostMappingAdapter((PostMapping) annotation);
         }
         if (annotation instanceof PutMapping) {
-            PutMapping mapping = (PutMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringPutMappingAdapter((PutMapping) annotation);
         }
         if (annotation instanceof PatchMapping) {
-            PatchMapping mapping = (PatchMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringPatchMappingAdapter((PatchMapping) annotation);
         }
         if (annotation instanceof GetMapping) {
-            GetMapping mapping = (GetMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringGetMappingAdapter((GetMapping) annotation);
         }
         if (annotation instanceof DeleteMapping) {
-            DeleteMapping mapping = (DeleteMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringDeleteMappingAdapter((DeleteMapping) annotation);
         }
         if (annotation instanceof RequestMapping) {
-            RequestMapping mapping = (RequestMapping) annotation;
-            return ObjectUtils.defaultIfNull(getFirstFromArray(mapping.value()), getFirstFromArray(mapping.path()));
+            return new SpringRequestMappingAdapter((RequestMapping) annotation);
+        }
+
+        return null; // todo just exception and no null checks?
+    }
+
+    @Override
+    public String getPathFromAnnotation(Annotation annotation) {
+        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+
+        if (requestAnnotation != null) {
+            return ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+                    getFirstFromArray(requestAnnotation.path()));
         }
         return "";
     }
 
     @Override
     public String getNameFromAnnotation(Annotation annotation) {
-        if (annotation instanceof PostMapping) {
-            return ((PostMapping) annotation).name();
-        }
-        if (annotation instanceof PutMapping) {
-            return ((PutMapping) annotation).name();
-        }
-        if (annotation instanceof DeleteMapping) {
-            return ((DeleteMapping) annotation).name();
-        }
-        if (annotation instanceof GetMapping) {
-            return ((GetMapping) annotation).name();
-        }
-        if (annotation instanceof PatchMapping) {
-            return ((PatchMapping) annotation).name();
-        }
-        if (annotation instanceof RequestMapping) {
-            return ((RequestMapping) annotation).name();
-        }
-        return "";
+        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        return requestAnnotation != null ? requestAnnotation.name() : "";
     }
 
     @Override
     public String getProducesFromAnnotation(Annotation annotation) {
-        if (annotation instanceof PostMapping) {
-            return getFirstFromArray(((PostMapping) annotation).produces());
-        }
-        if (annotation instanceof PutMapping) {
-            return getFirstFromArray(((PutMapping) annotation).produces());
-        }
-        if (annotation instanceof PatchMapping) {
-            return getFirstFromArray(((PatchMapping) annotation).produces());
-        }
-        if (annotation instanceof GetMapping) {
-            return getFirstFromArray(((GetMapping) annotation).produces());
-        }
-        if (annotation instanceof DeleteMapping) {
-            return getFirstFromArray(((DeleteMapping) annotation).produces());
-        }
-        if (annotation instanceof RequestMapping) {
-            return getFirstFromArray(((RequestMapping) annotation).produces());
-        }
-        return "";
+        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        return requestAnnotation != null ? getFirstFromArray(requestAnnotation.produces()) : "";
     }
 
     @Override
     public String getConsumesFromAnnotation(Annotation annotation) {
-        if (annotation instanceof PostMapping) {
-            return getFirstFromArray(((PostMapping) annotation).consumes());
-        }
-        if (annotation instanceof PutMapping) {
-            return getFirstFromArray(((PutMapping) annotation).consumes());
-        }
-        if (annotation instanceof PatchMapping) {
-            return getFirstFromArray(((PatchMapping) annotation).consumes());
-        }
-        if (annotation instanceof RequestMapping) {
-            return getFirstFromArray(((RequestMapping) annotation).consumes());
-        }
-        return "";
+        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        return requestAnnotation != null ? getFirstFromArray(requestAnnotation.consumes()) : "";
     }
 
     //TODO
