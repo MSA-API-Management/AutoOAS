@@ -90,6 +90,7 @@ public class SpringRestFramework implements RestFramework {
         return getAnnotation(method, RequestMapping.class);
     }
 
+    @Override
     public RequestAnnotation getRequestAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
             return new SpringPostMappingAdapter((PostMapping) annotation);
@@ -113,6 +114,7 @@ public class SpringRestFramework implements RestFramework {
         return null; // todo just exception and no null checks?
     }
 
+    // todo check if action can be just implemented in the adapter and methods are not necessary at all
     @Override
     public String getPathFromAnnotation(Annotation annotation) {
         RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);

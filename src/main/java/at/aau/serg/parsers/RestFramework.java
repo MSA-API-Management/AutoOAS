@@ -63,6 +63,8 @@ public interface RestFramework {
 
     String getConsumesFromAnnotation(Annotation annotation);
 
+    RequestAnnotation getRequestAnnotation(Annotation annotation);
+
     default HttpMethod[] getAllSupportedHttpMethods() {
         return HttpMethod.values();
     }
