@@ -2,6 +2,7 @@ package at.aau.serg.parsers;
 
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
 import java.util.EnumSet;
@@ -55,6 +56,7 @@ public interface RestFramework {
     Optional<Annotation> getDeleteMapping(CtMethod<?> method);
 
     Optional<Annotation> getRequestMapping(CtMethod<?> method);
+    Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
 
     String getPathFromAnnotation(Annotation annotation);
 

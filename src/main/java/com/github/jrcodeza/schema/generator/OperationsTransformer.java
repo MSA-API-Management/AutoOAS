@@ -765,11 +765,13 @@ public class OperationsTransformer {
 	}
 
 	public String getBaseControllerPath(CtType<?> clazz) {
-		RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
-		if (requestMapping == null) {
-			return ""; // ""/";
-		}
-		return requestMapping.value().length > 0 ? getFirstFromArray(requestMapping.value()) : getFirstFromArray(requestMapping.path());
+		return restFramework.getRequestMapping(clazz)
+				.map(requestAnnotation ->
+						requestAnnotation.value().length > 0
+								? getFirstFromArray(requestAnnotation.value())
+								: getFirstFromArray(requestAnnotation.path())
+				)
+				.orElse(""); // ""/"
 	}
 
 	public String getFirstFromArray(String[] strings) {

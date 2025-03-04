@@ -8,6 +8,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -88,6 +89,15 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
         return getAnnotation(method, RequestMapping.class);
+    }
+
+    // Todo consistency with names and return types (Optional<RequestAnnotation/Annotation)
+    @Override
+    public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+        RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
+        return requestMapping != null
+                ? Optional.of(new SpringRequestMappingAdapter(requestMapping))
+                : Optional.empty();
     }
 
     @Override
