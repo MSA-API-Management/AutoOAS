@@ -1,13 +1,13 @@
 package at.aau.serg.parsers.spring;
 
-import at.aau.serg.parsers.RequestAnnotation;
-import at.aau.serg.parsers.RestFramework;
+import at.aau.serg.parsers.*;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -112,6 +112,24 @@ public class SpringRestFramework implements RestFramework {
         }
 
         return null; // todo just exception and no null checks?
+    }
+
+    @Override
+    public PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter) {
+        PathVariable annotation = parameter.getAnnotation(PathVariable.class);
+        return annotation != null ? new SpringPathVariableAdapter(annotation) : null;
+    }
+
+    @Override
+    public RequestParamAnnotation getRequestParamAnnotation(CtParameter<?> parameter) {
+        RequestParam annotation = parameter.getAnnotation(RequestParam.class);
+        return annotation != null ? new SpringRequestParamAdapter(annotation) : null;
+    }
+
+    @Override
+    public RequestHeaderAnnotation getRequestHeaderAnnotation(CtParameter<?> parameter) {
+        RequestHeader annotation = parameter.getAnnotation(RequestHeader.class);
+        return annotation != null ? new SpringRequestHeaderAdapter(annotation) : null;
     }
 
     // todo check if action can be just implemented in the adapter and methods are not necessary at all

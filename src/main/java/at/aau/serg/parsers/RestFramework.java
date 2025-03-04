@@ -1,6 +1,7 @@
 package at.aau.serg.parsers;
 
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 
 import java.lang.annotation.Annotation;
 import java.util.EnumSet;
@@ -64,6 +65,12 @@ public interface RestFramework {
     String getConsumesFromAnnotation(Annotation annotation);
 
     RequestAnnotation getRequestAnnotation(Annotation annotation);
+
+    PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter);
+
+    RequestParamAnnotation getRequestParamAnnotation(CtParameter<?> parameter);
+
+    RequestHeaderAnnotation getRequestHeaderAnnotation(CtParameter<?> parameter);
 
     default HttpMethod[] getAllSupportedHttpMethods() {
         return HttpMethod.values();
