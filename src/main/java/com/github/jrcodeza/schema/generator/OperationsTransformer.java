@@ -585,8 +585,9 @@ public class OperationsTransformer {
 	 * @return
 	 */
 	private boolean isAnnotatedAsOASParameter(CtParameter<?> parameter) {
-		return parameter.getAnnotation(PathVariable.class) != null || parameter.getAnnotation(RequestParam.class) != null
-				|| parameter.getAnnotation(RequestHeader.class) != null;
+		return restFramework.getPathVariableAnnotation(parameter) != null ||
+				restFramework.getRequestParamAnnotation(parameter) != null ||
+				restFramework.getRequestHeaderAnnotation(parameter) != null;
 	}
 
 	/**
