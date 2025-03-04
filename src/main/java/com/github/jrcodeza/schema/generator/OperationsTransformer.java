@@ -1,8 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.parsers.RequestAnnotation;
-import at.aau.serg.parsers.RestFramework;
+import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationParameterInterceptor;
@@ -599,24 +597,30 @@ public class OperationsTransformer {
 	 */
 	private io.swagger.v3.oas.models.parameters.Parameter mapSimpleParameter(CtParameter<?> parameter, String parameterName) {
 		io.swagger.v3.oas.models.parameters.Parameter oasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
-		if (parameter.getAnnotation(PathVariable.class) != null) {
-			PathVariable pathVariableAnnotation = parameter.getAnnotation(PathVariable.class);
+
+		PathVariableAnnotation pathVariableAnnotation = restFramework.getPathVariableAnnotation(parameter);
+		if (pathVariableAnnotation != null) {
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
-		} else if (parameter.getAnnotation(RequestParam.class) != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getFileType())) {
-			RequestParam requestParamAnnotation = parameter.getAnnotation(RequestParam.class);
-			oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
-			oasParameter.setIn("query");
-			oasParameter.setRequired(requestParamAnnotation.required());
-		} else if (parameter.getAnnotation(RequestHeader.class) != null) {
-			RequestHeader requestHeaderAnnotation = parameter.getAnnotation(RequestHeader.class);
-			oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
-			oasParameter.setIn("header");
-			oasParameter.setRequired(requestHeaderAnnotation.required());
 		} else {
-			return null;
+			RequestParamAnnotation requestParamAnnotation = restFramework.getRequestParamAnnotation(parameter);
+			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getFileType())) {
+				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
+				oasParameter.setIn("query");
+				oasParameter.setRequired(requestParamAnnotation.required());
+			} else {
+				RequestHeaderAnnotation requestHeaderAnnotation = restFramework.getRequestHeaderAnnotation(parameter);
+				if (requestHeaderAnnotation != null) {
+					oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
+					oasParameter.setIn("header");
+					oasParameter.setRequired(requestHeaderAnnotation.required());
+				} else {
+					return null;
+				}
+			}
 		}
+
 		oasParameter.setSchema(createSchemaFromParameter(parameter, parameterName));
 		schemaGeneratorHelper.enrichWithTypeAnnotations(oasParameter, getActualAnnotations(parameter));
 		return oasParameter;
