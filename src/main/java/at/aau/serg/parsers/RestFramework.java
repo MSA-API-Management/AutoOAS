@@ -45,6 +45,8 @@ public interface RestFramework {
 
     Class<?> getAsyncResultWrapper();
 
+    Class<?> getParameterGroupAnnotation();
+
     Optional<Annotation> getPostMapping(CtMethod<?> method);
 
     Optional<Annotation> getPutMapping(CtMethod<?> method);
@@ -56,6 +58,7 @@ public interface RestFramework {
     Optional<Annotation> getDeleteMapping(CtMethod<?> method);
 
     Optional<Annotation> getRequestMapping(CtMethod<?> method);
+
     Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
 
     String getPathFromAnnotation(Annotation annotation);

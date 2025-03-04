@@ -61,6 +61,12 @@ public class SpringRestFramework implements RestFramework {
         return DeferredResult.class;
     }
 
+    // TODO evaluate if adapter would fit better
+    @Override
+    public Class<?> getParameterGroupAnnotation() {
+        return ModelAttribute.class;
+    }
+
     @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
