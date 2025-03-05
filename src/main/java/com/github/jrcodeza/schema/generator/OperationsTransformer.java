@@ -460,7 +460,7 @@ public class OperationsTransformer {
 				}
 			}
 
-			else if (actualParameter.getAnnotation(ModelAttribute.class) != null){
+			else if (actualParameter.getAnnotation(restFramework.getParameterGroupAnnotation()) != null){
 				List<CtField<?>> flattenedFields = flattenParameterFields(actualParameter);
 				for (CtField<?> flattenedField : flattenedFields) {
 					// currently not supporting translation from annotations!

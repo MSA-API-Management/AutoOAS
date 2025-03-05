@@ -61,9 +61,8 @@ public class SpringRestFramework implements RestFramework {
         return DeferredResult.class;
     }
 
-    // TODO evaluate if adapter would fit better
     @Override
-    public Class<?> getParameterGroupAnnotation() {
+    public Class<? extends Annotation> getParameterGroupAnnotation() {
         return ModelAttribute.class;
     }
 

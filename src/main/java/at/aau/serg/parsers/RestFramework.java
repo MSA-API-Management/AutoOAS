@@ -45,7 +45,7 @@ public interface RestFramework {
 
     Class<?> getAsyncResultWrapper();
 
-    Class<?> getParameterGroupAnnotation();
+    Class<? extends Annotation> getParameterGroupAnnotation();
 
     Optional<Annotation> getPostMapping(CtMethod<?> method);
 
