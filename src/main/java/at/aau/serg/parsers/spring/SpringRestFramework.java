@@ -67,6 +67,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public Class<? extends Annotation> getRequestBodyAnnotation() {
+        return RequestBody.class;
+    }
+
+    @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }

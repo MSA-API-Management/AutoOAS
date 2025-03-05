@@ -47,6 +47,8 @@ public interface RestFramework {
 
     Class<? extends Annotation> getParameterGroupAnnotation();
 
+    Class<? extends Annotation> getRequestBodyAnnotation();
+
     Optional<Annotation> getPostMapping(CtMethod<?> method);
 
     Optional<Annotation> getPutMapping(CtMethod<?> method);

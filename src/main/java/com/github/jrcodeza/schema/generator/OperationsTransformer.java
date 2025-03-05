@@ -709,7 +709,7 @@ public class OperationsTransformer {
 
 		for (var actualParameter : parameters){
 			String parameterName = actualParameter.getSimpleName();
-			if (actualParameter.getAnnotation(org.springframework.web.bind.annotation.RequestBody.class) != null) {
+			if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
 				return new ParameterNamePair(parameterName, actualParameter);
 			}
 		}
