@@ -125,11 +125,10 @@ public class OperationsTransformer {
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
-				operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
+				operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
-//			getFirstFromArray(restFramework.getRequestAnnotation(annotation).produces()) // TODO
-			operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+			operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 
@@ -205,7 +204,7 @@ public class OperationsTransformer {
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
@@ -355,7 +354,7 @@ public class OperationsTransformer {
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
@@ -371,8 +370,8 @@ public class OperationsTransformer {
 		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
-		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
@@ -389,8 +388,8 @@ public class OperationsTransformer {
 		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
-		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
@@ -407,8 +406,8 @@ public class OperationsTransformer {
 		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
-		operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
