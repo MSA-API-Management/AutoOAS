@@ -8,9 +8,9 @@ public class Main {
             projectPath = args[0];
             outputPath = args[1];
         } else {
-//            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
-            projectPath = "src/test/resources/spring-boot/spring-advanced-response-codes";
-            outputPath = "target/openapi/swagger.json";
+            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
+//            projectPath = "src/test/resources/spring-boot/spring-advanced-response-codes";
+//            outputPath = "target/openapi/swagger.json";
         }
 
         // TODO currently hardcoded
