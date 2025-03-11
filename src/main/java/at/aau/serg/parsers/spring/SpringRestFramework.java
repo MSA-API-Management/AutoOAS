@@ -110,6 +110,7 @@ public class SpringRestFramework implements RestFramework {
                 : Optional.empty();
     }
 
+//    TODO convertToRequestAnnotation + Exception
     @Override
     public RequestAnnotation getRequestAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
@@ -131,7 +132,7 @@ public class SpringRestFramework implements RestFramework {
             return new SpringRequestMappingAdapter((RequestMapping) annotation);
         }
 
-        return null; // todo just exception and no null checks?
+        throw new IllegalArgumentException("No supported annotation found");
     }
 
     @Override
@@ -146,6 +147,7 @@ public class SpringRestFramework implements RestFramework {
         return annotation != null ? new SpringRequestParamAdapter(annotation) : null;
     }
 
+//    tryConvertRequestHeaderAnnotation
     @Override
     public RequestHeaderAnnotation getRequestHeaderAnnotation(CtParameter<?> parameter) {
         RequestHeader annotation = parameter.getAnnotation(RequestHeader.class);
@@ -164,6 +166,7 @@ public class SpringRestFramework implements RestFramework {
         return "";
     }
 
+    // TODO marked for removal
     @Override
     public String getNameFromAnnotation(Annotation annotation) {
         RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
