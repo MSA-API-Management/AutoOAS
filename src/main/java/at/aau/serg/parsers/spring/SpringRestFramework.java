@@ -110,9 +110,8 @@ public class SpringRestFramework implements RestFramework {
                 : Optional.empty();
     }
 
-//    TODO convertToRequestAnnotation + Exception
     @Override
-    public RequestAnnotation getRequestAnnotation(Annotation annotation) {
+    public RequestAnnotation convertToRequestAnnotation(Annotation annotation) {
         if (annotation instanceof PostMapping) {
             return new SpringPostMappingAdapter((PostMapping) annotation);
         }
@@ -157,7 +156,7 @@ public class SpringRestFramework implements RestFramework {
     // todo check if action can be just implemented in the adapter and methods are not necessary at all
     @Override
     public String getPathFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
 
         if (requestAnnotation != null) {
             return ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
@@ -169,19 +168,19 @@ public class SpringRestFramework implements RestFramework {
     // TODO marked for removal
     @Override
     public String getNameFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
         return requestAnnotation != null ? requestAnnotation.name() : "";
     }
 
     @Override
     public String getProducesFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
         return requestAnnotation != null ? getFirstFromArray(requestAnnotation.produces()) : "";
     }
 
     @Override
     public String getConsumesFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = getRequestAnnotation(annotation);
+        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
         return requestAnnotation != null ? getFirstFromArray(requestAnnotation.consumes()) : "";
     }
 

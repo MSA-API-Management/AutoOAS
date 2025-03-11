@@ -112,7 +112,7 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
-		RequestAnnotation requestAnnotation = restFramework.getRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
 		HttpMethod[] methods = requestAnnotation.method().length == 0
 				? restFramework.getAllSupportedHttpMethods()
 				: requestAnnotation.method();
@@ -128,6 +128,7 @@ public class OperationsTransformer {
 				operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
+//			getFirstFromArray(restFramework.getRequestAnnotation(annotation).produces()) // TODO
 			operation.setResponses(createApiResponses(method, restFramework.getProducesFromAnnotation(annotation)));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));

@@ -71,7 +71,7 @@ public interface RestFramework {
 
     String getConsumesFromAnnotation(Annotation annotation);
 
-    RequestAnnotation getRequestAnnotation(Annotation annotation);
+    RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
     PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter);
 
