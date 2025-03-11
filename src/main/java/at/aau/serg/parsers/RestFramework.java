@@ -65,18 +65,17 @@ public interface RestFramework {
 
     RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
-    PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter);
+    PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter);
 
-    RequestParamAnnotation getRequestParamAnnotation(CtParameter<?> parameter);
+    RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter);
 
-    RequestHeaderAnnotation getRequestHeaderAnnotation(CtParameter<?> parameter);
+    RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter);
 
     default HttpMethod[] getAllSupportedHttpMethods() {
         return HttpMethod.values();
     }
 
     default boolean isHttpMethodWithRequestBody(HttpMethod... methods) {
-        return Stream.of(methods).anyMatch(method ->
-                EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
+        return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 }

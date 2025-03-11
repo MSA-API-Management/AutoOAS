@@ -597,9 +597,9 @@ public class OperationsTransformer {
 	 * @return
 	 */
 	private boolean isAnnotatedAsOASParameter(CtParameter<?> parameter) {
-		return restFramework.getPathVariableAnnotation(parameter) != null ||
-				restFramework.getRequestParamAnnotation(parameter) != null ||
-				restFramework.getRequestHeaderAnnotation(parameter) != null;
+		return restFramework.tryConvertPathVariableAnnotation(parameter) != null ||
+				restFramework.tryConvertRequestParamAnnotation(parameter) != null ||
+				restFramework.tryConvertRequestHeaderAnnotation(parameter) != null;
 	}
 
 	/**
@@ -611,19 +611,19 @@ public class OperationsTransformer {
 	private io.swagger.v3.oas.models.parameters.Parameter mapSimpleParameter(CtParameter<?> parameter, String parameterName) {
 		io.swagger.v3.oas.models.parameters.Parameter oasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
 
-		PathVariableAnnotation pathVariableAnnotation = restFramework.getPathVariableAnnotation(parameter);
+		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
 		if (pathVariableAnnotation != null) {
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
 		} else {
-			RequestParamAnnotation requestParamAnnotation = restFramework.getRequestParamAnnotation(parameter);
+			RequestParamAnnotation requestParamAnnotation = restFramework.tryConvertRequestParamAnnotation(parameter);
 			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getFileType())) {
 				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
 				oasParameter.setIn("query");
 				oasParameter.setRequired(requestParamAnnotation.required());
 			} else {
-				RequestHeaderAnnotation requestHeaderAnnotation = restFramework.getRequestHeaderAnnotation(parameter);
+				RequestHeaderAnnotation requestHeaderAnnotation = restFramework.tryConvertRequestHeaderAnnotation(parameter);
 				if (requestHeaderAnnotation != null) {
 					oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
 					oasParameter.setIn("header");

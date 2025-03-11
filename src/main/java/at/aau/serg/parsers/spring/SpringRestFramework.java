@@ -1,7 +1,6 @@
 package at.aau.serg.parsers.spring;
 
 import at.aau.serg.parsers.*;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -101,7 +100,6 @@ public class SpringRestFramework implements RestFramework {
         return getAnnotation(method, RequestMapping.class);
     }
 
-    // Todo consistency with names and return types (Optional<RequestAnnotation/Annotation)
     @Override
     public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
         RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
@@ -135,20 +133,19 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter) {
+    public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
         PathVariable annotation = parameter.getAnnotation(PathVariable.class);
         return annotation != null ? new SpringPathVariableAdapter(annotation) : null;
     }
 
     @Override
-    public RequestParamAnnotation getRequestParamAnnotation(CtParameter<?> parameter) {
+    public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
         RequestParam annotation = parameter.getAnnotation(RequestParam.class);
         return annotation != null ? new SpringRequestParamAdapter(annotation) : null;
     }
 
-//    tryConvertRequestHeaderAnnotation
     @Override
-    public RequestHeaderAnnotation getRequestHeaderAnnotation(CtParameter<?> parameter) {
+    public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
         RequestHeader annotation = parameter.getAnnotation(RequestHeader.class);
         return annotation != null ? new SpringRequestHeaderAdapter(annotation) : null;
     }
