@@ -65,12 +65,6 @@ public interface RestFramework {
 
     String getPathFromAnnotation(Annotation annotation);
 
-    String getNameFromAnnotation(Annotation annotation);
-
-    String getProducesFromAnnotation(Annotation annotation);
-
-    String getConsumesFromAnnotation(Annotation annotation);
-
     RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
     PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter);

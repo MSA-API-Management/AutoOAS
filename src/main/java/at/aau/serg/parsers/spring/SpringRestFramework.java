@@ -165,25 +165,6 @@ public class SpringRestFramework implements RestFramework {
         return "";
     }
 
-    // TODO marked for removal
-    @Override
-    public String getNameFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
-        return requestAnnotation != null ? requestAnnotation.name() : "";
-    }
-
-    @Override
-    public String getProducesFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
-        return requestAnnotation != null ? getFirstFromArray(requestAnnotation.produces()) : "";
-    }
-
-    @Override
-    public String getConsumesFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
-        return requestAnnotation != null ? getFirstFromArray(requestAnnotation.consumes()) : "";
-    }
-
     //TODO
     private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
         return Optional.ofNullable(method.getAnnotation(annotationClass));
