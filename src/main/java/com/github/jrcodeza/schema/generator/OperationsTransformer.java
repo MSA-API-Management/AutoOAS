@@ -120,8 +120,8 @@ public class OperationsTransformer {
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
-			operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.valueOf(httpMethod.name())));
-			operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+			operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.valueOf(httpMethod.name())));
+			operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
@@ -200,8 +200,8 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.DELETE));
-		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.DELETE));
+		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
@@ -350,8 +350,8 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.GET));
-		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.GET));
+		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
@@ -367,8 +367,8 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.PATCH));
-		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.PATCH));
+		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
@@ -385,8 +385,8 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.PUT));
-		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.PUT));
+		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
@@ -403,8 +403,8 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.getNameFromAnnotation(annotation), method, HttpMethod.POST));
-		operation.setSummary(!StringUtils.isBlank(restFramework.getNameFromAnnotation(annotation)) ? restFramework.getNameFromAnnotation(annotation) : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.POST));
+		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setRequestBody(createRequestBody(method, restFramework.getConsumesFromAnnotation(annotation)));
