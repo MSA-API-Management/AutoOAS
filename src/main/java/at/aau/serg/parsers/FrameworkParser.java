@@ -59,7 +59,7 @@ public class FrameworkParser {
      * @param model
      * @return
      */
-    List<OpenAPI> generateOpenApi(CtModel model) {
+    private List<OpenAPI> generateOpenApi(CtModel model) {
         var packages = model.getAllPackages();
         List<String> packageNames = packages.stream()
                 .filter(p -> !p.isEmpty())
