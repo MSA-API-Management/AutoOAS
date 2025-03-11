@@ -63,8 +63,6 @@ public interface RestFramework {
 
     Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
 
-    String getPathFromAnnotation(Annotation annotation);
-
     RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
     PathVariableAnnotation getPathVariableAnnotation(CtParameter<?> parameter);

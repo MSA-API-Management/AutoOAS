@@ -153,25 +153,8 @@ public class SpringRestFramework implements RestFramework {
         return annotation != null ? new SpringRequestHeaderAdapter(annotation) : null;
     }
 
-    // todo check if action can be just implemented in the adapter and methods are not necessary at all
-    @Override
-    public String getPathFromAnnotation(Annotation annotation) {
-        RequestAnnotation requestAnnotation = convertToRequestAnnotation(annotation);
-
-        if (requestAnnotation != null) {
-            return ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
-                    getFirstFromArray(requestAnnotation.path()));
-        }
-        return "";
-    }
-
     //TODO
     private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
         return Optional.ofNullable(method.getAnnotation(annotationClass));
-    }
-
-    //    TODO
-    public String getFirstFromArray(String[] strings) {
-        return strings == null || strings.length == 0 ? null : strings[0];
     }
 }
