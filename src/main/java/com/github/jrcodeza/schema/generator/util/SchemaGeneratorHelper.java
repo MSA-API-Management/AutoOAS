@@ -58,6 +58,7 @@ public class SchemaGeneratorHelper {
             }
         }
 
+        //TODO check if equivalent to old diff
         requestBodyType = unwrapFrameworkWrapper(requestBodyType, genericParams);
         Schema<?> rootMediaSchema = new Schema<>();
 
@@ -121,6 +122,12 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
+    /** TODO update naming man denkt dass wrapper immer weg ist. Null return statt type?
+     *
+     * @param type
+     * @param genericTypes
+     * @return
+     */
     private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
         if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference()) && !CollectionUtils.isEmpty(genericTypes)) {
             return genericTypes.get(genericTypes.size() - 1);
@@ -488,7 +495,7 @@ public class SchemaGeneratorHelper {
      * @return
      */
     public boolean isTypeEquivalent(CtTypeReference<?> ctType, Class type) {
-        return ctType.isSubtypeOf(new TypeFactory().get(type).getReference());
+        return ctType != null && ctType.isSubtypeOf(new TypeFactory().get(type).getReference());
     }
 
     /**
