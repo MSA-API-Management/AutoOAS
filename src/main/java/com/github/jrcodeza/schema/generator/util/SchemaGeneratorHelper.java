@@ -58,7 +58,6 @@ public class SchemaGeneratorHelper {
             }
         }
 
-        //TODO check if equivalent to old diff
         requestBodyType = unwrapFrameworkWrapper(requestBodyType, genericParams);
         Schema<?> rootMediaSchema = new Schema<>();
 
@@ -122,7 +121,7 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
-    /** TODO update naming man denkt dass wrapper immer weg ist. Null return statt type?
+    /** TODO update naming and check if it is equivalent to old diff. Currently you can assume that the wrapper is always gone. Return null instead of type?
      *
      * @param type
      * @param genericTypes
