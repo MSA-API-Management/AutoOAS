@@ -123,15 +123,15 @@ public class OperationsTransformer {
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
-			operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.valueOf(httpMethod.name())));
-			operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+			operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.valueOf(httpMethod.name())));
+			operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
-				operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
+				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
-			operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+			operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 
@@ -204,12 +204,12 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.DELETE));
-		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.DELETE));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
@@ -356,12 +356,12 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.GET));
-		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.GET));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
@@ -375,12 +375,12 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.PATCH));
-		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.PATCH));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
@@ -395,12 +395,12 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.PUT));
-		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.PUT));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
@@ -415,12 +415,12 @@ public class OperationsTransformer {
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, restFramework.convertToRequestAnnotation(annotation).name(), method, HttpMethod.POST));
-		operation.setSummary(!StringUtils.isBlank(restFramework.convertToRequestAnnotation(annotation).name()) ? restFramework.convertToRequestAnnotation(annotation).name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.POST));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(restFramework.convertToRequestAnnotation(annotation).produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
