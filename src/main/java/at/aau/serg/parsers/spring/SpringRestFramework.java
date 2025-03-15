@@ -55,7 +55,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public Class<?> getSupportedFileTypes() {
+    public Class<?> getSupportedFileType() {
         return MultipartFile.class;
     }
 

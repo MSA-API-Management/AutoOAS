@@ -136,7 +136,7 @@ public class SchemaGeneratorHelper {
     }
 
     public boolean isFile(CtTypeReference<?> type) {
-        return type.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileTypes()).getReference());
+        return type.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileType()).getReference());
     }
 
 

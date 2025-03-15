@@ -6,10 +6,8 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public interface RestFramework {
     /**
@@ -55,7 +53,7 @@ public interface RestFramework {
      *
      * @return The class type used for handling uploaded files
      */
-    Class<?> getSupportedFileTypes();
+    Class<?> getSupportedFileType();
 
     /**
      * Returns the class used for handling asynchronous results in the current framework.
