@@ -42,7 +42,7 @@ public interface RestFramework {
 
     Class<?> getResponseWrapper();
 
-    Class<?> getFileType();
+    Class<?> getSupportedFileTypes();
 
     Class<?> getAsyncResultWrapper();
 

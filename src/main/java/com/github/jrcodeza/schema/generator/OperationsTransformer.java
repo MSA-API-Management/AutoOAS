@@ -299,7 +299,7 @@ public class OperationsTransformer {
 	}
 
 	private boolean isFileResponse(CtTypeReference<?> responseBodyClass) {
-		return responseBodyClass.isSubtypeOf(new TypeFactory().get(restFramework.getFileType()).getReference());
+		return responseBodyClass.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileTypes()).getReference());
 	}
 
 	private List<CtTypeReference<?>> getGenericParams(CtTypeReference<?> methodType) {
@@ -619,7 +619,7 @@ public class OperationsTransformer {
 			oasParameter.setRequired(true);
 		} else {
 			RequestParamAnnotation requestParamAnnotation = restFramework.tryConvertRequestParamAnnotation(parameter);
-			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getFileType())) {
+			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getSupportedFileTypes())) {
 				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
 				oasParameter.setIn("query");
 				oasParameter.setRequired(requestParamAnnotation.required());
