@@ -1,6 +1,7 @@
 package at.aau.serg.parsers.spring;
 
 import at.aau.serg.interfaces.*;
+import at.aau.serg.parsers.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -11,8 +12,10 @@ import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class SpringRestFramework implements RestFramework {
 
@@ -148,6 +151,16 @@ public class SpringRestFramework implements RestFramework {
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
         RequestHeader annotation = parameter.getAnnotation(RequestHeader.class);
         return annotation != null ? new SpringRequestHeaderAdapter(annotation) : null;
+    }
+
+    @Override
+    public HttpMethod[] getAllSupportedHttpMethods() {
+        return HttpMethod.values();
+    }
+
+    @Override
+    public boolean isHttpMethodWithRequestBody(HttpMethod... methods) {
+        return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 
     //TODO

@@ -72,11 +72,7 @@ public interface RestFramework {
 
     RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter);
 
-    default HttpMethod[] getAllSupportedHttpMethods() {
-        return HttpMethod.values();
-    }
+    HttpMethod[] getAllSupportedHttpMethods();
 
-    default boolean isHttpMethodWithRequestBody(HttpMethod... methods) {
-        return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
-    }
+    boolean isHttpMethodWithRequestBody(HttpMethod... methods);
 }
