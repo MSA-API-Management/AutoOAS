@@ -1,6 +1,6 @@
 package at.aau.serg.parsers.spring;
 
-import at.aau.serg.parsers.RequestHeaderAnnotation;
+import at.aau.serg.interfaces.RequestHeaderAnnotation;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 public class SpringRequestHeaderAdapter implements RequestHeaderAnnotation {

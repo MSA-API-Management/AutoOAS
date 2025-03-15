@@ -1,7 +1,7 @@
 package at.aau.serg.parsers.spring;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.parsers.RequestAnnotation;
+import at.aau.serg.interfaces.RequestAnnotation;
 import org.springframework.web.bind.annotation.GetMapping;
 
 public class SpringGetMappingAdapter implements RequestAnnotation {

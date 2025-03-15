@@ -1,4 +1,4 @@
-package at.aau.serg.parsers;
+package at.aau.serg.interfaces;
 
 public interface PathVariableAnnotation {
     String value();

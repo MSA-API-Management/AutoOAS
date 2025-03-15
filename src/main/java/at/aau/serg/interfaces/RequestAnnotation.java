@@ -1,4 +1,6 @@
-package at.aau.serg.parsers;
+package at.aau.serg.interfaces;
+
+import at.aau.serg.parsers.HttpMethod;
 
 public interface RequestAnnotation {
     String name();

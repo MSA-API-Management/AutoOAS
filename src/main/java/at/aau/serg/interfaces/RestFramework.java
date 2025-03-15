@@ -1,5 +1,6 @@
-package at.aau.serg.parsers;
+package at.aau.serg.interfaces;
 
+import at.aau.serg.parsers.HttpMethod;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;

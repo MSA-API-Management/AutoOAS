@@ -1,6 +1,6 @@
 package at.aau.serg.parsers.spring;
 
-import at.aau.serg.parsers.*;
+import at.aau.serg.interfaces.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;

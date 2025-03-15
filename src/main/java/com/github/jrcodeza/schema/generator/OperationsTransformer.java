@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.interfaces.*;
 import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
