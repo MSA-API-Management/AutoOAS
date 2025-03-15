@@ -13,37 +13,55 @@ import java.util.stream.Stream;
 
 public interface RestFramework {
     /**
-     * Contains the annotation for Spring profiles.
+     * Returns the fully qualified class name of the Profile annotation for the current framework.
      *
-     * @return A string representing the profile annotation for the framework (e.g., "@Profile" for Spring).
+     * @return The fully qualified class name of the Profile annotation used by the framework
      */
     String getProfileAnnotation();
 
     /**
-     * Contains all annotations marking a class as a controller.
+     * Returns a list of fully qualified class names for annotations that mark a class
+     * as a web controller in the current framework.
      *
-     * @return A list of strings representing the annotations for controller classes (e.g., "@RestController", "@Controller").
+     * @return A list of fully qualified annotation class names for controller classes
      */
     List<String> getControllerAnnotations();
 
     /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
+     * Returns a list of fully qualified class names for annotations that mark a class
+     * as a controller advice for global exception handling.
      *
-     * @return A list of strings representing the annotations for controller advice classes (e.g., "@ControllerAdvice").
+     * @return A list of fully qualified annotation class names for controller advice classes
      */
     List<String> getControllerAdviceAnnotations();
 
     /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
+     * Returns a list of fully qualified class names for annotations that mark a class
+     * as a model schema for API documentation.
      *
-     * @return A list of strings representing the annotations for model schema classes (e.g., "@Schema").
+     * @return A list of fully qualified annotation class names for model schema classes
      */
     List<String> getModelSchemaAnnotations();
 
+    /**
+     * Returns the class that wraps HTTP responses in the current framework.
+     *
+     * @return The class type used for wrapping HTTP responses
+     */
     Class<?> getResponseWrapper();
 
+    /**
+     * Returns the class used to represent uploaded files in the current framework.
+     *
+     * @return The class type used for handling uploaded files
+     */
     Class<?> getSupportedFileTypes();
 
+    /**
+     * Returns the class used for handling asynchronous results in the current framework.
+     *
+     * @return The class type used for asynchronous result handling
+     */
     Class<?> getAsyncResultWrapper();
 
     Class<? extends Annotation> getParameterGroupAnnotation();
