@@ -1,4 +1,4 @@
-package at.aau.serg.parsers.spring;
+package at.aau.serg.parsers.spring.adapter;
 
 import at.aau.serg.interfaces.RequestParamAnnotation;
 import org.springframework.web.bind.annotation.RequestParam;

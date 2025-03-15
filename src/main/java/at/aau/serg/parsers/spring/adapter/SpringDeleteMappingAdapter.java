@@ -1,13 +1,13 @@
-package at.aau.serg.parsers.spring;
+package at.aau.serg.parsers.spring.adapter;
 
 import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.interfaces.RequestAnnotation;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
-public class SpringGetMappingAdapter implements RequestAnnotation {
-    private final GetMapping annotation;
+public class SpringDeleteMappingAdapter implements RequestAnnotation {
+    private final DeleteMapping annotation;
 
-    public SpringGetMappingAdapter(GetMapping annotation) {
+    public SpringDeleteMappingAdapter(DeleteMapping annotation) {
         this.annotation = annotation;
     }
 
@@ -38,6 +38,6 @@ public class SpringGetMappingAdapter implements RequestAnnotation {
 
     @Override
     public HttpMethod[] method() {
-        return new HttpMethod[] { HttpMethod.GET };
+        return new HttpMethod[] { HttpMethod.DELETE };
     }
 }

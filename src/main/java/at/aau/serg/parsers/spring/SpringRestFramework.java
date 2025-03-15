@@ -2,6 +2,7 @@ package at.aau.serg.parsers.spring;
 
 import at.aau.serg.interfaces.*;
 import at.aau.serg.parsers.HttpMethod;
+import at.aau.serg.parsers.spring.adapter.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
