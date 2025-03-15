@@ -3,9 +3,9 @@ package at.aau.serg.parsers;
 import at.aau.serg.parsers.spring.SpringRestFramework;
 
 public class ParserFactory {
-    public static FrameworkParser createParser(Framework framework, String projectPath, String outputFileName) {
+    public static RestApiParser createParser(Framework framework, String projectPath, String outputFileName) {
         if (framework == Framework.SPRING) {
-            return new FrameworkParser(projectPath, outputFileName, new SpringRestFramework());
+            return new RestApiParser(projectPath, outputFileName, new SpringRestFramework());
         } else {
             throw new IllegalArgumentException("Unsupported framework: " + framework);
         }

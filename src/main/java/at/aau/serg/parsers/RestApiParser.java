@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class FrameworkParser {
+public class RestApiParser {
     private OperationsTransformer operationsTransformer;
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
@@ -39,11 +39,11 @@ public class FrameworkParser {
     // todo jar arg
     protected boolean deleteSpoonTmpFile = true;
 
-    protected FrameworkParser(String outputFileName) {
+    protected RestApiParser(String outputFileName) {
         this.outputFileName = outputFileName;
     }
 
-    protected FrameworkParser(String projectPath, String outputFileName, RestFramework restFramework) {
+    protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework) {
         this(outputFileName);
         this.restFramework = restFramework;
         this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);

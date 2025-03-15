@@ -16,7 +16,7 @@ public class SpringParserIntegration {
 
     private static final String testResourcesPath = "src/test/resources/spring-boot/";
 
-    private FrameworkParser parser;
+    private RestApiParser parser;
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -27,7 +27,7 @@ public class SpringParserIntegration {
     })
     public void integrationTest_OpenApiGeneration_Basics_DefaultStringProfile(String commitId) throws IOException {
         var outputPath = "target/openapi/swagger-" + commitId + ".json";
-        parser = new FrameworkParser(testResourcesPath + "simple-spring-" + commitId, outputPath, new SpringRestFramework());
+        parser = new RestApiParser(testResourcesPath + "simple-spring-" + commitId, outputPath, new SpringRestFramework());
         parser.run();
 
         var outputPathWithProfiles = "target/openapi/swagger-" + commitId + "_default.json";
@@ -40,7 +40,7 @@ public class SpringParserIntegration {
     @Test
     public void integrationTest_OpenApiGeneration_MultipleProfiles() throws IOException {
         var outputPath = "target/openapi/swagger-profiles.json";
-        parser = new FrameworkParser(testResourcesPath + "spring-profiles-project", outputPath, new SpringRestFramework());
+        parser = new RestApiParser(testResourcesPath + "spring-profiles-project", outputPath, new SpringRestFramework());
         parser.run();
 
         // check each profile
@@ -67,7 +67,7 @@ public class SpringParserIntegration {
     public void integrationTest_OpenApiGeneration_AdvancedBehaviors_SingleProfile(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";
 
-        parser = new FrameworkParser(testResourcesPath + projectFolder, genOutputPath, new SpringRestFramework());
+        parser = new RestApiParser(testResourcesPath + projectFolder, genOutputPath, new SpringRestFramework());
         parser.run();
 
         assertTrue(FileUtils.contentEquals(
