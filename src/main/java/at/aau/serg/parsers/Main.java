@@ -14,7 +14,7 @@ public class Main {
         }
 
         // TODO currently hardcoded
-        RestApiParser parser = ParserFactory.createParser(Framework.SPRING, projectPath, outputPath);
+        RestApiParser parser = ParserFactory.createParser("spring", projectPath, outputPath);
         parser.run();
     }
 }
