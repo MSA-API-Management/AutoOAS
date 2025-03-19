@@ -1,6 +1,6 @@
-package at.aau.serg.parsers.spring.adapter;
+package at.aau.serg.frameworks.spring.adapter.annotation;
 
-import at.aau.serg.interfaces.RequestParamAnnotation;
+import at.aau.serg.frameworks.RequestParamAnnotation;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public class SpringRequestParamAdapter implements RequestParamAnnotation {

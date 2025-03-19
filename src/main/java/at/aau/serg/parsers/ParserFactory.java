@@ -1,6 +1,6 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.parsers.spring.SpringRestFramework;
+import at.aau.serg.frameworks.spring.SpringRestFramework;
 
 public class ParserFactory {
     public static RestApiParser createParser(Framework framework, String projectPath, String outputFileName) {

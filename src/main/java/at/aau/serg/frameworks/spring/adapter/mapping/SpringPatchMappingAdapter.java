@@ -1,15 +1,13 @@
-package at.aau.serg.parsers.spring.adapter;
+package at.aau.serg.frameworks.spring.adapter.mapping;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.interfaces.RequestAnnotation;
-import org.springframework.web.bind.annotation.RequestMapping;
+import at.aau.serg.frameworks.RequestAnnotation;
+import org.springframework.web.bind.annotation.PatchMapping;
 
-import java.util.Arrays;
+public class SpringPatchMappingAdapter implements RequestAnnotation {
+    private final PatchMapping annotation;
 
-public class SpringRequestMappingAdapter implements RequestAnnotation {
-    private final RequestMapping annotation;
-
-    public SpringRequestMappingAdapter(RequestMapping annotation) {
+    public SpringPatchMappingAdapter(PatchMapping annotation) {
         this.annotation = annotation;
     }
 
@@ -40,8 +38,6 @@ public class SpringRequestMappingAdapter implements RequestAnnotation {
 
     @Override
     public HttpMethod[] method() {
-        return Arrays.stream(annotation.method())
-                .map(requestMethod -> HttpMethod.valueOf(requestMethod.name()))
-                .toArray(HttpMethod[]::new);
+        return new HttpMethod[] { HttpMethod.PATCH };
     }
 }

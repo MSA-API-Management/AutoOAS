@@ -1,13 +1,13 @@
-package at.aau.serg.parsers.spring.adapter;
+package at.aau.serg.frameworks.spring.adapter.mapping;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.interfaces.RequestAnnotation;
-import org.springframework.web.bind.annotation.PutMapping;
+import at.aau.serg.frameworks.RequestAnnotation;
+import org.springframework.web.bind.annotation.PostMapping;
 
-public class SpringPutMappingAdapter implements RequestAnnotation {
-    private final PutMapping annotation;
+public class SpringPostMappingAdapter implements RequestAnnotation {
+    private final PostMapping annotation;
 
-    public SpringPutMappingAdapter(PutMapping annotation) {
+    public SpringPostMappingAdapter(PostMapping annotation) {
         this.annotation = annotation;
     }
 
@@ -38,7 +38,7 @@ public class SpringPutMappingAdapter implements RequestAnnotation {
 
     @Override
     public HttpMethod[] method() {
-        return new HttpMethod[] { HttpMethod.PUT };
+        return new HttpMethod[] { HttpMethod.POST };
     }
 
 

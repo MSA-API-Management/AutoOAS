@@ -1,8 +1,11 @@
-package at.aau.serg.parsers.spring;
+package at.aau.serg.frameworks.spring;
 
-import at.aau.serg.interfaces.*;
+import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.spring.adapter.annotation.SpringPathVariableAdapter;
+import at.aau.serg.frameworks.spring.adapter.annotation.SpringRequestHeaderAdapter;
+import at.aau.serg.frameworks.spring.adapter.annotation.SpringRequestParamAdapter;
+import at.aau.serg.frameworks.spring.adapter.mapping.*;
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.parsers.spring.adapter.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;

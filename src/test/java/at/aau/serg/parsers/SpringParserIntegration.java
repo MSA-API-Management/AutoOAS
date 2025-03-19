@@ -1,6 +1,6 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.parsers.spring.SpringRestFramework;
+import at.aau.serg.frameworks.spring.SpringRestFramework;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

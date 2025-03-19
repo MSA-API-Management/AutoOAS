@@ -1,4 +1,4 @@
-package at.aau.serg.interfaces;
+package at.aau.serg.frameworks;
 
 import at.aau.serg.parsers.HttpMethod;
 import spoon.reflect.declaration.CtMethod;

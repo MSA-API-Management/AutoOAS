@@ -1,7 +1,7 @@
 package at.aau.serg.parsers;
 
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
-import at.aau.serg.interfaces.RestFramework;
+import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;

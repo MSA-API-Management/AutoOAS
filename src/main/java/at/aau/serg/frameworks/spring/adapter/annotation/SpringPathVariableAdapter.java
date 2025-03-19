@@ -1,6 +1,6 @@
-package at.aau.serg.parsers.spring.adapter;
+package at.aau.serg.frameworks.spring.adapter.annotation;
 
-import at.aau.serg.interfaces.PathVariableAnnotation;
+import at.aau.serg.frameworks.PathVariableAnnotation;
 import org.springframework.web.bind.annotation.PathVariable;
 
 public class SpringPathVariableAdapter implements PathVariableAnnotation {

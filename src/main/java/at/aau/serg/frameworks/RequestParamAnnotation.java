@@ -1,4 +1,4 @@
-package at.aau.serg.interfaces;
+package at.aau.serg.frameworks;
 
 public interface RequestParamAnnotation {
     String value();
