@@ -68,33 +68,116 @@ public interface RestFramework {
      */
     Class<?> getAsyncResultWrapper();
 
+    /**
+     * Retrieves the annotation class that represents a parameter group in the framework.
+     * @return The annotation class that marks parameter groups in the framework
+     */
     Class<? extends Annotation> getParameterGroupAnnotation();
 
+    /**
+     * Retrieves the annotation class that represents a request body parameter in the framework.
+     * @return The annotation class that marks request body parameters in the framework
+     */
     Class<? extends Annotation> getRequestBodyAnnotation();
 
+    /**
+     * Retrieves the POST mapping annotation from a method if present.
+     *
+     * @param method The method to check for POST mapping annotations
+     * @return An Optional containing the POST mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getPostMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the PUT mapping annotation from a method if present.
+     *
+     * @param method The method to check for PUT mapping annotations
+     * @return An Optional containing the PUT mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getPutMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the PATCH mapping annotation from a method if present.
+     *
+     * @param method The method to check for PATCH mapping annotations
+     * @return An Optional containing the PATCH mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getPatchMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the GET mapping annotation from a method if present.
+     *
+     * @param method The method to check for GET mapping annotations
+     * @return An Optional containing the GET mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getGetMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the DELETE mapping annotation from a method if present.
+     *
+     * @param method The method to check for DELETE mapping annotations
+     * @return An Optional containing the DELETE mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getDeleteMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the general request mapping annotation from a method if present.
+     *
+     * @param method The method to check for request mapping annotations
+     * @return An Optional containing the request mapping annotation if found, or an empty Optional otherwise
+     */
     Optional<Annotation> getRequestMapping(CtMethod<?> method);
 
+    /**
+     * Retrieves the request mapping annotation from a class if present and converts it to a standardized form.
+     *
+     * @param clazz The class to check for request mapping annotations
+     * @return An Optional containing the standardized RequestAnnotation if found, or an empty Optional otherwise
+     */
     Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
 
+    /**
+     * Converts a framework-specific annotation to a standardized RequestAnnotation.
+     * @param annotation The framework-specific annotation to convert
+     * @return A standardized RequestAnnotation representation of the input annotation
+     * @throws IllegalArgumentException if the provided annotation is not supported
+     */
     RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
+    /**
+     * Attempts to convert a parameter's path variable annotation to a standardized representation.
+     * @param parameter The method parameter to check for path variable annotation
+     * @return A standardized PathVariableAnnotation if found, null otherwise
+     */
     PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter);
 
+    /**
+     * Attempts to convert a parameter's request parameter annotation to a standardized representation.
+     *
+     * @param parameter The method parameter to check for request parameter annotations
+     * @return A standardized RequestParamAnnotation if found, or null otherwise
+     */
     RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter);
 
+    /**
+     * Attempts to convert a parameter's request header annotation to a standardized representation.
+     *
+     * @param parameter The method parameter to check for request header annotations
+     * @return A standardized RequestHeaderAnnotation if found, or null otherwise
+     */
     RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter);
 
+    /**
+     * Retrieves all supported HTTP methods defined in the custom HttpMethod enum.
+     * @return An array of all HTTP method constants from the custom HttpMethod enum
+     */
     HttpMethod[] getAllSupportedHttpMethods();
 
+    /**
+     * Determines whether any of the specified HTTP methods typically include a request body.
+     * @param methods One or more HTTP method constants to check
+     * @return {@code true} if any of the specified methods typically include a request body,
+     *         {@code false} otherwise
+     */
     boolean isHttpMethodWithRequestBody(HttpMethod... methods);
 }
