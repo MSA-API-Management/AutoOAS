@@ -24,6 +24,11 @@ import java.util.stream.Stream;
 public class SpringRestFramework implements RestFramework {
 
     @Override
+    public String getIdentifier() {
+        return "spring";
+    }
+
+    @Override
     public String getProfileAnnotation() {
         return "org.springframework.context.annotation.Profile";
     }

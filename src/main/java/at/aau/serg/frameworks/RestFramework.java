@@ -11,6 +11,12 @@ import java.util.Optional;
 
 public interface RestFramework {
     /**
+     * Represents unique identifier of the implemented framework
+     * @return unique framework identifier
+     */
+    String getIdentifier();
+
+    /**
      * Returns the fully qualified class name of the Profile annotation for the current framework.
      *
      * @return The fully qualified class name of the Profile annotation used by the framework
