@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring;
 
 import at.aau.serg.frameworks.*;
-import at.aau.serg.frameworks.spring.adapter.annotation.SpringPathVariableAdapter;
-import at.aau.serg.frameworks.spring.adapter.annotation.SpringRequestHeaderAdapter;
-import at.aau.serg.frameworks.spring.adapter.annotation.SpringRequestParamAdapter;
-import at.aau.serg.frameworks.spring.adapter.mapping.*;
+import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapter;
+import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
+import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
+import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.parsers.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.spring.adapter.mapping;
+package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
 import at.aau.serg.frameworks.RequestAnnotation;

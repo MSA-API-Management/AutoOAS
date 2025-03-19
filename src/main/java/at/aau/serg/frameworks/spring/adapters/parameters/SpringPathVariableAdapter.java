@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.spring.adapter.annotation;
+package at.aau.serg.frameworks.spring.adapters.parameters;
 
 import at.aau.serg.frameworks.PathVariableAnnotation;
 import org.springframework.web.bind.annotation.PathVariable;
