@@ -12,6 +12,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -44,6 +45,9 @@
 .idea/modules
 *.iml
 *.ipr
+.idea/material_theme_project_new.xml
+.idea/git_toolbox_blame.xml
+.idea/git_toolbox_prj.xml
 
 # CMake
 cmake-build-*/

@@ -1,6 +1,7 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.interceptors.OperationResponseCodeInterceptor;
+import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
+import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;
@@ -11,13 +12,11 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Schema;
 import org.javatuples.Pair;
-import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
-import spoon.support.compiler.VirtualFolder;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -25,51 +24,30 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class SpringParser {
-
+public class RestApiParser {
     private OperationsTransformer operationsTransformer;
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
 
-    private OpenApiGenerator openApiGen = new OpenApiGenerator();
-    private CtModel model;
-    private String projectName;
-    private String outputFileName;
+    private final OpenApiGenerator openApiGen = new OpenApiGenerator();
+
+    protected CtModel model;
+    protected String projectName;
+    protected String outputFileName;
+    private RestFramework restFramework;
 
     // todo jar arg
-    private boolean delete_spoon_tmp_file = true;
+    protected boolean deleteSpoonTmpFile = true;
 
-    public static void main(String[] args) {
-        String projectPath;
-        String outputPath;
-        if (args.length == 2) {
-//            var last_arg = args[args.length-1];
-            projectPath = args[0];
-            outputPath = args[1];
-        } else {
-            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
-//            projectPath = "src/test/resources/simple-spring-2cc389";
-//            outputPath = "target/openapi/swagger.json";
-        }
-
-        SpringParser sp = new SpringParser(projectPath, outputPath);
-        sp.run();
-    }
-
-    private SpringParser(String outputFileName) {
+    protected RestApiParser(String outputFileName) {
         this.outputFileName = outputFileName;
     }
 
-    public SpringParser(String projectPath, String outputFileName) {
+    protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework) {
         this(outputFileName);
-        this.projectName = projectPath.split("/")[projectPath.split("/").length - 1];
+        this.restFramework = restFramework;
+        this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
         this.model = loadModel(projectPath);
-    }
-
-    public SpringParser(String projectName, VirtualFolder folder, String outputFileName) {
-        this(outputFileName);
-        this.projectName = projectName;
-        this.model = createVirtualModel(folder);
     }
 
     public void run() {
@@ -96,11 +74,10 @@ public class SpringParser {
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
 
-        schemaHelper = new SchemaGeneratorHelper(packageNames); // just provide all packages of the project's module
+        schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
         operationsTransformer = new OperationsTransformer(schemaHelper,
-                new ArrayList<>(), Collections.singletonList(new OperationResponseCodeInterceptor(controllerAdviceClasses)),
-                new ArrayList<>(), new ArrayList<>(),
-                null, new AtomicReference<>());
+                new ArrayList<>(), Collections.singletonList(new SpringOperationResponseCodeInterceptor(controllerAdviceClasses)),
+                new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper);
 
 
@@ -119,75 +96,10 @@ public class SpringParser {
                 continue;
             }
 
-            res.add(
-                    createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses)
-            );
+            res.add(createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses));
         }
 
         return res;
-    }
-
-    private Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
-        // split the classes based on spring profile annotations
-        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
-        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
-
-        for (CtType<?> clazz : controllerClasses) {
-            boolean profileAnnotationFound = false;
-
-            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
-                if (getSpringProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
-                    profileAnnotationFound = true;
-                    // add to annotated profiles
-                    String[] profiles = (String[]) annotation.getValueAsObject("value");
-                    for (String profile : profiles) {
-                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
-                        controllerClassesPerProfile.get(profile).add(clazz);
-                    }
-                    break;
-                }
-            }
-
-            if (!profileAnnotationFound) {
-                controllerClassesInDefaultProfile.add(clazz);
-            }
-        }
-
-        // add all classes without profile to each explicit profile
-        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
-
-        // also consider the default profile classes alone (e.g., if no profiles exist)
-        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
-
-        return controllerClassesPerProfile;
-    }
-
-    private RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
-        List<CtType<?>> controllerClasses = new LinkedList<>();
-        List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
-        List<CtType<?>> explicitModelClasses = new LinkedList<>();
-
-        for (CtPackage pkg : packages)
-            for (CtType<?> type : pkg.getTypes())
-                for (CtAnnotation<?> annotation : type.getAnnotations()) {
-                    String annotationName = annotation.getAnnotationType().toString();
-                    if (annotationName != null && getControllerAnnotations().contains(annotationName)) {
-                        controllerClasses.add(type);
-                        break; // annotations
-                    }
-
-                    if (annotationName != null && getControllerAdviceAnnotations().contains(annotationName)) {
-                        controllerAdviceClasses.add(type);
-                        break; // annotations
-                    }
-
-                    if (annotationName != null && getModelSchemaAnnotations().contains(annotationName)) {
-                        explicitModelClasses.add(type);
-                        break; // annotations
-                    }
-                }
-
-        return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
     }
 
     private OpenAPI createOpenAPIFromControllers(String springProfileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
@@ -252,7 +164,7 @@ public class SpringParser {
         // Hence, the schemaHelper used for the operationsTransformer must be used for the schemaTransformer.
 
         // we now use explicit model classes also
-//        assert modelClasses == schemaHelper.referencedModelClasses;
+        // assert modelClasses == schemaHelper.referencedModelClasses;
 
         Map<String, Schema> schemaMap = new HashMap<>();
         Map<String, InheritanceInfo> inheritanceMap = new HashMap<>();
@@ -289,61 +201,68 @@ public class SpringParser {
         return components;
     }
 
-    private void getMethodParams(CtMethod<?> method) {
-//        System.out.println(method);
+    protected Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
+        // split the classes based on spring profile annotations
+        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
+        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
 
-        var params = method.getParameters();
-        List<String> paramNames = params.stream().map(CtNamedElement::getSimpleName).collect(Collectors.toList());
+        for (CtType<?> clazz : controllerClasses) {
+            boolean profileAnnotationFound = false;
 
-        System.out.println(paramNames);
+            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
+                if (this.restFramework.getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
+                    profileAnnotationFound = true;
+                    // add to annotated profiles
+                    String[] profiles = (String[]) annotation.getValueAsObject("value");
+                    for (String profile : profiles) {
+                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
+                        controllerClassesPerProfile.get(profile).add(clazz);
+                    }
+                    break;
+                }
+            }
+
+            if (!profileAnnotationFound) {
+                controllerClassesInDefaultProfile.add(clazz);
+            }
+        }
+
+        // add all classes without profile to each explicit profile
+        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
+
+        // also consider the default profile classes alone (e.g., if no profiles exist)
+        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
+
+        return controllerClassesPerProfile;
     }
 
-    /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
-     *
-     * @return
-     */
-    private List<String> getModelSchemaAnnotations() {
-        return Arrays.asList(
-//                 "io.swagger.v3.oas.annotations.media.Schema"
-        );
-    }
+    // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
+    protected RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
+        List<CtType<?>> controllerClasses = new LinkedList<>();
+        List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
+        List<CtType<?>> explicitModelClasses = new LinkedList<>();
 
-    /**
-     * Contains all annotations marking a class as a controller advice for exception handling.
-     *
-     * @return
-     */
-    private List<String> getControllerAdviceAnnotations() {
-        return Arrays.asList(
-                "org.springframework.web.bind.annotation.ControllerAdvice",
-                "org.springframework.web.bind.annotation.RestControllerAdvice"
-        );
-    }
+        for (CtPackage pkg : packages)
+            for (CtType<?> type : pkg.getTypes())
+                for (CtAnnotation<?> annotation : type.getAnnotations()) {
+                    String annotationName = annotation.getAnnotationType().toString();
+                    if (annotationName != null && this.restFramework.getControllerAnnotations().contains(annotationName)) {
+                        controllerClasses.add(type);
+                        break; // annotations
+                    }
 
-    /**
-     * Contains all annotations marking a class as a controller.
-     *
-     * @return
-     */
-    private List<String> getControllerAnnotations() {
-        return Arrays.asList(
-                "org.springframework.stereotype.Controller",
-                "org.springframework.web.bind.annotation.RestController"
-                // todo consider RepositoryRestResource - implicit CRUD endpoints
-                , "org.springframework.data.rest.webmvc.RepositoryRestController"
-        );
-    }
+                    if (annotationName != null && this.restFramework.getControllerAdviceAnnotations().contains(annotationName)) {
+                        controllerAdviceClasses.add(type);
+                        break; // annotations
+                    }
 
-    /**
-     * Contains the annotation for Spring profiles.
-     *
-     * @return
-     */
-    private String getSpringProfileAnnotation() {
-//        return Arrays.asList(
-        return "org.springframework.context.annotation.Profile";
-//        );
+                    if (annotationName != null && this.restFramework.getModelSchemaAnnotations().contains(annotationName)) {
+                        explicitModelClasses.add(type);
+                        break; // annotations
+                    }
+                }
+
+        return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
     }
 
     /**
@@ -352,30 +271,16 @@ public class SpringParser {
     private CtModel loadModel(String path) {
         System.out.println("Loading model: " + path);
 
-        // delete the spoon tmp file
-        if (delete_spoon_tmp_file)
-            new File(path+"/spoon.classpath-app.tmp").delete();
+        if (deleteSpoonTmpFile) {
+            new File(path + "/spoon.classpath-app.tmp").delete();
+        }
 
         MavenLauncher launcher = new MavenLauncher(path, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
-
         launcher.getEnvironment().setComplianceLevel(11);
         launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
         launcher.getEnvironment().setNoClasspath(true);
 
         launcher.buildModel();
-        CtModel model = launcher.getModel();
-        return model;
+        return launcher.getModel();
     }
-
-    private CtModel createVirtualModel(VirtualFolder folder) {
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(folder);
-
-        launcher.getEnvironment().setNoClasspath(true);
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
-
-        return model;
-    }
-
 }

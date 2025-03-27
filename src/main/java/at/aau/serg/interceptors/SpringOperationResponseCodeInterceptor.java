@@ -20,10 +20,10 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class OperationResponseCodeInterceptor implements OperationInterceptor {
+public class SpringOperationResponseCodeInterceptor implements OperationInterceptor {
     List<CtType<?>> controllerAdviceClasses;
 
-    public OperationResponseCodeInterceptor(List<CtType<?>> controllerAdviceClasses) {
+    public SpringOperationResponseCodeInterceptor(List<CtType<?>> controllerAdviceClasses) {
         this.controllerAdviceClasses = controllerAdviceClasses;
     }
 

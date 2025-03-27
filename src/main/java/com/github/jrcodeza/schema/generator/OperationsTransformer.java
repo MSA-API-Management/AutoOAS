@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator;
 
-import com.github.jrcodeza.schema.generator.filters.OperationFilter;
+import at.aau.serg.frameworks.*;
+import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationParameterInterceptor;
@@ -14,39 +15,31 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
-import org.springframework.web.multipart.MultipartFile;
-import spoon.reflect.declaration.*;
+import spoon.reflect.declaration.CtField;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static com.github.jrcodeza.schema.generator.util.GeneratorUtils.shouldBeIgnored;
-import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
 
 public class OperationsTransformer {
 
@@ -58,18 +51,13 @@ public class OperationsTransformer {
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
 	private static final String MULTIPART_FORM_DATA_CONTENT_TYPE = "multipart/form-data";
-	private static final LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
-
-	private static final List<Class<?>> OPERATION_ANNOTATIONS = asList(RequestMapping.class, PostMapping.class, GetMapping.class, PutMapping.class,
-			PatchMapping.class, DeleteMapping.class);
 
 	private final SchemaGeneratorHelper schemaGeneratorHelper;
 	private final List<OperationParameterInterceptor> operationParameterInterceptors;
 	private final List<OperationInterceptor> operationInterceptors;
 	private final List<RequestBodyInterceptor> requestBodyInterceptors;
 	private final List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders;
-
-	private final AtomicReference<OperationFilter> operationFilter;
+	private final RestFramework restFramework;
 	private final AtomicReference<OperationParameterFilter> operationParameterFilter;
 
 	public OperationsTransformer(SchemaGeneratorHelper schemaGeneratorHelper,
@@ -77,35 +65,15 @@ public class OperationsTransformer {
 								 List<OperationInterceptor> operationInterceptors,
 								 List<RequestBodyInterceptor> requestBodyInterceptors,
 								 List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders,
-								 AtomicReference<OperationFilter> operationFilter,
-								 AtomicReference<OperationParameterFilter> operationParameterFilter) {
+								 AtomicReference<OperationParameterFilter> operationParameterFilter,
+								 RestFramework restFramework) {
 		this.schemaGeneratorHelper = schemaGeneratorHelper;
 		this.operationParameterInterceptors = operationParameterInterceptors;
 		this.operationInterceptors = operationInterceptors;
 		this.requestBodyInterceptors = requestBodyInterceptors;
 		this.globalHeaders = globalHeaders;
-		this.operationFilter = operationFilter;
 		this.operationParameterFilter = operationParameterFilter;
-	}
-
-	public Map<String, PathItem> transformOperations(List<Class<?>> restControllerClasses) {
-		throw new NotImplementedException("This method used Reflection and is not used currently");
-
-//		final Map<String, PathItem> operationsMap = new HashMap<>();
-//
-//		for (Class<?> clazz : restControllerClasses) {
-//			if (shouldBeIgnored(clazz)) {
-//				logger.info("Ignoring class {}", clazz.getName());
-//				continue;
-//			}
-//
-//			logger.debug("Transforming {} controller class", clazz.getName());
-//			String baseControllerPath = getBaseControllerPath(clazz);
-//			ReflectionUtils.doWithMethods(clazz, method -> createOperation(method, baseControllerPath, operationsMap, clazz.getSimpleName()),
-//					this::isOperationMethod);
-//		}
-//		fixDuplicateOperationIds(operationsMap);
-//		return operationsMap;
+		this.restFramework = restFramework;
 	}
 
 	/**
@@ -117,14 +85,14 @@ public class OperationsTransformer {
 	 */
 	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.debug("Transforming {} controller method", method.getSimpleName());
-		getAnnotation(method, PostMapping.class).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, PutMapping.class).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, PatchMapping.class).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
+		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		getAnnotation(method, GetMapping.class).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		getAnnotation(method, DeleteMapping.class).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
+		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		getAnnotation(method, RequestMapping.class).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
+		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 
 		// todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
@@ -133,36 +101,37 @@ public class OperationsTransformer {
 	/**
 	 * Handling the @RequestMapping annotation with its http methods.
 	 * e.g., @RequestMapping(value = "/get-and-post-method", method = {RequestMethod.GET, RequestMethod.POST})
-	 * @param requestMapping
+	 * @param annotation
 	 * @param method
 	 * @param operationsMap
 	 * @param controllerClassName
 	 * @param baseControllerPath
 	 */
-	private void mapRequestMapping(RequestMapping requestMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 								   String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestMapping.value()), getFirstFromArray(requestMapping.path()));
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
-		var methods =
-				requestMapping.method() == null || requestMapping.method().length == 0
-						? getAllSupportedHttpMethods()
-						: requestMapping.method();
+		HttpMethod[] methods = requestAnnotation.method().length == 0
+				? restFramework.getAllSupportedHttpMethods()
+				: requestAnnotation.method();
 
 		// create unique operations with unique id per http method
 		for (var httpMethod : methods) {
 			Operation operation = new Operation();
-			operation.setOperationId(getOperationId(cleanedPath, requestMapping.name(), method, HttpMethod.valueOf(httpMethod.name())));
-			operation.setSummary(!StringUtils.isBlank(requestMapping.name()) ? requestMapping.name() : method.getSimpleName());
+			operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.valueOf(httpMethod.name())));
+			operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-			if (isHttpMethodWithRequestBody(httpMethod)) {
-				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestMapping.consumes())));
+			if (restFramework.isAnyHttpMethodWithRequestBody(httpMethod)) {
+				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
 			}
 			operation.setParameters(transformParameters(fullPath, method));
-			operation.setResponses(createApiResponses(method, getFirstFromArray(requestMapping.produces())));
+			operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 
@@ -170,20 +139,6 @@ public class OperationsTransformer {
 					pathItem -> setContentBasedOnHttpMethod(pathItem, httpMethod, operation)
 			);
 		}
-	}
-
-	private RequestMethod[] getAllSupportedHttpMethods() {
-		return new RequestMethod[]{
-				RequestMethod.GET,
-				RequestMethod.POST,
-				RequestMethod.PUT,
-				RequestMethod.PATCH,
-				RequestMethod.DELETE,
-
-				RequestMethod.HEAD,
-				RequestMethod.OPTIONS,
-				RequestMethod.TRACE
-		};
 	}
 
 	private String prepareUrl(String... url) {
@@ -205,7 +160,8 @@ public class OperationsTransformer {
 	 * @param method
 	 * @param operation
 	 */
-	private void setContentBasedOnHttpMethod(PathItem pathItem, RequestMethod method, Operation operation) {
+	private void setContentBasedOnHttpMethod(PathItem pathItem, HttpMethod method, Operation operation) {
+		// TODO enhanced switch
 		switch (method) {
 			case GET:
 				pathItem.setGet(operation);
@@ -233,29 +189,27 @@ public class OperationsTransformer {
 		}
 	}
 
-	private boolean isHttpMethodWithRequestBody(RequestMethod... methods) {
-		return Stream.of(methods).anyMatch(requestMethod -> asList(RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH).contains(requestMethod));
-	}
-
 	private String classNameToTag(String controllerClassName) {
 		return Stream.of(StringUtils.splitByCharacterTypeCamelCase(controllerClassName))
 				.map(StringUtils::lowerCase)
 				.collect(Collectors.joining("-"));
 	}
 
-	private void mapDelete(DeleteMapping deleteMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 						   String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(deleteMapping.value()), getFirstFromArray(deleteMapping.path()));
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, deleteMapping.name(), method, HttpMethod.DELETE));
-		operation.setSummary(!StringUtils.isBlank(deleteMapping.name()) ? deleteMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.DELETE));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(deleteMapping.produces())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
@@ -266,12 +220,12 @@ public class OperationsTransformer {
 
 		CtTypeReference<?> methodReturnType = method.getType();
 		// strip the DeferredResult wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, DeferredResult.class)){
+		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getAsyncResultWrapper())){
 			methodReturnType = stripReturnValueWrapper(methodReturnType);
 		}
 
 		// strip the ResponseEntity wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, ResponseEntity.class)){
+		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getResponseWrapper())){
 			methodReturnType = stripReturnValueWrapper(methodReturnType);
 		}
 
@@ -337,14 +291,6 @@ public class OperationsTransformer {
 		return methodReturnType;
 	}
 
-
-	private String resolveDefaultContentType(Class<?> responseBody) {
-		if (isFileResponse(responseBody)) {
-			return DEFAULT_FILE_RETURN_CONTENT_TYPE;
-		}
-		return DEFAULT_CONTENT_TYPE;
-	}
-
 	private String resolveDefaultContentType(CtTypeReference<?> responseBody) {
 		if (isFileResponse(responseBody)) {
 			return DEFAULT_FILE_RETURN_CONTENT_TYPE;
@@ -352,26 +298,12 @@ public class OperationsTransformer {
 		return DEFAULT_CONTENT_TYPE;
 	}
 
-	private boolean isFileResponse(Class<?> responseBodyClass) {
-		return responseBodyClass.isAssignableFrom(MultipartFile.class);
-	}
-
-
 	private boolean isFileResponse(CtTypeReference<?> responseBodyClass) {
-		return responseBodyClass.isSubtypeOf(new TypeFactory().get(MultipartFile.class).getReference());
+		return responseBodyClass.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileType()).getReference());
 	}
 
 	private List<CtTypeReference<?>> getGenericParams(CtTypeReference<?> methodType) {
 		return schemaGeneratorHelper.getGenericParams(methodType);
-	}
-
-	private Class<?> classForName(Type innerGenericType) {
-		try {
-			return Class.forName(innerGenericType.getTypeName());
-		} catch (ClassNotFoundException e) {
-			logger.error("Exception occurred", e);
-			return null;
-		}
 	}
 
 	/**
@@ -379,7 +311,6 @@ public class OperationsTransformer {
 	 * @param method
 	 * @return Optional.empty if no annotation was found
 	 */
-	@Nullable
 	private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
 		// TODO ApiResponses annotation
 
@@ -417,71 +348,79 @@ public class OperationsTransformer {
 		return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;
 	}
 
-	private void mapGet(GetMapping getMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(getMapping.value()), getFirstFromArray(getMapping.path()));
+	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, getMapping.name(), method, HttpMethod.GET));
-		operation.setSummary(!StringUtils.isBlank(getMapping.name()) ? getMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.GET));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(getMapping.produces())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
 	}
 
-	private void mapPatch(PatchMapping patchMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(patchMapping.value()), getFirstFromArray(patchMapping.path()));
+	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, patchMapping.name(), method, HttpMethod.PATCH));
-		operation.setSummary(!StringUtils.isBlank(patchMapping.name()) ? patchMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.PATCH));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(patchMapping.consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(patchMapping.produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPatch(operation));
 	}
 
-	private void mapPut(PutMapping putMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(putMapping.value()), getFirstFromArray(putMapping.path()));
+	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, putMapping.name(), method, HttpMethod.PUT));
-		operation.setSummary(!StringUtils.isBlank(putMapping.name()) ? putMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.PUT));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(putMapping.consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(putMapping.produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPut(operation));
 	}
 
-	private void mapPost(PostMapping postMapping, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(postMapping.value()), getFirstFromArray(postMapping.path()));
+	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
+				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
 		Operation operation = new Operation();
-		operation.setOperationId(getOperationId(cleanedPath, postMapping.name(), method, HttpMethod.POST));
-		operation.setSummary(!StringUtils.isBlank(postMapping.name()) ? postMapping.name() : method.getSimpleName());
+		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.POST));
+		operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-		operation.setRequestBody(createRequestBody(method, getFirstFromArray(postMapping.consumes())));
-		operation.setResponses(createApiResponses(method, getFirstFromArray(postMapping.produces())));
+		operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
+		operation.setResponses(createApiResponses(method, getFirstFromArray(requestAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
@@ -534,7 +473,7 @@ public class OperationsTransformer {
 				}
 			}
 
-			else if (actualParameter.getAnnotation(ModelAttribute.class) != null){
+			else if (actualParameter.getAnnotation(restFramework.getParameterGroupAnnotation()) != null){
 				List<CtField<?>> flattenedFields = flattenParameterFields(actualParameter);
 				for (CtField<?> flattenedField : flattenedFields) {
 					// currently not supporting translation from annotations!
@@ -659,8 +598,9 @@ public class OperationsTransformer {
 	 * @return
 	 */
 	private boolean isAnnotatedAsOASParameter(CtParameter<?> parameter) {
-		return parameter.getAnnotation(PathVariable.class) != null || parameter.getAnnotation(RequestParam.class) != null
-				|| parameter.getAnnotation(RequestHeader.class) != null;
+		return restFramework.tryConvertPathVariableAnnotation(parameter) != null ||
+				restFramework.tryConvertRequestParamAnnotation(parameter) != null ||
+				restFramework.tryConvertRequestHeaderAnnotation(parameter) != null;
 	}
 
 	/**
@@ -671,24 +611,30 @@ public class OperationsTransformer {
 	 */
 	private io.swagger.v3.oas.models.parameters.Parameter mapSimpleParameter(CtParameter<?> parameter, String parameterName) {
 		io.swagger.v3.oas.models.parameters.Parameter oasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
-		if (parameter.getAnnotation(PathVariable.class) != null) {
-			PathVariable pathVariableAnnotation = parameter.getAnnotation(PathVariable.class);
+
+		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
+		if (pathVariableAnnotation != null) {
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
-		} else if (parameter.getAnnotation(RequestParam.class) != null && !parameter.getType().getClass().isAssignableFrom(MultipartFile.class)) {
-			RequestParam requestParamAnnotation = parameter.getAnnotation(RequestParam.class);
-			oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
-			oasParameter.setIn("query");
-			oasParameter.setRequired(requestParamAnnotation.required());
-		} else if (parameter.getAnnotation(RequestHeader.class) != null) {
-			RequestHeader requestHeaderAnnotation = parameter.getAnnotation(RequestHeader.class);
-			oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
-			oasParameter.setIn("header");
-			oasParameter.setRequired(requestHeaderAnnotation.required());
 		} else {
-			return null;
+			RequestParamAnnotation requestParamAnnotation = restFramework.tryConvertRequestParamAnnotation(parameter);
+			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getSupportedFileType())) {
+				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
+				oasParameter.setIn("query");
+				oasParameter.setRequired(requestParamAnnotation.required());
+			} else {
+				RequestHeaderAnnotation requestHeaderAnnotation = restFramework.tryConvertRequestHeaderAnnotation(parameter);
+				if (requestHeaderAnnotation != null) {
+					oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
+					oasParameter.setIn("header");
+					oasParameter.setRequired(requestHeaderAnnotation.required());
+				} else {
+					return null;
+				}
+			}
 		}
+
 		oasParameter.setSchema(createSchemaFromParameter(parameter, parameterName));
 		schemaGeneratorHelper.enrichWithTypeAnnotations(oasParameter, getActualAnnotations(parameter));
 		return oasParameter;
@@ -776,7 +722,7 @@ public class OperationsTransformer {
 
 		for (var actualParameter : parameters){
 			String parameterName = actualParameter.getSimpleName();
-			if (actualParameter.getAnnotation(org.springframework.web.bind.annotation.RequestBody.class) != null) {
+			if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
 				return new ParameterNamePair(parameterName, actualParameter);
 			}
 		}
@@ -831,30 +777,14 @@ public class OperationsTransformer {
 		return Optional.ofNullable(method.getAnnotation(annotationClass));
 	}
 
-//	private boolean shouldIgnoreMethod(Method method) {
-//		if (shouldBeIgnored(method)) {
-//			return true;
-//		}
-//		return this.operationFilter.get() != null && this.operationFilter.get().shouldIgnore(method);
-//	}
-//
-//	private boolean isOperationMethod(Method method) {
-//		if (shouldIgnoreMethod(method)) {
-//			logger.info("Ignoring operation {}", method.getName());
-//			return false;
-//		}
-//		return Stream.of(method.getAnnotations())
-//				.anyMatch(annotation -> OPERATION_ANNOTATIONS.stream()
-//						.anyMatch(operationAnnotation -> operationAnnotation.isAssignableFrom(annotation.getClass()))
-//				);
-//	}
-
 	public String getBaseControllerPath(CtType<?> clazz) {
-		RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
-		if (requestMapping == null) {
-			return ""; // ""/";
-		}
-		return requestMapping.value().length > 0 ? getFirstFromArray(requestMapping.value()) : getFirstFromArray(requestMapping.path());
+		return restFramework.getRequestMapping(clazz)
+				.map(requestAnnotation ->
+						requestAnnotation.value().length > 0
+								? getFirstFromArray(requestAnnotation.value())
+								: getFirstFromArray(requestAnnotation.path())
+				)
+				.orElse(""); // ""/"
 	}
 
 	public String getFirstFromArray(String[] strings) {
