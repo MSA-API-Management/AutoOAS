@@ -669,9 +669,9 @@ public class OperationsTransformer {
 		);
 
 		RequestBody requestBody = new RequestBody();
-//		requestBody.setRequired(false);
-//		requestBody.setContent(content);
-//		requestBody.setDescription("requestBody");
+		requestBody.setRequired(true);
+		requestBody.setContent(content);
+		requestBody.setDescription("requestBody");
 
 		requestBodyInterceptors.forEach(interceptor ->
 				interceptor.intercept(method, requestBodyParameter.getParameter(), requestBodyParameter.getName(), requestBody)
