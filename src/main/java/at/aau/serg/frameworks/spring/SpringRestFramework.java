@@ -168,7 +168,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean isHttpMethodWithRequestBody(HttpMethod... methods) {
+    public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 

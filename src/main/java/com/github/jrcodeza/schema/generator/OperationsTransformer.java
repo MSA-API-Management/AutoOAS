@@ -127,7 +127,7 @@ public class OperationsTransformer {
 			operation.setSummary(!StringUtils.isBlank(requestAnnotation.name()) ? requestAnnotation.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
 
-			if (restFramework.isHttpMethodWithRequestBody(httpMethod)) {
+			if (restFramework.isAnyHttpMethodWithRequestBody(httpMethod)) {
 				operation.setRequestBody(createRequestBody(method, getFirstFromArray(requestAnnotation.consumes())));
 			}
 			operation.setParameters(transformParameters(fullPath, method));

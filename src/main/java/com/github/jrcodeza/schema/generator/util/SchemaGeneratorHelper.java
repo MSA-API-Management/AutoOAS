@@ -121,17 +121,21 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
-    /** TODO update naming and check if it is equivalent to old diff. Currently you can assume that the wrapper is always gone. Return null instead of type?
+    /** TODO update naming and check if it is equivalent to old impl. Return null instead of type?
+     *   Previously, you could assume that the wrapper was always gone.
+     *   Now, the method returns the original wrapper if it does not define the generic type T
+     *
      *
      * @param type
      * @param genericTypes
      * @return
      */
     private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
-        if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference()) && !CollectionUtils.isEmpty(genericTypes)) {
+        if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference())
+                && !CollectionUtils.isEmpty(genericTypes)) {
             return genericTypes.get(genericTypes.size() - 1);
         }
-        return type; // If no known wrapper is found, return the original type
+        return type; // If no known wrapper is found, return the original type // todo <- this assumption is now wrong
     }
 
     public boolean isFile(CtTypeReference<?> type) {

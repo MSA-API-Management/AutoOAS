@@ -69,7 +69,7 @@ public interface RestFramework {
     Class<?> getAsyncResultWrapper();
 
     /**
-     * Retrieves the annotation class that represents a parameter group in the framework.
+     * Retrieves the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
      * @return The annotation class that marks parameter groups in the framework
      */
     Class<? extends Annotation> getParameterGroupAnnotation();
@@ -79,6 +79,8 @@ public interface RestFramework {
      * @return The annotation class that marks request body parameters in the framework
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
+
+    // todo concrete annotations with generics?
 
     /**
      * Retrieves the POST mapping annotation from a method if present.
@@ -179,5 +181,5 @@ public interface RestFramework {
      * @return {@code true} if any of the specified methods typically include a request body,
      *         {@code false} otherwise
      */
-    boolean isHttpMethodWithRequestBody(HttpMethod... methods);
+    boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
 }

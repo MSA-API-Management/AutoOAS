@@ -8,17 +8,19 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ParserFactory {
-    private static final Map<String, Supplier<RestFramework>> FRAMEWORKS = new HashMap<>();
+    private final Map<String, Supplier<RestFramework>> FRAMEWORKS = new HashMap<>();
 
-    static {
-        FRAMEWORKS.put("spring", SpringRestFramework::new);
+    public ParserFactory() {
+        registerRestFramework("spring", SpringRestFramework::new);
     }
 
-    public static void registerFramework(String identifier, Supplier<RestFramework> framework) {
+    public void registerRestFramework(String identifier, Supplier<RestFramework> framework) {
+        // todo couple identifier to framework parameter
+        //  or better, remove from the frameworks' impl because the identifier requires static access
         FRAMEWORKS.put(identifier.toLowerCase(), framework);
     }
 
-    public static RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
+    public RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
         Supplier<RestFramework> frameworkSupplier = FRAMEWORKS.get(frameworkIdentifier.toLowerCase());
 
         if (frameworkSupplier == null) {
