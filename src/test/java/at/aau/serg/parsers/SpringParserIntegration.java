@@ -1,5 +1,6 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.frameworks.spring.SpringRestFramework;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,14 +10,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SpringParserIntegration {
 
     private static final String testResourcesPath = "src/test/resources/spring-boot/";
 
-    private SpringParser parser;
+    private RestApiParser parser;
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -27,7 +27,7 @@ public class SpringParserIntegration {
     })
     public void integrationTest_OpenApiGeneration_Basics_DefaultStringProfile(String commitId) throws IOException {
         var outputPath = "target/openapi/swagger-" + commitId + ".json";
-        parser = new SpringParser(testResourcesPath + "simple-spring-" + commitId, outputPath);
+        parser = new RestApiParser(testResourcesPath + "simple-spring-" + commitId, outputPath, new SpringRestFramework());
         parser.run();
 
         var outputPathWithProfiles = "target/openapi/swagger-" + commitId + "_default.json";
@@ -40,7 +40,7 @@ public class SpringParserIntegration {
     @Test
     public void integrationTest_OpenApiGeneration_MultipleProfiles() throws IOException {
         var outputPath = "target/openapi/swagger-profiles.json";
-        parser = new SpringParser(testResourcesPath + "spring-profiles-project", outputPath);
+        parser = new RestApiParser(testResourcesPath + "spring-profiles-project", outputPath, new SpringRestFramework());
         parser.run();
 
         // check each profile
@@ -67,7 +67,7 @@ public class SpringParserIntegration {
     public void integrationTest_OpenApiGeneration_AdvancedBehaviors_SingleProfile(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";
 
-        parser = new SpringParser(testResourcesPath + projectFolder, genOutputPath);
+        parser = new RestApiParser(testResourcesPath + projectFolder, genOutputPath, new SpringRestFramework());
         parser.run();
 
         assertTrue(FileUtils.contentEquals(

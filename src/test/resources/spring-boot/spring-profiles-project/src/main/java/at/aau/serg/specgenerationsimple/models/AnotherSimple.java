@@ -2,7 +2,10 @@ package at.aau.serg.specgenerationsimple.models;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class AnotherSimple {
 

@@ -1,7 +1,6 @@
 package at.aau.serg.parsers;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import spoon.reflect.declaration.CtType;
 
