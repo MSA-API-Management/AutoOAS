@@ -1,7 +1,9 @@
 package at.aau.serg.frameworks.spring;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -21,6 +23,11 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public String getIdentifier() {
         return "";
+    }
+
+    @Override
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
+        return new JakartaOperationResponseCodeInterceptor(adviceClasses);
     }
 
     @Override
