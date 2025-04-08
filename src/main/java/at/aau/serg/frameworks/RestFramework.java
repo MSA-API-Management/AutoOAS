@@ -1,6 +1,7 @@
 package at.aau.serg.frameworks;
 
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -12,9 +13,20 @@ import java.util.Optional;
 public interface RestFramework {
     /**
      * Represents unique identifier of the implemented framework
+     *
      * @return unique framework identifier
      */
     String getIdentifier();
+
+
+    /**
+     * Returns the appropriate response code interceptor implementation for the specific REST framework.
+     *
+     * @param adviceClasses A list of controller advice or exception mapper classes that handle exceptions
+     *                     and define response codes for the REST API TODO check equivalent
+     * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
+     */
+    OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses);
 
     /**
      * Returns the fully qualified class name of the Profile annotation for the current framework.
@@ -70,12 +82,14 @@ public interface RestFramework {
 
     /**
      * Retrieves the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
+     *
      * @return The annotation class that marks parameter groups in the framework
      */
     Class<? extends Annotation> getParameterGroupAnnotation();
 
     /**
      * Retrieves the annotation class that represents a request body parameter in the framework.
+     *
      * @return The annotation class that marks request body parameters in the framework
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
@@ -140,6 +154,7 @@ public interface RestFramework {
 
     /**
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
+     *
      * @param annotation The framework-specific annotation to convert
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
@@ -148,6 +163,7 @@ public interface RestFramework {
 
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.
+     *
      * @param parameter The method parameter to check for path variable annotation
      * @return A standardized PathVariableAnnotation if found, null otherwise
      */
@@ -171,15 +187,17 @@ public interface RestFramework {
 
     /**
      * Retrieves all supported HTTP methods defined in the custom HttpMethod enum.
+     *
      * @return An array of all HTTP method constants from the custom HttpMethod enum
      */
     HttpMethod[] getAllSupportedHttpMethods();
 
     /**
      * Determines whether any of the specified HTTP methods typically include a request body.
+     *
      * @param methods One or more HTTP method constants to check
      * @return {@code true} if any of the specified methods typically include a request body,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
 }
