@@ -1,6 +1,5 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
@@ -76,7 +75,7 @@ public class RestApiParser {
 
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
         operationsTransformer = new OperationsTransformer(schemaHelper,
-                new ArrayList<>(), Collections.singletonList(new SpringOperationResponseCodeInterceptor(controllerAdviceClasses)),
+                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper);
 
