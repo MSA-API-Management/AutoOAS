@@ -5,7 +5,9 @@ import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapt
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
 import at.aau.serg.frameworks.spring.adapters.mappings.*;
+import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -26,6 +28,11 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public String getIdentifier() {
         return "spring";
+    }
+
+    @Override
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
+        return new SpringOperationResponseCodeInterceptor(adviceClasses);
     }
 
     @Override
