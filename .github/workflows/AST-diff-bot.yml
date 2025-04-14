@@ -54,7 +54,7 @@ jobs:
         uses: pouryafard75/refactoringminer-astdiff-exporter@v1.1
         id: run_rm_exporter
         with:
-          OAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          OAuthToken: ${{ secrets.OAUTHTOKEN }}
           URL: ${{ steps.trigger.outputs.url }}
           screenshot: ${{ steps.trigger.outputs.screenshot }}
 
