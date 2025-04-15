@@ -1,10 +1,12 @@
 package at.aau.serg.exceptions;
 
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
-@Produces
+@BeanParam
+@Provider
 public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
     @Override
     public Response toResponse(NotFoundException e) {
