@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+      pull-requests: write
+      contents: read
 
     steps:
       # Step 0: Check for @diff trigger and get the URL command
