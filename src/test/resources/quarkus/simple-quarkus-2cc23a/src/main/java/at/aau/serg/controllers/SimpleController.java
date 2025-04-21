@@ -1,10 +1,12 @@
 package at.aau.serg.controllers;
 
+import at.aau.serg.models.AnotherSimple;
 import at.aau.serg.models.ComplexType;
 import at.aau.serg.models.Simple;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import java.util.ArrayList;
 import java.util.List;
