@@ -9,15 +9,18 @@ import java.util.Map;
 
 public class ComplexType {
 
-    @Schema(required = true)
-    public List customTags;
-    @NotEmpty
-    public Map gradeAvgPerStudent;
-    @NotNull
-    public Simple someSimpleObject;
-    @NotNull
-    public SimpleEnum simpleEnum;
-
     public ComplexType() {
     }
+
+    @Schema(required = true)
+    public List customTags;
+
+    @NotEmpty
+    public Map gradeAvgPerStudent;
+
+    @NotNull
+    public Simple someSimpleObject;
+
+    @NotNull
+    public SimpleEnum simpleEnum;
 }
