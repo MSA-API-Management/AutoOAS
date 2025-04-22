@@ -9,8 +9,10 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class JakartaRestFramework implements RestFramework {
 
@@ -35,36 +37,66 @@ public class JakartaRestFramework implements RestFramework {
         return "";
     }
 
+    /**
+     * TODO
+     * jakarta.ws.rs.Path
+     * jakarta.enterprise.context.RequestScoped (need to be checked out)
+     */
     @Override
     public List<String> getControllerAnnotations() {
         return List.of();
     }
 
+    /**
+     * TODO
+     * jakarta.ws.rs.ext.ExceptionMapper
+     * jakarta.ws.rs.ext.Provider
+     */
     @Override
     public List<String> getControllerAdviceAnnotations() {
         return List.of();
     }
 
+    /**
+     * TODO
+     *
+     */
     @Override
     public List<String> getModelSchemaAnnotations() {
         return List.of();
     }
 
+    /**
+     * TODO
+     * jakarta.ws.rs.core.Response.class -> Other implementation
+     */
     @Override
     public Class<?> getResponseWrapper() {
         return null;
     }
 
+    /**
+     * TODO
+     * jakarta.servlet.http.Part        (need to be checked)
+     */
     @Override
     public Class<?> getSupportedFileType() {
         return null;
     }
 
+    /**
+     * TODO
+     * java.util.concurrent.CompletionStage.class or java.util.concurrent.CompletableFuture.class
+     */
     @Override
     public Class<?> getAsyncResultWrapper() {
         return null;
     }
 
+    /**
+     * jakarta.ws.rs.BeanParam.class
+     * Will not work the same
+     */
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
         return null;
@@ -75,31 +107,37 @@ public class JakartaRestFramework implements RestFramework {
         return null;
     }
 
+    // jakarta.ws.rs.POST.class
     @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
         return Optional.empty();
     }
 
+    // jakarta.ws.rs.PUT.class
     @Override
     public Optional<Annotation> getPutMapping(CtMethod<?> method) {
         return Optional.empty();
     }
 
+    // jakarta.ws.rs.PATCH.class
     @Override
     public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
         return Optional.empty();
     }
 
+    // jakarta.ws.rs.GET.class
     @Override
     public Optional<Annotation> getGetMapping(CtMethod<?> method) {
         return Optional.empty();
     }
 
+    // jakarta.ws.rs.DELETE.class
     @Override
     public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
         return Optional.empty();
     }
 
+    //    TODO
     @Override
     public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
         return Optional.empty();
@@ -132,11 +170,11 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public HttpMethod[] getAllSupportedHttpMethods() {
-        return new HttpMethod[0];
+        return HttpMethod.values();
     }
 
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
-        return false;
+        return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 }
