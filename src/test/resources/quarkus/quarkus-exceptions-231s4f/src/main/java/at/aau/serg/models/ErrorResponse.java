@@ -15,7 +15,8 @@ public class ErrorResponse {
     }
 
     // No-arg constructor needed for JSON-B
-    public ErrorResponse() {}
+    public ErrorResponse() {
+    }
 
     // Getters and setters
     public String getError() {
