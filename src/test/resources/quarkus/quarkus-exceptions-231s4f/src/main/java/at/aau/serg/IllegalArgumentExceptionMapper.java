@@ -1,10 +1,10 @@
 package at.aau.serg;
 
+import at.aau.serg.models.ErrorResponse;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.Provider;
 import jakarta.ws.rs.ext.ExceptionMapper;
-import at.aau.serg.models.ErrorResponse;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class IllegalArgumentExceptionMapper implements ExceptionMapper<IllegalArgumentException> {
