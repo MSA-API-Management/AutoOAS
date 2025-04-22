@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.spring;
+package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
