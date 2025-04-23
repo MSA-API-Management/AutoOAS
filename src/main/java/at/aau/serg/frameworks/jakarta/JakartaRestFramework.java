@@ -4,6 +4,7 @@ import at.aau.serg.frameworks.*;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import jakarta.ws.rs.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -110,31 +111,31 @@ public class JakartaRestFramework implements RestFramework {
     // jakarta.ws.rs.POST.class
     @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return getAnnotation(method, POST.class);
     }
 
     // jakarta.ws.rs.PUT.class
     @Override
     public Optional<Annotation> getPutMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return getAnnotation(method, PUT.class);
     }
 
     // jakarta.ws.rs.PATCH.class
     @Override
     public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return getAnnotation(method, PATCH.class);
     }
 
     // jakarta.ws.rs.GET.class
     @Override
     public Optional<Annotation> getGetMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return getAnnotation(method, GET.class);
     }
 
     // jakarta.ws.rs.DELETE.class
     @Override
     public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return getAnnotation(method, DELETE.class);
     }
 
     //    TODO
