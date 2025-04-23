@@ -109,6 +109,7 @@ public class RestApiParser {
         modelClasses.addAll(explicitModelClasses.stream().map(CtType::getReference).collect(Collectors.toUnmodifiableSet()));
         Components components = createComponentsSchemasFromModels(modelClasses);
 
+        // TODO spring renaming stuff
         OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, "Spring Profile: " + springProfileName), paths, components);
 
         var fileName = outputFileName.replace(".json", "") + "_" + springProfileName + ".json";

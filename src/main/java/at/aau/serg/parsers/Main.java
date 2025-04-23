@@ -8,13 +8,14 @@ public class Main {
             projectPath = args[0];
             outputPath = args[1];
         } else {
-            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
-//            projectPath = "src/test/resources/spring-boot/spring-advanced-response-codes";
-//            outputPath = "target/openapi/swagger.json";
+//            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
+            projectPath = "src/test/resources/spring-boot/spring-advanced-response-codes";
+//            projectPath = "src/test/resources/quarkus/simple-quarkus-2cc23a";
+            outputPath = "target/openapi/swagger.json";
         }
 
         // TODO currently hardcoded
-        RestApiParser parser = new ParserFactory().createParser("spring", projectPath, outputPath);
+        RestApiParser parser = new ParserFactory().createParser("jakarta", projectPath, outputPath);
         parser.run();
     }
 }
