@@ -10,6 +10,7 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -41,26 +42,27 @@ public class JakartaRestFramework implements RestFramework {
     /**
      * TODO
      * jakarta.ws.rs.Path
-     * jakarta.enterprise.context.RequestScoped (need to be checked out)
+     * io.quarkus.vertx.web.RouteBase with RequestScoped, Singleton, ApplicationScoped
      */
     @Override
     public List<String> getControllerAnnotations() {
-        return List.of();
+        return Arrays.asList(
+                "jakarta.ws.rs.Path"
+        );
     }
 
     /**
      * TODO
-     * jakarta.ws.rs.ext.ExceptionMapper
      * jakarta.ws.rs.ext.Provider
+     * jakarta.ws.rs.ext.ExceptionMapper (no annotation -> interface implementation)
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
-        return List.of();
+        return Arrays.asList("jakarta.ws.rs.ext.Provider");
     }
 
     /**
      * TODO
-     *
      */
     @Override
     public List<String> getModelSchemaAnnotations() {

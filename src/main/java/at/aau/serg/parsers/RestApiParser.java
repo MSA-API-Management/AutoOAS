@@ -14,7 +14,10 @@ import org.javatuples.Pair;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
-import spoon.reflect.declaration.*;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.io.File;
@@ -243,8 +246,8 @@ public class RestApiParser {
         List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
         List<CtType<?>> explicitModelClasses = new LinkedList<>();
 
-        for (CtPackage pkg : packages)
-            for (CtType<?> type : pkg.getTypes())
+        for (CtPackage pkg : packages) {
+            for (CtType<?> type : pkg.getTypes()) {
                 for (CtAnnotation<?> annotation : type.getAnnotations()) {
                     String annotationName = annotation.getAnnotationType().toString();
                     if (annotationName != null && this.restFramework.getControllerAnnotations().contains(annotationName)) {
@@ -262,6 +265,8 @@ public class RestApiParser {
                         break; // annotations
                     }
                 }
+            }
+        }
 
         return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
     }
