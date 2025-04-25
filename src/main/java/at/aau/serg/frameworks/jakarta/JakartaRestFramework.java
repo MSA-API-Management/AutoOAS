@@ -1,10 +1,13 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
+import at.aau.serg.frameworks.spring.adapters.mappings.SpringPostMappingAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
+import org.springframework.web.bind.annotation.PostMapping;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -140,7 +143,7 @@ public class JakartaRestFramework implements RestFramework {
         return getAnnotation(method, DELETE.class);
     }
 
-    //    TODO
+    //    TODO no requestmapping exists
     @Override
     public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
         return Optional.empty();
@@ -153,7 +156,11 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestAnnotation convertToRequestAnnotation(Annotation annotation) {
-        return null;
+        if (annotation instanceof POST) {
+            return new JakartaPostMappingAdapter((POST) annotation);
+        }
+
+        throw new IllegalArgumentException("No supported annotation found");
     }
 
     @Override
