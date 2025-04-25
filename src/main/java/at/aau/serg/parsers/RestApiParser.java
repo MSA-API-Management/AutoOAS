@@ -85,7 +85,7 @@ public class RestApiParser {
 
         Map<String, List<CtType<?>>> controllerClassesPerProfile = splitClassesOnProfiles(controllerClasses);
 
-        System.out.println("Detected Spring profiles: " + controllerClassesPerProfile.keySet());
+        System.out.println("Detected profiles: " + controllerClassesPerProfile.keySet());
 
         var res = new ArrayList<OpenAPI>(controllerClassesPerProfile.size());
 
@@ -105,7 +105,7 @@ public class RestApiParser {
         return res;
     }
 
-    private OpenAPI createOpenAPIFromControllers(String springProfileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
+    private OpenAPI createOpenAPIFromControllers(String profileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
         Paths paths = createPathsFromControllers(controllerClasses);
 
         // after all the paths are generated, we know about the referenced models
@@ -113,10 +113,9 @@ public class RestApiParser {
         modelClasses.addAll(explicitModelClasses.stream().map(CtType::getReference).collect(Collectors.toUnmodifiableSet()));
         Components components = createComponentsSchemasFromModels(modelClasses);
 
-        // TODO spring renaming stuff
-        OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, "Spring Profile: " + springProfileName), paths, components);
+        OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, "Profile: " + profileName), paths, components);
 
-        var fileName = outputFileName.replace(".json", "") + "_" + springProfileName + ".json";
+        var fileName = outputFileName.replace(".json", "") + "_" + profileName + ".json";
         openApiGen.writeOpenApiToFile(openApi, fileName);
         System.out.println("Wrote OpenAPI to " + fileName);
 
