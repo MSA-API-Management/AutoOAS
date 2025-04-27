@@ -1,6 +1,7 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
 import at.aau.serg.frameworks.spring.adapters.mappings.SpringPostMappingAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
@@ -161,6 +162,15 @@ public class JakartaRestFramework implements RestFramework {
         }
 
         throw new IllegalArgumentException("No supported annotation found");
+    }
+
+    @Override
+    public RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method) {
+        if (annotation instanceof GET) {
+            return new JakartaGetMappingAdapter((GET) annotation, method);
+        }
+
+        throw new IllegalArgumentException("No supported annotation found - Only testing method");
     }
 
     @Override

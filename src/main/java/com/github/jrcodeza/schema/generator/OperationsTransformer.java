@@ -350,7 +350,10 @@ public class OperationsTransformer {
 	}
 
 	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+//		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+				RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotationTesting(annotation, method);
+		System.out.println("CALLED: " +requestAnnotation.name() + "  " + getFirstFromArray(requestAnnotation.path()) + "  " + Arrays.toString(requestAnnotation.method()) + " " + getFirstFromArray(requestAnnotation.value()) + "  " + getFirstFromArray(requestAnnotation.produces()));
+
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
