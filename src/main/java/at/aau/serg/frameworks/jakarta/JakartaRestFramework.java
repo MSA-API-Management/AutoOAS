@@ -4,14 +4,13 @@ import at.aau.serg.frameworks.*;
 import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
-import at.aau.serg.frameworks.spring.adapters.mappings.SpringPostMappingAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
-import org.springframework.web.bind.annotation.PostMapping;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -191,6 +190,10 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
+        PathParam annotation = parameter.getAnnotation(PathParam.class);
+        if (annotation != null) {
+            return new JakartaPathParamAdapter(annotation);
+        }
         return null;
     }
 
