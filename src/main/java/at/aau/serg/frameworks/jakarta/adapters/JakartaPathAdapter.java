@@ -25,13 +25,11 @@ public class JakartaPathAdapter implements RequestAnnotation {
 
     @Override
     public String[] produces() {
-        for (CtAnnotation<?> anno : element.getAnnotations()) {
-            String annotationTypeName = anno.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Produces.class.getName())) {
-                Object value = anno.getValue("value");
-                if (value != null) {
-                    return convertToStringArray(value);
-                }
+        Produces annotation = element.getAnnotation(Produces.class);
+        if (annotation != null) {
+            Object value = annotation.value();
+            if (value != null) {
+                return convertToStringArray(value);
             }
         }
         return new String[0];
@@ -39,13 +37,11 @@ public class JakartaPathAdapter implements RequestAnnotation {
 
     @Override
     public String[] consumes() {
-        for (CtAnnotation<?> anno : element.getAnnotations()) {
-            String annotationTypeName = anno.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Consumes.class.getName())) {
-                Object value = anno.getValue("value");
-                if (value != null) {
-                    return convertToStringArray(value);
-                }
+        Consumes annotation = element.getAnnotation(Consumes.class);
+        if (annotation != null) {
+            Object value = annotation.value();
+            if (value != null) {
+                return convertToStringArray(value);
             }
         }
         return new String[0];
@@ -74,6 +70,7 @@ public class JakartaPathAdapter implements RequestAnnotation {
         return new HttpMethod[0];
     }
 
+    // TODO utility
     private String[] convertToStringArray(Object value) {
         if (value instanceof String[]) {
             return (String[]) value;

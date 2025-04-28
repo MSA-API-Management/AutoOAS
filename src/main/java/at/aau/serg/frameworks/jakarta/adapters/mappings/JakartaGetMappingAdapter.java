@@ -6,7 +6,6 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 
 import java.util.List;
@@ -27,13 +26,11 @@ public class JakartaGetMappingAdapter implements RequestAnnotation {
 
     @Override
     public String[] produces() {
-        for (CtAnnotation<?> annotation : method.getAnnotations()) {
-            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Produces.class.getName())) {
-                Object value = annotation.getValue("value");
-                if (value != null) {
-                    return convertToStringArray(value);
-                }
+        Produces annotation = method.getAnnotation(Produces.class);
+        if (annotation != null) {
+            Object value = annotation.value();
+            if (value != null) {
+                return convertToStringArray(value);
             }
         }
         return new String[0];
@@ -41,13 +38,11 @@ public class JakartaGetMappingAdapter implements RequestAnnotation {
 
     @Override
     public String[] consumes() {
-        for (CtAnnotation<?> annotation : method.getAnnotations()) {
-            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Consumes.class.getName())) {
-                Object value = annotation.getValue("value");
-                if (value != null) {
-                    return convertToStringArray(value);
-                }
+        Consumes annotation = method.getAnnotation(Consumes.class);
+        if (annotation != null) {
+            Object value = annotation.value();
+            if (value != null) {
+                return convertToStringArray(value);
             }
         }
         return new String[0];
@@ -60,13 +55,11 @@ public class JakartaGetMappingAdapter implements RequestAnnotation {
 
     @Override
     public String[] path() {
-        for (CtAnnotation<?> annotation : method.getAnnotations()) {
-            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Path.class.getName())) {
-                Object value = annotation.getValue("value");
-                if (value != null) {
-                    return new String[] { value.toString() };
-                }
+        Path annotation = method.getAnnotation(Path.class);
+        if (annotation != null) {
+            Object value = annotation.value();
+            if (value != null) {
+                return new String[]{value.toString()};
             }
         }
         return new String[0];
