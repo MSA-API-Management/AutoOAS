@@ -6,6 +6,7 @@ import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -200,6 +201,10 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
+        QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+        if (annotation != null) {
+            return new JakartaQueryParamAdapter(annotation);
+        }
         return null;
     }
 
