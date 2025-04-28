@@ -110,7 +110,7 @@ public class JakartaRestFramework implements RestFramework {
 
     /**
      * jakarta.ws.rs.BeanParam.class
-     * Will not work the same
+     * TODO check if it will work the same
      */
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
