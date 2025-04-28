@@ -730,8 +730,10 @@ public class OperationsTransformer {
 
 		for (var actualParameter : parameters){
 			String parameterName = actualParameter.getSimpleName();
-			if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
-				return new ParameterNamePair(parameterName, actualParameter);
+			if(restFramework.getRequestBodyAnnotation() != null) { // TODO temp fix for missing requestbody
+				if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
+					return new ParameterNamePair(parameterName, actualParameter);
+				}
 			}
 		}
 
