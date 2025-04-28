@@ -4,6 +4,7 @@ import at.aau.serg.frameworks.*;
 import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
@@ -204,6 +205,10 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
+        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+        if (annotation != null) {
+            return new JakartaHeaderParamAdapter(annotation);
+        }
         return null;
     }
 
