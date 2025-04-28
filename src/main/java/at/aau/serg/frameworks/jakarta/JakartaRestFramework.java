@@ -1,6 +1,7 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
 import at.aau.serg.frameworks.spring.adapters.mappings.SpringPostMappingAdapter;
@@ -9,6 +10,7 @@ import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
 import org.springframework.web.bind.annotation.PostMapping;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -106,7 +108,7 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
-        return null;
+        return BeanParam.class;
     }
 
     @Override
@@ -152,6 +154,12 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+        for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
+            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
+            if (annotationTypeName.equals(Path.class.getName())) {
+                return Optional.of(new JakartaPathAdapter(annotation, clazz));
+            }
+        }
         return Optional.empty();
     }
 
