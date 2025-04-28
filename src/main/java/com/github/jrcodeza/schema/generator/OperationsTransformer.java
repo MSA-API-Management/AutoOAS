@@ -620,8 +620,11 @@ public class OperationsTransformer {
 	private io.swagger.v3.oas.models.parameters.Parameter mapSimpleParameter(CtParameter<?> parameter, String parameterName) {
 		io.swagger.v3.oas.models.parameters.Parameter oasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
 
+		System.out.println("Simple Parameter: " + parameterName + " " + parameter);
 		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
+		System.out.println("PathVariable?: " + pathVariableAnnotation);
 		if (pathVariableAnnotation != null) {
+			System.out.println("PathVariable?: " + pathVariableAnnotation.name() + " " + pathVariableAnnotation.value());
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
