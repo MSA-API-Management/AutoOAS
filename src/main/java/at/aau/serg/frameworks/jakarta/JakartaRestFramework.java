@@ -9,6 +9,8 @@ import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
 public class JakartaRestFramework implements RestFramework {
@@ -81,16 +84,18 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public Class<?> getResponseWrapper() {
-        return null;
+        return Response.class;
     }
 
     /**
      * TODO
-     * jakarta.servlet.http.Part        (need to be checked)
+     * jakarta.ws.rs.core.MultivaluedMap.class;
+     * org.jboss.resteasy.reactive.multipart.FileUpload.class; (quarkus)
+     * TODO Check which is actually used
      */
     @Override
     public Class<?> getSupportedFileType() {
-        return null;
+        return MultivaluedMap.class;
     }
 
     /**
@@ -99,7 +104,7 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public Class<?> getAsyncResultWrapper() {
-        return null;
+        return CompletionStage.class;
     }
 
     /**
@@ -111,6 +116,9 @@ public class JakartaRestFramework implements RestFramework {
         return BeanParam.class;
     }
 
+    /**
+     * TODO Nothing equivalent exists in Jakarta -> Needs other extraction
+     */
     @Override
     public Class<? extends Annotation> getRequestBodyAnnotation() {
         return null;

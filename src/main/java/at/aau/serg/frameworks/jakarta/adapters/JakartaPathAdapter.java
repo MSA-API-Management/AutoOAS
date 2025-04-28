@@ -59,7 +59,6 @@ public class JakartaPathAdapter implements RequestAnnotation {
             if (pathValue.startsWith("\"") && pathValue.endsWith("\"")) {
                 pathValue = pathValue.substring(1, pathValue.length() - 1);
             }
-            System.out.println("TODO " + pathValue);
             return new String[]{pathValue};
         }
         return new String[0];
