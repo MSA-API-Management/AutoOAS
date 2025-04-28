@@ -356,8 +356,11 @@ public class OperationsTransformer {
 
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
+		System.out.println("Base Controller Path: " + baseControllerPath);
+		System.out.println("Path:" + path);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
+		System.out.println("FULL PATH: " + fullPath + "  " + cleanedPath);
 
 		Operation operation = new Operation();
 		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.GET));
@@ -453,6 +456,7 @@ public class OperationsTransformer {
 		addGlobalHeaders(result);
 
 		for (var actualParameter : parameters){
+			System.out.println("Actual Params: " + actualParameter);
 			String parameterName = actualParameter.getSimpleName();
 
 			if (shouldIgnoreParameter(method, actualParameter, parameterName)) {
