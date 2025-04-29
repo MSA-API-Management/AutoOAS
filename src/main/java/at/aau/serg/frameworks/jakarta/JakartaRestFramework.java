@@ -1,13 +1,19 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
-import at.aau.serg.frameworks.spring.adapters.mappings.SpringPostMappingAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
-import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -17,6 +23,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
 public class JakartaRestFramework implements RestFramework {
@@ -78,16 +85,18 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public Class<?> getResponseWrapper() {
-        return null;
+        return Response.class;
     }
 
     /**
      * TODO
-     * jakarta.servlet.http.Part        (need to be checked)
+     * jakarta.ws.rs.core.MultivaluedMap.class;
+     * org.jboss.resteasy.reactive.multipart.FileUpload.class; (quarkus)
+     * TODO Check which is actually used
      */
     @Override
     public Class<?> getSupportedFileType() {
-        return null;
+        return MultivaluedMap.class;
     }
 
     /**
@@ -96,18 +105,21 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public Class<?> getAsyncResultWrapper() {
-        return null;
+        return CompletionStage.class;
     }
 
     /**
      * jakarta.ws.rs.BeanParam.class
-     * Will not work the same
+     * TODO check if it will work the same
      */
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
-        return null;
+        return BeanParam.class;
     }
 
+    /**
+     * TODO Nothing equivalent exists in Jakarta -> Needs other extraction
+     */
     @Override
     public Class<? extends Annotation> getRequestBodyAnnotation() {
         return null;
@@ -151,6 +163,12 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+        for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
+            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
+            if (annotationTypeName.equals(Path.class.getName())) {
+                return Optional.of(new JakartaPathAdapter(annotation, clazz));
+            }
+        }
         return Optional.empty();
     }
 
@@ -164,17 +182,38 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
+    public RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method) {
+        if (annotation instanceof GET) {
+            return new JakartaGetMappingAdapter((GET) annotation, method);
+        }
+
+        throw new IllegalArgumentException("No supported annotation found - Only testing method");
+    }
+
+    @Override
     public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
+        PathParam annotation = parameter.getAnnotation(PathParam.class);
+        if (annotation != null) {
+            return new JakartaPathParamAdapter(annotation);
+        }
         return null;
     }
 
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
+        QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+        if (annotation != null) {
+            return new JakartaQueryParamAdapter(annotation);
+        }
         return null;
     }
 
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
+        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+        if (annotation != null) {
+            return new JakartaHeaderParamAdapter(annotation);
+        }
         return null;
     }
 

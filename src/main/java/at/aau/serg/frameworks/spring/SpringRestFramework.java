@@ -152,6 +152,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method) {
+        return null;
+    }
+
+    @Override
     public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
         PathVariable annotation = parameter.getAnnotation(PathVariable.class);
         return annotation != null ? new SpringPathVariableAdapter(annotation) : null;

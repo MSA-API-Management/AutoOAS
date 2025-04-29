@@ -161,6 +161,8 @@ public interface RestFramework {
      */
     RequestAnnotation convertToRequestAnnotation(Annotation annotation);
 
+    RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method); // todo remove
+
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.
      *

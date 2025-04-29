@@ -350,11 +350,17 @@ public class OperationsTransformer {
 	}
 
 	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+//		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+				RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotationTesting(annotation, method);
+		System.out.println("CALLED: " +requestAnnotation.name() + "  " + getFirstFromArray(requestAnnotation.path()) + "  " + Arrays.toString(requestAnnotation.method()) + " " + getFirstFromArray(requestAnnotation.value()) + "  " + getFirstFromArray(requestAnnotation.produces()));
+
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
+		System.out.println("Base Controller Path: " + baseControllerPath);
+		System.out.println("Path:" + path);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
+		System.out.println("FULL PATH: " + fullPath + "  " + cleanedPath);
 
 		Operation operation = new Operation();
 		operation.setOperationId(getOperationId(cleanedPath, requestAnnotation.name(), method, HttpMethod.GET));
@@ -450,6 +456,7 @@ public class OperationsTransformer {
 		addGlobalHeaders(result);
 
 		for (var actualParameter : parameters){
+			System.out.println("Actual Params: " + actualParameter);
 			String parameterName = actualParameter.getSimpleName();
 
 			if (shouldIgnoreParameter(method, actualParameter, parameterName)) {
@@ -613,8 +620,11 @@ public class OperationsTransformer {
 	private io.swagger.v3.oas.models.parameters.Parameter mapSimpleParameter(CtParameter<?> parameter, String parameterName) {
 		io.swagger.v3.oas.models.parameters.Parameter oasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
 
+		System.out.println("Simple Parameter: " + parameterName + " " + parameter);
 		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
+		System.out.println("PathVariable?: " + pathVariableAnnotation);
 		if (pathVariableAnnotation != null) {
+			System.out.println("PathVariable?: " + pathVariableAnnotation.name() + " " + pathVariableAnnotation.value());
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
@@ -723,8 +733,10 @@ public class OperationsTransformer {
 
 		for (var actualParameter : parameters){
 			String parameterName = actualParameter.getSimpleName();
-			if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
-				return new ParameterNamePair(parameterName, actualParameter);
+			if(restFramework.getRequestBodyAnnotation() != null) { // TODO temp fix for missing requestbody
+				if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
+					return new ParameterNamePair(parameterName, actualParameter);
+				}
 			}
 		}
 
