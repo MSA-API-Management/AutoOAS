@@ -3,11 +3,14 @@ package at.aau.serg.frameworks.jakarta.adapters.mappings;
 import at.aau.serg.frameworks.RequestAnnotation;
 import at.aau.serg.parsers.HttpMethod;
 import jakarta.ws.rs.POST;
+import spoon.reflect.declaration.CtMethod;
 
 public class JakartaPostMappingAdapter implements RequestAnnotation {
     private final POST annotation;
+    private final CtMethod<?> method;
 
-    public JakartaPostMappingAdapter(POST annotation) {
+    public JakartaPostMappingAdapter(POST annotation, CtMethod<?> method) {
+        this.method = method;
         this.annotation = annotation;
     }
 

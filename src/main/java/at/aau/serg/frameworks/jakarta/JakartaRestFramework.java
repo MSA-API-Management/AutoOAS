@@ -2,8 +2,7 @@ package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
 import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaGetMappingAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaPostMappingAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.*;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
@@ -13,6 +12,7 @@ import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
+import org.springframework.web.bind.annotation.RequestMapping;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -175,7 +175,22 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
-            return new JakartaPostMappingAdapter((POST) annotation);
+            return new JakartaPostMappingAdapter((POST) annotation, method);
+        }
+        if (annotation instanceof PUT) {
+            return new JakartaPutMappingAdapter((PUT) annotation, method);
+        }
+        if (annotation instanceof PATCH) {
+            return new JakartaPatchMappingAdapter((PATCH) annotation, method);
+        }
+        if (annotation instanceof GET) {
+            return new JakartaGetMappingAdapter((GET) annotation, method);
+        }
+        if (annotation instanceof DELETE) {
+            return new JakartaDeleteMappingAdapter((DELETE) annotation, method);
+        }
+        if (annotation instanceof RequestMapping) {
+            return null;
         }
 
         throw new IllegalArgumentException("No supported annotation found");

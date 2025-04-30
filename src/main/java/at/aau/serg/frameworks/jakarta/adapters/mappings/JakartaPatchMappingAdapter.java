@@ -4,12 +4,15 @@ import at.aau.serg.frameworks.RequestAnnotation;
 import at.aau.serg.parsers.HttpMethod;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
+import spoon.reflect.declaration.CtMethod;
 
 public class JakartaPatchMappingAdapter implements RequestAnnotation {
     private final PATCH annotation;
+    private final CtMethod<?> method;
 
-    public JakartaPatchMappingAdapter(PATCH annotation) {
+    public JakartaPatchMappingAdapter(PATCH annotation, CtMethod<?> method) {
         this.annotation = annotation;
+        this.method = method;
     }
 
     @Override
