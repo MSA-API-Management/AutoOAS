@@ -23,7 +23,7 @@ public interface RestFramework {
      * Returns the appropriate response code interceptor implementation for the specific REST framework.
      *
      * @param adviceClasses A list of controller advice or exception mapper classes that handle exceptions
-     *                     and define response codes for the REST API TODO check equivalent
+     *                      and define response codes for the REST API TODO check equivalent
      * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
      */
     OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses);
@@ -156,12 +156,11 @@ public interface RestFramework {
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
      *
      * @param annotation The framework-specific annotation to convert
+     * @param method Currently parsed method to extract annotations
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
      */
-    RequestAnnotation convertToRequestAnnotation(Annotation annotation);
-
-    RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method); // todo remove
+    RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
 
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.

@@ -110,7 +110,7 @@ public class OperationsTransformer {
 	 */
 	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 								   String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -198,7 +198,7 @@ public class OperationsTransformer {
 
 	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 						   String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -350,12 +350,10 @@ public class OperationsTransformer {
 	}
 
 	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-//		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
-				RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotationTesting(annotation, method);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		System.out.println("CALLED: " +requestAnnotation.name() + "  " + getFirstFromArray(requestAnnotation.path()) + "  " + Arrays.toString(requestAnnotation.method()) + " " + getFirstFromArray(requestAnnotation.value()) + "  " + getFirstFromArray(requestAnnotation.produces()));
 
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
-				getFirstFromArray(requestAnnotation.path()));
+		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()), getFirstFromArray(requestAnnotation.path()));
 		System.out.println("Base Controller Path: " + baseControllerPath);
 		System.out.println("Path:" + path);
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -375,7 +373,7 @@ public class OperationsTransformer {
 	}
 
 	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation,method);
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -395,7 +393,7 @@ public class OperationsTransformer {
 	}
 
 	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -415,7 +413,7 @@ public class OperationsTransformer {
 	}
 
 	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
-		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation);
+		RequestAnnotation requestAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = ObjectUtils.defaultIfNull(getFirstFromArray(requestAnnotation.value()),
 				getFirstFromArray(requestAnnotation.path()));
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
