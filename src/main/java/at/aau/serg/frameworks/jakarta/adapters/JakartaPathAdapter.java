@@ -49,6 +49,11 @@ public class JakartaPathAdapter implements RequestAnnotation {
 
     @Override
     public String[] value() {
+        return path();
+    }
+
+    @Override
+    public String[] path() {
         Object value = annotation.getValue("value"); // returns path in "" -> e.g. "/othersimples"
         if (value != null) {
             String pathValue = value.toString();
@@ -58,11 +63,6 @@ public class JakartaPathAdapter implements RequestAnnotation {
             return new String[]{pathValue};
         }
         return new String[0];
-    }
-
-    @Override
-    public String[] path() {
-        return value();
     }
 
     @Override
