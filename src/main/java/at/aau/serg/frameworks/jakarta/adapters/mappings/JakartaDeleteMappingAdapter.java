@@ -2,12 +2,12 @@ package at.aau.serg.frameworks.jakarta.adapters.mappings;
 
 import at.aau.serg.frameworks.RequestAnnotation;
 import at.aau.serg.parsers.HttpMethod;
-import jakarta.ws.rs.POST;
+import jakarta.ws.rs.DELETE;
 
-public class JakartaPostMappingAdapter implements RequestAnnotation {
-    private final POST annotation;
+public class JakartaDeleteMappingAdapter implements RequestAnnotation {
+    private final DELETE annotation;
 
-    public JakartaPostMappingAdapter(POST annotation) {
+    public JakartaDeleteMappingAdapter(DELETE annotation) {
         this.annotation = annotation;
     }
 
