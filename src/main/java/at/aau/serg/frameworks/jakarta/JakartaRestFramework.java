@@ -173,21 +173,12 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public RequestAnnotation convertToRequestAnnotation(Annotation annotation) {
+    public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
             return new JakartaPostMappingAdapter((POST) annotation);
         }
 
         throw new IllegalArgumentException("No supported annotation found");
-    }
-
-    @Override
-    public RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method) {
-        if (annotation instanceof GET) {
-            return new JakartaGetMappingAdapter((GET) annotation, method);
-        }
-
-        throw new IllegalArgumentException("No supported annotation found - Only testing method");
     }
 
     @Override

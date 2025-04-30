@@ -128,7 +128,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public RequestAnnotation convertToRequestAnnotation(Annotation annotation) {
+    public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof PostMapping) {
             return new SpringPostMappingAdapter((PostMapping) annotation);
         }
@@ -149,11 +149,6 @@ public class SpringRestFramework implements RestFramework {
         }
 
         throw new IllegalArgumentException("No supported annotation found");
-    }
-
-    @Override
-    public RequestAnnotation convertToRequestAnnotationTesting(Annotation annotation, CtMethod<?> method) {
-        return null;
     }
 
     @Override
