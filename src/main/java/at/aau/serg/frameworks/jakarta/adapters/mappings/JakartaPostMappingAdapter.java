@@ -1,46 +1,16 @@
 package at.aau.serg.frameworks.jakarta.adapters.mappings;
 
-import at.aau.serg.frameworks.RequestAnnotation;
 import at.aau.serg.parsers.HttpMethod;
 import jakarta.ws.rs.POST;
 import spoon.reflect.declaration.CtMethod;
 
-public class JakartaPostMappingAdapter implements RequestAnnotation {
-    private final POST annotation;
-    private final CtMethod<?> method;
-
-    public JakartaPostMappingAdapter(POST annotation, CtMethod<?> method) {
-        this.method = method;
-        this.annotation = annotation;
-    }
-
-    @Override
-    public String name() {
-        return "";
-    }
-
-    @Override
-    public String[] produces() {
-        return new String[0];
-    }
-
-    @Override
-    public String[] consumes() {
-        return new String[0];
-    }
-
-    @Override
-    public String[] value() {
-        return new String[0];
-    }
-
-    @Override
-    public String[] path() {
-        return new String[0];
+public class JakartaPostMappingAdapter extends AbstractJakartaHttpMethodAdapter {
+    public JakartaPostMappingAdapter(POST postAnnotation, CtMethod<?> method) {
+        super(postAnnotation, method);
     }
 
     @Override
     public HttpMethod[] method() {
-        return new HttpMethod[0];
+        return new HttpMethod[]{HttpMethod.POST};
     }
 }
