@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static at.aau.serg.util.Utils.getAnnotation;
+
 public class SpringRestFramework implements RestFramework {
 
     @Override
@@ -177,10 +179,5 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
-    }
-
-    //TODO
-    private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
-        return Optional.ofNullable(method.getAnnotation(annotationClass));
     }
 }

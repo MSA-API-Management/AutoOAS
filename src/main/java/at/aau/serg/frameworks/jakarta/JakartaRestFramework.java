@@ -26,14 +26,9 @@ import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
+import static at.aau.serg.util.Utils.getAnnotation;
+
 public class JakartaRestFramework implements RestFramework {
-
-
-    //TODO
-    private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
-        return Optional.ofNullable(method.getAnnotation(annotationClass));
-    }
-
     @Override
     public String getIdentifier() {
         return "";

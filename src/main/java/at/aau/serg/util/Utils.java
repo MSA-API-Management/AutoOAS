@@ -1,8 +1,12 @@
 package at.aau.serg.util;
 
+import spoon.reflect.declaration.CtMethod;
+
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Utils {
     public static boolean isEmpty(Collection<?> collection) {
@@ -22,6 +26,10 @@ public class Utils {
         } else {
             return new String[]{value.toString()};
         }
+    }
+
+    public static Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
+        return Optional.ofNullable(method.getAnnotation(annotationClass));
     }
 }
 
