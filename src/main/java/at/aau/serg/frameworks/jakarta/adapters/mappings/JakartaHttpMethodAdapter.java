@@ -10,13 +10,15 @@ import spoon.reflect.declaration.CtMethod;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-public abstract class AbstractJakartaHttpMethodAdapter implements RequestAnnotation {
+public class JakartaHttpMethodAdapter implements RequestAnnotation {
     protected final Annotation methodAnnotation;
     protected final CtMethod<?> method;
+    protected final HttpMethod httpMethod;
 
-    protected AbstractJakartaHttpMethodAdapter(Annotation methodAnnotation, CtMethod<?> method) {
+    public JakartaHttpMethodAdapter(Annotation methodAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
         this.methodAnnotation = methodAnnotation;
         this.method = method;
+        this.httpMethod = httpMethod;
     }
 
     @Override
@@ -64,9 +66,10 @@ public abstract class AbstractJakartaHttpMethodAdapter implements RequestAnnotat
     }
 
     @Override
-    public abstract HttpMethod[] method();
+    public HttpMethod[] method() {
+        return new HttpMethod[]{httpMethod};
+    }
 
-    // TODO utility
     protected String[] convertToStringArray(Object value) {
         if (value instanceof String[]) {
             return (String[]) value;
