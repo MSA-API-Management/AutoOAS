@@ -728,23 +728,47 @@ public class OperationsTransformer {
 
 	private ParameterNamePair getRequestBody(CtMethod<?> method) {
 		List<CtParameter<?>> parameters = method.getParameters();
+		ParameterNamePair fileParameter = null;
 
-		for (var actualParameter : parameters){
-			String parameterName = actualParameter.getSimpleName();
-			if(restFramework.getRequestBodyAnnotation() != null) { // TODO temp fix for missing requestbody
+		if(restFramework.getRequestBodyAnnotation() != null) {
+			for (var actualParameter : parameters) {
+				String parameterName = actualParameter.getSimpleName();
 				if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
 					return new ParameterNamePair(parameterName, actualParameter);
 				}
 			}
 		}
 
-		for (var actualParameter : parameters){
+		for (var actualParameter : parameters) {
 			String parameterName = actualParameter.getSimpleName();
-			if (schemaGeneratorHelper.isFile(actualParameter.getType())) {
-				return new ParameterNamePair(parameterName, actualParameter);
+
+			if(hasNonBodyAnnotation(actualParameter) || isContextObject(actualParameter.getType())) {
+				continue;
 			}
+
+			// using first found file param as fall back
+			if (fileParameter == null && schemaGeneratorHelper.isFile(actualParameter.getType())) {
+				fileParameter = new ParameterNamePair(parameterName, actualParameter);
+				continue;
+			}
+
+			return new ParameterNamePair(parameterName, actualParameter);
 		}
-		return null;
+		return fileParameter;
+	}
+
+	private boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
+		// TODO for quarkus we have the following annotations: PathParam, QueryParam, HeaderParam, CookieParam, FormParam, MatrixParam
+		return restFramework.tryConvertPathVariableAnnotation(parameter) != null
+				|| restFramework.tryConvertRequestParamAnnotation(parameter) != null
+				|| restFramework.tryConvertRequestHeaderAnnotation(parameter) != null;
+	}
+
+	private boolean isContextObject(CtTypeReference<?> type) {
+		String typeName = type.getQualifiedName();
+		return typeName.equals("javax.ws.rs.core.SecurityContext")
+				|| typeName.equals("javax.ws.rs.core.UriInfo")
+				|| typeName.equals("javax.ws.rs.core.HttpHeaders");
 	}
 
 	private String getOperationId(String path, String nameFromAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
