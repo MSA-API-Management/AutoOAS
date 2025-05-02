@@ -7,7 +7,7 @@ import jakarta.ws.rs.Produces;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 
-import java.util.List;
+import static at.aau.serg.util.Utils.convertToStringArray;
 
 public class JakartaPathAdapter implements RequestAnnotation {
     private final CtAnnotation<?> annotation;
@@ -68,17 +68,5 @@ public class JakartaPathAdapter implements RequestAnnotation {
     @Override
     public HttpMethod[] method() {
         return new HttpMethod[0];
-    }
-
-    // TODO utility
-    private String[] convertToStringArray(Object value) {
-        if (value instanceof String[]) {
-            return (String[]) value;
-        } else if (value instanceof List) {
-            List<?> list = (List<?>) value;
-            return list.stream().map(Object::toString).toArray(String[]::new);
-        } else {
-            return new String[]{value.toString()};
-        }
     }
 }

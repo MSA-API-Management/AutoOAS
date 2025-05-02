@@ -7,8 +7,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import spoon.reflect.declaration.CtMethod;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
+import static at.aau.serg.util.Utils.convertToStringArray;
 
 public class JakartaHttpMethodAdapter implements RequestAnnotation {
     private final HttpMethod httpMethod;
@@ -67,16 +66,5 @@ public class JakartaHttpMethodAdapter implements RequestAnnotation {
     @Override
     public HttpMethod[] method() {
         return new HttpMethod[]{httpMethod};
-    }
-
-    protected String[] convertToStringArray(Object value) {
-        if (value instanceof String[]) {
-            return (String[]) value;
-        } else if (value instanceof List) {
-            List<?> list = (List<?>) value;
-            return list.stream().map(Object::toString).toArray(String[]::new);
-        } else {
-            return new String[]{value.toString()};
-        }
     }
 }
