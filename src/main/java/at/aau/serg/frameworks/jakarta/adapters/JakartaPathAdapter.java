@@ -11,11 +11,13 @@ import java.util.List;
 
 public class JakartaPathAdapter implements RequestAnnotation {
     private final CtAnnotation<?> annotation;
-    private final CtElement element;
+    private final Produces produces;
+    private final Consumes consumes;
 
     public JakartaPathAdapter(CtAnnotation<?> pathAnnotation, CtElement element) {
         this.annotation = pathAnnotation;
-        this.element = element;
+        this.produces = element.getAnnotation(Produces.class);
+        this.consumes = element.getAnnotation(Consumes.class);
     }
 
     @Override
@@ -25,9 +27,8 @@ public class JakartaPathAdapter implements RequestAnnotation {
 
     @Override
     public String[] produces() {
-        Produces annotation = element.getAnnotation(Produces.class);
-        if (annotation != null) {
-            Object value = annotation.value();
+        if (produces != null) {
+            Object value = produces.value();
             if (value != null) {
                 return convertToStringArray(value);
             }
@@ -37,9 +38,8 @@ public class JakartaPathAdapter implements RequestAnnotation {
 
     @Override
     public String[] consumes() {
-        Consumes annotation = element.getAnnotation(Consumes.class);
-        if (annotation != null) {
-            Object value = annotation.value();
+        if (consumes != null) {
+            Object value = consumes.value();
             if (value != null) {
                 return convertToStringArray(value);
             }
