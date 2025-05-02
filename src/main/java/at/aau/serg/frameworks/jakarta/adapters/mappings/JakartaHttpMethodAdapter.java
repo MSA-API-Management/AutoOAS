@@ -11,13 +11,15 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class JakartaHttpMethodAdapter implements RequestAnnotation {
-    protected final Annotation methodAnnotation;
-    protected final CtMethod<?> method;
-    protected final HttpMethod httpMethod;
+    private final HttpMethod httpMethod;
+    private final Produces produces;
+    private final Consumes consumes;
+    private final Path path;
 
     public JakartaHttpMethodAdapter(Annotation methodAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
-        this.methodAnnotation = methodAnnotation;
-        this.method = method;
+        produces = method.getAnnotation(Produces.class);
+        consumes = method.getAnnotation(Consumes.class);
+        path = method.getAnnotation(Path.class);
         this.httpMethod = httpMethod;
     }
 
@@ -28,9 +30,8 @@ public class JakartaHttpMethodAdapter implements RequestAnnotation {
 
     @Override
     public String[] produces() {
-        Produces annotation = method.getAnnotation(Produces.class);
-        if (annotation != null) {
-            Object value = annotation.value();
+        if (produces != null) {
+            Object value = produces.value();
             if (value != null) {
                 return convertToStringArray(value);
             }
@@ -39,9 +40,8 @@ public class JakartaHttpMethodAdapter implements RequestAnnotation {
     }
 
     public String[] consumes() {
-        Consumes annotation = method.getAnnotation(Consumes.class);
-        if (annotation != null) {
-            Object value = annotation.value();
+        if (consumes != null) {
+            Object value = consumes.value();
             if (value != null) {
                 return convertToStringArray(value);
             }
@@ -55,9 +55,8 @@ public class JakartaHttpMethodAdapter implements RequestAnnotation {
     }
 
     public String[] path() {
-        Path annotation = method.getAnnotation(Path.class);
-        if (annotation != null) {
-            Object value = annotation.value();
+        if (path != null) {
+            Object value = path.value();
             if (value != null) {
                 return new String[]{value.toString()};
             }
