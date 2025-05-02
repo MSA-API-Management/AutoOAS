@@ -49,11 +49,6 @@ public class JakartaRestFramework implements RestFramework {
         return "";
     }
 
-    /**
-     * TODO
-     * jakarta.ws.rs.Path
-     * io.quarkus.vertx.web.RouteBase with RequestScoped, Singleton, ApplicationScoped
-     */
     @Override
     public List<String> getControllerAnnotations() {
         return Arrays.asList(
@@ -125,40 +120,34 @@ public class JakartaRestFramework implements RestFramework {
         return null;
     }
 
-    // jakarta.ws.rs.POST.class
     @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
 
-    // jakarta.ws.rs.PUT.class
     @Override
     public Optional<Annotation> getPutMapping(CtMethod<?> method) {
         return getAnnotation(method, PUT.class);
     }
 
-    // jakarta.ws.rs.PATCH.class
     @Override
     public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
         return getAnnotation(method, PATCH.class);
     }
 
-    // jakarta.ws.rs.GET.class
     @Override
     public Optional<Annotation> getGetMapping(CtMethod<?> method) {
         return getAnnotation(method, GET.class);
     }
 
-    // jakarta.ws.rs.DELETE.class
     @Override
     public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
         return getAnnotation(method, DELETE.class);
     }
 
-    //    TODO no requestmapping exists
     @Override
     public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
-        return Optional.empty();
+        return Optional.empty();    // no request mapping exists
     }
 
     @Override
