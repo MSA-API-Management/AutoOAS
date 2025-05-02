@@ -16,7 +16,7 @@ public class JakartaHttpMethodAdapter implements RequestAnnotation {
     private final Consumes consumes;
     private final Path path;
 
-    public JakartaHttpMethodAdapter(Annotation methodAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
+    public JakartaHttpMethodAdapter(CtMethod<?> method, HttpMethod httpMethod) {
         produces = method.getAnnotation(Produces.class);
         consumes = method.getAnnotation(Consumes.class);
         path = method.getAnnotation(Path.class);

@@ -175,19 +175,19 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
-            return new JakartaHttpMethodAdapter(annotation, method, HttpMethod.POST);
+            return new JakartaHttpMethodAdapter(method, HttpMethod.POST);
         }
         if (annotation instanceof PUT) {
-            return new JakartaHttpMethodAdapter(annotation, method, HttpMethod.PUT);
+            return new JakartaHttpMethodAdapter(method, HttpMethod.PUT);
         }
         if (annotation instanceof PATCH) {
-            return new JakartaHttpMethodAdapter(annotation, method, HttpMethod.PATCH);
+            return new JakartaHttpMethodAdapter(method, HttpMethod.PATCH);
         }
         if (annotation instanceof GET) {
-            return new JakartaHttpMethodAdapter(annotation, method, HttpMethod.GET);
+            return new JakartaHttpMethodAdapter(method, HttpMethod.GET);
         }
         if (annotation instanceof DELETE) {
-            return new JakartaHttpMethodAdapter(annotation, method, HttpMethod.DELETE);
+            return new JakartaHttpMethodAdapter(method, HttpMethod.DELETE);
         }
         if (annotation instanceof RequestMapping) {
             return null;
