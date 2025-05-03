@@ -728,7 +728,6 @@ public class OperationsTransformer {
 
 	private ParameterNamePair getRequestBody(CtMethod<?> method) {
 		List<CtParameter<?>> parameters = method.getParameters();
-		ParameterNamePair fileParameter = null;
 
 		if(restFramework.getRequestBodyAnnotation() != null) {
 			for (var actualParameter : parameters) {
@@ -737,24 +736,30 @@ public class OperationsTransformer {
 					return new ParameterNamePair(parameterName, actualParameter);
 				}
 			}
+		} else {
+			for (var actualParameter : parameters) {
+				String parameterName = actualParameter.getSimpleName();
+
+				if(hasNonBodyAnnotation(actualParameter) || isContextObject(actualParameter.getType())) {
+					continue;
+				}
+
+				// Fall back -> Will be checked separately
+				if (schemaGeneratorHelper.isFile(actualParameter.getType())) {
+					continue;
+				}
+
+				return new ParameterNamePair(parameterName, actualParameter);
+			}
 		}
 
-		for (var actualParameter : parameters) {
+		for (var actualParameter : parameters){
 			String parameterName = actualParameter.getSimpleName();
-
-			if(hasNonBodyAnnotation(actualParameter) || isContextObject(actualParameter.getType())) {
-				continue;
+			if (schemaGeneratorHelper.isFile(actualParameter.getType())) {
+				return new ParameterNamePair(parameterName, actualParameter);
 			}
-
-			// using first found file param as fall back
-			if (fileParameter == null && schemaGeneratorHelper.isFile(actualParameter.getType())) {
-				fileParameter = new ParameterNamePair(parameterName, actualParameter);
-				continue;
-			}
-
-			return new ParameterNamePair(parameterName, actualParameter);
 		}
-		return fileParameter;
+		return null;
 	}
 
 	private boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
