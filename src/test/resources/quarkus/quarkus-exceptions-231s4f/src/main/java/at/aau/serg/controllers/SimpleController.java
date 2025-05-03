@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 public class SimpleController {
     @GET
     @Path("/{id}")
-    public Response getById(@PathParam("id") int id) {
+    public Response should_throwCustomException_when_idIsZeroOrNegative_else_returnResource(@PathParam("id") int id) {
         if (id <= 0) {
             throw new CustomRuntimeException("Resource with id " + id + " not found");
         }
@@ -24,7 +24,7 @@ public class SimpleController {
 
     @GET
     @Path("/validation/{id}")
-    public Response validateId(@PathParam("id") int id) {
+    public Response should_throwIllegalArgumentOrUnsupportedOperation_when_idIsNegativeOrZero_else_returnResource(@PathParam("id") int id) {
         if (id < 0) {
             throw new IllegalArgumentException("ID cannot be negative");
         }

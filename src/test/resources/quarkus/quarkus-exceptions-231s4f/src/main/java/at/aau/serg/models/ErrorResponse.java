@@ -18,7 +18,6 @@ public class ErrorResponse {
     public ErrorResponse() {
     }
 
-    // Getters and setters
     public String getError() {
         return error;
     }
