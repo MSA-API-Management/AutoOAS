@@ -78,7 +78,7 @@ public class SimpleController extends SimpleControllerBase {
 
     @POST
     @Path("unique-operation-ids")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String str) {
         return Response.ok().entity(null).build();
     }
