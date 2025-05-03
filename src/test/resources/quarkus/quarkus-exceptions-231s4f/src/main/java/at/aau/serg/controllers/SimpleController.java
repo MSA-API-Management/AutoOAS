@@ -1,6 +1,6 @@
 package at.aau.serg.controllers;
 
-import at.aau.serg.exceptions.ResourceNotFoundException;
+import at.aau.serg.exceptions.CustomRuntimeException;
 import at.aau.serg.models.SimpleObject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -16,7 +16,7 @@ public class SimpleController {
     @Path("/{id}")
     public Response getById(@PathParam("id") int id) {
         if (id <= 0) {
-            throw new ResourceNotFoundException("Resource with id " + id + " not found");
+            throw new CustomRuntimeException("Resource with id " + id + " not found");
         }
 
         return Response.ok(new SimpleObject("Item " + id, id)).build();
