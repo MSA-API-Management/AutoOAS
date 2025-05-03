@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 public class SimpleController {
     @GET
     @Path("/{id}")
-    public Response should_throwCustomException_when_idIsZeroOrNegative_else_returnResource(@PathParam("id") int id) {
+    public Response should_throwCustomRuntimeException_when_idIsZeroOrNegative_else_returnResource(@PathParam("id") int id) {
         if (id <= 0) {
             throw new CustomRuntimeException("Resource with id " + id + " not found");
         }
@@ -33,5 +33,11 @@ public class SimpleController {
         }
 
         return Response.ok(new SimpleObject("Validated " + id, id)).build();
+    }
+
+    @GET
+    @Path("/always-error")
+    public Response should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500() {
+        throw new UnsupportedOperationException("This operation is intentionally not supported");
     }
 }
