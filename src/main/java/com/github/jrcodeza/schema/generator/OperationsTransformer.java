@@ -728,38 +728,32 @@ public class OperationsTransformer {
 
 	private ParameterNamePair getRequestBody(CtMethod<?> method) {
 		List<CtParameter<?>> parameters = method.getParameters();
+		ParameterNamePair result;
 
-		if(restFramework.getRequestBodyAnnotation() != null) {
-			for (var actualParameter : parameters) {
-				String parameterName = actualParameter.getSimpleName();
-				if (actualParameter.getAnnotation(restFramework.getRequestBodyAnnotation()) != null) {
-					return new ParameterNamePair(parameterName, actualParameter);
-				}
-			}
+		if (restFramework.getRequestBodyAnnotation() != null) {
+			result = parameters.stream()
+					.filter(param -> param.getAnnotation(restFramework.getRequestBodyAnnotation()) != null)
+					.findFirst()
+					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
+					.orElse(null);
 		} else {
-			for (var actualParameter : parameters) {
-				String parameterName = actualParameter.getSimpleName();
-
-				if(hasNonBodyAnnotation(actualParameter) || isContextObject(actualParameter.getType())) {
-					continue;
-				}
-
-				// Fall back -> Will be checked separately
-				if (schemaGeneratorHelper.isFile(actualParameter.getType())) {
-					continue;
-				}
-
-				return new ParameterNamePair(parameterName, actualParameter);
-			}
+			result = parameters.stream()
+					.filter(param -> !hasNonBodyAnnotation(param) && !isContextObject(param.getType()))
+					.findFirst()
+					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
+					.orElse(null);
 		}
 
-		for (var actualParameter : parameters){
-			String parameterName = actualParameter.getSimpleName();
-			if (schemaGeneratorHelper.isFile(actualParameter.getType())) {
-				return new ParameterNamePair(parameterName, actualParameter);
-			}
+		// fall back if nothing was found
+		if (result == null) {
+			result = parameters.stream()
+					.filter(param -> schemaGeneratorHelper.isFile(param.getType()))
+					.findFirst()
+					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
+					.orElse(null);
 		}
-		return null;
+
+		return result;
 	}
 
 	private boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
