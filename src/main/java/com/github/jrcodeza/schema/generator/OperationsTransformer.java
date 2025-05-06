@@ -730,6 +730,7 @@ public class OperationsTransformer {
 		List<CtParameter<?>> parameters = method.getParameters();
 		ParameterNamePair result;
 
+//		TODO hasRequestBodyAnnotation true/false
 		if (restFramework.getRequestBodyAnnotation() != null) {
 			result = parameters.stream()
 					.filter(param -> param.getAnnotation(restFramework.getRequestBodyAnnotation()) != null)
@@ -756,6 +757,7 @@ public class OperationsTransformer {
 		return result;
 	}
 
+	// restframework.hasnobodyannotation TODO
 	private boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
 		// TODO for quarkus we have the following annotations: PathParam, QueryParam, HeaderParam, CookieParam, FormParam, MatrixParam
 		return restFramework.tryConvertPathVariableAnnotation(parameter) != null
@@ -763,6 +765,8 @@ public class OperationsTransformer {
 				|| restFramework.tryConvertRequestHeaderAnnotation(parameter) != null;
 	}
 
+//	TODO framework specific in spring null weil nicht benötigt
+//	TODO erstellen in methode dass was fehlt
 	private boolean isContextObject(CtTypeReference<?> type) {
 		String typeName = type.getQualifiedName();
 		return typeName.equals("javax.ws.rs.core.SecurityContext")
