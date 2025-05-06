@@ -1,4 +1,4 @@
-package at.aau.serg;
+package at.aau.serg.mappers;
 
 import at.aau.serg.models.ErrorResponse;
 import jakarta.ws.rs.core.MediaType;
