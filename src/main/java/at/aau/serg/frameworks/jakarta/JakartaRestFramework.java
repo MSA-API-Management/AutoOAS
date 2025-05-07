@@ -2,7 +2,7 @@ package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
 import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.*;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaHttpMethodAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
@@ -89,10 +89,6 @@ public class JakartaRestFramework implements RestFramework {
         return MultivaluedMap.class;
     }
 
-    /**
-     * TODO
-     * java.util.concurrent.CompletionStage.class or java.util.concurrent.CompletableFuture.class
-     */
     @Override
     public Class<?> getAsyncResultWrapper() {
         return CompletionStage.class;
@@ -107,12 +103,14 @@ public class JakartaRestFramework implements RestFramework {
         return BeanParam.class;
     }
 
-    /**
-     * TODO Nothing equivalent exists in Jakarta -> Needs other extraction
-     */
     @Override
     public Class<? extends Annotation> getRequestBodyAnnotation() {
-        return null;
+        return null; // No specific request body annotation exists in quarkus
+    }
+
+    @Override
+    public boolean hasRequestBodyAnnotation() {
+        return getRequestBodyAnnotation() != null;
     }
 
     @Override

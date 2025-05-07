@@ -730,8 +730,7 @@ public class OperationsTransformer {
 		List<CtParameter<?>> parameters = method.getParameters();
 		ParameterNamePair result;
 
-//		TODO hasRequestBodyAnnotation true/false
-		if (restFramework.getRequestBodyAnnotation() != null) {
+		if (restFramework.hasRequestBodyAnnotation()) {
 			result = parameters.stream()
 					.filter(param -> param.getAnnotation(restFramework.getRequestBodyAnnotation()) != null)
 					.findFirst()
