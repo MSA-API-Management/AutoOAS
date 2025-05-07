@@ -8,7 +8,7 @@ import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
-@Path("/")
+@Path("/requests")
 public class RequestsController {
     @GET
     @Path("/header-param")
