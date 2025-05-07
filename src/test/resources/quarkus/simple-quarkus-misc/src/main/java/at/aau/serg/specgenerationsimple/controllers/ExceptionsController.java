@@ -9,7 +9,6 @@ import jakarta.ws.rs.core.MediaType;
 public class ExceptionsController {
     @GET
     @Path("/potentially-unsupported")
-    @Produces(MediaType.TEXT_PLAIN)
     public String potentiallyUnsupported() {
         if (Math.random() < 0.5) {
             throw new UnsupportedOperationException("unsupported");
@@ -19,7 +18,6 @@ public class ExceptionsController {
 
     @GET
     @Path("/unsupported")
-    @Produces(MediaType.TEXT_PLAIN)
     public String unsupported() {
         throw new UnsupportedOperationException("unsupported");
     }
