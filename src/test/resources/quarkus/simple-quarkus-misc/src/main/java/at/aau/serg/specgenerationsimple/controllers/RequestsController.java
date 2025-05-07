@@ -23,7 +23,7 @@ public class RequestsController {
     }
 
     @GET
-    @Path("/regex/{lastname: [a-zA-Z0-9]*}/{firstname: [A-Za-z]*}")
+    @Path("/regex-url/{lastname:^[a-zA-Z0-9]*$}/{firstname:^[A-Za-z]*$}")
     public SimpleObject regexParam(
             @PathParam("lastname") @Pattern(regexp = "^[a-zA-Z0-9]*$") String lastname,
             @PathParam("firstname") @Pattern(regexp = "^[A-Za-z]*$") String firstname) {
@@ -31,7 +31,7 @@ public class RequestsController {
     }
 
     @GET
-    @Path("/regex/{lastname}/{firstname}")
+    @Path("/regex-validation/{lastname}/{firstname}")
     public SimpleObject regexParamPath(
             @PathParam("lastname") @Pattern(regexp = "^[a-zA-Z0-9]*$") String lastname,
             @PathParam("firstname") @Pattern(regexp = "^[A-Za-z]*$") String firstname) {
