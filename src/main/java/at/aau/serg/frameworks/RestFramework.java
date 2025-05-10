@@ -94,6 +94,13 @@ public interface RestFramework {
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
 
+    /**
+     * Determines if the framework has a request body annotation
+     *
+     * @return true if request body annotation exists else false
+     */
+    boolean hasRequestBodyAnnotation();
+
     // todo concrete annotations with generics?
 
     /**
@@ -156,7 +163,7 @@ public interface RestFramework {
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
      *
      * @param annotation The framework-specific annotation to convert
-     * @param method Currently parsed method to extract annotations
+     * @param method     Currently parsed method to extract annotations
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
      */
