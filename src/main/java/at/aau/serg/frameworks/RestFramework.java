@@ -5,6 +5,7 @@ import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -208,4 +209,18 @@ public interface RestFramework {
      * {@code false} otherwise
      */
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
+
+    /**
+     * Checks if a type represents a REST framework context object.
+     * @param type The type reference to check
+     * @return true if it is a context object
+     */
+    boolean isContextObject(CtTypeReference<?> type);
+
+    /**
+     * Determines if a parameter has any annotation indicating it is not a request body.
+     * @param parameter  The method parameter to check
+     * @return true if annotated as non-body parameter
+     */
+    boolean hasNonBodyAnnotation(CtParameter<?> parameter);
 }

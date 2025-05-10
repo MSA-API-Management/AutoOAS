@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
-import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -184,5 +185,18 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
+    }
+
+    @Override
+    public boolean isContextObject(CtTypeReference<?> type) {
+        String typeName = type.getQualifiedName();
+        return typeName.equals("org.springframework.security.core.Authentication")
+                || typeName.equals("org.springframework.web.util.UriComponentsBuilder")
+                || typeName.equals("org.springframework.http.HttpHeaders");
+    }
+
+    @Override
+    public boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
+        return false; // not needed as Spring Boot has a RequestBody annotation
     }
 }

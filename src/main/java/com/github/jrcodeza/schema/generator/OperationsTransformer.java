@@ -738,7 +738,7 @@ public class OperationsTransformer {
 					.orElse(null);
 		} else {
 			result = parameters.stream()
-					.filter(param -> !hasNonBodyAnnotation(param) && !isContextObject(param.getType()))
+					.filter(param -> !restFramework.hasNonBodyAnnotation(param) && !restFramework.isContextObject(param.getType()))
 					.findFirst()
 					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
 					.orElse(null);
@@ -754,23 +754,6 @@ public class OperationsTransformer {
 		}
 
 		return result;
-	}
-
-	// restframework.hasnobodyannotation TODO
-	private boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
-		// TODO for quarkus we have the following annotations: PathParam, QueryParam, HeaderParam, CookieParam, FormParam, MatrixParam
-		return restFramework.tryConvertPathVariableAnnotation(parameter) != null
-				|| restFramework.tryConvertRequestParamAnnotation(parameter) != null
-				|| restFramework.tryConvertRequestHeaderAnnotation(parameter) != null;
-	}
-
-//	TODO framework specific in spring null weil nicht benötigt
-//	TODO erstellen in methode dass was fehlt
-	private boolean isContextObject(CtTypeReference<?> type) {
-		String typeName = type.getQualifiedName();
-		return typeName.equals("javax.ws.rs.core.SecurityContext")
-				|| typeName.equals("javax.ws.rs.core.UriInfo")
-				|| typeName.equals("javax.ws.rs.core.HttpHeaders");
 	}
 
 	private String getOperationId(String path, String nameFromAnnotation, CtMethod<?> method, HttpMethod httpMethod) {

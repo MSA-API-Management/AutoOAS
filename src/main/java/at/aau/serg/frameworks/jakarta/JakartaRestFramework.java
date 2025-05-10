@@ -17,6 +17,7 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -213,5 +214,31 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
+    }
+
+    @Override
+    public boolean isContextObject(CtTypeReference<?> type) {
+        String typeName = type.getQualifiedName();
+        return typeName.equals("javax.ws.rs.core.SecurityContext")
+                || typeName.equals("javax.ws.rs.core.UriInfo")
+                || typeName.equals("javax.ws.rs.core.HttpHeaders");
+    }
+
+    @Override
+    public boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
+        return parameter.getAnnotations().stream()
+                .map(CtAnnotation::getAnnotationType)
+                .map(CtTypeReference::getQualifiedName)
+                .anyMatch(this::isNonBodyParameterAnnotation);
+    }
+
+    private boolean isNonBodyParameterAnnotation(String annotationName) {
+        return annotationName.equals("javax.ws.rs.PathParam") ||
+                annotationName.equals("javax.ws.rs.QueryParam") ||
+                annotationName.equals("javax.ws.rs.HeaderParam") ||
+                annotationName.equals("javax.ws.rs.CookieParam") ||
+                annotationName.equals("javax.ws.rs.FormParam") ||
+                annotationName.equals("javax.ws.rs.MatrixParam") ||
+                annotationName.equals("javax.ws.rs.core.Context");
     }
 }
