@@ -793,10 +793,6 @@ public class OperationsTransformer {
 		operationIdCount.put(operationId, 0);
 	}
 
-	private <T extends Annotation> Optional<T> getAnnotation(CtMethod<?> method, Class<T> annotationClass) {
-		return Optional.ofNullable(method.getAnnotation(annotationClass));
-	}
-
 	public String getBaseControllerPath(CtType<?> clazz) {
 		return restFramework.getRequestMapping(clazz)
 				.map(requestAnnotation ->
