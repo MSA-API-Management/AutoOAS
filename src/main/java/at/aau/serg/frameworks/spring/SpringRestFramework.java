@@ -34,6 +34,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public String getOpenApiInfoDescription(String profileName, String projectName) {
+        return "Spring Profile: " + profileName;
+    }
+
+    @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
         return new SpringOperationResponseCodeInterceptor(adviceClasses);
     }

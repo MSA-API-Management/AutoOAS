@@ -36,6 +36,11 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
+    public String getOpenApiInfoDescription(String profileName, String projectName) {
+        return "Quarkus Profile: " + profileName;
+    }
+
+    @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
         return new JakartaOperationResponseCodeInterceptor(adviceClasses);
     }

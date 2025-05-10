@@ -113,8 +113,8 @@ public class RestApiParser {
         modelClasses.addAll(explicitModelClasses.stream().map(CtType::getReference).collect(Collectors.toUnmodifiableSet()));
         Components components = createComponentsSchemasFromModels(modelClasses);
 
-        // TODO description is framework specific -> Just Removing "Spring" will currently fail testcases
-        OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, "Spring Profile: " + profileName), paths, components);
+        String openApiInfoDescription = restFramework.getOpenApiInfoDescription(profileName, projectName);
+        OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, openApiInfoDescription), paths, components);
 
         var fileName = outputFileName.replace(".json", "") + "_" + profileName + ".json";
         openApiGen.writeOpenApiToFile(openApi, fileName);

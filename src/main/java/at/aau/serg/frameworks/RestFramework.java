@@ -19,6 +19,13 @@ public interface RestFramework {
      */
     String getIdentifier();
 
+    /**
+     * Returns a framework specific description for the OpenAPI documentation.
+     * @param profileName The profile name (if applicable to the framework)
+     * @param projectName The name of the project
+     * @return A properly formatted description string
+     */
+    String getOpenApiInfoDescription(String profileName, String projectName);
 
     /**
      * Returns the appropriate response code interceptor implementation for the specific REST framework.
