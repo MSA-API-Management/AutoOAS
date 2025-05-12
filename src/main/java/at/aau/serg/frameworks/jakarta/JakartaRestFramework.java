@@ -52,9 +52,7 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public List<String> getControllerAnnotations() {
-        return Arrays.asList(
-                "jakarta.ws.rs.Path"
-        );
+        return List.of("jakarta.ws.rs.Path");
     }
 
     /**
@@ -67,18 +65,11 @@ public class JakartaRestFramework implements RestFramework {
         return Arrays.asList("jakarta.ws.rs.ext.Provider");
     }
 
-    /**
-     * TODO
-     */
     @Override
     public List<String> getModelSchemaAnnotations() {
         return List.of();
     }
 
-    /**
-     * TODO
-     * jakarta.ws.rs.core.Response.class -> Other implementation
-     */
     @Override
     public Class<?> getResponseWrapper() {
         return Response.class;
@@ -100,10 +91,6 @@ public class JakartaRestFramework implements RestFramework {
         return CompletionStage.class;
     }
 
-    /**
-     * jakarta.ws.rs.BeanParam.class
-     * TODO check if it will work the same
-     */
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
         return BeanParam.class;
@@ -242,7 +229,8 @@ public class JakartaRestFramework implements RestFramework {
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
                 annotationName.equals("javax.ws.rs.CookieParam") ||
-                annotationName.equals("javax.ws.rs.FormParam") ||
+//                annotationName.equals("javax.ws.rs.FormParam") ||     // TODO is shown as requestbody
+                annotationName.equals("jakarta.ws.rs.BeanParam") ||
                 annotationName.equals("javax.ws.rs.MatrixParam") ||
                 annotationName.equals("javax.ws.rs.core.Context");
     }
