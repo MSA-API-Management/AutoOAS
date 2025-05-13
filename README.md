@@ -2,7 +2,7 @@
 
 ## Compile and run
 
-Use Java 11, or Java 21 for newer projects (e.g., that use Java 17 or 21). When using Java 21, also update the major Spoon version from 10 to 11.
+AutoOAS uses Java 21 and [Spoon](https://spoon.gforge.inria.fr/) 11, which allows analyzing projects written also in Java up to version 21.
 
 Compile and run:
 ```shell
