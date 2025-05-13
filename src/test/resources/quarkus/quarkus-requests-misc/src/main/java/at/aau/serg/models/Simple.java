@@ -3,17 +3,18 @@ package at.aau.serg.models;
 import java.io.Serializable;
 
 public class Simple implements Serializable {
+    public String id;
     public String name;
+    public String lastname;
+    public String address;
 
-    public Integer id;
-
-    public Simple withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Simple withId(Integer id) {
+    public Simple(String id,
+                  String name,
+                  String lastname,
+                  String address) {
         this.id = id;
-        return this;
+        this.name = name;
+        this.lastname = lastname;
+        this.address = address;
     }
 }
