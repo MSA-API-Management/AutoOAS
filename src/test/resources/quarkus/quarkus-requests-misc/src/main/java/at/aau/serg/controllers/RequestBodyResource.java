@@ -19,6 +19,12 @@ public class RequestBodyResource {
     }
 
     @POST
+    @Path("/formparam-body")
+    public Response handleFormParamRequestBody(@FormParam("str") String str) {
+        return Response.ok(str).build();
+    }
+
+    @POST
     @Path("/with-params/{pathParam}")
     public Response handleMixedParamsAndReturnRequestBodyObject(@PathParam("pathParam") String pathParam,
                                                                 @QueryParam("queryParam") String queryParam,
