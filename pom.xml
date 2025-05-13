@@ -102,7 +102,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>at.aau.serg.parsers.SpringParser</mainClass>
+                                    <mainClass>at.aau.serg.parsers.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+
+real	0m4.711s
+user	0m10.823s
+sys	0m2.216s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+
+real	0m5.102s
+user	0m12.029s
+sys	0m2.254s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+
+real	0m4.903s
+user	0m11.302s
+sys	0m2.218s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+
+real	0m4.866s
+user	0m11.284s
+sys	0m2.270s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+
+real	0m4.727s
+user	0m10.879s
+sys	0m2.227s

@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/catwatch_oas_default.json
+
+real	0m5.251s
+user	0m12.534s
+sys	0m2.178s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/catwatch_oas_default.json
+
+real	0m5.278s
+user	0m12.608s
+sys	0m2.273s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/catwatch_oas_default.json
+
+real	0m5.375s
+user	0m13.095s
+sys	0m2.277s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/catwatch_oas_default.json
+
+real	0m5.375s
+user	0m12.774s
+sys	0m2.320s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs/catwatch_oas_default.json
+
+real	0m5.439s
+user	0m13.007s
+sys	0m2.324s

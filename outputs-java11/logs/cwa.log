@@ -1,0 +1,65 @@
+Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [external, internal, default]
+Wrote OpenAPI to outputs/cwa-verification-server_oas_external.json
+Ignoring methodReturnType: ?
+Wrote OpenAPI to outputs/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
+
+real	0m4.714s
+user	0m11.164s
+sys	0m2.059s
+Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [external, internal, default]
+Wrote OpenAPI to outputs/cwa-verification-server_oas_external.json
+Ignoring methodReturnType: ?
+Wrote OpenAPI to outputs/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
+
+real	0m4.739s
+user	0m11.212s
+sys	0m2.082s
+Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [external, internal, default]
+Wrote OpenAPI to outputs/cwa-verification-server_oas_external.json
+Ignoring methodReturnType: ?
+Wrote OpenAPI to outputs/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
+
+real	0m4.944s
+user	0m11.729s
+sys	0m2.190s
+Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [external, internal, default]
+Wrote OpenAPI to outputs/cwa-verification-server_oas_external.json
+Ignoring methodReturnType: ?
+Wrote OpenAPI to outputs/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
+
+real	0m4.827s
+user	0m11.530s
+sys	0m2.167s
+Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [external, internal, default]
+Wrote OpenAPI to outputs/cwa-verification-server_oas_external.json
+Ignoring methodReturnType: ?
+Wrote OpenAPI to outputs/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
+
+real	0m5.085s
+user	0m11.902s
+sys	0m2.280s
