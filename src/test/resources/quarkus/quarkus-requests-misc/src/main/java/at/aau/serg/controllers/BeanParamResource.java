@@ -10,8 +10,8 @@ import jakarta.ws.rs.core.Response;
 public class BeanParamResource {
     @POST
     @Path("/simple-object")
-    public Response handleSimpleObjectWithoutBeanAnnotation(Simple user) {
-        return Response.ok(user).build();
+    public Response handleSimpleObjectWithoutBeanAnnotation(Simple simple) {
+        return Response.ok(simple).build();
     }
 
     @POST
