@@ -27,9 +27,5 @@ public class Utils {
             return new String[]{value.toString()};
         }
     }
-
-    public static Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
-        return Optional.ofNullable(method.getAnnotation(annotationClass));
-    }
 }
 

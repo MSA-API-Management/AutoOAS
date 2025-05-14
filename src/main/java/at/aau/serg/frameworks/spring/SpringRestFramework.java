@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static at.aau.serg.util.Utils.getAnnotation;
+import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class SpringRestFramework implements RestFramework {
 
