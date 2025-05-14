@@ -16,11 +16,6 @@ public class SpringPathVariableAdapter implements PathVariableAnnotation {
     }
 
     @Override
-    public String name() {
-        return annotation.name();
-    }
-
-    @Override
     public boolean required() {
         return annotation.required();
     }

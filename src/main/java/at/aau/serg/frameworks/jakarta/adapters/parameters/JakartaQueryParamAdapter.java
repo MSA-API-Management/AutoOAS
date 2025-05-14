@@ -16,11 +16,6 @@ public class JakartaQueryParamAdapter implements RequestParamAnnotation {
     }
 
     @Override
-    public String name() {
-        return annotation.value();
-    }
-
-    @Override
     public boolean required() {
         return false; // optional by default
     }

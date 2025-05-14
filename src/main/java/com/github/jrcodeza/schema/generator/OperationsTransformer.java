@@ -622,20 +622,20 @@ public class OperationsTransformer {
 		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
 		System.out.println("PathVariable?: " + pathVariableAnnotation);
 		if (pathVariableAnnotation != null) {
-			System.out.println("PathVariable?: " + pathVariableAnnotation.name() + " " + pathVariableAnnotation.value());
-			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.name(), pathVariableAnnotation.value(), parameterName));
+			System.out.println("PathVariable?: " + " " + pathVariableAnnotation.value());
+			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);
 		} else {
 			RequestParamAnnotation requestParamAnnotation = restFramework.tryConvertRequestParamAnnotation(parameter);
 			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getSupportedFileType())) {
-				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.name(), requestParamAnnotation.value(), parameterName));
+				oasParameter.setName(resolveNameFromAnnotation(requestParamAnnotation.value(), parameterName));
 				oasParameter.setIn("query");
 				oasParameter.setRequired(requestParamAnnotation.required());
 			} else {
 				RequestHeaderAnnotation requestHeaderAnnotation = restFramework.tryConvertRequestHeaderAnnotation(parameter);
 				if (requestHeaderAnnotation != null) {
-					oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.name(), requestHeaderAnnotation.value(), parameterName));
+					oasParameter.setName(resolveNameFromAnnotation(requestHeaderAnnotation.value(), parameterName));
 					oasParameter.setIn("header");
 					oasParameter.setRequired(requestHeaderAnnotation.required());
 				} else {
@@ -649,8 +649,8 @@ public class OperationsTransformer {
 		return oasParameter;
 	}
 
-	private String resolveNameFromAnnotation(String nameFromAnnotation, String valueFromAnnotation, String reflectionParameterName) {
-		return Stream.of(nameFromAnnotation, valueFromAnnotation, reflectionParameterName)
+	private String resolveNameFromAnnotation(String valueFromAnnotation, String reflectionParameterName) {
+		return Stream.of(valueFromAnnotation, reflectionParameterName)
 				.filter(StringUtils::isNotBlank)
 				.map(s -> s.replaceAll("/[^A-Za-z0-9]/", ""))
 				.findFirst()
