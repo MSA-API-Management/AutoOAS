@@ -21,6 +21,7 @@ public interface RestFramework {
 
     /**
      * Returns a framework specific description for the OpenAPI documentation.
+     *
      * @param profileName The profile name (if applicable to the framework)
      * @param projectName The name of the project
      * @return A properly formatted description string
@@ -218,16 +219,31 @@ public interface RestFramework {
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
 
     /**
-     * Checks if a type represents a REST framework context object.
+     * Checks if a type represents a REST framework context injection object.
+     * Examples include:
+     * <br>- javax.ws.rs.core.SecurityContext
+     * <br>- jakarta.ws.rs.core.HttpHeaders
+     *
      * @param type The type reference to check
-     * @return true if it is a context object
+     * @return true if it is a framework-injected context object
      */
-    boolean isContextObject(CtTypeReference<?> type);
+    boolean isRestFrameworkInjectedType(CtTypeReference<?> type);
 
     /**
-     * Determines if a parameter has any annotation indicating it is not a request body.
-     * @param parameter  The method parameter to check
-     * @return true if annotated as non-body parameter
+     * Determines if a method parameter is annotated with any REST annotation that indicates
+     * the parameter should be bound from a non-body source.
+     * Examples (here: jakarta) include:
+     * <br> - @PathParam (path variables)
+     * <br>- @QueryParam (URL query parameters)
+     * <br>- @HeaderParam (Http headers)
+     * <br>- @Context (framework context objects)
+     * ...
+     * <p>
+     * Note: This method specifically checks for REST binding annotations, not
+     * validation annotations like @NotNull.
+     *
+     * @param parameter The method parameter to check
+     * @return true if annotated with any non-body binding annotation
      */
-    boolean hasNonBodyAnnotation(CtParameter<?> parameter);
+    boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter);
 }

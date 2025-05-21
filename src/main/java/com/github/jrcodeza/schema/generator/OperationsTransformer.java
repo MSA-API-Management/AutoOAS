@@ -738,7 +738,7 @@ public class OperationsTransformer {
 					.orElse(null);
 		} else {
 			result = parameters.stream()
-					.filter(param -> !restFramework.hasNonBodyAnnotation(param) && !restFramework.isContextObject(param.getType()))
+					.filter(param -> !restFramework.hasRestParameterBindingAnnotation(param) && !restFramework.isRestFrameworkInjectedType(param.getType()))
 					.findFirst()
 					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
 					.orElse(null);

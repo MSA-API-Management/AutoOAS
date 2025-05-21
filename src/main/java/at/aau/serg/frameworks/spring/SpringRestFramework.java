@@ -193,7 +193,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean isContextObject(CtTypeReference<?> type) {
+    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
         String typeName = type.getQualifiedName();
         return typeName.equals("org.springframework.security.core.Authentication")
                 || typeName.equals("org.springframework.web.util.UriComponentsBuilder")
@@ -201,7 +201,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
+    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
         return false; // not needed as Spring Boot has a RequestBody annotation
     }
 }

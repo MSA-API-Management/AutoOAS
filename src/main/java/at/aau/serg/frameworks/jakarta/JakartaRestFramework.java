@@ -209,7 +209,7 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean isContextObject(CtTypeReference<?> type) {
+    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
         String typeName = type.getQualifiedName();
         return typeName.equals("javax.ws.rs.core.SecurityContext") ||
                 typeName.equals("javax.ws.rs.core.UriInfo") ||
@@ -220,14 +220,14 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean hasNonBodyAnnotation(CtParameter<?> parameter) {
+    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
                 .map(CtAnnotation::getAnnotationType)
                 .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isNonBodyParameterAnnotation);
+                .anyMatch(this::isRestParameterBindingAnnotation);
     }
 
-    private boolean isNonBodyParameterAnnotation(String annotationName) {
+    private boolean isRestParameterBindingAnnotation(String annotationName) {
         if (annotationName.equals("javax.ws.rs.PathParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
@@ -245,7 +245,7 @@ public class JakartaRestFramework implements RestFramework {
                 annotationName.equals("jakarta.ws.rs.CookieParam") ||
                 annotationName.equals("jakarta.ws.rs.MatrixParam") ||
                 annotationName.equals("jakarta.ws.rs.core.Context") ||
-//                annotationName.equals("jakarta.ws.rs.FormParam") ||     // TODO is shown as requestbody
+//                annotationName.equals("jakarta.ws.rs.FormParam") ||
                 annotationName.equals("jakarta.ws.rs.BeanParam");
     }
 }
