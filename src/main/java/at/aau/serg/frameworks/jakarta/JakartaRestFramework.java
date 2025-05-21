@@ -102,11 +102,6 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean hasRequestBodyAnnotation() {
-        return getRequestBodyAnnotation() != null;
-    }
-
-    @Override
     public Optional<Annotation> getPostMapping(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }

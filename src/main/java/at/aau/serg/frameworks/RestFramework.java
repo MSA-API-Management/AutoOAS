@@ -108,7 +108,9 @@ public interface RestFramework {
      *
      * @return true if request body annotation exists else false
      */
-    boolean hasRequestBodyAnnotation();
+    default boolean hasRequestBodyAnnotation() {
+        return getRequestBodyAnnotation() != null;
+    }
 
     // todo concrete annotations with generics?
 
