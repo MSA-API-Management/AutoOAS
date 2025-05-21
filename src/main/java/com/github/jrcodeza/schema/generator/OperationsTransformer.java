@@ -86,14 +86,14 @@ public class OperationsTransformer {
 	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
 		System.out.println("Transforming " + method.getSimpleName() + " controller method");
 		logger.debug("Transforming {} controller method", method.getSimpleName());
-		restFramework.getPostMapping(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getPutMapping(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getPatchMapping(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
+		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		restFramework.getGetMapping(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.getDeleteMapping(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
+		restFramework.findGetMappingAnnotation(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
+		restFramework.findDeleteMappingAnnotation(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
-		restFramework.getRequestMapping(method).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
+		restFramework.findRequestMappingAnnotation(method).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
 				baseControllerPath));
 
 		// todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
@@ -794,7 +794,7 @@ public class OperationsTransformer {
 	}
 
 	public String getBaseControllerPath(CtType<?> clazz) {
-		return restFramework.getRequestMapping(clazz)
+		return restFramework.findClassRequestMappingAnnotation(clazz)
 				.map(requestAnnotation ->
 						requestAnnotation.value().length > 0
 								? getFirstFromArray(requestAnnotation.value())

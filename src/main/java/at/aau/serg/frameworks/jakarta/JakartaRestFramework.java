@@ -102,37 +102,37 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<Annotation> getPostMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
 
     @Override
-    public Optional<Annotation> getPutMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PUT.class);
     }
 
     @Override
-    public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PATCH.class);
     }
 
     @Override
-    public Optional<Annotation> getGetMapping(CtMethod<?> method) {
+    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GET.class);
     }
 
     @Override
-    public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
+    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DELETE.class);
     }
 
     @Override
-    public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
+    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return Optional.empty();    // no request mapping exists
     }
 
     @Override
-    public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+    public Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
             String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
             if (annotationTypeName.equals(Path.class.getName())) {

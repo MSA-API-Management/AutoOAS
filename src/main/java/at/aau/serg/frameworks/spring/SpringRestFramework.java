@@ -98,37 +98,37 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<Annotation> getPostMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getPutMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PutMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PatchMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getGetMapping(CtMethod<?> method) {
+    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GetMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
+    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DeleteMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
+    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, RequestMapping.class);
     }
 
     @Override
-    public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+    public Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
         return requestMapping != null
                 ? Optional.of(new SpringRequestMappingAdapter(requestMapping))

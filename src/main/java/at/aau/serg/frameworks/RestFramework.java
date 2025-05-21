@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface RestFramework {
     /**
-     * Represents unique identifier of the implemented framework
+     * Returns the unique identifier of the implemented framework
      *
      * @return unique framework identifier
      */
@@ -90,14 +90,14 @@ public interface RestFramework {
     Class<?> getAsyncResultWrapper();
 
     /**
-     * Retrieves the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
+     * Returns the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
      *
      * @return The annotation class that marks parameter groups in the framework
      */
     Class<? extends Annotation> getParameterGroupAnnotation();
 
     /**
-     * Retrieves the annotation class that represents a request body parameter in the framework.
+     * Returns the annotation class that represents a request body parameter in the framework.
      *
      * @return The annotation class that marks request body parameters in the framework
      */
@@ -117,58 +117,58 @@ public interface RestFramework {
     /**
      * Retrieves the POST mapping annotation from a method if present.
      *
-     * @param method The method to check for POST mapping annotations
+     * @param method The method to search for POST mapping annotations
      * @return An Optional containing the POST mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPostMapping(CtMethod<?> method);
+    Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PUT mapping annotation from a method if present.
      *
-     * @param method The method to check for PUT mapping annotations
+     * @param method The method to search for PUT mapping annotations
      * @return An Optional containing the PUT mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPutMapping(CtMethod<?> method);
+    Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PATCH mapping annotation from a method if present.
      *
-     * @param method The method to check for PATCH mapping annotations
+     * @param method The method to search for PATCH mapping annotations
      * @return An Optional containing the PATCH mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPatchMapping(CtMethod<?> method);
+    Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the GET mapping annotation from a method if present.
      *
-     * @param method The method to check for GET mapping annotations
+     * @param method The method to search for GET mapping annotations
      * @return An Optional containing the GET mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getGetMapping(CtMethod<?> method);
+    Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the DELETE mapping annotation from a method if present.
      *
-     * @param method The method to check for DELETE mapping annotations
+     * @param method The method to search for DELETE mapping annotations
      * @return An Optional containing the DELETE mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getDeleteMapping(CtMethod<?> method);
+    Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method);
 
     /**
-     * Retrieves the general request mapping annotation from a method if present.
+     * Retrieves a generic request mapping annotation from a method if present.
      *
-     * @param method The method to check for request mapping annotations
+     * @param method The method to search for request mapping annotations
      * @return An Optional containing the request mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getRequestMapping(CtMethod<?> method);
+    Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method);
 
     /**
-     * Retrieves the request mapping annotation from a class if present and converts it to a standardized form.
+     * Retrieves and converts a generic request mapping annotation from a class to a standardized form if present.
      *
-     * @param clazz The class to check for request mapping annotations
+     * @param clazz The class to search for request mapping annotations
      * @return An Optional containing the standardized RequestAnnotation if found, or an empty Optional otherwise
      */
-    Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
+    Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
 
     /**
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
