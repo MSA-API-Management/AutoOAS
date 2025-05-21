@@ -211,9 +211,12 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public boolean isContextObject(CtTypeReference<?> type) {
         String typeName = type.getQualifiedName();
-        return typeName.equals("javax.ws.rs.core.SecurityContext")
-                || typeName.equals("javax.ws.rs.core.UriInfo")
-                || typeName.equals("javax.ws.rs.core.HttpHeaders");
+        return typeName.equals("javax.ws.rs.core.SecurityContext") ||
+                typeName.equals("javax.ws.rs.core.UriInfo") ||
+                typeName.equals("javax.ws.rs.core.HttpHeaders") ||
+                typeName.equals("jakarta.ws.rs.core.SecurityContext") ||
+                typeName.equals("jakarta.ws.rs.core.UriInfo") ||
+                typeName.equals("jakarta.ws.rs.core.HttpHeaders");
     }
 
     @Override
@@ -225,13 +228,24 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     private boolean isNonBodyParameterAnnotation(String annotationName) {
-        return annotationName.equals("javax.ws.rs.PathParam") ||
+        if (annotationName.equals("javax.ws.rs.PathParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
                 annotationName.equals("javax.ws.rs.CookieParam") ||
-//                annotationName.equals("javax.ws.rs.FormParam") ||     // TODO is shown as requestbody
-                annotationName.equals("jakarta.ws.rs.BeanParam") ||
                 annotationName.equals("javax.ws.rs.MatrixParam") ||
-                annotationName.equals("javax.ws.rs.core.Context");
+                annotationName.equals("javax.ws.rs.BeanParam") ||
+//                annotationName.equals("javax.ws.rs.FormParam") ||
+                annotationName.equals("javax.ws.rs.core.Context")) {
+            return true;
+        }
+
+        return annotationName.equals("jakarta.ws.rs.PathParam") ||
+                annotationName.equals("jakarta.ws.rs.QueryParam") ||
+                annotationName.equals("jakarta.ws.rs.HeaderParam") ||
+                annotationName.equals("jakarta.ws.rs.CookieParam") ||
+                annotationName.equals("jakarta.ws.rs.MatrixParam") ||
+                annotationName.equals("jakarta.ws.rs.core.Context") ||
+//                annotationName.equals("jakarta.ws.rs.FormParam") ||     // TODO is shown as requestbody
+                annotationName.equals("jakarta.ws.rs.BeanParam");
     }
 }
