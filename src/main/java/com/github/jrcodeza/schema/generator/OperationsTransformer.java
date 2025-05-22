@@ -725,13 +725,16 @@ public class OperationsTransformer {
 		List<CtParameter<?>> parameters = method.getParameters();
 		ParameterNamePair result;
 
+		// Check if framework has explicit @RequestBody annotation such as Spring Boot
 		if (restFramework.hasRequestBodyAnnotation()) {
+			// Find the first parameter with a request body annotation
 			result = parameters.stream()
 					.filter(param -> param.getAnnotation(restFramework.getRequestBodyAnnotation()) != null)
 					.findFirst()
 					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
 					.orElse(null);
 		} else {
+			// Find the first parameter without specific REST binding annotations or framework-injected types
 			result = parameters.stream()
 					.filter(param -> !restFramework.hasRestParameterBindingAnnotation(param) && !restFramework.isRestFrameworkInjectedType(param.getType()))
 					.findFirst()
