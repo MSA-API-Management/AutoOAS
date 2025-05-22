@@ -115,6 +115,8 @@ public class OperationsTransformer {
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
+		logger.debug("Called mapRequestMapping with annotation name \"{}\", path {}, method {}, value {}, produces {}", requestAnnotation.name(), getFirstFromArray(requestAnnotation.path()), Arrays.toString(requestAnnotation.method()), getFirstFromArray(requestAnnotation.value()), getFirstFromArray(requestAnnotation.produces()));
+
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
 		HttpMethod[] methods = requestAnnotation.method().length == 0
 				? restFramework.getAllSupportedHttpMethods()
@@ -618,6 +620,7 @@ public class OperationsTransformer {
 
 		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
 		if (pathVariableAnnotation != null) {
+			System.out.println("DEBUG " + pathVariableAnnotation.value() + " " + parameterName + " " + resolveNameFromAnnotation(pathVariableAnnotation.value(), parameterName));
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
 			oasParameter.setRequired(true);

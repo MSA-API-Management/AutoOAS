@@ -12,7 +12,7 @@ public class SpringRequestParamAdapter implements RequestParamAnnotation {
 
     @Override
     public String value() {
-        return annotation.value();
+        return !annotation.value().isEmpty() ? annotation.value() : annotation.name();
     }
 
     @Override
