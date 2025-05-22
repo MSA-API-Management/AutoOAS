@@ -90,7 +90,6 @@ public class RestApiParser {
         var res = new ArrayList<OpenAPI>(controllerClassesPerProfile.size());
 
         for (var profile : controllerClassesPerProfile.entrySet()) {
-            System.out.println(profile.getKey() + " " + profile.getValue());
             String currentProfileName = profile.getKey();
             var controllerClassesForCurrentProfile = profile.getValue();
 
