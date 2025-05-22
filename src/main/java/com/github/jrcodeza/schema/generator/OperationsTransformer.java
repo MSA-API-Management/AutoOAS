@@ -620,10 +620,9 @@ public class OperationsTransformer {
 
 		PathVariableAnnotation pathVariableAnnotation = restFramework.tryConvertPathVariableAnnotation(parameter);
 		if (pathVariableAnnotation != null) {
-			System.out.println("DEBUG " + pathVariableAnnotation.value() + " " + parameterName + " " + resolveNameFromAnnotation(pathVariableAnnotation.value(), parameterName));
 			oasParameter.setName(resolveNameFromAnnotation(pathVariableAnnotation.value(), parameterName));
 			oasParameter.setIn("path");
-			oasParameter.setRequired(true);
+			oasParameter.setRequired(pathVariableAnnotation.required());
 		} else {
 			RequestParamAnnotation requestParamAnnotation = restFramework.tryConvertRequestParamAnnotation(parameter);
 			if (requestParamAnnotation != null && !parameter.getType().getClass().isAssignableFrom(restFramework.getSupportedFileType())) {
