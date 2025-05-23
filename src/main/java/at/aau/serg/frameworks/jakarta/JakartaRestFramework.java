@@ -1,8 +1,7 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
-import at.aau.serg.frameworks.jakarta.adapters.JakartaPathAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaHttpMethodAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRequestAnnotationAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
@@ -136,7 +135,7 @@ public class JakartaRestFramework implements RestFramework {
         for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
             String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
             if (annotationTypeName.equals(Path.class.getName())) {
-                return Optional.of(new JakartaPathAdapter(annotation, clazz));
+                return Optional.of(new JakartaRequestAnnotationAdapter(clazz));
             }
         }
         return Optional.empty();
@@ -145,19 +144,19 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
-            return new JakartaHttpMethodAdapter(method, HttpMethod.POST);
+            return new JakartaRequestAnnotationAdapter(method, HttpMethod.POST);
         }
         if (annotation instanceof PUT) {
-            return new JakartaHttpMethodAdapter(method, HttpMethod.PUT);
+            return new JakartaRequestAnnotationAdapter(method, HttpMethod.PUT);
         }
         if (annotation instanceof PATCH) {
-            return new JakartaHttpMethodAdapter(method, HttpMethod.PATCH);
+            return new JakartaRequestAnnotationAdapter(method, HttpMethod.PATCH);
         }
         if (annotation instanceof GET) {
-            return new JakartaHttpMethodAdapter(method, HttpMethod.GET);
+            return new JakartaRequestAnnotationAdapter(method, HttpMethod.GET);
         }
         if (annotation instanceof DELETE) {
-            return new JakartaHttpMethodAdapter(method, HttpMethod.DELETE);
+            return new JakartaRequestAnnotationAdapter(method, HttpMethod.DELETE);
         }
         if (annotation instanceof RequestMapping) {
             return null;
