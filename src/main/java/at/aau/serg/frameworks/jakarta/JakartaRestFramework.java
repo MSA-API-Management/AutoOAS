@@ -30,6 +30,11 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class JakartaRestFramework implements RestFramework {
     @Override
+    public AnnotationProvider getAnnotationProvider() {
+        return new JakartaAnnotationProvider();
+    }
+
+    @Override
     public String getIdentifier() {
         return "";
     }

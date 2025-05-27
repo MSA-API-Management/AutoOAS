@@ -29,6 +29,11 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 public class SpringRestFramework implements RestFramework {
 
     @Override
+    public AnnotationProvider getAnnotationProvider() {
+        return new SpringAnnotationProvider();
+    }
+
+    @Override
     public String getIdentifier() {
         return "spring";
     }
