@@ -33,7 +33,7 @@ public class QuarkusParserIntegrationTest {
         );
     }
 
-/*    @ParameterizedTest
+    @ParameterizedTest
     @CsvSource({
             "simple-quarkus-misc,simple-quarkus-misc.json"
             , "quarkus-requests-misc,quarkus-requests-misc.json"
@@ -48,7 +48,7 @@ public class QuarkusParserIntegrationTest {
                 new File(testResourcesPath + docsPath),
                 new File("target/openapi/" + projectFolder + "_default.json"))
         );
-    }*/
+    }
 
     @ParameterizedTest
     @CsvSource({
