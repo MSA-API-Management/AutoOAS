@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
+import at.aau.serg.frameworks.AnnotationProvider;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
@@ -14,7 +15,6 @@ import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
-import javax.validation.constraints.*;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.util.*;
@@ -29,6 +29,7 @@ import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
     private RestFramework restFramework;
+    private AnnotationProvider annotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
@@ -38,6 +39,7 @@ public class SchemaGeneratorHelper {
     public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
+        this.annotationProvider = restFramework.getAnnotationProvider();
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -121,10 +123,10 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
-    /** TODO update naming and check if it is equivalent to old impl. Return null instead of type?
+    /**
+     * TODO update naming and check if it is equivalent to old impl. Return null instead of type?
      *   Previously, you could assume that the wrapper was always gone.
      *   Now, the method returns the original wrapper if it does not define the generic type T
-     *
      *
      * @param type
      * @param genericTypes
@@ -330,30 +332,36 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        if (annotation instanceof Pattern) {
-            schema.pattern(((Pattern) annotation).regexp());
-        } else if (annotation instanceof Size) {
-            schema.minLength(((Size) annotation).min());
-            schema.maxLength(((Size) annotation).max());
+        Class<?> annotationType = annotation.annotationType();
+
+        if (annotationType.equals(annotationProvider.getPatternClass())) {
+            schema.pattern(annotationProvider.getPatternRegexp(annotation));
+        } else if (annotationType.equals(annotationProvider.getSizeClass())) {
+            schema.minLength(annotationProvider.getSizeMin(annotation));
+            schema.maxLength(annotationProvider.getSizeMax(annotation));
         }
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        if (annotation instanceof DecimalMin) {
-            schema.setMinimum(new BigDecimal(((DecimalMin) annotation).value()));
-        } else if (annotation instanceof DecimalMax) {
-            schema.setMaximum(new BigDecimal(((DecimalMax) annotation).value()));
-        } else if (annotation instanceof Min) {
-            schema.setMinimum(BigDecimal.valueOf(((Min) annotation).value()));
-        } else if (annotation instanceof Max) {
-            schema.setMaximum(BigDecimal.valueOf(((Max) annotation).value()));
+        Class<?> annotationType = annotation.annotationType();
+
+        if (annotationType.equals(annotationProvider.getDecimalMinClass())) {
+            schema.setMinimum(new BigDecimal(annotationProvider.getDecimalMinValue(annotation)));
+        } else if (annotationType.equals(annotationProvider.getDecimalMaxClass())) {
+            schema.setMaximum(new BigDecimal(annotationProvider.getDecimalMaxValue(annotation)));
+        } else if (annotationType.equals(annotationProvider.getMinClass())) {
+            schema.setMinimum(new BigDecimal(annotationProvider.getMinValue(annotation)));
+        } else if (annotationType.equals(annotationProvider.getMaxClass())) {
+            schema.setMaximum(new BigDecimal(annotationProvider.getMaxValue(annotation)));
         }
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        if (annotation instanceof Size) {
-            schema.minItems(((Size) annotation).min());
-            schema.maxItems(((Size) annotation).max());
+        Class<?> annotationType = annotation.annotationType();
+
+        if (annotationType.equals(annotationProvider.getSizeClass())) {
+            schema.minItems(annotationProvider.getSizeMin(annotation));
+            schema.maxItems(annotationProvider.getSizeMax(annotation));
         }
     }
 
