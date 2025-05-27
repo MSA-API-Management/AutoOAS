@@ -15,6 +15,10 @@ public interface AnnotationProvider {
 
     Class<?> getMaxClass();
 
+    Class<?> getNotNullClass();
+
+    Class<?> getNotEmptyClass();
+
     String getPatternRegexp(Annotation annotation);
 
     int getSizeMin(Annotation annotation);

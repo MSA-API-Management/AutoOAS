@@ -80,7 +80,7 @@ public class RestApiParser {
         operationsTransformer = new OperationsTransformer(schemaHelper,
                 new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
-        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper);
+        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, restFramework.getAnnotationProvider());
 
 
         Map<String, List<CtType<?>>> controllerClassesPerProfile = splitClassesOnProfiles(controllerClasses);

@@ -35,6 +35,16 @@ public class JakartaAnnotationProvider implements at.aau.serg.frameworks.Annotat
     }
 
     @Override
+    public Class<?> getNotNullClass() {
+        return jakarta.validation.constraints.NotNull.class;
+    }
+
+    @Override
+    public Class<?> getNotEmptyClass() {
+        return jakarta.validation.constraints.NotEmpty.class;
+    }
+
+    @Override
     public String getPatternRegexp(Annotation annotation) {
         return ((jakarta.validation.constraints.Pattern) annotation).regexp();
     }

@@ -36,6 +36,16 @@ public class SpringAnnotationProvider implements AnnotationProvider {
     }
 
     @Override
+    public Class<?> getNotNullClass() {
+        return null;
+    }
+
+    @Override
+    public Class<?> getNotEmptyClass() {
+        return null;
+    }
+
+    @Override
     public String getPatternRegexp(Annotation annotation) {
         return "";
     }
