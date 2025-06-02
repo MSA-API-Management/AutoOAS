@@ -15,25 +15,25 @@ import java.util.concurrent.CompletionStage;
 public class SimpleController {
     @GET
     @Path("/deferred-empty")
-    public CompletionStage<SimpleObject> getDeferredResult() {
+    public CompletionStage<SimpleObject> getAsyncResult() {
         return CompletableFuture.completedFuture(new SimpleObject("test", 1));
     }
 
     @GET
     @Path("/deferred-questionmark")
-    public CompletionStage<?> getDeferredResultGenericCapture() {
+    public CompletionStage<?> getAsyncResultGenericCapture() {
         return CompletableFuture.completedFuture(new SimpleObject("test", 1));
     }
 
     @GET
     @Path("/deferred-simple-object")
-    public CompletionStage<SimpleObject> getDeferredResultStringCapture() {
+    public CompletionStage<SimpleObject> getAsyncResultStringCapture() {
         return CompletableFuture.completedFuture(new SimpleObject("test", 1));
     }
 
     @GET
     @Path("/deferred-response-entity-simple-object")
-    public CompletionStage<Response> getDeferredResultResponseEntityStringCapture() {
+    public CompletionStage<Response> getAsyncResultResponseEntityStringCapture() {
         return CompletableFuture.completedFuture(
                 Response.ok(new SimpleObject("test", 1)).build()
         );
