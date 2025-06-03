@@ -133,7 +133,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
+    public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
         return requestMapping != null
                 ? Optional.of(new SpringRequestMappingAdapter(requestMapping))
@@ -141,7 +141,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
+    public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof PostMapping) {
             return new SpringPostMappingAdapter((PostMapping) annotation);
         }

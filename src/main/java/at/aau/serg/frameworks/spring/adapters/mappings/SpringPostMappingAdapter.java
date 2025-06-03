@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import org.springframework.web.bind.annotation.PostMapping;
 
-public class SpringPostMappingAdapter implements RequestAnnotation {
+public class SpringPostMappingAdapter implements RestOperationAnnotation {
     private final PostMapping annotation;
 
     public SpringPostMappingAdapter(PostMapping annotation) {

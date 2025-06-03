@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
-public class SpringDeleteMappingAdapter implements RequestAnnotation {
+public class SpringDeleteMappingAdapter implements RestOperationAnnotation {
     private final DeleteMapping annotation;
 
     public SpringDeleteMappingAdapter(DeleteMapping annotation) {

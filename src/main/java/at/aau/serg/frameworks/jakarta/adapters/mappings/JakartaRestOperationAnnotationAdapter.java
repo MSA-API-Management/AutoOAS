@@ -1,6 +1,6 @@
 package at.aau.serg.frameworks.jakarta.adapters.mappings;
 
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import at.aau.serg.parsers.HttpMethod;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Path;
@@ -10,14 +10,14 @@ import spoon.reflect.declaration.CtType;
 
 import static at.aau.serg.util.Utils.convertToStringArray;
 
-public class JakartaRequestAnnotationAdapter implements RequestAnnotation {
+public class JakartaRestOperationAnnotationAdapter implements RestOperationAnnotation {
     private final HttpMethod[] httpMethods;
     private final Produces produces;
     private final Consumes consumes;
     private final Path path;
 
     // Class-level annotations
-    public JakartaRequestAnnotationAdapter(CtType<?> type) {
+    public JakartaRestOperationAnnotationAdapter(CtType<?> type) {
         produces = type.getAnnotation(Produces.class);
         consumes = type.getAnnotation(Consumes.class);
         path = type.getAnnotation(Path.class);
@@ -25,7 +25,7 @@ public class JakartaRequestAnnotationAdapter implements RequestAnnotation {
     }
 
     // Method-level annotations
-    public JakartaRequestAnnotationAdapter(CtMethod<?> method, HttpMethod httpMethod) {
+    public JakartaRestOperationAnnotationAdapter(CtMethod<?> method, HttpMethod httpMethod) {
         produces = method.getAnnotation(Produces.class);
         consumes = method.getAnnotation(Consumes.class);
         path = method.getAnnotation(Path.class);
