@@ -170,7 +170,7 @@ public interface RestFramework {
      * @param clazz The class to search for request mapping annotations
      * @return An Optional containing the standardized RequestAnnotation if found, or an empty Optional otherwise
      */
-    Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
+    Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
 
     /**
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
@@ -180,7 +180,7 @@ public interface RestFramework {
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
      */
-    RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
+    RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
 
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.
@@ -245,6 +245,10 @@ public interface RestFramework {
      * <p>
      * Note: This method specifically checks for REST binding annotations, not
      * validation annotations like @NotNull.
+     *<p>
+     * This is primarily needed for JAX-RS frameworks where parameters without binding
+     * annotations are implicitly bound to the request body. Spring Framework doesn't
+     * require this check since it uses explicit @RequestBody annotations for body binding
      *
      * @param parameter The method parameter to check
      * @return true if annotated with any non-body binding annotation

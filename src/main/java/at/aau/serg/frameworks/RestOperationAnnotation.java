@@ -10,6 +10,8 @@ import at.aau.serg.parsers.HttpMethod;
  * <p>Request annotations define how HTTP requests are mapped to controller methods,
  * including the URL paths, HTTP methods, content types, and other routing information.</p>
  *
+ * <p>Example call: {@code POST /users} + request and response information</p>
+ *
  * <p>Different frameworks handle request mapping differently:</p>
  * <ul>
  *   <li><strong>Spring:</strong> Uses annotations like {@code @RequestMapping}, {@code @GetMapping},
@@ -19,7 +21,7 @@ import at.aau.serg.parsers.HttpMethod;
  *       {@code @Consumes} for content type specification</li>
  * </ul>
  */
-public interface RequestAnnotation {
+public interface RestOperationAnnotation {
     /**
      * Returns the logical name of the request mapping.
      *
@@ -74,6 +76,8 @@ public interface RequestAnnotation {
      *
      * @return array of URL path patterns, empty array if not specified
      * @see #path()
+     * <p>
+     * TODO same as @path() in Spring and not existing in Jakarta -> needs to be combined with path()
      */
     String[] value();
 

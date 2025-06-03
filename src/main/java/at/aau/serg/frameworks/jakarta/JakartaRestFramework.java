@@ -1,7 +1,7 @@
 package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRequestAnnotationAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnnotationAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
@@ -136,32 +136,32 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
+    public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
             String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
             if (annotationTypeName.equals(Path.class.getName())) {
-                return Optional.of(new JakartaRequestAnnotationAdapter(clazz));
+                return Optional.of(new JakartaRestOperationAnnotationAdapter(clazz));
             }
         }
         return Optional.empty();
     }
 
     @Override
-    public RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
+    public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
-            return new JakartaRequestAnnotationAdapter(method, HttpMethod.POST);
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.POST);
         }
         if (annotation instanceof PUT) {
-            return new JakartaRequestAnnotationAdapter(method, HttpMethod.PUT);
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PUT);
         }
         if (annotation instanceof PATCH) {
-            return new JakartaRequestAnnotationAdapter(method, HttpMethod.PATCH);
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PATCH);
         }
         if (annotation instanceof GET) {
-            return new JakartaRequestAnnotationAdapter(method, HttpMethod.GET);
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.GET);
         }
         if (annotation instanceof DELETE) {
-            return new JakartaRequestAnnotationAdapter(method, HttpMethod.DELETE);
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.DELETE);
         }
         if (annotation instanceof RequestMapping) {
             return null;
@@ -191,6 +191,7 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
         HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+        // TODO check if param has @NotNull or @NotEmpty to set it required -> constructor
         if (annotation != null) {
             return new JakartaHeaderParamAdapter(annotation);
         }
@@ -219,6 +220,9 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
+    // TODO + add comment in interface
+    // isPotentialRequestBodyAnnotation -> true is es einer, wenn false -> is es keiner
+    // In spring dann true returnen
     public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
                 .map(CtAnnotation::getAnnotationType)
@@ -226,25 +230,24 @@ public class JakartaRestFramework implements RestFramework {
                 .anyMatch(this::isRestParameterBindingAnnotation);
     }
 
+    // Javax was used previously before it was replaced by Jakarta
     private boolean isRestParameterBindingAnnotation(String annotationName) {
-        if (annotationName.equals("javax.ws.rs.PathParam") ||
+        return annotationName.equals("javax.ws.rs.PathParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
                 annotationName.equals("javax.ws.rs.CookieParam") ||
                 annotationName.equals("javax.ws.rs.MatrixParam") ||
                 annotationName.equals("javax.ws.rs.BeanParam") ||
 //                annotationName.equals("javax.ws.rs.FormParam") ||
-                annotationName.equals("javax.ws.rs.core.Context")) {
-            return true;
-        }
+                annotationName.equals("javax.ws.rs.core.Context") ||
 
-        return annotationName.equals("jakarta.ws.rs.PathParam") ||
+                annotationName.equals("jakarta.ws.rs.PathParam") ||
                 annotationName.equals("jakarta.ws.rs.QueryParam") ||
                 annotationName.equals("jakarta.ws.rs.HeaderParam") ||
                 annotationName.equals("jakarta.ws.rs.CookieParam") ||
                 annotationName.equals("jakarta.ws.rs.MatrixParam") ||
-                annotationName.equals("jakarta.ws.rs.core.Context") ||
+                annotationName.equals("jakarta.ws.rs.BeanParam") ||
+                annotationName.equals("jakarta.ws.rs.core.Context");
 //                annotationName.equals("jakarta.ws.rs.FormParam") ||
-                annotationName.equals("jakarta.ws.rs.BeanParam");
     }
 }

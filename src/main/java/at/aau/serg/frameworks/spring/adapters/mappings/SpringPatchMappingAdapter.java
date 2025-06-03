@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import org.springframework.web.bind.annotation.PatchMapping;
 
-public class SpringPatchMappingAdapter implements RequestAnnotation {
+public class SpringPatchMappingAdapter implements RestOperationAnnotation {
     private final PatchMapping annotation;
 
     public SpringPatchMappingAdapter(PatchMapping annotation) {
