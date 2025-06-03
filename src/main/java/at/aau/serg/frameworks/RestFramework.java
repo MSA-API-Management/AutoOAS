@@ -9,6 +9,7 @@ import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface RestFramework {
@@ -23,10 +24,11 @@ public interface RestFramework {
      * Returns a framework specific description for the OpenAPI documentation.
      *
      * @param profileName The profile name (if applicable to the framework)
-     * @param projectName The name of the project
      * @return A properly formatted description string
      */
-    String getOpenApiInfoDescription(String profileName, String projectName);
+    default String getOpenApiInfoDescription(String profileName) {
+        return String.format("%s Profile: %s", getIdentifier(), profileName);
+    }
 
     /**
      * Returns the appropriate response code interceptor implementation for the specific REST framework.
@@ -36,6 +38,18 @@ public interface RestFramework {
      * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
      */
     OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses);
+
+    /**
+     * Splits all detected controller classes into potentially overlapping sets of controller classes based on their profile assignment.
+     * If a framework does not support runtime configuration profiles it should return the whole set of classes as the "default" profile.
+     *
+     * @param controllerClasses a set of all controller classes
+     * @return A map of profile names to the (not necessarily disjoint) subset of controller classes for that profile
+     */
+    Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses);
+
+
+// region framework-specific classes
 
     /**
      * Returns the fully qualified class name of the Profile annotation for the current framework.
@@ -102,6 +116,10 @@ public interface RestFramework {
      * @return The annotation class that marks request body parameters in the framework
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
+
+// endregion framework-specific classes
+
+// region framework-specific REST functionality conversions
 
     /**
      * Determines if the framework has a request body annotation
@@ -203,6 +221,9 @@ public interface RestFramework {
      * @return A standardized RequestHeaderAnnotation if found, or null otherwise
      */
     RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter);
+
+// endregion framework-specific REST functionality conversions
+
 
     /**
      * Retrieves all supported HTTP methods defined in the custom HttpMethod enum.

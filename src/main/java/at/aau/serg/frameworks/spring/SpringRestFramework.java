@@ -12,16 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
@@ -30,17 +28,48 @@ public class SpringRestFramework implements RestFramework {
 
     @Override
     public String getIdentifier() {
-        return "spring";
-    }
-
-    @Override
-    public String getOpenApiInfoDescription(String profileName, String projectName) {
-        return "Spring Profile: " + profileName;
+        return "Spring";
     }
 
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
         return new SpringOperationResponseCodeInterceptor(adviceClasses);
+    }
+
+    @Override
+    public Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
+        // split the classes based on spring profile annotations
+        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
+        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
+
+        for (CtType<?> clazz : controllerClasses) {
+            boolean profileAnnotationFound = false;
+
+            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
+                if (this.getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
+                    profileAnnotationFound = true;
+                    // add to annotated profiles
+                    String[] profiles = (String[]) annotation.getValueAsObject("value");
+                    for (String profile : profiles) {
+                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
+                        controllerClassesPerProfile.get(profile).add(clazz);
+                    }
+                    break; // iterating annotations
+                }
+            }
+
+            if (!profileAnnotationFound) {
+                controllerClassesInDefaultProfile.add(clazz);
+            }
+        }
+
+        // add all classes without profile to each explicit profile
+        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
+
+        // also consider the default profile classes alone (e.g., if no profiles exist)
+        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
+
+        return controllerClassesPerProfile;
     }
 
     @Override
