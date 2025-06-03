@@ -284,8 +284,8 @@
     "/simples/deferred-empty" : {
       "get" : {
         "tags" : [ "simple-controller" ],
-        "summary" : "getDeferredResult",
-        "operationId" : "getDeferredResultUsingGET__simples_deferred-empty",
+        "summary" : "getAsyncResult",
+        "operationId" : "getAsyncResultUsingGET__simples_deferred-empty",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -304,8 +304,8 @@
     "/simples/deferred-questionmark" : {
       "get" : {
         "tags" : [ "simple-controller" ],
-        "summary" : "getDeferredResultGenericCapture",
-        "operationId" : "getDeferredResultGenericCaptureUsingGET__simples_deferred-questionmark",
+        "summary" : "getAsyncResultGenericCapture",
+        "operationId" : "getAsyncResultGenericCaptureUsingGET__simples_deferred-questionmark",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -324,8 +324,8 @@
     "/simples/deferred-response-entity-simple-object" : {
       "get" : {
         "tags" : [ "simple-controller" ],
-        "summary" : "getDeferredResultResponseEntityStringCapture",
-        "operationId" : "getDeferredResultResponseEntityStringCaptureUsingGET__simples_deferred-response-entity-simple-object",
+        "summary" : "getAsyncResultResponseEntityStringCapture",
+        "operationId" : "getAsyncResultResponseEntityStringCaptureUsingGET__simples_deferred-response-entity-simple-object",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -344,8 +344,8 @@
     "/simples/deferred-simple-object" : {
       "get" : {
         "tags" : [ "simple-controller" ],
-        "summary" : "getDeferredResultStringCapture",
-        "operationId" : "getDeferredResultStringCaptureUsingGET__simples_deferred-simple-object",
+        "summary" : "getAsyncResultStringCapture",
+        "operationId" : "getAsyncResultStringCaptureUsingGET__simples_deferred-simple-object",
         "parameters" : [ ],
         "responses" : {
           "200" : {
