@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RestFramework {
-    AnnotationProvider getAnnotationProvider();
+    ValidationAnnotationProvider getAnnotationProvider();
 
     /**
      * Returns the unique identifier of the implemented framework

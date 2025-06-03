@@ -2,7 +2,7 @@ package at.aau.serg.frameworks;
 
 import java.lang.annotation.Annotation;
 
-public interface AnnotationProvider {
+public interface ValidationAnnotationProvider {
     Class<?> getPatternClass();
 
     Class<?> getSizeClass();

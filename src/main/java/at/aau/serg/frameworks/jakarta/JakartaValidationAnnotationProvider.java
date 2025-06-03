@@ -1,9 +1,10 @@
 package at.aau.serg.frameworks.jakarta;
 
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
+
 import java.lang.annotation.Annotation;
 
-public class JakartaAnnotationProvider implements at.aau.serg.frameworks.AnnotationProvider {
-    // TODO also add javax?
+public class JakartaValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
     public Class<?> getPatternClass() {
         return jakarta.validation.constraints.Pattern.class;

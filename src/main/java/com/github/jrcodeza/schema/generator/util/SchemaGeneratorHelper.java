@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
-import at.aau.serg.frameworks.AnnotationProvider;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
@@ -29,7 +29,7 @@ import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
     private RestFramework restFramework;
-    private AnnotationProvider annotationProvider;
+    private ValidationAnnotationProvider validationAnnotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
@@ -39,7 +39,7 @@ public class SchemaGeneratorHelper {
     public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
-        this.annotationProvider = restFramework.getAnnotationProvider();
+        this.validationAnnotationProvider = restFramework.getAnnotationProvider();
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -334,34 +334,34 @@ public class SchemaGeneratorHelper {
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
         Class<?> annotationType = annotation.annotationType();
 
-        if (annotationType.equals(annotationProvider.getPatternClass())) {
-            schema.pattern(annotationProvider.getPatternRegexp(annotation));
-        } else if (annotationType.equals(annotationProvider.getSizeClass())) {
-            schema.minLength(annotationProvider.getSizeMin(annotation));
-            schema.maxLength(annotationProvider.getSizeMax(annotation));
+        if (annotationType.equals(validationAnnotationProvider.getPatternClass())) {
+            schema.pattern(validationAnnotationProvider.getPatternRegexp(annotation));
+        } else if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
+            schema.minLength(validationAnnotationProvider.getSizeMin(annotation));
+            schema.maxLength(validationAnnotationProvider.getSizeMax(annotation));
         }
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
         Class<?> annotationType = annotation.annotationType();
 
-        if (annotationType.equals(annotationProvider.getDecimalMinClass())) {
-            schema.setMinimum(new BigDecimal(annotationProvider.getDecimalMinValue(annotation)));
-        } else if (annotationType.equals(annotationProvider.getDecimalMaxClass())) {
-            schema.setMaximum(new BigDecimal(annotationProvider.getDecimalMaxValue(annotation)));
-        } else if (annotationType.equals(annotationProvider.getMinClass())) {
-            schema.setMinimum(new BigDecimal(annotationProvider.getMinValue(annotation)));
-        } else if (annotationType.equals(annotationProvider.getMaxClass())) {
-            schema.setMaximum(new BigDecimal(annotationProvider.getMaxValue(annotation)));
+        if (annotationType.equals(validationAnnotationProvider.getDecimalMinClass())) {
+            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getDecimalMinValue(annotation)));
+        } else if (annotationType.equals(validationAnnotationProvider.getDecimalMaxClass())) {
+            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getDecimalMaxValue(annotation)));
+        } else if (annotationType.equals(validationAnnotationProvider.getMinClass())) {
+            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getMinValue(annotation)));
+        } else if (annotationType.equals(validationAnnotationProvider.getMaxClass())) {
+            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getMaxValue(annotation)));
         }
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
         Class<?> annotationType = annotation.annotationType();
 
-        if (annotationType.equals(annotationProvider.getSizeClass())) {
-            schema.minItems(annotationProvider.getSizeMin(annotation));
-            schema.maxItems(annotationProvider.getSizeMax(annotation));
+        if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
+            schema.minItems(validationAnnotationProvider.getSizeMin(annotation));
+            schema.maxItems(validationAnnotationProvider.getSizeMax(annotation));
         }
     }
 

@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring;
 
-import at.aau.serg.frameworks.AnnotationProvider;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 
 import java.lang.annotation.Annotation;
 
-public class SpringAnnotationProvider implements AnnotationProvider {
+public class JavaxValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
     public Class<?> getPatternClass() {
         return javax.validation.constraints.Pattern.class;

@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import at.aau.serg.frameworks.AnnotationProvider;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -34,17 +34,17 @@ public class ComponentSchemaTransformer {
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
 
-    private AnnotationProvider annotationProvider;
+    private ValidationAnnotationProvider validationAnnotationProvider;
 
     public ComponentSchemaTransformer(List<SchemaFieldInterceptor> schemaFieldInterceptors,
                                       AtomicReference<SchemaFieldFilter> schemaFieldFilter,
                                       SchemaGeneratorHelper schemaGeneratorHelper,
-                                      AnnotationProvider annotationProvider
+                                      ValidationAnnotationProvider validationAnnotationProvider
     ) {
         this.schemaFieldInterceptors = schemaFieldInterceptors;
         this.schemaFieldFilter = schemaFieldFilter;
         this.schemaGeneratorHelper = schemaGeneratorHelper;
-        this.annotationProvider = annotationProvider;
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public Schema transformSimpleSchema(Class<?> clazz, Map<String, InheritanceInfo> inheritanceMap) {
@@ -279,7 +279,7 @@ public class ComponentSchemaTransformer {
         return Stream.of(annotations).anyMatch(annotation -> {
                     Class<?> annotationType = annotation.annotationType();
 
-                    return annotationType.equals(annotationProvider.getNotNullClass()) || annotationType.equals(annotationProvider.getNotEmptyClass());
+                    return annotationType.equals(validationAnnotationProvider.getNotNullClass()) || annotationType.equals(validationAnnotationProvider.getNotEmptyClass());
 //                        || (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
 //                                ((io.swagger.v3.oas.annotations.media.Schema) annotation).required())
                 }

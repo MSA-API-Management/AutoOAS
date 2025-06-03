@@ -29,8 +29,8 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 public class SpringRestFramework implements RestFramework {
 
     @Override
-    public AnnotationProvider getAnnotationProvider() {
-        return new SpringAnnotationProvider();
+    public ValidationAnnotationProvider getAnnotationProvider() {
+        return new JavaxValidationAnnotationProvider();
     }
 
     @Override
