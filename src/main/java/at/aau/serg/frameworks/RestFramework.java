@@ -243,6 +243,10 @@ public interface RestFramework {
      * <p>
      * Note: This method specifically checks for REST binding annotations, not
      * validation annotations like @NotNull.
+     *<p>
+     * This is primarily needed for JAX-RS frameworks where parameters without binding
+     * annotations are implicitly bound to the request body. Spring Framework doesn't
+     * require this check since it uses explicit @RequestBody annotations for body binding
      *
      * @param parameter The method parameter to check
      * @return true if annotated with any non-body binding annotation
