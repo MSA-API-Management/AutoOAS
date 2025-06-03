@@ -1,7 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.util.CollectionUtils;
+import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +48,7 @@ public class SchemaGeneratorHelper {
         if (requestBodyType.isSubtypeOf(new TypeFactory().get(restFramework.getAsyncResultWrapper()).getReference())) {
             // handle DeferredResult Spring wrapper, potentially containing everything
             System.out.println("Stripping DeferredResult, this should not be needed");
-            if (!CollectionUtils.isEmpty(genericParams)) {
+            if (!Utils.isEmpty(genericParams)) {
                 // strip DeferredResult and get ResponseEntity
                 requestBodyType = genericParams.get(0);
                 genericParams = getGenericParams(genericParams.get(0));
@@ -110,7 +110,7 @@ public class SchemaGeneratorHelper {
 
 
     private CtTypeReference<?> getFirstOrNull(List<CtTypeReference<?>> genericParams) {
-        if (CollectionUtils.isEmpty(genericParams)) { // || genericParams.get(0).isAssignableFrom(List.class)) {
+        if (Utils.isEmpty(genericParams)) { // || genericParams.get(0).isAssignableFrom(List.class)) {
             return null;
         }
         return genericParams.get(0);
@@ -132,7 +132,7 @@ public class SchemaGeneratorHelper {
      */
     private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
         if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference())
-                && !CollectionUtils.isEmpty(genericTypes)) {
+                && !Utils.isEmpty(genericTypes)) {
             return genericTypes.get(genericTypes.size() - 1);
         }
         return type; // If no known wrapper is found, return the original type // todo <- this assumption is now wrong

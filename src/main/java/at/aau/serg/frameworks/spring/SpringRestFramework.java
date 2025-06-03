@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring;
 
 import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
-import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -23,11 +24,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
+
 public class SpringRestFramework implements RestFramework {
 
     @Override
     public String getIdentifier() {
         return "spring";
+    }
+
+    @Override
+    public String getOpenApiInfoDescription(String profileName, String projectName) {
+        return "Spring Profile: " + profileName;
     }
 
     @Override
@@ -90,37 +98,37 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<Annotation> getPostMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getPutMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PutMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getPatchMapping(CtMethod<?> method) {
+    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PatchMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getGetMapping(CtMethod<?> method) {
+    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GetMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getDeleteMapping(CtMethod<?> method) {
+    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DeleteMapping.class);
     }
 
     @Override
-    public Optional<Annotation> getRequestMapping(CtMethod<?> method) {
+    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, RequestMapping.class);
     }
 
     @Override
-    public Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz) {
+    public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
         return requestMapping != null
                 ? Optional.of(new SpringRequestMappingAdapter(requestMapping))
@@ -128,7 +136,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public RequestAnnotation convertToRequestAnnotation(Annotation annotation) {
+    public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof PostMapping) {
             return new SpringPostMappingAdapter((PostMapping) annotation);
         }
@@ -179,8 +187,16 @@ public class SpringRestFramework implements RestFramework {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 
-    //TODO
-    private Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
-        return Optional.ofNullable(method.getAnnotation(annotationClass));
+    @Override
+    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
+        String typeName = type.getQualifiedName();
+        return typeName.equals("org.springframework.security.core.Authentication")
+                || typeName.equals("org.springframework.web.util.UriComponentsBuilder")
+                || typeName.equals("org.springframework.http.HttpHeaders");
+    }
+
+    @Override
+    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
+        return false; // not needed as Spring Boot has a RequestBody annotation
     }
 }

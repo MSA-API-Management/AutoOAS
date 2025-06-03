@@ -15,10 +15,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <jakarta.version>10.0.0</jakarta.version>
+        <jakarta.ws.rs.version>3.1.0</jakarta.ws.rs.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.18</version>
+            <scope>compile</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+
+        <!-- OpenAPI / Swagger       -->
         <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
@@ -31,6 +46,7 @@
             <version>2.0.8</version>
         </dependency>
 
+        <!-- Spring Framework        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -45,6 +61,44 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>5.1.9.RELEASE</version>
+        </dependency>
+
+        <!-- Jakarta Framework        -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>${jakarta.ws.rs.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.json.bind</groupId>
+            <artifactId>jakarta.json.bind-api</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>

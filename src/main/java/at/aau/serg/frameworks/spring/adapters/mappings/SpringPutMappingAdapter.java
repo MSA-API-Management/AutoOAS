@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import org.springframework.web.bind.annotation.PutMapping;
 
-public class SpringPutMappingAdapter implements RequestAnnotation {
+public class SpringPutMappingAdapter implements RestOperationAnnotation {
     private final PutMapping annotation;
 
     public SpringPutMappingAdapter(PutMapping annotation) {

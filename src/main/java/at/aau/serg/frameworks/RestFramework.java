@@ -5,6 +5,7 @@ import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -12,18 +13,26 @@ import java.util.Optional;
 
 public interface RestFramework {
     /**
-     * Represents unique identifier of the implemented framework
+     * Returns the unique identifier of the implemented framework
      *
      * @return unique framework identifier
      */
     String getIdentifier();
 
+    /**
+     * Returns a framework specific description for the OpenAPI documentation.
+     *
+     * @param profileName The profile name (if applicable to the framework)
+     * @param projectName The name of the project
+     * @return A properly formatted description string
+     */
+    String getOpenApiInfoDescription(String profileName, String projectName);
 
     /**
      * Returns the appropriate response code interceptor implementation for the specific REST framework.
      *
      * @param adviceClasses A list of controller advice or exception mapper classes that handle exceptions
-     *                     and define response codes for the REST API TODO check equivalent
+     *                      and define response codes for the REST API TODO check equivalent
      * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
      */
     OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses);
@@ -81,85 +90,95 @@ public interface RestFramework {
     Class<?> getAsyncResultWrapper();
 
     /**
-     * Retrieves the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
+     * Returns the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
      *
      * @return The annotation class that marks parameter groups in the framework
      */
     Class<? extends Annotation> getParameterGroupAnnotation();
 
     /**
-     * Retrieves the annotation class that represents a request body parameter in the framework.
+     * Returns the annotation class that represents a request body parameter in the framework.
      *
      * @return The annotation class that marks request body parameters in the framework
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
+
+    /**
+     * Determines if the framework has a request body annotation
+     *
+     * @return true if request body annotation exists else false
+     */
+    default boolean hasRequestBodyAnnotation() {
+        return getRequestBodyAnnotation() != null;
+    }
 
     // todo concrete annotations with generics?
 
     /**
      * Retrieves the POST mapping annotation from a method if present.
      *
-     * @param method The method to check for POST mapping annotations
+     * @param method The method to search for POST mapping annotations
      * @return An Optional containing the POST mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPostMapping(CtMethod<?> method);
+    Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PUT mapping annotation from a method if present.
      *
-     * @param method The method to check for PUT mapping annotations
+     * @param method The method to search for PUT mapping annotations
      * @return An Optional containing the PUT mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPutMapping(CtMethod<?> method);
+    Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PATCH mapping annotation from a method if present.
      *
-     * @param method The method to check for PATCH mapping annotations
+     * @param method The method to search for PATCH mapping annotations
      * @return An Optional containing the PATCH mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getPatchMapping(CtMethod<?> method);
+    Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the GET mapping annotation from a method if present.
      *
-     * @param method The method to check for GET mapping annotations
+     * @param method The method to search for GET mapping annotations
      * @return An Optional containing the GET mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getGetMapping(CtMethod<?> method);
+    Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the DELETE mapping annotation from a method if present.
      *
-     * @param method The method to check for DELETE mapping annotations
+     * @param method The method to search for DELETE mapping annotations
      * @return An Optional containing the DELETE mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getDeleteMapping(CtMethod<?> method);
+    Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method);
 
     /**
-     * Retrieves the general request mapping annotation from a method if present.
+     * Retrieves a generic request mapping annotation from a method if present.
      *
-     * @param method The method to check for request mapping annotations
+     * @param method The method to search for request mapping annotations
      * @return An Optional containing the request mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> getRequestMapping(CtMethod<?> method);
+    Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method);
 
     /**
-     * Retrieves the request mapping annotation from a class if present and converts it to a standardized form.
+     * Retrieves and converts a generic request mapping annotation from a class to a standardized form if present.
      *
-     * @param clazz The class to check for request mapping annotations
+     * @param clazz The class to search for request mapping annotations
      * @return An Optional containing the standardized RequestAnnotation if found, or an empty Optional otherwise
      */
-    Optional<RequestAnnotation> getRequestMapping(CtType<?> clazz);
+    Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
 
     /**
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
      *
      * @param annotation The framework-specific annotation to convert
+     * @param method     Currently parsed method to extract annotations
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
      */
-    RequestAnnotation convertToRequestAnnotation(Annotation annotation);
+    RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
 
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.
@@ -200,4 +219,37 @@ public interface RestFramework {
      * {@code false} otherwise
      */
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
+
+    /**
+     * Checks if a type represents a REST framework context injection object.
+     * Examples include:
+     * <br>- javax.ws.rs.core.SecurityContext
+     * <br>- jakarta.ws.rs.core.HttpHeaders
+     *
+     * @param type The type reference to check
+     * @return true if it is a framework-injected context object
+     */
+    boolean isRestFrameworkInjectedType(CtTypeReference<?> type);
+
+    /**
+     * Determines if a method parameter is annotated with any REST annotation that indicates
+     * the parameter should be bound from a non-body source.
+     * Examples (here: jakarta) include:
+     * <br> - @PathParam (path variables)
+     * <br>- @QueryParam (URL query parameters)
+     * <br>- @HeaderParam (Http headers)
+     * <br>- @Context (framework context objects)
+     * ...
+     * <p>
+     * Note: This method specifically checks for REST binding annotations, not
+     * validation annotations like @NotNull.
+     *<p>
+     * This is primarily needed for JAX-RS frameworks where parameters without binding
+     * annotations are implicitly bound to the request body. Spring Framework doesn't
+     * require this check since it uses explicit @RequestBody annotations for body binding
+     *
+     * @param parameter The method parameter to check
+     * @return true if annotated with any non-body binding annotation
+     */
+    boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter);
 }

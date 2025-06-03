@@ -12,12 +12,7 @@ public class SpringPathVariableAdapter implements PathVariableAnnotation {
 
     @Override
     public String value() {
-        return annotation.value();
-    }
-
-    @Override
-    public String name() {
-        return annotation.name();
+        return !annotation.value().isEmpty() ? annotation.value() : annotation.name();
     }
 
     @Override
