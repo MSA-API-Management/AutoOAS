@@ -168,7 +168,7 @@ public interface RestFramework {
      * @param clazz The class to search for request mapping annotations
      * @return An Optional containing the standardized RequestAnnotation if found, or an empty Optional otherwise
      */
-    Optional<RequestAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
+    Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz);
 
     /**
      * Converts a framework-specific annotation to a standardized RequestAnnotation.
@@ -178,7 +178,7 @@ public interface RestFramework {
      * @return A standardized RequestAnnotation representation of the input annotation
      * @throws IllegalArgumentException if the provided annotation is not supported
      */
-    RequestAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
+    RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method);
 
     /**
      * Attempts to convert a parameter's path variable annotation to a standardized representation.

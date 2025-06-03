@@ -1,10 +1,10 @@
 package at.aau.serg.frameworks.spring.adapters.mappings;
 
 import at.aau.serg.parsers.HttpMethod;
-import at.aau.serg.frameworks.RequestAnnotation;
+import at.aau.serg.frameworks.RestOperationAnnotation;
 import org.springframework.web.bind.annotation.GetMapping;
 
-public class SpringGetMappingAdapter implements RequestAnnotation {
+public class SpringGetMappingAdapter implements RestOperationAnnotation {
     private final GetMapping annotation;
 
     public SpringGetMappingAdapter(GetMapping annotation) {
