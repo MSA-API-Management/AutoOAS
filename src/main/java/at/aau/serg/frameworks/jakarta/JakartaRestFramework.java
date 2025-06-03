@@ -19,10 +19,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
@@ -31,17 +28,17 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 public class JakartaRestFramework implements RestFramework {
     @Override
     public String getIdentifier() {
-        return "";
-    }
-
-    @Override
-    public String getOpenApiInfoDescription(String profileName, String projectName) {
-        return "Quarkus Profile: " + profileName;
+        return "Quarkus";
     }
 
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
         return new JakartaOperationResponseCodeInterceptor(adviceClasses);
+    }
+
+    @Override
+    public Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
+        return Map.of("default", controllerClasses);
     }
 
     @Override
