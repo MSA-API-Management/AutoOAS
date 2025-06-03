@@ -38,6 +38,10 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
+        // Jakarta does not define any profile functionality
+        //  Jersey similarly does not provide profile functionality
+        //  Quarkus does, @IfBuildProfile(allOf / anyOf = {"dev","prod"})
+        //  Todo: We do not support Quarkus profiles currently
         return Map.of("default", controllerClasses);
     }
 
