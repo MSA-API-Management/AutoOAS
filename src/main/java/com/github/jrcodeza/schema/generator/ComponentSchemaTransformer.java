@@ -1,6 +1,9 @@
 package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -34,17 +37,15 @@ public class ComponentSchemaTransformer {
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
 
-    private ValidationAnnotationProvider validationAnnotationProvider;
+    private final ValidationAnnotationProvider validationAnnotationProvider = new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider())); // TODO
 
     public ComponentSchemaTransformer(List<SchemaFieldInterceptor> schemaFieldInterceptors,
                                       AtomicReference<SchemaFieldFilter> schemaFieldFilter,
-                                      SchemaGeneratorHelper schemaGeneratorHelper,
-                                      ValidationAnnotationProvider validationAnnotationProvider
+                                      SchemaGeneratorHelper schemaGeneratorHelper
     ) {
         this.schemaFieldInterceptors = schemaFieldInterceptors;
         this.schemaFieldFilter = schemaFieldFilter;
         this.schemaGeneratorHelper = schemaGeneratorHelper;
-        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public Schema transformSimpleSchema(Class<?> clazz, Map<String, InheritanceInfo> inheritanceMap) {

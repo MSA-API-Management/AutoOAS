@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface RestFramework {
-    ValidationAnnotationProvider getAnnotationProvider();
-
     /**
      * Returns the unique identifier of the implemented framework
      *

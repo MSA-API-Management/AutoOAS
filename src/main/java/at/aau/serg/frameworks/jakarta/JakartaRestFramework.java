@@ -28,11 +28,6 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class JakartaRestFramework implements RestFramework {
     @Override
-    public ValidationAnnotationProvider getAnnotationProvider() {
-        return new JakartaValidationAnnotationProvider();
-    }
-
-    @Override
     public String getIdentifier() {
         return "Quarkus";
     }

@@ -26,12 +26,6 @@ import java.util.stream.Stream;
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class SpringRestFramework implements RestFramework {
-
-    @Override
-    public ValidationAnnotationProvider getAnnotationProvider() {
-        return new JavaxValidationAnnotationProvider();
-    }
-
     @Override
     public String getIdentifier() {
         return "Spring";
