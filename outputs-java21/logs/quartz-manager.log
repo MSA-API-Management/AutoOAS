@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/quartz-manager_oas_default.json
+
+real	0m5.196s
+user	0m12.178s
+sys	0m2.357s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/quartz-manager_oas_default.json
+
+real	0m5.275s
+user	0m12.334s
+sys	0m2.363s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/quartz-manager_oas_default.json
+
+real	0m5.206s
+user	0m12.403s
+sys	0m2.304s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/quartz-manager_oas_default.json
+
+real	0m5.198s
+user	0m12.096s
+sys	0m2.291s
+Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/quartz-manager_oas_default.json
+
+real	0m5.155s
+user	0m12.145s
+sys	0m2.369s

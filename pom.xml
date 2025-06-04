@@ -13,8 +13,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <jakarta.version>10.0.0</jakarta.version>
         <jakarta.ws.rs.version>3.1.0</jakarta.ws.rs.version>
     </properties>
@@ -33,34 +34,73 @@
             <version>2.0.17</version>
         </dependency>
 
-        <!-- OpenAPI / Swagger       -->
+        <!--        AST parsing -->
+        <!-- https://mvnrepository.com/artifact/fr.inria.gforge.spoon/spoon-core -->
+        <dependency>
+            <groupId>fr.inria.gforge.spoon</groupId>
+            <artifactId>spoon-core</artifactId>
+            <version>11.2.0</version>
+        </dependency>
+
+        <!--        OpenAPI data classes -->
         <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-models</artifactId>
-            <version>2.0.8</version>
+            <version>2.0.10</version>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.0.8</version>
+            <version>2.0.10</version>
         </dependency>
 
-        <!-- Spring Framework        -->
+        <!--        Writing OpenAPI json files -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+
+        <!--        Support -->
+        <!-- https://mvnrepository.com/artifact/org.javatuples/javatuples -->
+        <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.12.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.1.9.RELEASE</version>
+            <version>6.2.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.9.RELEASE</version>
+            <version>6.2.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.1.9.RELEASE</version>
+            <version>6.2.6</version>
         </dependency>
 
         <!-- Jakarta Framework        -->
@@ -107,46 +147,16 @@
             <version>2.0.1.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.12.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>fr.inria.gforge.spoon</groupId>
-            <artifactId>spoon-core</artifactId>
-            <!-- Use either 10.0.0 for Java 11, or 11.0.0. for Java 21 -->
-            <version>10.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.javatuples</groupId>
-            <artifactId>javatuples</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.8.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -156,7 +166,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>at.aau.serg.parsers.SpringParser</mainClass>
+                                    <mainClass>at.aau.serg.parsers.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -167,10 +177,11 @@
                 </executions>
             </plugin>
 
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>3.5.3</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -181,13 +192,12 @@
                 </configuration>
             </plugin>
 
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.14.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
                     <compilerArgs>
                         <arg>-Xlint:unchecked</arg>
                     </compilerArgs>
@@ -196,6 +206,5 @@
 
         </plugins>
     </build>
-
 
 </project>

@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.843s
+user	0m13.556s
+sys	0m2.505s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.843s
+user	0m13.998s
+sys	0m2.489s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.784s
+user	0m13.756s
+sys	0m2.480s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.815s
+user	0m13.763s
+sys	0m2.489s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.832s
+user	0m13.659s
+sys	0m2.574s

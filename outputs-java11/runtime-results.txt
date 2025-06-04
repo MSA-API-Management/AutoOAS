@@ -1,0 +1,7 @@
+catwatch.log - Average time in seconds: 6.162 for 5 runs
+cwa.log - Average time in seconds: 5.584 for 5 runs
+ocvn.log - Average time in seconds: 18.962 for 5 runs
+ohsome-api.log - Average time in seconds: 8.479 for 5 runs
+proxyprint.log - Average time in seconds: 6.933 for 5 runs
+quartz-manager.log - Average time in seconds: 5.478 for 5 runs
+ur-codebin.log - Average time in seconds: 4.782 for 5 runs

@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.188s
+user	0m15.126s
+sys	0m2.477s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.182s
+user	0m15.158s
+sys	0m2.457s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.106s
+user	0m14.940s
+sys	0m2.438s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.284s
+user	0m15.602s
+sys	0m2.482s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.097s
+user	0m15.041s
+sys	0m2.454s

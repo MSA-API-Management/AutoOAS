@@ -2,14 +2,30 @@
 
 ## Compile and run
 
-Use Java 11, or Java 21 for newer projects (e.g., that use Java 17 or 21). When using Java 21, also update the major Spoon version from 10 to 11.
+AutoOAS uses Java 21 and [Spoon](https://spoon.gforge.inria.fr/) 11, which allows analyzing projects written also in Java up to version 21.
 
 Compile and run:
 ```shell
 mvn clean package
 
-java -jar target/spring-openapi-generator-1.0.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
+java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
 ```
+
+## Evaluation
+The scripts for the evaluation are located in [scripts](./scripts).
+
+### Runtime evaluation
+Execute the runtime evaluation with:
+```shell
+dataset_dir="/home/alex/Respector-fork/dataset"
+output_dir="outputs-java21"
+for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir; done
+
+python3 scripts/calc_runtime_avg.py $output_dir/logs
+# or calculate manually
+```
+
+
 
 
 ## Docker image
