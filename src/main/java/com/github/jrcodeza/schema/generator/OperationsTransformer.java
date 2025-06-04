@@ -110,12 +110,11 @@ public class OperationsTransformer {
 	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 								   String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()),
-				getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
-		logger.debug("Called mapRequestMapping with annotation name \"{}\", path {}, method {}, value {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.value()), getFirstFromArray(restOperationAnnotation.produces()));
+		logger.debug("Called mapRequestMapping with annotation name \"{}\", path {}, method {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.produces()));
 
 		// the RequestMapping annotation allows for an empty http methods field, which accepts all
 		HttpMethod[] methods = restOperationAnnotation.method().length == 0
@@ -185,8 +184,7 @@ public class OperationsTransformer {
 	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
 						   String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()),
-				getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
@@ -341,9 +339,9 @@ public class OperationsTransformer {
 
 	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
-		logger.debug("Called mapGet with annotation name \"{}\", path {}, method {}, value {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.value()), getFirstFromArray(restOperationAnnotation.produces()));
+		logger.debug("Called mapGet with annotation name \"{}\", path {}, method {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.produces()));
 
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()), getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 		logger.debug("Base Controller Path {}, Path {}, fullPath {}, cleanedPath {}", baseControllerPath, path, fullPath, cleanedPath);
@@ -362,8 +360,7 @@ public class OperationsTransformer {
 
 	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation,method);
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()),
-				getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
@@ -382,8 +379,7 @@ public class OperationsTransformer {
 
 	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()),
-				getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
@@ -402,8 +398,7 @@ public class OperationsTransformer {
 
 	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
-		String path = ObjectUtils.defaultIfNull(getFirstFromArray(restOperationAnnotation.value()),
-				getFirstFromArray(restOperationAnnotation.path()));
+		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
 		String cleanedPath = removeRegexFromPath(fullPath);
 
@@ -785,11 +780,7 @@ public class OperationsTransformer {
 
 	public String getBaseControllerPath(CtType<?> clazz) {
 		return restFramework.findClassRequestMappingAnnotation(clazz)
-				.map(requestAnnotation ->
-						requestAnnotation.value().length > 0
-								? getFirstFromArray(requestAnnotation.value())
-								: getFirstFromArray(requestAnnotation.path())
-				)
+				.map(requestAnnotation -> getFirstFromArray(requestAnnotation.path()))
 				.orElse(""); // ""/"
 	}
 
