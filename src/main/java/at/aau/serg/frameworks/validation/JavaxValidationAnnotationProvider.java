@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.spring;
+package at.aau.serg.frameworks.validation;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 

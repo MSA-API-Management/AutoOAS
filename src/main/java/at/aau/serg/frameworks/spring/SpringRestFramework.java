@@ -5,6 +5,7 @@ import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
+import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
