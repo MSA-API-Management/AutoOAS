@@ -1,5 +1,8 @@
 package at.aau.serg.frameworks;
 
+import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
@@ -8,11 +11,16 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public interface RestFramework {
+    default CompositeValidationAnnotationProvider getValidationAnnotationProvider() {
+        return new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider()));
+    }
+
     /**
      * Returns the unique identifier of the implemented framework
      *
@@ -264,7 +272,7 @@ public interface RestFramework {
      * <p>
      * Note: This method specifically checks for REST binding annotations, not
      * validation annotations like @NotNull.
-     *<p>
+     * <p>
      * This is primarily needed for JAX-RS frameworks where parameters without binding
      * annotations are implicitly bound to the request body. Spring Framework doesn't
      * require this check since it uses explicit @RequestBody annotations for body binding

@@ -31,8 +31,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
-    private RestFramework restFramework;
-    private ValidationAnnotationProvider validationAnnotationProvider;
+    private final RestFramework restFramework;
+    private final ValidationAnnotationProvider validationAnnotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
@@ -42,7 +42,7 @@ public class SchemaGeneratorHelper {
     public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
-        this.validationAnnotationProvider = new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider())); // TODO
+        this.validationAnnotationProvider = restFramework.getValidationAnnotationProvider();
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,

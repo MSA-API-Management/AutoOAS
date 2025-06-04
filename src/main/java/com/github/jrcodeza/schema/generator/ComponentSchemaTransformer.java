@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
 import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import spoon.reflect.declaration.CtEnum;
@@ -37,15 +39,17 @@ public class ComponentSchemaTransformer {
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
 
-    private final ValidationAnnotationProvider validationAnnotationProvider = new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider())); // TODO
+    private final ValidationAnnotationProvider validationAnnotationProvider;
 
     public ComponentSchemaTransformer(List<SchemaFieldInterceptor> schemaFieldInterceptors,
                                       AtomicReference<SchemaFieldFilter> schemaFieldFilter,
-                                      SchemaGeneratorHelper schemaGeneratorHelper
+                                      SchemaGeneratorHelper schemaGeneratorHelper,
+                                      ValidationAnnotationProvider validationAnnotationProvider
     ) {
         this.schemaFieldInterceptors = schemaFieldInterceptors;
         this.schemaFieldFilter = schemaFieldFilter;
         this.schemaGeneratorHelper = schemaGeneratorHelper;
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public Schema transformSimpleSchema(Class<?> clazz, Map<String, InheritanceInfo> inheritanceMap) {
