@@ -102,6 +102,14 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
+    public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(param -> isPotentialRequestBodyAnnotation(param) && !isRestFrameworkInjectedType(param.getType()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
@@ -204,8 +212,8 @@ public class JakartaRestFramework implements RestFramework {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 
-    @Override
-    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
+
+    private boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
         String typeName = type.getQualifiedName();
         return typeName.equals("javax.ws.rs.core.SecurityContext") ||
                 typeName.equals("javax.ws.rs.core.UriInfo") ||
@@ -215,15 +223,11 @@ public class JakartaRestFramework implements RestFramework {
                 typeName.equals("jakarta.ws.rs.core.HttpHeaders");
     }
 
-    @Override
-    // TODO + add comment in interface
-    // isPotentialRequestBodyAnnotation -> true is es einer, wenn false -> is es keiner
-    // In spring dann true returnen
-    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
+    private boolean isPotentialRequestBodyAnnotation(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
                 .map(CtAnnotation::getAnnotationType)
                 .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isRestParameterBindingAnnotation);
+                .noneMatch(this::isRestParameterBindingAnnotation);
     }
 
     // Javax was used previously before it was replaced by Jakarta

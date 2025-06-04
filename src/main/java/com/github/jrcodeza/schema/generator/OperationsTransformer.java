@@ -15,7 +15,6 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -709,36 +708,18 @@ public class OperationsTransformer {
 
 	private ParameterNamePair getRequestBody(CtMethod<?> method) {
 		List<CtParameter<?>> parameters = method.getParameters();
-		ParameterNamePair result;
+		CtParameter<?> requestBodyParam = restFramework.findRequestBody(parameters);
 
-		// Check if framework has explicit @RequestBody annotation such as Spring Boot
-		// Todo restframework.getRequestBody
-		if (restFramework.hasRequestBodyAnnotation()) {
-			// Find the first parameter with a request body annotation
-			result = parameters.stream()
-					.filter(param -> param.getAnnotation(restFramework.getRequestBodyAnnotation()) != null)
-					.findFirst()
-					.map(param -> new ParameterNamePair(param.getSimpleName(), param)) // todo kann bleiben
-					.orElse(null);
+		if(requestBodyParam != null) {
+			return new ParameterNamePair(requestBodyParam.getSimpleName(), requestBodyParam);
 		} else {
-			// Find the first parameter without specific REST binding annotations or framework-injected types
-			result = parameters.stream()
-					.filter(param -> !restFramework.hasRestParameterBindingAnnotation(param) && !restFramework.isRestFrameworkInjectedType(param.getType()))
-					.findFirst()
-					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
-					.orElse(null);
-		}
-
-		// fall back if nothing was found
-		if (result == null) {
-			result = parameters.stream()
+			// fall back if nothing was found
+			return parameters.stream()
 					.filter(param -> schemaGeneratorHelper.isFile(param.getType()))
 					.findFirst()
 					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
 					.orElse(null);
 		}
-
-		return result;
 	}
 
 	private String getOperationId(String path, String nameFromAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
