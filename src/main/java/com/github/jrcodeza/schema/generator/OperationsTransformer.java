@@ -163,33 +163,18 @@ public class OperationsTransformer {
 	 * @param operation
 	 */
 	private void setContentBasedOnHttpMethod(PathItem pathItem, HttpMethod method, Operation operation) {
-		// TODO enhanced switch
 		switch (method) {
-			case GET:
-				pathItem.setGet(operation);
-				return;
-			case PUT:
-				pathItem.setPut(operation);
-				return;
-			case POST:
-				pathItem.setPost(operation);
-				return;
-			case PATCH:
-				pathItem.setPatch(operation);
-				return;
-			case HEAD:
-				pathItem.setHead(operation);
-				return;
-			case OPTIONS:
-				pathItem.setOptions(operation);
-				return;
-			case DELETE:
-				pathItem.setDelete(operation);
-				return;
-			case TRACE:
-				pathItem.setTrace(operation);
+			case GET    -> pathItem.setGet(operation);
+			case PUT    -> pathItem.setPut(operation);
+			case POST   -> pathItem.setPost(operation);
+			case PATCH  -> pathItem.setPatch(operation);
+			case HEAD   -> pathItem.setHead(operation);
+			case OPTIONS-> pathItem.setOptions(operation);
+			case DELETE -> pathItem.setDelete(operation);
+			case TRACE  -> pathItem.setTrace(operation);
 		}
 	}
+
 
 	private String classNameToTag(String controllerClassName) {
 		return Stream.of(StringUtils.splitByCharacterTypeCamelCase(controllerClassName))
