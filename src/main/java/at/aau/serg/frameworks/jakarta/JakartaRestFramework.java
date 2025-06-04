@@ -5,7 +5,6 @@ import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnno
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
-import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
