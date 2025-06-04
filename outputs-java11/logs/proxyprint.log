@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/proxyprint-kitchen_oas_default.json
+
+real	0m6.919s
+user	0m17.397s
+sys	0m2.774s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/proxyprint-kitchen_oas_default.json
+
+real	0m7.166s
+user	0m18.025s
+sys	0m2.796s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/proxyprint-kitchen_oas_default.json
+
+real	0m6.905s
+user	0m17.304s
+sys	0m2.762s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/proxyprint-kitchen_oas_default.json
+
+real	0m7.101s
+user	0m17.744s
+sys	0m2.775s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/proxyprint-kitchen_oas_default.json
+
+real	0m6.572s
+user	0m16.451s
+sys	0m2.562s

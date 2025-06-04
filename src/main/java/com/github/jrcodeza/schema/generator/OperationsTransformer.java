@@ -310,6 +310,9 @@ public class OperationsTransformer {
 
 	/**
 	 * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
+	 *
+	 * // todo HttpStatus / ResponseStatus is spring-specific
+	 *
 	 * @param method
 	 * @return Optional.empty if no annotation was found
 	 */
@@ -345,6 +348,7 @@ public class OperationsTransformer {
 		return response.responseCode().equals(defaultVal) ? response.description() : response.responseCode();
 	}
 
+	// todo HttpStatus is Spring-specific
 	private HttpStatus defaultIfUnexpectedServerError(HttpStatus code, HttpStatus value) {
 		// code default value is internal server error
 		return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;
