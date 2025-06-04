@@ -8,76 +8,76 @@ import java.lang.annotation.Annotation;
 public class JakartaValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
     public boolean hasNotNullAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.NotNull.class);
+        return annotation.annotationType().equals(NotNull.class);
     }
 
     @Override
     public boolean hasNotEmptyAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.NotEmpty.class);
+        return annotation.annotationType().equals(NotEmpty.class);
     }
 
     @Override
     public boolean hasPatternAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.Pattern.class);
+        return annotation.annotationType().equals(Pattern.class);
     }
 
     @Override
     public boolean hasSizeAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.Size.class);
+        return annotation.annotationType().equals(Size.class);
     }
 
     @Override
     public boolean hasDecimalMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.DecimalMin.class);
+        return annotation.annotationType().equals(DecimalMin.class);
     }
 
     @Override
     public boolean hasDecimalMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.DecimalMax.class);
+        return annotation.annotationType().equals(DecimalMax.class);
     }
 
     @Override
     public boolean hasMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.Min.class);
+        return annotation.annotationType().equals(Min.class);
     }
 
     @Override
     public boolean hasMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(jakarta.validation.constraints.Max.class);
+        return annotation.annotationType().equals(Max.class);
     }
 
     @Override
     public String getPatternRegexp(Annotation annotation) {
-        return ((jakarta.validation.constraints.Pattern) annotation).regexp();
+        return ((Pattern) annotation).regexp();
     }
 
     @Override
     public int getSizeMin(Annotation annotation) {
-        return ((jakarta.validation.constraints.Size) annotation).min();
+        return ((Size) annotation).min();
     }
 
     @Override
     public int getSizeMax(Annotation annotation) {
-        return ((jakarta.validation.constraints.Size) annotation).max();
+        return ((Size) annotation).max();
     }
 
     @Override
     public String getDecimalMinValue(Annotation annotation) {
-        return ((jakarta.validation.constraints.DecimalMin) annotation).value();
+        return ((DecimalMin) annotation).value();
     }
 
     @Override
     public String getDecimalMaxValue(Annotation annotation) {
-        return ((jakarta.validation.constraints.DecimalMax) annotation).value();
+        return ((DecimalMax) annotation).value();
     }
 
     @Override
     public long getMinValue(Annotation annotation) {
-        return ((jakarta.validation.constraints.Min) annotation).value();
+        return ((Min) annotation).value();
     }
 
     @Override
     public long getMaxValue(Annotation annotation) {
-        return ((jakarta.validation.constraints.Max) annotation).value();
+        return ((Max) annotation).value();
     }
 }
