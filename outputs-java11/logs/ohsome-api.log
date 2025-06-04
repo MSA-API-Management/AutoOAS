@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/ohsome-api_oas_default.json
+
+real	0m8.557s
+user	0m21.547s
+sys	0m3.387s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/ohsome-api_oas_default.json
+
+real	0m8.669s
+user	0m21.766s
+sys	0m3.235s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/ohsome-api_oas_default.json
+
+real	0m8.429s
+user	0m21.249s
+sys	0m3.214s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/ohsome-api_oas_default.json
+
+real	0m8.458s
+user	0m21.053s
+sys	0m3.184s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Detected Spring profiles: [default]
+Wrote OpenAPI to outputs-java11/ohsome-api_oas_default.json
+
+real	0m8.280s
+user	0m20.391s
+sys	0m3.172s

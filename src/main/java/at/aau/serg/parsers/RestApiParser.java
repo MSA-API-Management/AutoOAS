@@ -9,6 +9,7 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
 import org.javatuples.Pair;
 import spoon.MavenLauncher;
@@ -21,7 +22,6 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -82,44 +82,56 @@ public class RestApiParser {
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, restFramework.getAnnotationProvider());
 
-
-        Map<String, List<CtType<?>>> controllerClassesPerProfile = splitClassesOnProfiles(controllerClasses);
-
+        Map<String, List<CtType<?>>> controllerClassesPerProfile = restFramework.splitClassesOnProfiles(controllerClasses);
         System.out.println("Detected profiles: " + controllerClassesPerProfile.keySet());
 
         var res = new ArrayList<OpenAPI>(controllerClassesPerProfile.size());
 
         for (var profile : controllerClassesPerProfile.entrySet()) {
-            String currentProfileName = profile.getKey();
-            var controllerClassesForCurrentProfile = profile.getValue();
+            OpenAPI openApiForProfile = createOpenAPIFromProfile(profile, explicitModelClasses);
 
-            if (controllerClassesForCurrentProfile.isEmpty()) {
-                System.out.println("Skipping empty profile: " + currentProfileName);
-                continue;
+            if (openApiForProfile != null) {
+                res.add(openApiForProfile);
             }
-
-            res.add(createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses));
         }
 
         return res;
+    }
+
+    private OpenAPI createOpenAPIFromProfile(Map.Entry<String, List<CtType<?>>> profile, List<CtType<?>> explicitModelClasses) {
+        String currentProfileName = profile.getKey();
+        var controllerClassesForCurrentProfile = profile.getValue();
+
+        if (controllerClassesForCurrentProfile.isEmpty()) {
+            System.out.println("Skipping empty profile: " + currentProfileName);
+            return null;
+        } else
+            return createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses);
+
     }
 
     private OpenAPI createOpenAPIFromControllers(String profileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
         Paths paths = createPathsFromControllers(controllerClasses);
 
         // after all the paths are generated, we know about the referenced models
+        // todo remove this global variable dependency to schemaHelper (filled by OperationTransformer)
         Set<CtTypeReference<?>> modelClasses = schemaHelper.referencedModelClasses;
         modelClasses.addAll(explicitModelClasses.stream().map(CtType::getReference).collect(Collectors.toUnmodifiableSet()));
         Components components = createComponentsSchemasFromModels(modelClasses);
 
-        String openApiInfoDescription = restFramework.getOpenApiInfoDescription(profileName, projectName);
-        OpenAPI openApi = openApiGen.createOpenApi(openApiGen.getDummyInfo(projectName, openApiInfoDescription), paths, components);
+        Info info = openApiGen.getDummyInfo(projectName, restFramework.getOpenApiInfoDescription(profileName));
 
+        OpenAPI openApi = openApiGen.createOpenApi(info, paths, components);
+
+        writeOpenApiToFile(openApi, profileName);
+
+        return openApi;
+    }
+
+    private void writeOpenApiToFile(OpenAPI openApi, String profileName) {
         var fileName = outputFileName.replace(".json", "") + "_" + profileName + ".json";
         openApiGen.writeOpenApiToFile(openApi, fileName);
         System.out.println("Wrote OpenAPI to " + fileName);
-
-        return openApi;
     }
 
     private Paths createPathsFromControllers(List<CtType<?>> controllerClasses) {
@@ -202,41 +214,6 @@ public class RestApiParser {
         Components components = new Components();
         components.setSchemas(schemaMap);
         return components;
-    }
-
-    protected Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
-        // split the classes based on spring profile annotations
-        Map<String, List<CtType<?>>> controllerClassesPerProfile = new HashMap<>();
-        List<CtType<?>> controllerClassesInDefaultProfile = new ArrayList<>();
-
-        for (CtType<?> clazz : controllerClasses) {
-            boolean profileAnnotationFound = false;
-
-            for (CtAnnotation<? extends Annotation> annotation : clazz.getAnnotations()) {
-                if (this.restFramework.getProfileAnnotation().equals(annotation.getAnnotationType().toString())) {
-                    profileAnnotationFound = true;
-                    // add to annotated profiles
-                    String[] profiles = (String[]) annotation.getValueAsObject("value");
-                    for (String profile : profiles) {
-                        controllerClassesPerProfile.putIfAbsent(profile, new ArrayList<>());
-                        controllerClassesPerProfile.get(profile).add(clazz);
-                    }
-                    break;
-                }
-            }
-
-            if (!profileAnnotationFound) {
-                controllerClassesInDefaultProfile.add(clazz);
-            }
-        }
-
-        // add all classes without profile to each explicit profile
-        controllerClassesPerProfile.forEach((k, v) -> v.addAll(controllerClassesInDefaultProfile));
-
-        // also consider the default profile classes alone (e.g., if no profiles exist)
-        controllerClassesPerProfile.put("default", controllerClassesInDefaultProfile);
-
-        return controllerClassesPerProfile;
     }
 
     // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
