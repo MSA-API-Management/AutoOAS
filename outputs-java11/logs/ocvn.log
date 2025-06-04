@@ -9,11 +9,11 @@ Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
-Wrote OpenAPI to outputs/ocvn_oas_default.json
+Wrote OpenAPI to outputs-java11/ocvn_oas_default.json
 
-real	0m17.685s
-user	0m28.551s
-sys	0m3.355s
+real	0m19.494s
+user	0m32.391s
+sys	0m4.070s
 Loading model: /home/alex/Respector-fork/dataset/ocvn/web
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -25,11 +25,11 @@ Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
-Wrote OpenAPI to outputs/ocvn_oas_default.json
+Wrote OpenAPI to outputs-java11/ocvn_oas_default.json
 
-real	0m17.193s
-user	0m27.970s
-sys	0m3.362s
+real	0m18.915s
+user	0m32.091s
+sys	0m3.976s
 Loading model: /home/alex/Respector-fork/dataset/ocvn/web
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -41,11 +41,11 @@ Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
-Wrote OpenAPI to outputs/ocvn_oas_default.json
+Wrote OpenAPI to outputs-java11/ocvn_oas_default.json
 
-real	0m17.092s
-user	0m27.691s
-sys	0m3.419s
+real	0m18.944s
+user	0m32.106s
+sys	0m3.850s
 Loading model: /home/alex/Respector-fork/dataset/ocvn/web
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -57,11 +57,11 @@ Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
-Wrote OpenAPI to outputs/ocvn_oas_default.json
+Wrote OpenAPI to outputs-java11/ocvn_oas_default.json
 
-real	0m17.142s
-user	0m27.961s
-sys	0m3.429s
+real	0m18.599s
+user	0m31.664s
+sys	0m3.958s
 Loading model: /home/alex/Respector-fork/dataset/ocvn/web
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -73,8 +73,8 @@ Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
 Ignoring methodReturnType: ?
-Wrote OpenAPI to outputs/ocvn_oas_default.json
+Wrote OpenAPI to outputs-java11/ocvn_oas_default.json
 
-real	0m17.283s
-user	0m27.932s
-sys	0m3.653s
+real	0m18.860s
+user	0m32.364s
+sys	0m3.841s

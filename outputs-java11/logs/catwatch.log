@@ -3,48 +3,48 @@ SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/catwatch_oas_default.json
+Wrote OpenAPI to outputs-java11/catwatch_oas_default.json
 
-real	0m5.251s
-user	0m12.534s
-sys	0m2.178s
+real	0m6.095s
+user	0m14.933s
+sys	0m2.717s
 Loading model: /home/alex/Respector-fork/dataset/catwatch
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/catwatch_oas_default.json
+Wrote OpenAPI to outputs-java11/catwatch_oas_default.json
 
-real	0m5.278s
-user	0m12.608s
-sys	0m2.273s
+real	0m6.259s
+user	0m15.352s
+sys	0m2.722s
 Loading model: /home/alex/Respector-fork/dataset/catwatch
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/catwatch_oas_default.json
+Wrote OpenAPI to outputs-java11/catwatch_oas_default.json
 
-real	0m5.375s
-user	0m13.095s
-sys	0m2.277s
+real	0m6.188s
+user	0m15.229s
+sys	0m2.620s
 Loading model: /home/alex/Respector-fork/dataset/catwatch
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/catwatch_oas_default.json
+Wrote OpenAPI to outputs-java11/catwatch_oas_default.json
 
-real	0m5.375s
-user	0m12.774s
-sys	0m2.320s
+real	0m6.158s
+user	0m15.090s
+sys	0m2.731s
 Loading model: /home/alex/Respector-fork/dataset/catwatch
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/catwatch_oas_default.json
+Wrote OpenAPI to outputs-java11/catwatch_oas_default.json
 
-real	0m5.439s
-user	0m13.007s
-sys	0m2.324s
+real	0m6.108s
+user	0m15.037s
+sys	0m2.647s

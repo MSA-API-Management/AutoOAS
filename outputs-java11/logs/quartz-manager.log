@@ -3,48 +3,48 @@ SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+Wrote OpenAPI to outputs-java11/quartz-manager_oas_default.json
 
-real	0m4.711s
-user	0m10.823s
-sys	0m2.216s
+real	0m5.657s
+user	0m13.622s
+sys	0m2.592s
 Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+Wrote OpenAPI to outputs-java11/quartz-manager_oas_default.json
 
-real	0m5.102s
-user	0m12.029s
-sys	0m2.254s
+real	0m5.451s
+user	0m13.098s
+sys	0m2.518s
 Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+Wrote OpenAPI to outputs-java11/quartz-manager_oas_default.json
 
-real	0m4.903s
-user	0m11.302s
-sys	0m2.218s
+real	0m5.596s
+user	0m13.406s
+sys	0m2.538s
 Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+Wrote OpenAPI to outputs-java11/quartz-manager_oas_default.json
 
-real	0m4.866s
-user	0m11.284s
-sys	0m2.270s
+real	0m5.444s
+user	0m13.014s
+sys	0m2.518s
 Loading model: /home/alex/Respector-fork/dataset/quartz-manager/quartz-manager-parent
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 Detected Spring profiles: [default]
-Wrote OpenAPI to outputs/quartz-manager_oas_default.json
+Wrote OpenAPI to outputs-java11/quartz-manager_oas_default.json
 
-real	0m4.727s
-user	0m10.879s
-sys	0m2.227s
+real	0m5.240s
+user	0m12.237s
+sys	0m2.478s
