@@ -2,47 +2,48 @@ package at.aau.serg.frameworks.validation;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 
+import javax.validation.constraints.*;
 import java.lang.annotation.Annotation;
 
 public class JavaxValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
-    public Class<?> getPatternClass() {
-        return javax.validation.constraints.Pattern.class;
+    public boolean hasNotNullAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.NotNull.class);
     }
 
     @Override
-    public Class<?> getSizeClass() {
-        return javax.validation.constraints.Size.class;
+    public boolean hasNotEmptyAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.NotEmpty.class);
     }
 
     @Override
-    public Class<?> getDecimalMinClass() {
-        return javax.validation.constraints.DecimalMin.class;
+    public boolean hasPatternAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Pattern.class);
     }
 
     @Override
-    public Class<?> getDecimalMaxClass() {
-        return javax.validation.constraints.DecimalMax.class;
+    public boolean hasSizeAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Size.class);
     }
 
     @Override
-    public Class<?> getMinClass() {
-        return javax.validation.constraints.Min.class;
+    public boolean hasDecimalMinAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.DecimalMin.class);
     }
 
     @Override
-    public Class<?> getMaxClass() {
-        return javax.validation.constraints.Max.class;
+    public boolean hasDecimalMaxAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.DecimalMax.class);
     }
 
     @Override
-    public Class<?> getNotNullClass() {
-        return javax.validation.constraints.NotNull.class;
+    public boolean hasMinAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Min.class);
     }
 
     @Override
-    public Class<?> getNotEmptyClass() {
-        return javax.validation.constraints.NotEmpty.class;
+    public boolean hasMaxAnnotation(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Max.class);
     }
 
     @Override

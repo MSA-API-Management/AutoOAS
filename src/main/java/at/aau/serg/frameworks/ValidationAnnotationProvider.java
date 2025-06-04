@@ -3,21 +3,21 @@ package at.aau.serg.frameworks;
 import java.lang.annotation.Annotation;
 
 public interface ValidationAnnotationProvider {
-    Class<?> getPatternClass();
+    boolean hasNotNullAnnotation(Annotation annotation);
 
-    Class<?> getSizeClass();
+    boolean hasNotEmptyAnnotation(Annotation annotation);
 
-    Class<?> getDecimalMinClass();
+    boolean hasPatternAnnotation(Annotation annotation);
 
-    Class<?> getDecimalMaxClass();
+    boolean hasSizeAnnotation(Annotation annotation);
 
-    Class<?> getMinClass();
+    boolean hasDecimalMinAnnotation(Annotation annotation);
 
-    Class<?> getMaxClass();
+    boolean hasDecimalMaxAnnotation(Annotation annotation);
 
-    Class<?> getNotNullClass();
+    boolean hasMinAnnotation(Annotation annotation);
 
-    Class<?> getNotEmptyClass();
+    boolean hasMaxAnnotation(Annotation annotation);
 
     String getPatternRegexp(Annotation annotation);
 

@@ -2,6 +2,9 @@ package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.RestFramework;
+import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -39,7 +42,7 @@ public class SchemaGeneratorHelper {
     public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
-        this.validationAnnotationProvider = restFramework.getAnnotationProvider();
+        this.validationAnnotationProvider = new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider())); // TODO
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -332,34 +335,28 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
-
-        if (annotationType.equals(validationAnnotationProvider.getPatternClass())) {
+        if (validationAnnotationProvider.hasPatternAnnotation(annotation)) {
             schema.pattern(validationAnnotationProvider.getPatternRegexp(annotation));
-        } else if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
+        } else if (validationAnnotationProvider.hasSizeAnnotation(annotation)) {
             schema.minLength(validationAnnotationProvider.getSizeMin(annotation));
             schema.maxLength(validationAnnotationProvider.getSizeMax(annotation));
         }
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
-
-        if (annotationType.equals(validationAnnotationProvider.getDecimalMinClass())) {
+        if (validationAnnotationProvider.hasDecimalMinAnnotation(annotation)) {
             schema.setMinimum(new BigDecimal(validationAnnotationProvider.getDecimalMinValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getDecimalMaxClass())) {
+        } else if (validationAnnotationProvider.hasDecimalMaxAnnotation(annotation)) {
             schema.setMaximum(new BigDecimal(validationAnnotationProvider.getDecimalMaxValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getMinClass())) {
+        } else if (validationAnnotationProvider.hasMinAnnotation(annotation)) {
             schema.setMinimum(new BigDecimal(validationAnnotationProvider.getMinValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getMaxClass())) {
+        } else if (validationAnnotationProvider.hasMaxAnnotation(annotation)) {
             schema.setMaximum(new BigDecimal(validationAnnotationProvider.getMaxValue(annotation)));
         }
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
-
-        if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
+        if (validationAnnotationProvider.hasSizeAnnotation(annotation)) {
             schema.minItems(validationAnnotationProvider.getSizeMin(annotation));
             schema.maxItems(validationAnnotationProvider.getSizeMax(annotation));
         }

@@ -277,9 +277,7 @@ public class ComponentSchemaTransformer {
 
     private boolean isRequired(Annotation[] annotations) {
         return Stream.of(annotations).anyMatch(annotation -> {
-                    Class<?> annotationType = annotation.annotationType();
-
-                    return annotationType.equals(validationAnnotationProvider.getNotNullClass()) || annotationType.equals(validationAnnotationProvider.getNotEmptyClass());
+                    return validationAnnotationProvider.hasNotNullAnnotation(annotation) || validationAnnotationProvider.hasNotEmptyAnnotation(annotation);
 //                        || (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
 //                                ((io.swagger.v3.oas.annotations.media.Schema) annotation).required())
                 }
