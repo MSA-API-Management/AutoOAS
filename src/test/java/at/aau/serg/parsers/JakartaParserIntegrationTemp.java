@@ -37,4 +37,10 @@ public class JakartaParserIntegrationTemp {
                 new File(outputPathWithProfileSuffix)));
     }
 
+    @Test
+    public void integrationTest_Quarkus_ResponseIdentification() throws IOException{
+        // fixme its currently an extra test for debugging
+        integrationTest_OpenApiGeneration_Basics_DefaultStringProfile("quarkus-responses");
+    }
+
 }
