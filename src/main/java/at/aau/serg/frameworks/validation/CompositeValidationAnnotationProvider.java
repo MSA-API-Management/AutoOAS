@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class CompositeValidationAnnotationProvider implements ValidationAnnotationProvider {
+    // TODO throw exception when more than one provider was found
     private final List<ValidationAnnotationProvider> providers;
 
     public CompositeValidationAnnotationProvider(List<ValidationAnnotationProvider> providers) {
