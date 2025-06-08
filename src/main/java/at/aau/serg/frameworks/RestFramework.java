@@ -1,8 +1,8 @@
 package at.aau.serg.frameworks;
 
-import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
 import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
 import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;

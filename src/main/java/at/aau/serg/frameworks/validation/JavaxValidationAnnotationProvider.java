@@ -1,11 +1,11 @@
 package at.aau.serg.frameworks.validation;
 
-import at.aau.serg.frameworks.ValidationAnnotationProvider;
-
 import javax.validation.constraints.*;
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 
 public class JavaxValidationAnnotationProvider implements ValidationAnnotationProvider {
+    // TODO
     @Override
     public boolean hasNotNullAnnotation(Annotation annotation) {
         return annotation.annotationType().equals(NotNull.class);
@@ -17,67 +17,37 @@ public class JavaxValidationAnnotationProvider implements ValidationAnnotationPr
     }
 
     @Override
-    public boolean hasPatternAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Pattern.class);
+    public Optional<String> getPatternRegexpIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(Pattern.class) ? Optional.of(((Pattern) annotation).regexp()) : Optional.empty();
     }
 
     @Override
-    public boolean hasSizeAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Size.class);
+    public Optional<Integer> getSizeMinIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(Size.class) ? Optional.of(((Size) annotation).min()) : Optional.empty();
     }
 
     @Override
-    public boolean hasDecimalMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMin.class);
+    public Optional<Integer> getSizeMaxIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(Size.class) ? Optional.of(((Size) annotation).max()) : Optional.empty();
     }
 
     @Override
-    public boolean hasDecimalMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMax.class);
+    public Optional<String> getDecimalMinValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(DecimalMin.class) ? Optional.of(((DecimalMin) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public boolean hasMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Min.class);
+    public Optional<String> getDecimalMaxValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(DecimalMax.class) ? Optional.of(((DecimalMax) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public boolean hasMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Max.class);
+    public Optional<Long> getMinValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(Min.class) ? Optional.of(((Min) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public String getPatternRegexp(Annotation annotation) {
-        return ((Pattern) annotation).regexp();
-    }
-
-    @Override
-    public int getSizeMin(Annotation annotation) {
-        return ((Size) annotation).min();
-    }
-
-    @Override
-    public int getSizeMax(Annotation annotation) {
-        return ((Size) annotation).max();
-    }
-
-    @Override
-    public String getDecimalMinValue(Annotation annotation) {
-        return ((DecimalMin) annotation).value();
-    }
-
-    @Override
-    public String getDecimalMaxValue(Annotation annotation) {
-        return ((DecimalMax) annotation).value();
-    }
-
-    @Override
-    public long getMinValue(Annotation annotation) {
-        return ((Min) annotation).value();
-    }
-
-    @Override
-    public long getMaxValue(Annotation annotation) {
-        return ((Max) annotation).value();
+    public Optional<Long> getMaxValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(Max.class) ? Optional.of(((Max) annotation).value()) : Optional.empty();
     }
 }

@@ -1,83 +1,54 @@
 package at.aau.serg.frameworks.validation;
 
-import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import jakarta.validation.constraints.*;
 
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 
 public class JakartaValidationAnnotationProvider implements ValidationAnnotationProvider {
+    // TODO
     @Override
     public boolean hasNotNullAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(NotNull.class);
+        return annotation.annotationType().equals(javax.validation.constraints.NotNull.class);
     }
 
     @Override
     public boolean hasNotEmptyAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(NotEmpty.class);
+        return annotation.annotationType().equals(javax.validation.constraints.NotEmpty.class);
     }
 
     @Override
-    public boolean hasPatternAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Pattern.class);
+    public Optional<String> getPatternRegexpIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Pattern.class) ? Optional.of(((javax.validation.constraints.Pattern) annotation).regexp()) : Optional.empty();
     }
 
     @Override
-    public boolean hasSizeAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Size.class);
+    public Optional<Integer> getSizeMinIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Size.class) ? Optional.of(((javax.validation.constraints.Size) annotation).min()) : Optional.empty();
     }
 
     @Override
-    public boolean hasDecimalMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMin.class);
+    public Optional<Integer> getSizeMaxIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Size.class) ? Optional.of(((javax.validation.constraints.Size) annotation).max()) : Optional.empty();
     }
 
     @Override
-    public boolean hasDecimalMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMax.class);
+    public Optional<String> getDecimalMinValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.DecimalMin.class) ? Optional.of(((javax.validation.constraints.DecimalMin) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public boolean hasMinAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Min.class);
+    public Optional<String> getDecimalMaxValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.DecimalMax.class) ? Optional.of(((javax.validation.constraints.DecimalMax) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public boolean hasMaxAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(Max.class);
+    public Optional<Long> getMinValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Min.class) ? Optional.of(((javax.validation.constraints.Min) annotation).value()) : Optional.empty();
     }
 
     @Override
-    public String getPatternRegexp(Annotation annotation) {
-        return ((Pattern) annotation).regexp();
-    }
-
-    @Override
-    public int getSizeMin(Annotation annotation) {
-        return ((Size) annotation).min();
-    }
-
-    @Override
-    public int getSizeMax(Annotation annotation) {
-        return ((Size) annotation).max();
-    }
-
-    @Override
-    public String getDecimalMinValue(Annotation annotation) {
-        return ((DecimalMin) annotation).value();
-    }
-
-    @Override
-    public String getDecimalMaxValue(Annotation annotation) {
-        return ((DecimalMax) annotation).value();
-    }
-
-    @Override
-    public long getMinValue(Annotation annotation) {
-        return ((Min) annotation).value();
-    }
-
-    @Override
-    public long getMaxValue(Annotation annotation) {
-        return ((Max) annotation).value();
+    public Optional<Long> getMaxValueIfPresent(Annotation annotation) {
+        return annotation.annotationType().equals(javax.validation.constraints.Max.class) ? Optional.of(((Max) annotation).value()) : Optional.empty();
     }
 }

@@ -1,10 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
-import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -335,31 +332,36 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        if (validationAnnotationProvider.hasPatternAnnotation(annotation)) {
-            schema.pattern(validationAnnotationProvider.getPatternRegexp(annotation));
-        } else if (validationAnnotationProvider.hasSizeAnnotation(annotation)) {
-            schema.minLength(validationAnnotationProvider.getSizeMin(annotation));
-            schema.maxLength(validationAnnotationProvider.getSizeMax(annotation));
-        }
+        validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
+                .ifPresent(schema::pattern);
+
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minLength);
+
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxLength);
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        if (validationAnnotationProvider.hasDecimalMinAnnotation(annotation)) {
-            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getDecimalMinValue(annotation)));
-        } else if (validationAnnotationProvider.hasDecimalMaxAnnotation(annotation)) {
-            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getDecimalMaxValue(annotation)));
-        } else if (validationAnnotationProvider.hasMinAnnotation(annotation)) {
-            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getMinValue(annotation)));
-        } else if (validationAnnotationProvider.hasMaxAnnotation(annotation)) {
-            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getMaxValue(annotation)));
-        }
+        validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getDecimalMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        if (validationAnnotationProvider.hasSizeAnnotation(annotation)) {
-            schema.minItems(validationAnnotationProvider.getSizeMin(annotation));
-            schema.maxItems(validationAnnotationProvider.getSizeMax(annotation));
-        }
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minItems);
+
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxItems);
     }
 
     protected String mapBasicLangItemsType(CtTypeReference<?> classRefTypeSignature) {

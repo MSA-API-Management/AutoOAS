@@ -1,10 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.frameworks.ValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.JavaxValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProvider;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -15,7 +11,6 @@ import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
-import jakarta.validation.Valid;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import spoon.reflect.declaration.CtEnum;
