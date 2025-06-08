@@ -11,16 +11,11 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public interface RestFramework {
-    default CompositeValidationAnnotationProvider getValidationAnnotationProvider() {
-        return new CompositeValidationAnnotationProvider(Arrays.asList(new JakartaValidationAnnotationProvider(), new JavaxValidationAnnotationProvider()));
-    }
-
     /**
      * Returns the unique identifier of the implemented framework
      *
