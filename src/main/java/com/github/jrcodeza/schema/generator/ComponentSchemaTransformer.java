@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import at.aau.serg.frameworks.validation.ValidationAnnotationProvider;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;

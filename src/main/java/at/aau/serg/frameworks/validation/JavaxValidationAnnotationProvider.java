@@ -1,11 +1,12 @@
 package at.aau.serg.frameworks.validation;
 
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
+
 import javax.validation.constraints.*;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 public class JavaxValidationAnnotationProvider implements ValidationAnnotationProvider {
-    // TODO
     @Override
     public boolean hasNotNullAnnotation(Annotation annotation) {
         return annotation.annotationType().equals(NotNull.class);

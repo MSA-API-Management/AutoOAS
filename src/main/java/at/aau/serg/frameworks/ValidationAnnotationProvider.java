@@ -1,36 +1,25 @@
 package at.aau.serg.frameworks;
 
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 
 public interface ValidationAnnotationProvider {
     boolean hasNotNullAnnotation(Annotation annotation);
 
     boolean hasNotEmptyAnnotation(Annotation annotation);
 
-    boolean hasPatternAnnotation(Annotation annotation);
+    Optional<String> getPatternRegexpIfPresent(Annotation annotation);
 
-    boolean hasSizeAnnotation(Annotation annotation);
+    Optional<Integer> getSizeMinIfPresent(Annotation annotation);
 
-    boolean hasDecimalMinAnnotation(Annotation annotation);
+    Optional<Integer> getSizeMaxIfPresent(Annotation annotation);
 
-    boolean hasDecimalMaxAnnotation(Annotation annotation);
+    Optional<String> getDecimalMinValueIfPresent(Annotation annotation);
 
-    boolean hasMinAnnotation(Annotation annotation);
+    Optional<String> getDecimalMaxValueIfPresent(Annotation annotation);
 
-    boolean hasMaxAnnotation(Annotation annotation);
+    Optional<Long> getMinValueIfPresent(Annotation annotation);
 
-    String getPatternRegexp(Annotation annotation);
-
-    int getSizeMin(Annotation annotation);
-
-    int getSizeMax(Annotation annotation);
-
-    String getDecimalMinValue(Annotation annotation);
-
-    String getDecimalMaxValue(Annotation annotation);
-
-    long getMinValue(Annotation annotation);
-
-    long getMaxValue(Annotation annotation);
+    Optional<Long> getMaxValueIfPresent(Annotation annotation);
 
 }

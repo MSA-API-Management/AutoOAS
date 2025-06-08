@@ -1,7 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.frameworks.validation.ValidationAnnotationProvider;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
