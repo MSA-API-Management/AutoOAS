@@ -1,0 +1,545 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-requests-misc",
+    "description" : "Quarkus Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/bean/complex-bean" : {
+      "post" : {
+        "tags" : [ "bean-param-resource" ],
+        "summary" : "handleComplexBeanAnnotationWithMultipleDifferentParamAnnotations",
+        "operationId" : "handleComplexBeanAnnotationWithMultipleDifferentParamAnnotationsUsingPOST__bean_complex-bean",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "address",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bean/param-combination" : {
+      "post" : {
+        "tags" : [ "bean-param-resource" ],
+        "summary" : "handleFormQueryHeaderParamAndReturnConstructedSimpleObject",
+        "operationId" : "handleFormQueryHeaderParamAndReturnConstructedSimpleObjectUsingPOST__bean_param-combination",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "address",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bean/simple-bean" : {
+      "post" : {
+        "tags" : [ "bean-param-resource" ],
+        "summary" : "handleSimpleBeanObjectWithBeanAnnotation",
+        "operationId" : "handleSimpleBeanObjectWithBeanAnnotationUsingPOST__bean_simple-bean",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bean/simple-object" : {
+      "post" : {
+        "tags" : [ "bean-param-resource" ],
+        "summary" : "handleSimpleObjectWithoutBeanAnnotation",
+        "operationId" : "handleSimpleObjectWithoutBeanAnnotationUsingPOST__bean_simple-object",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Simple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/formparam-body" : {
+      "post" : {
+        "tags" : [ "request-body-resource" ],
+        "summary" : "handleFormParamRequestBody",
+        "operationId" : "handleFormParamRequestBodyUsingPOST__body_formparam-body",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/with-params/{pathParam}" : {
+      "post" : {
+        "tags" : [ "request-body-resource" ],
+        "summary" : "handleMixedParamsAndReturnRequestBodyObject",
+        "operationId" : "handleMixedParamsAndReturnRequestBodyObjectUsingPOST__body_with-params_pathParam",
+        "parameters" : [ {
+          "name" : "pathParam",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "queryParam",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "param",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Simple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/simple-body" : {
+      "post" : {
+        "tags" : [ "request-body-resource" ],
+        "summary" : "handlePrimitiveDatatypeRequestBody",
+        "operationId" : "handlePrimitiveDatatypeRequestBodyUsingPOST__body_simple-body",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/body-class" : {
+      "post" : {
+        "tags" : [ "request-body-resource" ],
+        "summary" : "handleRequestBodyObject",
+        "operationId" : "handleRequestBodyObjectUsingPOST__body_body-class",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Simple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/notnull-valid" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithValidAndNotNullParamAnnotation",
+        "operationId" : "handleRequestBodyObjectWithValidAndNotNullParamAnnotationUsingPOST__validation_notnull-valid",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/validated-query" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithValidAndNotNullParamAnnotationAndQueryParamWithMinAnnotation",
+        "operationId" : "handleRequestBodyObjectWithValidAndNotNullParamAnnotationAndQueryParamWithMinAnnotationUsingPOST__validation_validated-query",
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/with-valid" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithValidAnnotation",
+        "operationId" : "handleRequestBodyObjectWithValidAnnotationUsingPOST__validation_with-valid",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/without-valid" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithoutValidAnnotation",
+        "operationId" : "handleRequestBodyObjectWithoutValidAnnotationUsingPOST__validation_without-valid",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/notnull-only" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithoutValidButNotNullParamAnnotation",
+        "operationId" : "handleRequestBodyObjectWithoutValidButNotNullParamAnnotationUsingPOST__validation_notnull-only",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validation/notnull-query" : {
+      "post" : {
+        "tags" : [ "validation-test-resource" ],
+        "summary" : "handleRequestBodyObjectWithoutValidButNotNullParamAnnotationAndQueryParamWithMinAnnotation",
+        "operationId" : "handleRequestBodyObjectWithoutValidButNotNullParamAnnotationAndQueryParamWithMinAnnotationUsingPOST__validation_notnull-query",
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleValidation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "SimpleValidation" : {
+        "required" : [ "age", "id", "value" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "value" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "Simple" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "lastname" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
