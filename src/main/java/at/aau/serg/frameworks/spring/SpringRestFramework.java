@@ -127,6 +127,14 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(param -> param.getAnnotation(getRequestBodyAnnotation()) != null)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }
@@ -214,18 +222,5 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
-    }
-
-    @Override
-    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
-        String typeName = type.getQualifiedName();
-        return typeName.equals("org.springframework.security.core.Authentication")
-                || typeName.equals("org.springframework.web.util.UriComponentsBuilder")
-                || typeName.equals("org.springframework.http.HttpHeaders");
-    }
-
-    @Override
-    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
-        return false; // not needed as Spring Boot has a RequestBody annotation
     }
 }
