@@ -5,7 +5,6 @@ import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -13,8 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface RestFramework {
-    AnnotationProvider getAnnotationProvider();
-
     /**
      * Returns the unique identifier of the implemented framework
      *
@@ -119,19 +116,18 @@ public interface RestFramework {
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
 
+    /**
+     * Returns the first parameter of a parameter list that is the RequestBody
+     * @param parameters list of parameters
+     * @return parameter that is the RequestBody or null if no RequestBody could be found
+     */
+    CtParameter<?> findRequestBody(List<CtParameter<?>> parameters);
+
+
+
 // endregion framework-specific classes
 
 // region framework-specific REST functionality conversions
-
-    /**
-     * Determines if the framework has a request body annotation
-     *
-     * @return true if request body annotation exists else false
-     */
-    default boolean hasRequestBodyAnnotation() {
-        return getRequestBodyAnnotation() != null;
-    }
-
     // todo concrete annotations with generics?
 
     /**
@@ -242,37 +238,4 @@ public interface RestFramework {
      * {@code false} otherwise
      */
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
-
-    /**
-     * Checks if a type represents a REST framework context injection object.
-     * Examples include:
-     * <br>- javax.ws.rs.core.SecurityContext
-     * <br>- jakarta.ws.rs.core.HttpHeaders
-     *
-     * @param type The type reference to check
-     * @return true if it is a framework-injected context object
-     */
-    boolean isRestFrameworkInjectedType(CtTypeReference<?> type);
-
-    /**
-     * Determines if a method parameter is annotated with any REST annotation that indicates
-     * the parameter should be bound from a non-body source.
-     * Examples (here: jakarta) include:
-     * <br> - @PathParam (path variables)
-     * <br>- @QueryParam (URL query parameters)
-     * <br>- @HeaderParam (Http headers)
-     * <br>- @Context (framework context objects)
-     * ...
-     * <p>
-     * Note: This method specifically checks for REST binding annotations, not
-     * validation annotations like @NotNull.
-     *<p>
-     * This is primarily needed for JAX-RS frameworks where parameters without binding
-     * annotations are implicitly bound to the request body. Spring Framework doesn't
-     * require this check since it uses explicit @RequestBody annotations for body binding
-     *
-     * @param parameter The method parameter to check
-     * @return true if annotated with any non-body binding annotation
-     */
-    boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter);
 }

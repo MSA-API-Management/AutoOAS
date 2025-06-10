@@ -1,6 +1,8 @@
 package at.aau.serg.parsers;
 
 import at.aau.serg.frameworks.RestFramework;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;
@@ -76,11 +78,12 @@ public class RestApiParser {
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
 
-        schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
+        ValidationAnnotationProvider annotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
+        schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework, annotationProvider); // just provide all packages of the project's module
         operationsTransformer = new OperationsTransformer(schemaHelper,
                 new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
-        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, restFramework.getAnnotationProvider());
+        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, annotationProvider);
 
         Map<String, List<CtType<?>>> controllerClassesPerProfile = restFramework.splitClassesOnProfiles(controllerClasses);
         System.out.println("Detected profiles: " + controllerClassesPerProfile.keySet());

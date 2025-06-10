@@ -66,7 +66,7 @@ public interface RestOperationAnnotation {
     String[] consumes();
 
     /**
-     * Returns the primary URL path patterns for this request mapping.
+     * Returns the URL path patterns for this request mapping.
      * <p>Path patterns can include:</p>
      * <ul>
      *   <li>Static paths: {@code "/users"}</li>
@@ -75,18 +75,6 @@ public interface RestOperationAnnotation {
      * </ul>
      *
      * @return array of URL path patterns, empty array if not specified
-     * @see #path()
-     * <p>
-     * TODO same as @path() in Spring and not existing in Jakarta -> needs to be combined with path()
-     */
-    String[] value();
-
-    /**
-     * Returns the URL path patterns for this request mapping.
-     * This serves the same purpose as {@link #value()} but uses explicit naming in some frameworks.
-     *
-     * @return array of URL path patterns, empty array if not specified
-     * @see #value()
      */
     String[] path();
 
