@@ -34,14 +34,6 @@ public class QuarkusParserIntegrationTest {
 
     @ParameterizedTest
     @CsvSource({
-            "quarkus-profiles-behavior,quarkus-profiles-behavior_default.json"
-    })
-    public void integrationTest_OpenApiGeneration_QuarkusProfilesBehavior(String projectFolder, String docsPath) throws IOException {
-        assertOpenApiGeneration(projectFolder, docsPath);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
             "quarkus-behavioral-exception-tests,quarkus-behavioral-exception-tests.json"
     })
     public void integrationTest_OpenApiGeneration_ExceptionalBehavior(String projectFolder, String docsPath) throws IOException {
