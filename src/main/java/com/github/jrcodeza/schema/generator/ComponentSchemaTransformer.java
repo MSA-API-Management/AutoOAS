@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -17,8 +18,6 @@ import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -35,12 +34,17 @@ public class ComponentSchemaTransformer {
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
 
+    private final ValidationAnnotationProvider validationAnnotationProvider;
+
     public ComponentSchemaTransformer(List<SchemaFieldInterceptor> schemaFieldInterceptors,
                                       AtomicReference<SchemaFieldFilter> schemaFieldFilter,
-                                      SchemaGeneratorHelper schemaGeneratorHelper) {
+                                      SchemaGeneratorHelper schemaGeneratorHelper,
+                                      ValidationAnnotationProvider validationAnnotationProvider
+    ) {
         this.schemaFieldInterceptors = schemaFieldInterceptors;
         this.schemaFieldFilter = schemaFieldFilter;
         this.schemaGeneratorHelper = schemaGeneratorHelper;
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public Schema transformSimpleSchema(Class<?> clazz, Map<String, InheritanceInfo> inheritanceMap) {
@@ -272,12 +276,11 @@ public class ComponentSchemaTransformer {
     }
 
     private boolean isRequired(Annotation[] annotations) {
-        return Stream.of(annotations).anyMatch(annotation ->
-                annotation instanceof NotNull ||
-                        annotation instanceof NotEmpty
-//                        ||
-//                        (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
+        return Stream.of(annotations).anyMatch(annotation -> {
+                    return validationAnnotationProvider.isNotNullAnnotation(annotation) || validationAnnotationProvider.isNotEmptyAnnotation(annotation);
+//                        || (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
 //                                ((io.swagger.v3.oas.annotations.media.Schema) annotation).required())
+                }
         );
     }
 

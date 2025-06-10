@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.frameworks.RestFramework;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -14,7 +15,6 @@ import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
-import javax.validation.constraints.*;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.util.*;
@@ -28,16 +28,18 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
-    private RestFramework restFramework;
+    private final RestFramework restFramework;
+    private final ValidationAnnotationProvider validationAnnotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
 
     public Set<CtTypeReference<?>> referencedModelClasses = new HashSet<>();
 
-    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
+    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework, ValidationAnnotationProvider validationAnnotationProvider) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -121,10 +123,10 @@ public class SchemaGeneratorHelper {
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
-    /** TODO update naming and check if it is equivalent to old impl. Return null instead of type?
+    /**
+     * TODO update naming and check if it is equivalent to old impl. Return null instead of type?
      *   Previously, you could assume that the wrapper was always gone.
      *   Now, the method returns the original wrapper if it does not define the generic type T
-     *
      *
      * @param type
      * @param genericTypes
@@ -330,31 +332,36 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        if (annotation instanceof Pattern) {
-            schema.pattern(((Pattern) annotation).regexp());
-        } else if (annotation instanceof Size) {
-            schema.minLength(((Size) annotation).min());
-            schema.maxLength(((Size) annotation).max());
-        }
+        validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
+                .ifPresent(schema::pattern);
+
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minLength);
+
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxLength);
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        if (annotation instanceof DecimalMin) {
-            schema.setMinimum(new BigDecimal(((DecimalMin) annotation).value()));
-        } else if (annotation instanceof DecimalMax) {
-            schema.setMaximum(new BigDecimal(((DecimalMax) annotation).value()));
-        } else if (annotation instanceof Min) {
-            schema.setMinimum(BigDecimal.valueOf(((Min) annotation).value()));
-        } else if (annotation instanceof Max) {
-            schema.setMaximum(BigDecimal.valueOf(((Max) annotation).value()));
-        }
+        validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getDecimalMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        if (annotation instanceof Size) {
-            schema.minItems(((Size) annotation).min());
-            schema.maxItems(((Size) annotation).max());
-        }
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minItems);
+
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxItems);
     }
 
     protected String mapBasicLangItemsType(CtTypeReference<?> classRefTypeSignature) {
