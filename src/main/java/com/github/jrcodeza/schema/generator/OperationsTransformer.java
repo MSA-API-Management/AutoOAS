@@ -710,16 +710,15 @@ public class OperationsTransformer {
 		List<CtParameter<?>> parameters = method.getParameters();
 		CtParameter<?> requestBodyParam = restFramework.findRequestBody(parameters);
 
-		if(requestBodyParam != null) {
-			return new ParameterNamePair(requestBodyParam.getSimpleName(), requestBodyParam);
-		} else {
+		if(requestBodyParam == null) {
 			// fall back if nothing was found
-			return parameters.stream()
+			requestBodyParam = parameters.stream()
 					.filter(param -> schemaGeneratorHelper.isFile(param.getType()))
 					.findFirst()
-					.map(param -> new ParameterNamePair(param.getSimpleName(), param))
 					.orElse(null);
 		}
+
+		return requestBodyParam != null ? new ParameterNamePair(requestBodyParam.getSimpleName(), requestBodyParam) : null;
 	}
 
 	private String getOperationId(String path, String nameFromAnnotation, CtMethod<?> method, HttpMethod httpMethod) {
