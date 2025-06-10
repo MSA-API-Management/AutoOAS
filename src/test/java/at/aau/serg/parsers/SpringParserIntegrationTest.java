@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SpringParserIntegration {
+public class SpringParserIntegrationTest {
 
     private static final String testResourcesPath = "src/test/resources/spring-boot/";
 

@@ -1,0 +1,97 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-behavioral-exception-tests",
+    "description" : "Quarkus Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/simple/always-error" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500",
+        "operationId" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500UsingGET__simple_always-error",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_throwCustomRuntimeException_when_idIsZeroOrNegative_else_returnResource",
+        "operationId" : "should_throwCustomRuntimeException_when_idIsZeroOrNegative_else_returnResourceUsingGET__simple_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple/validation/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_throwIllegalArgumentOrUnsupportedOperation_when_idIsNegativeOrZero_else_returnResource",
+        "operationId" : "should_throwIllegalArgumentOrUnsupportedOperation_when_idIsNegativeOrZero_else_returnResourceUsingGET__simple_validation_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      }
+    }
+  }
+}
