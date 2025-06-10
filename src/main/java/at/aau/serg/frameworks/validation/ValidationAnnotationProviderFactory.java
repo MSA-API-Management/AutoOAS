@@ -1,30 +1,31 @@
 package at.aau.serg.frameworks.validation;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationAnnotationProviderFactory {
-    private static final List<ValidationAnnotationProvider> providers = new ArrayList<ValidationAnnotationProvider>();
-    private static CompositeValidationAnnotationProvider instance;
+    private final List<ValidationAnnotationProvider> providers = new ArrayList<ValidationAnnotationProvider>();
+    @Getter
+    private CompositeValidationAnnotationProvider compositeProvider;
 
-    static {
+    public ValidationAnnotationProviderFactory() {
         providers.add(new JakartaValidationAnnotationProvider());
         providers.add(new JavaxValidationAnnotationProvider());
 
-        instance = new CompositeValidationAnnotationProvider(new ArrayList<>(providers));
+        updateCompositePattern();
     }
 
-    public static void registerProvider(ValidationAnnotationProvider provider) {
+    public void registerProvider(ValidationAnnotationProvider provider) {
         if (provider != null && !providers.contains(provider)) {
             providers.add(provider);
-            instance = new CompositeValidationAnnotationProvider(new ArrayList<>(providers));
+            updateCompositePattern();
         }
     }
 
-    public static CompositeValidationAnnotationProvider getCompositeProvider() {
-        return instance;
+    private void updateCompositePattern() {
+        compositeProvider = new CompositeValidationAnnotationProvider(new ArrayList<>(providers));
     }
-
 }

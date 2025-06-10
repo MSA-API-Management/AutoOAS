@@ -2,7 +2,6 @@ package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
-import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -30,16 +29,17 @@ import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
     private final RestFramework restFramework;
-    private final ValidationAnnotationProvider validationAnnotationProvider = ValidationAnnotationProviderFactory.getCompositeProvider();
+    private final ValidationAnnotationProvider validationAnnotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
 
     public Set<CtTypeReference<?>> referencedModelClasses = new HashSet<>();
 
-    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
+    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework, ValidationAnnotationProvider validationAnnotationProvider) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
