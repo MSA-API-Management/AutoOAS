@@ -14,15 +14,15 @@ public class CompositeValidationAnnotationProvider implements ValidationAnnotati
     }
 
     @Override
-    public boolean hasNotEmptyAnnotation(Annotation annotation) {
+    public boolean isNotEmptyAnnotation(Annotation annotation) {
         return providers.stream()
-                .anyMatch(provider -> provider.hasNotEmptyAnnotation(annotation));
+                .anyMatch(provider -> provider.isNotEmptyAnnotation(annotation));
     }
 
     @Override
-    public boolean hasNotNullAnnotation(Annotation annotation) {
+    public boolean isNotNullAnnotation(Annotation annotation) {
         return providers.stream()
-                .anyMatch(provider -> provider.hasNotNullAnnotation(annotation));
+                .anyMatch(provider -> provider.isNotNullAnnotation(annotation));
     }
 
     @Override

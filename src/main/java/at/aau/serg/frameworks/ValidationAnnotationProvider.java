@@ -4,9 +4,9 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 public interface ValidationAnnotationProvider {
-    boolean hasNotNullAnnotation(Annotation annotation);
+    boolean isNotNullAnnotation(Annotation annotation);
 
-    boolean hasNotEmptyAnnotation(Annotation annotation);
+    boolean isNotEmptyAnnotation(Annotation annotation);
 
     Optional<String> getPatternRegexpIfPresent(Annotation annotation);
 

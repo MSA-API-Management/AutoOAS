@@ -8,12 +8,12 @@ import java.util.Optional;
 
 public class JakartaValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
-    public boolean hasNotNullAnnotation(Annotation annotation) {
+    public boolean isNotNullAnnotation(Annotation annotation) {
         return annotation.annotationType().equals(NotNull.class);
     }
 
     @Override
-    public boolean hasNotEmptyAnnotation(Annotation annotation) {
+    public boolean isNotEmptyAnnotation(Annotation annotation) {
         return annotation.annotationType().equals(NotEmpty.class);
     }
 
