@@ -29,62 +29,55 @@ public class CompositeValidationAnnotationProvider implements ValidationAnnotati
     public Optional<String> getPatternRegexpIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getPatternRegexpIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<Integer> getSizeMinIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getSizeMinIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<Integer> getSizeMaxIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getSizeMaxIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<String> getDecimalMinValueIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getDecimalMinValueIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<String> getDecimalMaxValueIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getDecimalMaxValueIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<Long> getMinValueIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getMinValueIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 
     @Override
     public Optional<Long> getMaxValueIfPresent(Annotation annotation) {
         return providers.stream()
                 .map(provider -> provider.getMaxValueIfPresent(annotation))
-                .filter(Optional::isPresent)
-                .findFirst()
-                .orElse(Optional.empty());
+                .flatMap(Optional::stream)
+                .findFirst();
     }
 }
