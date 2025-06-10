@@ -5,6 +5,7 @@ import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnno
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -26,6 +27,8 @@ import java.util.stream.Stream;
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class JakartaRestFramework implements RestFramework {
+    ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
+
     @Override
     public String getIdentifier() {
         return "Quarkus";
@@ -179,19 +182,48 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
+        List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
+
+        boolean hasValidationAnnotation = annotations.stream()
+                .anyMatch(annotation -> {
+                            Annotation actualAnnotation = annotation.getActualAnnotation();
+                            return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
+                                    validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
+                        }
+                );
+
         QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+
         if (annotation != null) {
-            return new JakartaQueryParamAdapter(annotation);
+            JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
+            if (hasValidationAnnotation) {
+                adapter.setRequired(true);
+            }
+            return adapter;
         }
         return null;
     }
 
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
+        List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
+
+        boolean hasValidationAnnotation = annotations.stream()
+                .anyMatch(annotation -> {
+                            Annotation actualAnnotation = annotation.getActualAnnotation();
+                            return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
+                                    validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
+                        }
+                );
+
         HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
-        // TODO check if param has @NotNull or @NotEmpty to set it required -> constructor
+
         if (annotation != null) {
-            return new JakartaHeaderParamAdapter(annotation);
+            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
+            if (hasValidationAnnotation) {
+                adapter.setRequired(true);
+            }
+            return adapter;
         }
         return null;
     }
