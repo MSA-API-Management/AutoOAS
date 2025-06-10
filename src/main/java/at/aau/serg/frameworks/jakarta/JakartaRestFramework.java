@@ -206,26 +206,29 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
+        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+
+        if (annotation != null) {
+            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
+            if (hasValidationAnnotation(parameter)) {
+                adapter.setRequired(true);
+            }
+            return adapter;
+        }
+        return null;
+    }
+
+    // TODO NotEmpty is not required for numbers
+    private boolean hasValidationAnnotation(CtParameter<?> parameter) {
         List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
 
-        boolean hasValidationAnnotation = annotations.stream()
+        return annotations.stream()
                 .anyMatch(annotation -> {
                             Annotation actualAnnotation = annotation.getActualAnnotation();
                             return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
                                     validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
                         }
                 );
-
-        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
-
-        if (annotation != null) {
-            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
-            if (hasValidationAnnotation) {
-                adapter.setRequired(true);
-            }
-            return adapter;
-        }
-        return null;
     }
 
     @Override
