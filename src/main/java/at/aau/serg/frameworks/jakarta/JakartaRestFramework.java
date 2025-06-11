@@ -210,7 +210,9 @@ public class JakartaRestFramework implements RestFramework {
 
         if (annotation != null) {
             JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
-            if (hasValidationAnnotation(parameter)) {
+            // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
+            // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
                 adapter.setRequired(true);
             }
             return adapter;
@@ -218,7 +220,6 @@ public class JakartaRestFramework implements RestFramework {
         return null;
     }
 
-    // TODO NotEmpty is not required for numbers
     private boolean hasValidationAnnotation(CtParameter<?> parameter) {
         List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
 
@@ -229,6 +230,11 @@ public class JakartaRestFramework implements RestFramework {
                                     validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
                         }
                 );
+    }
+
+    private boolean isParameterTypeString(CtParameter<?> parameter) {
+        String parameterType = parameter.getType().getQualifiedName();
+        return parameterType.equals("java.lang.String");
     }
 
     @Override
