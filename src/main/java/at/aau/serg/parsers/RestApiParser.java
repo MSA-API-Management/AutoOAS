@@ -3,6 +3,7 @@ package at.aau.serg.parsers;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
+import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;
 import com.github.jrcodeza.schema.generator.model.InheritanceInfo;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 
 public class RestApiParser {
     private OperationsTransformer operationsTransformer;
+    private DataTypeTransformer dataTypeTransformer;
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
 
@@ -77,7 +79,8 @@ public class RestApiParser {
 
 
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
-        operationsTransformer = new OperationsTransformer(schemaHelper,
+        dataTypeTransformer = new DataTypeTransformer(restFramework, schemaHelper);
+        operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer,
                 new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, restFramework.getAnnotationProvider());
@@ -192,7 +195,7 @@ public class RestApiParser {
                 CtType<?> modelClass = modelClassRef.getTypeDeclaration();
                 if (modelClass != null && schemaHelper.isInPackagesToBeScanned(modelClass))
                     transformedComponentSchema = schemaTransformer.transformSimpleSchema(modelClass, inheritanceMap);
-                else if (modelClassRef.getSimpleName().equals(OperationsTransformer.UNSPECIFIED_SIMPLE_NAME)) {
+                else if (modelClassRef.getSimpleName().equals(DataTypeTransformer.UNSPECIFIED_SIMPLE_NAME)) {
                     // ignored on purpose during path generation
                     transformedComponentSchema = schemaTransformer.transformUnspecifiedSchema(modelClassRef);
                 } else {
