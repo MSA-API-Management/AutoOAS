@@ -56,13 +56,24 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     /**
-     * TODO
-     * jakarta.ws.rs.ext.Provider
-     * jakarta.ws.rs.ext.ExceptionMapper (no annotation -> interface implementation)
+     * An exception contains @Provider as annotation and also
+     * implements the jakarta.ws.rs.ext.ExceptionMapper
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
         return Arrays.asList("jakarta.ws.rs.ext.Provider");
+    }
+
+    @Override
+    public boolean isControllerAdviceAnnotation(String annotationName, CtType<?> type) {
+        if (getControllerAdviceAnnotations().contains(annotationName)) {
+            for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
+                if (interfaceRef.getQualifiedName().equals("jakarta.ws.rs.ext.ExceptionMapper")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

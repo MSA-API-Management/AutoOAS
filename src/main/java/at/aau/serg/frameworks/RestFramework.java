@@ -73,6 +73,9 @@ public interface RestFramework {
      */
     List<String> getControllerAdviceAnnotations();
 
+    // TODO javadoc
+    boolean isControllerAdviceAnnotation(String annotationName, CtType<?> type);
+
     /**
      * Returns a list of fully qualified class names for annotations that mark a class
      * as a model schema for API documentation.
