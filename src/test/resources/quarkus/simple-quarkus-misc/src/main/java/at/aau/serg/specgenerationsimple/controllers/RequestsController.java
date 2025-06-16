@@ -1,26 +1,38 @@
 package at.aau.serg.specgenerationsimple.controllers;
 
 import at.aau.serg.specgenerationsimple.models.SimpleObject;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.HeaderParam;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 
 @Path("/requests")
 public class RequestsController {
     @GET
     @Path("/header-param")
-    public SimpleObject headerParam(@HeaderParam("req-test") String test) {
-        return new SimpleObject(test, 1);
+    public SimpleObject headerParam(@HeaderParam("req-test") String num) {
+        return new SimpleObject(num, 1);
     }
 
     @GET
-    @Path("/header-param-required")
-    public SimpleObject headerParamRequired(@HeaderParam("num") @NotNull Integer num) {
-        return new SimpleObject("Test", num);
+    @Path("/header-param-required-not-null")
+    public SimpleObject headerParamRequiredNotNull(@HeaderParam("num") @NotNull String num) {
+        return new SimpleObject("Test", 1);
     }
+
+    @GET
+    @Path("/query-param")
+    public SimpleObject queryParam(@QueryParam("req-test") String num) {
+        return new SimpleObject(num, 1);
+    }
+
+    @GET
+    @Path("/query-param-required-not-null")
+    public SimpleObject queryParamRequiredNotNull(@QueryParam("num") @NotNull String num) {
+        return new SimpleObject("Test", 1);
+    }
+
+
 
     @GET
     @Path("/regex-url/{lastname:^[a-zA-Z0-9]*$}/{firstname:^[A-Za-z]*$}")

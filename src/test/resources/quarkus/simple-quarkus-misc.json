@@ -181,18 +181,71 @@
         }
       }
     },
-    "/requests/header-param-required" : {
+    "/requests/header-param-required-not-null" : {
       "get" : {
         "tags" : [ "requests-controller" ],
-        "summary" : "headerParamRequired",
-        "operationId" : "headerParamRequiredUsingGET__requests_header-param-required",
+        "summary" : "headerParamRequiredNotNull",
+        "operationId" : "headerParamRequiredNotNullUsingGET__requests_header-param-required-not-null",
         "parameters" : [ {
           "name" : "num",
           "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/query-param" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "queryParam",
+        "operationId" : "queryParamUsingGET__requests_query-param",
+        "parameters" : [ {
+          "name" : "req-test",
+          "in" : "query",
           "required" : false,
           "schema" : {
-            "type" : "integer",
-            "format" : "int32"
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/query-param-required-not-null" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "queryParamRequiredNotNull",
+        "operationId" : "queryParamRequiredNotNullUsingGET__requests_query-param-required-not-null",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
           }
         } ],
         "responses" : {
