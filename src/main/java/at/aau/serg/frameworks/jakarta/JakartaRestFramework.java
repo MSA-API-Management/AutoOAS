@@ -182,21 +182,14 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
-        List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
-
-        boolean hasValidationAnnotation = annotations.stream()
-                .anyMatch(annotation -> {
-                            Annotation actualAnnotation = annotation.getActualAnnotation();
-                            return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
-                                    validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
-                        }
-                );
-
         QueryParam annotation = parameter.getAnnotation(QueryParam.class);
 
         if (annotation != null) {
             JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
-            if (hasValidationAnnotation) {
+
+            // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
+            // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
                 adapter.setRequired(true);
             }
             return adapter;
@@ -210,8 +203,7 @@ public class JakartaRestFramework implements RestFramework {
 
         if (annotation != null) {
             JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
-            // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
-            // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+
             if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
                 adapter.setRequired(true);
             }
