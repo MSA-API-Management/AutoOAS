@@ -54,6 +54,13 @@ public class RestApiParser {
         this.model = loadModel(projectPath);
     }
 
+    protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, CtModel model) {
+        this(outputFileName);
+        this.restFramework = restFramework;
+        this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
+        this.model = model;
+    }
+
     public void run() {
         generateOpenApi(model);
     }
