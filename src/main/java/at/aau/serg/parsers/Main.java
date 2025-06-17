@@ -14,6 +14,7 @@ public class Main {
             outputPath = "target/openapi/swagger.json";
         }
 
+//        RestApiParser parser = new ParserFactory().createParser("jakarta", projectPath, outputPath);
         RestApiParser parser = new ParserFactory().createParserWithDetection(projectPath, outputPath);
         parser.run();
     }

@@ -28,7 +28,7 @@ public class ParserFactory {
         frameworkDetector.addFramework(framework, keyAnnotations);
     }
 
-    private RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
+    public RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
 
         Supplier<RestFramework> frameworkSupplier = FRAMEWORKS.get(frameworkIdentifier.toLowerCase());
 
@@ -36,16 +36,14 @@ public class ParserFactory {
             throw new IllegalArgumentException("Unsupported framework: " + frameworkIdentifier);
         }
 
-        return new RestApiParser(projectPath, outputFileName, frameworkSupplier.get(), frameworkDetector.getModel());
+        return new RestApiParser(projectPath, outputFileName, frameworkSupplier.get());
     }
 
     public RestApiParser createParserWithDetection(String projectPath, String outputFileName) {
         RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
 
         if (detectedFramework == null) {
-            // fall back to manual framework if no framework was found
-            // todo needs to be replaced with exception
-            return createParser("jakarta", projectPath, outputFileName);
+            throw new IllegalArgumentException("No rest framework could be detected");
         }
 
         return new RestApiParser(projectPath, outputFileName, detectedFramework, frameworkDetector.getModel());
