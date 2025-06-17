@@ -1,5 +1,9 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.frameworks.RestFramework;
+import at.aau.serg.frameworks.jakarta.JakartaRestFramework;
+import at.aau.serg.frameworks.spring.SpringRestFramework;
+import lombok.Getter;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;
@@ -14,39 +18,40 @@ import java.util.Map;
 import java.util.Set;
 
 public class FrameworkDetector {
-    private final Map<String, Set<String>> frameworkAnnotations = new HashMap<>();
+    private final Map<RestFramework, Set<String>> frameworkAnnotations = new HashMap<>();
 
     // todo jar arg
     protected boolean deleteSpoonTmpFile = true;
 
+    @Getter
+    private CtModel model;
+
     public FrameworkDetector() {
-        frameworkAnnotations.put("spring", Set.of(
+        frameworkAnnotations.put(new SpringRestFramework(), Set.of(
                 "org.springframework.web.bind.annotation.RestController",
                 "org.springframework.web.bind.annotation.RequestMapping"
         ));
 
-        frameworkAnnotations.put("jakarta", Set.of(
+        frameworkAnnotations.put(new JakartaRestFramework(), Set.of(
                 "jakarta.ws.rs.Path",
                 "javax.ws.rs.Path"
         ));
     }
 
-    // TODO directly handle specific restframework?
-    // TODO give loaded model to restapiparser
-    public void addFramework(String identifier, Set<String> keyAnnotations) {
-        frameworkAnnotations.put(identifier.toLowerCase(), keyAnnotations);
+    public void addFramework(RestFramework framework, Set<String> keyAnnotations) {
+        frameworkAnnotations.put(framework, keyAnnotations);
     }
 
-    public String detectFramework(String projectPath) {
-        CtModel model = loadModel(projectPath);
+    public RestFramework detectFramework(String projectPath) {
+        this.model = loadModel(projectPath);
 
         var packages = model.getAllPackages();
 
         for (CtPackage pkg : packages) {
             for (CtType<?> type : pkg.getTypes()) {
-                String framework = checkAnnotations(type.getAnnotations());
+                RestFramework framework = checkAnnotations(type.getAnnotations());
                 if (framework != null) {
-                    System.out.println("Detected Framework via Annotations: " + framework);
+                    System.out.println("Detected Framework via Type Annotations: " + framework.getIdentifier());
                     return framework;
                 }
 
@@ -54,7 +59,7 @@ public class FrameworkDetector {
                     framework = checkAnnotations(method.getAnnotations());
 
                     if (framework != null) {
-                        System.out.println("Detected Framework via Methods: " + framework);
+                        System.out.println("Detected Framework via Method Annotations: " + framework.getIdentifier());
                     }
                 }
             }
@@ -63,12 +68,12 @@ public class FrameworkDetector {
         return null;
     }
 
-    private String checkAnnotations(List<CtAnnotation<?>> annotations) {
+    private RestFramework checkAnnotations(List<CtAnnotation<?>> annotations) {
         for (CtAnnotation<?> annotation : annotations) {
             String annotationName = annotation.getAnnotationType().toString();
 
             if (annotationName != null) {
-                for (Map.Entry<String, Set<String>> entry : frameworkAnnotations.entrySet()) {
+                for (Map.Entry<RestFramework, Set<String>> entry : frameworkAnnotations.entrySet()) {
                     if (entry.getValue().contains(annotationName)) {
                         return entry.getKey();
                     }
