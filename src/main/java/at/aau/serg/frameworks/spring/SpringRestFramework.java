@@ -94,7 +94,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean isControllerAdviceAnnotation(String annotationName, CtType<?> type) {
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
         return getControllerAdviceAnnotations().contains(annotationName);
     }
 

@@ -73,8 +73,14 @@ public interface RestFramework {
      */
     List<String> getControllerAdviceAnnotations();
 
-    // TODO javadoc
-    boolean isControllerAdviceAnnotation(String annotationName, CtType<?> type);
+    /**
+     * Determines if a class type represents a global exception handler for this REST framework
+     *
+     * @param annotationName the name of the annotation found on the type
+     * @param type the class type to check
+     * @return true if the type is a global exception handler, false otherwise
+     */
+    boolean isGlobalExceptionHandler(String annotationName, CtType<?> type);
 
     /**
      * Returns a list of fully qualified class names for annotations that mark a class

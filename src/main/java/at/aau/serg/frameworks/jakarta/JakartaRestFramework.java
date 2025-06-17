@@ -65,7 +65,7 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public boolean isControllerAdviceAnnotation(String annotationName, CtType<?> type) {
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
         if (getControllerAdviceAnnotations().contains(annotationName)) {
             for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
                 if (interfaceRef.getQualifiedName().equals("jakarta.ws.rs.ext.ExceptionMapper")) {
