@@ -260,6 +260,7 @@ public class RestApiParser {
     /**
      * @author Christian
      */
+    // TODO extract
     private CtModel loadModel(String path) {
         System.out.println("Loading model: " + path);
 
