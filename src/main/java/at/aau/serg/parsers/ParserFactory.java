@@ -6,10 +6,12 @@ import at.aau.serg.frameworks.spring.SpringRestFramework;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class ParserFactory {
     private final Map<String, Supplier<RestFramework>> FRAMEWORKS = new HashMap<>();
+    private final FrameworkDetector frameworkDetector = new FrameworkDetector();
 
     public ParserFactory() {
         registerRestFramework("spring", SpringRestFramework::new);
@@ -22,7 +24,12 @@ public class ParserFactory {
         FRAMEWORKS.put(identifier.toLowerCase(), framework);
     }
 
+    public void addFrameworkDetection(RestFramework framework, Set<String> keyAnnotations) {
+        frameworkDetector.addFramework(framework, keyAnnotations);
+    }
+
     public RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
+
         Supplier<RestFramework> frameworkSupplier = FRAMEWORKS.get(frameworkIdentifier.toLowerCase());
 
         if (frameworkSupplier == null) {
@@ -30,5 +37,16 @@ public class ParserFactory {
         }
 
         return new RestApiParser(projectPath, outputFileName, frameworkSupplier.get());
+    }
+
+    public RestApiParser createParserWithDetection(String projectPath, String outputFileName) {
+        RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
+
+        if (detectedFramework == null) {
+            throw new IllegalArgumentException("No rest framework could be detected");
+        }
+
+        // todo model
+        return new RestApiParser(projectPath, outputFileName, detectedFramework, frameworkDetector.getModel());
     }
 }
