@@ -78,7 +78,7 @@ public class SpringRestFramework implements RestFramework {
 
     @Override
     public List<String> getControllerAnnotations() {
-        return Arrays.asList(
+        return List.of(
                 "org.springframework.stereotype.Controller",
                 "org.springframework.web.bind.annotation.RestController",
                 "org.springframework.data.rest.webmvc.RepositoryRestController"
@@ -87,7 +87,7 @@ public class SpringRestFramework implements RestFramework {
 
     @Override
     public List<String> getControllerAdviceAnnotations() {
-        return Arrays.asList(
+        return List.of(
                 "org.springframework.web.bind.annotation.ControllerAdvice",
                 "org.springframework.web.bind.annotation.RestControllerAdvice"
         );
@@ -100,7 +100,7 @@ public class SpringRestFramework implements RestFramework {
 
     @Override
     public List<String> getModelSchemaAnnotations() {
-        return Arrays.asList(
+        return List.of(
                 // "io.swagger.v3.oas.annotations.media.Schema"
         );
     }

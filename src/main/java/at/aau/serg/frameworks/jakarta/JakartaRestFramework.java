@@ -20,7 +20,10 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
@@ -55,7 +58,7 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public List<String> getControllerAnnotations() {
-        return List.of("jakarta.ws.rs.Path");
+        return List.of("jakarta.ws.rs.Path", "javax.ws.rs.Path");
     }
 
     /**
@@ -64,14 +67,16 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
-        return Arrays.asList("jakarta.ws.rs.ext.Provider");
+        return List.of("jakarta.ws.rs.ext.Provider", "javax.ws.rs.ext.Provider");
     }
 
     @Override
     public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
         if (getControllerAdviceAnnotations().contains(annotationName)) {
             for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
-                if (interfaceRef.getQualifiedName().equals("jakarta.ws.rs.ext.ExceptionMapper")) {
+                String qualifiedName = interfaceRef.getQualifiedName();
+                if (qualifiedName.equals("jakarta.ws.rs.ext.ExceptionMapper")
+                        || qualifiedName.equals("javax.ws.rs.ext.ExceptionMapper")) {
                     return true;
                 }
             }
