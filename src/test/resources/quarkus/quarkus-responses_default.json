@@ -92,6 +92,119 @@
         }
       }
     },
+    "/primitive-responses/list/{id}" : {
+      "delete" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "deleteListResp",
+        "operationId" : "deleteListRespUsingDELETE__primitive-responses_list_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/map/{id}" : {
+      "delete" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "deleteMapResp",
+        "operationId" : "deleteMapRespUsingDELETE__primitive-responses_map_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/void-response" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getAllNoReturn",
+        "operationId" : "getAllNoReturnUsingGET__primitive-responses_void-response",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/bool" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getBool",
+        "operationId" : "getBoolUsingGET__primitive-responses_bool",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/double" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getDouble",
+        "operationId" : "getDoubleUsingGET__primitive-responses_double",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/simple-enum" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getEnum",
+        "operationId" : "getEnumUsingGET__primitive-responses_simple-enum",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/string-echo" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getFoos",
+        "operationId" : "getFoosUsingGET__primitive-responses_string-echo",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/int" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getInt",
+        "operationId" : "getIntUsingGET__primitive-responses_int",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/simple-obj" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getObj",
+        "operationId" : "getObjUsingGET__primitive-responses_simple-obj",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/primitive-responses/str" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getString",
+        "operationId" : "getStringUsingGET__primitive-responses_str",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
     "/sophisticated-simple-responses/status-method-error" : {
       "get" : {
         "tags" : [ "sophisticated-obj-responses-controller" ],
@@ -199,6 +312,133 @@
           }
         }
       }
+    },
+    "/wrapped-primitive-responses/bool" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getBool",
+        "operationId" : "getBoolUsingGET__wrapped-primitive-responses_bool",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/double" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getDouble",
+        "operationId" : "getDoubleUsingGET__wrapped-primitive-responses_double",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/simple-enum" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getEnum",
+        "operationId" : "getEnumUsingGET__wrapped-primitive-responses_simple-enum",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleEnum"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/int" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getInt",
+        "operationId" : "getIntUsingGET__wrapped-primitive-responses_int",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/str" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getString",
+        "operationId" : "getStringUsingGET__wrapped-primitive-responses_str",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/primitive-echo" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getStringEcho",
+        "operationId" : "getStringEchoUsingGET__wrapped-primitive-responses_primitive-echo",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -209,6 +449,10 @@
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
         }
+      },
+      "SimpleEnum" : {
+        "type" : "string",
+        "enum" : [ "NICE", "OK", "BAD" ]
       },
       "SimpleBase" : {
         "type" : "object",

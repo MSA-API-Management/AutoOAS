@@ -18,7 +18,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
                 }
               }
             }
@@ -46,7 +49,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/AnotherSimple"
                 }
               }
             }
@@ -81,7 +84,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/AnotherSimple"
                 }
               }
             }
@@ -102,18 +105,7 @@
             "type" : "string"
           }
         } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
+        "responses" : { }
       }
     },
     "/simples/request-body-object" : {
@@ -139,7 +131,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -204,7 +196,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -227,12 +222,22 @@
           }
         } ],
         "responses" : {
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -252,21 +257,7 @@
             "format" : "int64"
           }
         } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "additionalProperties" : {
-                    "type" : "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
+        "responses" : { }
       }
     },
     "/simples" : {
@@ -281,7 +272,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -295,11 +289,7 @@
         "summary" : "getAllNoReturn",
         "operationId" : "getAllNoReturnUsingGET__simples_void-response",
         "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          }
-        }
+        "responses" : { }
       }
     },
     "/simples/primitive-list" : {
@@ -314,7 +304,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
                 }
               }
             }
@@ -334,7 +327,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -357,12 +353,12 @@
           }
         } ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -382,7 +378,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/SimpleEnum"
                 }
               }
             }
@@ -402,7 +398,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -419,6 +415,37 @@
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
         }
+      },
+      "AnotherSimple" : {
+        "required" : [ "avgGrade", "id", "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "avgGrade" : {
+            "maximum" : 0.0,
+            "minimum" : 0.0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SimpleEnum" : {
+        "type" : "string",
+        "enum" : [ "NICE", "OK", "BAD" ]
       },
       "Simple" : {
         "type" : "object",

@@ -18,7 +18,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnotherSimple"
+                  }
                 }
               }
             }
@@ -46,7 +49,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/AnotherSimple"
                 }
               }
             }
@@ -81,7 +84,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/AnotherSimple"
                 }
               }
             }
@@ -102,18 +105,7 @@
             "type" : "string"
           }
         } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
+        "responses" : { }
       }
     },
     "/simples/request-body-object" : {
@@ -139,7 +131,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -204,7 +196,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -224,7 +219,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -238,11 +236,7 @@
         "summary" : "getAllNoReturn",
         "operationId" : "getAllNoReturnUsingGET__simples_void-response",
         "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          }
-        }
+        "responses" : { }
       }
     },
     "/simples/primitive-list" : {
@@ -257,7 +251,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
                 }
               }
             }
@@ -280,12 +277,22 @@
           }
         } ],
         "responses" : {
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -308,12 +315,12 @@
           }
         } ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -333,7 +340,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/ComplexType"
                 }
               }
             }
@@ -353,7 +360,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -373,7 +380,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -391,7 +398,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -409,11 +416,60 @@
           "url" : "unspecified"
         }
       },
+      "AnotherSimple" : {
+        "required" : [ "id", "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SimpleEnum" : {
+        "type" : "string",
+        "enum" : [ "NICE", "OK", "BAD" ]
+      },
       "SimpleBase" : {
         "type" : "object",
         "properties" : {
           "someBaseProperty" : {
             "type" : "string"
+          }
+        }
+      },
+      "ComplexType" : {
+        "required" : [ "gradeAvgPerStudent", "simpleEnum", "someSimpleObject" ],
+        "type" : "object",
+        "properties" : {
+          "customTags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object"
+            }
+          },
+          "gradeAvgPerStudent" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "simpleEnum" : {
+            "$ref" : "#/components/schemas/SimpleEnum"
+          },
+          "someSimpleObject" : {
+            "$ref" : "#/components/schemas/Simple"
           }
         }
       },
