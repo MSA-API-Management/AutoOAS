@@ -18,9 +18,6 @@ import java.util.Set;
 public class FrameworkDetector {
     private final Map<RestFramework, Set<String>> frameworkAnnotations = new HashMap<>();
 
-    // todo jar arg
-    protected boolean deleteSpoonTmpFile = true;
-
     @Getter
     private CtModel model;
 
@@ -31,7 +28,7 @@ public class FrameworkDetector {
     }
 
     public RestFramework detectFramework(String projectPath) {
-        this.model = loadModel(projectPath);
+        this.model = new SpoonModelLoader().loadModel(projectPath);
 
         var packages = model.getAllPackages();
 
@@ -69,24 +66,5 @@ public class FrameworkDetector {
             }
         }
         return null;
-    }
-
-    /**
-     * @author Christian
-     */
-    private CtModel loadModel(String path) {
-        System.out.println("Loading model: " + path);
-
-        if (deleteSpoonTmpFile) {
-            new File(path + "/spoon.classpath-app.tmp").delete();
-        }
-
-        MavenLauncher launcher = new MavenLauncher(path, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
-        launcher.getEnvironment().setComplianceLevel(11);
-        launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
-        launcher.getEnvironment().setNoClasspath(true);
-
-        launcher.buildModel();
-        return launcher.getModel();
     }
 }

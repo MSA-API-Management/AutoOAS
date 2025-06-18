@@ -40,9 +40,6 @@ public class RestApiParser {
     protected String outputFileName;
     private RestFramework restFramework;
 
-    // todo jar arg
-    protected boolean deleteSpoonTmpFile = true;
-
     protected RestApiParser(String outputFileName) {
         this.outputFileName = outputFileName;
     }
@@ -51,7 +48,7 @@ public class RestApiParser {
         this(outputFileName);
         this.restFramework = restFramework;
         this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
-        this.model = loadModel(projectPath);
+        this.model = new SpoonModelLoader().loadModel(projectPath);
     }
 
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, CtModel model) {
@@ -255,25 +252,5 @@ public class RestApiParser {
         }
 
         return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
-    }
-
-    /**
-     * @author Christian
-     */
-    // TODO extract
-    private CtModel loadModel(String path) {
-        System.out.println("Loading model: " + path);
-
-        if (deleteSpoonTmpFile) {
-            new File(path + "/spoon.classpath-app.tmp").delete();
-        }
-
-        MavenLauncher launcher = new MavenLauncher(path, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
-        launcher.getEnvironment().setComplianceLevel(11);
-        launcher.getEnvironment().setOutputType(OutputType.COMPILATION_UNITS);
-        launcher.getEnvironment().setNoClasspath(true);
-
-        launcher.buildModel();
-        return launcher.getModel();
     }
 }
