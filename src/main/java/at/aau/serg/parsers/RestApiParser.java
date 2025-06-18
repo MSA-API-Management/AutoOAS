@@ -241,7 +241,7 @@ public class RestApiParser {
                         break; // annotations
                     }
 
-                    if (annotationName != null && this.restFramework.getControllerAdviceAnnotations().contains(annotationName)) {
+                    if (annotationName != null && this.restFramework.isGlobalExceptionHandler(annotationName, type)) {
                         controllerAdviceClasses.add(type);
                         break; // annotations
                     }

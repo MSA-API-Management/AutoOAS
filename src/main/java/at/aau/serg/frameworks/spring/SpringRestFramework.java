@@ -16,7 +16,6 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
@@ -92,6 +91,11 @@ public class SpringRestFramework implements RestFramework {
                 "org.springframework.web.bind.annotation.ControllerAdvice",
                 "org.springframework.web.bind.annotation.RestControllerAdvice"
         );
+    }
+
+    @Override
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
+        return getControllerAdviceAnnotations().contains(annotationName);
     }
 
     @Override
