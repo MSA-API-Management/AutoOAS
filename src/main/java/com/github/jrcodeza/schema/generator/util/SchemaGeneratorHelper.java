@@ -1,7 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
-import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.RestFramework;
+import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -28,18 +28,18 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class SchemaGeneratorHelper {
-    private RestFramework restFramework;
-    private ValidationAnnotationProvider validationAnnotationProvider;
+    private final RestFramework restFramework;
+    private final ValidationAnnotationProvider validationAnnotationProvider;
     private static Logger logger = LoggerFactory.getLogger(SchemaGeneratorHelper.class);
 
     private final List<String> modelPackages;
 
     public Set<CtTypeReference<?>> referencedModelClasses = new HashSet<>();
 
-    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework) {
+    public SchemaGeneratorHelper(List<String> modelPackages, RestFramework restFramework, ValidationAnnotationProvider validationAnnotationProvider) {
         this.modelPackages = modelPackages;
         this.restFramework = restFramework;
-        this.validationAnnotationProvider = restFramework.getAnnotationProvider();
+        this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
@@ -332,37 +332,36 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
+        validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
+                .ifPresent(schema::pattern);
 
-        if (annotationType.equals(validationAnnotationProvider.getPatternClass())) {
-            schema.pattern(validationAnnotationProvider.getPatternRegexp(annotation));
-        } else if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
-            schema.minLength(validationAnnotationProvider.getSizeMin(annotation));
-            schema.maxLength(validationAnnotationProvider.getSizeMax(annotation));
-        }
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minLength);
+
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxLength);
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
+        validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
 
-        if (annotationType.equals(validationAnnotationProvider.getDecimalMinClass())) {
-            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getDecimalMinValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getDecimalMaxClass())) {
-            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getDecimalMaxValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getMinClass())) {
-            schema.setMinimum(new BigDecimal(validationAnnotationProvider.getMinValue(annotation)));
-        } else if (annotationType.equals(validationAnnotationProvider.getMaxClass())) {
-            schema.setMaximum(new BigDecimal(validationAnnotationProvider.getMaxValue(annotation)));
-        }
+        validationAnnotationProvider.getDecimalMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMinValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+
+        validationAnnotationProvider.getMaxValueIfPresent(annotation)
+                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        Class<?> annotationType = annotation.annotationType();
+        validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                .ifPresent(schema::minItems);
 
-        if (annotationType.equals(validationAnnotationProvider.getSizeClass())) {
-            schema.minItems(validationAnnotationProvider.getSizeMin(annotation));
-            schema.maxItems(validationAnnotationProvider.getSizeMax(annotation));
-        }
+        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                .ifPresent(schema::maxItems);
     }
 
     protected String mapBasicLangItemsType(CtTypeReference<?> classRefTypeSignature) {

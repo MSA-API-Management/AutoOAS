@@ -29,13 +29,8 @@ public class SpringRequestMappingAdapter implements RestOperationAnnotation {
     }
 
     @Override
-    public String[] value() {
-        return annotation.value();
-    }
-
-    @Override
     public String[] path() {
-        return annotation.path();
+        return annotation.path().length > 0 ? annotation.path() : annotation.value();
     }
 
     @Override

@@ -1,0 +1,442 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "simple-quarkus-misc",
+    "description" : "Quarkus Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/potentially-unsupported" : {
+      "get" : {
+        "tags" : [ "exceptions-controller" ],
+        "summary" : "potentiallyUnsupported",
+        "operationId" : "potentiallyUnsupportedUsingGET__potentially-unsupported",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unsupported" : {
+      "get" : {
+        "tags" : [ "exceptions-controller" ],
+        "summary" : "unsupported",
+        "operationId" : "unsupportedUsingGET__unsupported",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-and-post-method" : {
+      "get" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getMethod",
+        "operationId" : "getMethodUsingGET__get-and-post-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "postMethod",
+        "operationId" : "postMethodUsingPOST__get-and-post-method",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-and-post-method-reqmapping" : {
+      "get" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "getRequestMethod",
+        "operationId" : "getRequestMethodUsingGET__get-and-post-method-reqmapping",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "multiple-methods-controller" ],
+        "summary" : "postRequestMethod",
+        "operationId" : "postRequestMethodUsingPOST__get-and-post-method-reqmapping",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/header-param" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "headerParam",
+        "operationId" : "headerParamUsingGET__requests_header-param",
+        "parameters" : [ {
+          "name" : "req-test",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/header-param-required-not-null" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "headerParamRequiredNotNull",
+        "operationId" : "headerParamRequiredNotNullUsingGET__requests_header-param-required-not-null",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/query-param" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "queryParam",
+        "operationId" : "queryParamUsingGET__requests_query-param",
+        "parameters" : [ {
+          "name" : "req-test",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/query-param-required-not-null" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "queryParamRequiredNotNull",
+        "operationId" : "queryParamRequiredNotNullUsingGET__requests_query-param-required-not-null",
+        "parameters" : [ {
+          "name" : "num",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/regex-url/{lastname}/{firstname}" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "regexParam",
+        "operationId" : "regexParamUsingGET__requests_regex-url_lastname_firstname",
+        "parameters" : [ {
+          "name" : "lastname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[a-zA-Z0-9]*$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "firstname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[A-Za-z]*$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/regex-validation/{lastname}/{firstname}" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "regexParamPath",
+        "operationId" : "regexParamPathUsingGET__requests_regex-validation_lastname_firstname",
+        "parameters" : [ {
+          "name" : "lastname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[a-zA-Z0-9]*$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "firstname",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "^[A-Za-z]*$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-empty" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAsyncResult",
+        "operationId" : "getAsyncResultUsingGET__simples_deferred-empty",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-questionmark" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAsyncResultGenericCapture",
+        "operationId" : "getAsyncResultGenericCaptureUsingGET__simples_deferred-questionmark",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-response-entity-simple-object" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAsyncResultResponseEntityStringCapture",
+        "operationId" : "getAsyncResultResponseEntityStringCaptureUsingGET__simples_deferred-response-entity-simple-object",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simples/deferred-simple-object" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "getAsyncResultStringCapture",
+        "operationId" : "getAsyncResultStringCaptureUsingGET__simples_deferred-simple-object",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "SimpleObject" : {
+        "required" : [ "age" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

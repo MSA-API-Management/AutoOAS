@@ -29,7 +29,7 @@ public class JakartaRestOperationAnnotationAdapter implements RestOperationAnnot
         produces = method.getAnnotation(Produces.class);
         consumes = method.getAnnotation(Consumes.class);
         path = method.getAnnotation(Path.class);
-        this.httpMethods = new HttpMethod[] {httpMethod};
+        this.httpMethods = new HttpMethod[]{httpMethod};
     }
 
 
@@ -57,11 +57,6 @@ public class JakartaRestOperationAnnotationAdapter implements RestOperationAnnot
             }
         }
         return new String[0];
-    }
-
-    @Override
-    public String[] value() {
-        return path();
     }
 
     @Override

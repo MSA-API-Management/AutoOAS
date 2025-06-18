@@ -5,6 +5,7 @@ import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnno
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
 import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
@@ -28,10 +29,7 @@ import java.util.stream.Stream;
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class JakartaRestFramework implements RestFramework {
-    @Override
-    public ValidationAnnotationProvider getAnnotationProvider() {
-        return new JakartaValidationAnnotationProvider();
-    }
+    ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
     @Override
     public String getIdentifier() {
@@ -63,13 +61,24 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     /**
-     * TODO
-     * jakarta.ws.rs.ext.Provider
-     * jakarta.ws.rs.ext.ExceptionMapper (no annotation -> interface implementation)
+     * An exception contains @Provider as annotation and also
+     * implements the jakarta.ws.rs.ext.ExceptionMapper
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
         return Arrays.asList("jakarta.ws.rs.ext.Provider");
+    }
+
+    @Override
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
+        if (getControllerAdviceAnnotations().contains(annotationName)) {
+            for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
+                if (interfaceRef.getQualifiedName().equals("jakarta.ws.rs.ext.ExceptionMapper")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -82,12 +91,6 @@ public class JakartaRestFramework implements RestFramework {
         return Response.class;
     }
 
-    /**
-     * TODO
-     * jakarta.ws.rs.core.MultivaluedMap.class;
-     * org.jboss.resteasy.reactive.multipart.FileUpload.class; (quarkus)
-     * TODO Check which is actually used
-     */
     @Override
     public Class<?> getSupportedFileType() {
         return MultivaluedMap.class;
@@ -106,6 +109,14 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public Class<? extends Annotation> getRequestBodyAnnotation() {
         return null; // No specific request body annotation exists in quarkus
+    }
+
+    @Override
+    public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(param -> !hasAnyAnnotationDisqualifyingParameterAsRequestBody(param))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -185,8 +196,16 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
         QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+
         if (annotation != null) {
-            return new JakartaQueryParamAdapter(annotation);
+            JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
+
+            // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
+            // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
+                adapter.setRequired(true);
+            }
+            return adapter;
         }
         return null;
     }
@@ -194,11 +213,33 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
         HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
-        // TODO check if param has @NotNull or @NotEmpty to set it required -> constructor
+
         if (annotation != null) {
-            return new JakartaHeaderParamAdapter(annotation);
+            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
+
+            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
+                adapter.setRequired(true);
+            }
+            return adapter;
         }
         return null;
+    }
+
+    private boolean hasValidationAnnotation(CtParameter<?> parameter) {
+        List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
+
+        return annotations.stream()
+                .anyMatch(annotation -> {
+                            Annotation actualAnnotation = annotation.getActualAnnotation();
+                            return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
+                                    validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
+                        }
+                );
+    }
+
+    private boolean isParameterTypeString(CtParameter<?> parameter) {
+        String parameterType = parameter.getType().getQualifiedName();
+        return parameterType.equals("java.lang.String");
     }
 
     @Override
@@ -211,9 +252,18 @@ public class JakartaRestFramework implements RestFramework {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
     }
 
-    @Override
-    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
-        String typeName = type.getQualifiedName();
+    /**
+     * Returns true if parameter should be disqualified as a request body.
+     * Disqualifies if parameter has JAX-RS binding annotations (@PathParam, @QueryParam, @Context, etc.)
+     * or if parameter type is a framework-injected type (SecurityContext, HttpHeaders, UriInfo)
+     * In Quarkus, framework-injected types can have @Context but can also be used without this annotation
+     */
+    private boolean hasAnyAnnotationDisqualifyingParameterAsRequestBody(CtParameter<?> parameter) {
+        return isJakartaMethodAnnotationParameter(parameter) || isJakartaConfigurationAnnotation(parameter);
+    }
+
+    private boolean isJakartaConfigurationAnnotation(CtParameter<?> parameter) {
+        String typeName = parameter.getType().getQualifiedName();
         return typeName.equals("javax.ws.rs.core.SecurityContext") ||
                 typeName.equals("javax.ws.rs.core.UriInfo") ||
                 typeName.equals("javax.ws.rs.core.HttpHeaders") ||
@@ -222,26 +272,21 @@ public class JakartaRestFramework implements RestFramework {
                 typeName.equals("jakarta.ws.rs.core.HttpHeaders");
     }
 
-    @Override
-    // TODO + add comment in interface
-    // isPotentialRequestBodyAnnotation -> true is es einer, wenn false -> is es keiner
-    // In spring dann true returnen
-    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
+    private boolean isJakartaMethodAnnotationParameter(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
                 .map(CtAnnotation::getAnnotationType)
                 .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isRestParameterBindingAnnotation);
+                .anyMatch(this::isJakartaParameterAnnotation);
     }
 
     // Javax was used previously before it was replaced by Jakarta
-    private boolean isRestParameterBindingAnnotation(String annotationName) {
+    private boolean isJakartaParameterAnnotation(String annotationName) {
         return annotationName.equals("javax.ws.rs.PathParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
                 annotationName.equals("javax.ws.rs.CookieParam") ||
                 annotationName.equals("javax.ws.rs.MatrixParam") ||
                 annotationName.equals("javax.ws.rs.BeanParam") ||
-//                annotationName.equals("javax.ws.rs.FormParam") ||
                 annotationName.equals("javax.ws.rs.core.Context") ||
 
                 annotationName.equals("jakarta.ws.rs.PathParam") ||
@@ -251,6 +296,5 @@ public class JakartaRestFramework implements RestFramework {
                 annotationName.equals("jakarta.ws.rs.MatrixParam") ||
                 annotationName.equals("jakarta.ws.rs.BeanParam") ||
                 annotationName.equals("jakarta.ws.rs.core.Context");
-//                annotationName.equals("jakarta.ws.rs.FormParam") ||
     }
 }

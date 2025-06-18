@@ -18,7 +18,6 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
@@ -27,11 +26,6 @@ import java.util.stream.Stream;
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class SpringRestFramework implements RestFramework {
-
-    @Override
-    public ValidationAnnotationProvider getAnnotationProvider() {
-        return new JavaxValidationAnnotationProvider();
-    }
 
     @Override
     public String getIdentifier() {
@@ -102,6 +96,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
+        return getControllerAdviceAnnotations().contains(annotationName);
+    }
+
+    @Override
     public List<String> getModelSchemaAnnotations() {
         return Arrays.asList(
                 // "io.swagger.v3.oas.annotations.media.Schema"
@@ -131,6 +130,14 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public Class<? extends Annotation> getRequestBodyAnnotation() {
         return RequestBody.class;
+    }
+
+    @Override
+    public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(param -> param.getAnnotation(getRequestBodyAnnotation()) != null)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -221,18 +228,5 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
-    }
-
-    @Override
-    public boolean isRestFrameworkInjectedType(CtTypeReference<?> type) {
-        String typeName = type.getQualifiedName();
-        return typeName.equals("org.springframework.security.core.Authentication")
-                || typeName.equals("org.springframework.web.util.UriComponentsBuilder")
-                || typeName.equals("org.springframework.http.HttpHeaders");
-    }
-
-    @Override
-    public boolean hasRestParameterBindingAnnotation(CtParameter<?> parameter) {
-        return false; // not needed as Spring Boot has a RequestBody annotation
     }
 }
