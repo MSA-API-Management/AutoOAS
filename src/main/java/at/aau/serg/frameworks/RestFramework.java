@@ -1,6 +1,7 @@
 package at.aau.serg.frameworks;
 
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -35,11 +36,12 @@ public interface RestFramework {
     /**
      * Returns the appropriate response code interceptor implementation for the specific REST framework.
      *
-     * @param adviceClasses A list of controller advice or exception mapper classes that handle exceptions
-     *                      and define response codes for the REST API TODO check equivalent
+     * @param adviceClasses       A list of controller advice or exception mapper classes that handle exceptions
+     *                            and define response codes for the REST API TODO check equivalent
+     * @param dataTypeTransformer
      * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
      */
-    OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses);
+    OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer);
 
     /**
      * Splits all detected controller classes into potentially overlapping sets of controller classes based on their profile assignment.

@@ -7,6 +7,7 @@ import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdap
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer) {
         return new SpringOperationResponseCodeInterceptor(adviceClasses);
     }
 

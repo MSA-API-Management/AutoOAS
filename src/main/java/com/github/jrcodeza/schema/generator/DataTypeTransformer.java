@@ -34,44 +34,48 @@ public class DataTypeTransformer {
         this.schemaGeneratorHelper = schemaGeneratorHelper;
     }
 
+    public ApiResponse detectAndCreateApiResponseContent(CtTypeReference<?> responseType) {
+        return detectAndCreateApiResponseContent(responseType, null);
+    }
+
     // TODO alex: use this inside the interceptor for finding the type in .entity or .ok
-    public ApiResponse detectAndCreateApiResponseContent(CtMethod<?> method, String produces) {
-        ApiResponse apiResponse= new ApiResponse();
+    public ApiResponse detectAndCreateApiResponseContent(CtTypeReference<?> responseType, String produces) {
+        ApiResponse apiResponse = new ApiResponse();
 
         // content
-        CtTypeReference<?> methodReturnType = method.getType();
+
         // strip the DeferredResult wrapper
-        if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getAsyncResultWrapper())){
-            methodReturnType = stripReturnValueWrapper(methodReturnType);
+        if (schemaGeneratorHelper.isTypeEquivalent(responseType, restFramework.getAsyncResultWrapper())) {
+            responseType = stripReturnValueWrapper(responseType);
         }
 
         // strip the ResponseEntity wrapper
-        if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getResponseWrapper())){
-            methodReturnType = stripReturnValueWrapper(methodReturnType);
+        if (schemaGeneratorHelper.isTypeEquivalent(responseType, restFramework.getResponseWrapper())) {
+            responseType = stripReturnValueWrapper(responseType);
         }
 
-        if (methodReturnType.getSimpleName().equals("void")) {
+        if (responseType.getSimpleName().equals("void")) {
             // dont add a content
-        } else if (methodReturnType.getPackage() != null && methodReturnType.getPackage().getSimpleName().equals("java.lang")) {
+        } else if (responseType.getPackage() != null && responseType.getPackage().getSimpleName().equals("java.lang")) {
             Content content = new Content();
             MediaType simpleMediaType = new MediaType();
-            simpleMediaType.setSchema(schemaGeneratorHelper.parseClassRefTypeSignature(methodReturnType, null, null));
-            content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(methodReturnType) : produces, simpleMediaType);
+            simpleMediaType.setSchema(schemaGeneratorHelper.parseClassRefTypeSignature(responseType, null, null));
+            content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, simpleMediaType);
             apiResponse.setContent(content);
         } else {
-            if (methodReturnType.getPackage() == null
+            if (responseType.getPackage() == null
                     // arrays have no package, do not omit arrays
-                    && !(methodReturnType instanceof CtArrayTypeReference<?>)) {
+                    && !(responseType instanceof CtArrayTypeReference<?>)) {
                 // e.g. for ? generic capture
-                logger.info("Ignoring methodReturnType {}", methodReturnType.getSimpleName());
-                methodReturnType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
-                methodReturnType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
+                logger.info("Ignoring responseType {}", responseType.getSimpleName());
+                responseType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
+                responseType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
             }
 
-            MediaType mediaType = schemaGeneratorHelper.createMediaType(methodReturnType, null, getGenericParams(methodReturnType));
+            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, getGenericParams(responseType));
             if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
                 Content content = new Content();
-                content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(methodReturnType) : produces, mediaType);
+                content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, mediaType);
                 apiResponse.setContent(content);
             }
         }
@@ -82,6 +86,7 @@ public class DataTypeTransformer {
     /**
      * Strips the Spring return value wrappers, e.g., ResponseEntity&lt;T&gt; or DeferredResult&lt;T&gt;,
      * and returns the generic type T or OMITTED_TYPE_ARG_TYPE.
+     *
      * @param methodReturnType
      * @return
      */
@@ -113,7 +118,6 @@ public class DataTypeTransformer {
     private List<CtTypeReference<?>> getGenericParams(CtTypeReference<?> methodType) {
         return schemaGeneratorHelper.getGenericParams(methodType);
     }
-
 
 
     public String resolveContentType(String userDefinedContentType, CtParameter<?> requestBody) {

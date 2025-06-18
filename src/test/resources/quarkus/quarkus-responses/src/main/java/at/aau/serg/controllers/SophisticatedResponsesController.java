@@ -5,35 +5,40 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/sophisticated-responses")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+//@Path("/sophisticated-responses")
+//@Produces(MediaType.APPLICATION_JSON)
+//@Consumes(MediaType.APPLICATION_JSON)
 public class SophisticatedResponsesController {
 
+    // fixme not working
+    //  which explicit methods are fine as limitations
     @GET
     @Path("/some-success-status-code")
     public Response getSomeSuccessStatusCode() {
         return Response.noContent().build();
     }
 
+    // fixme not working
     @GET
     @Path("/object-inline-status-method")
     public Response getSimpleWithStatusMethod() {
         return Response.status(Response.Status.OK).entity(new Simple().withName("Peter").withId(1)).build();
     }
 
-    @GET
-    @Path("/status-method-error")
-    public Response getErrorStatusMethod() {
-        return Response.status(Response.Status.UNAUTHORIZED).build();
-    }
+//    @GET
+//    @Path("/status-method-error")
+//    public Response getErrorStatusMethod() {
+//        return Response.status(Response.Status.UNAUTHORIZED).build();
+//    }
 
+    // fixme not working
     @GET
     @Path("/status-method-with-response-obj")
     public Response getErrorStatusMethodWithResponse() {
         return Response.status(Response.Status.UNAUTHORIZED).entity(new Simple().withName("Peter").withId(1)).build();
     }
 
+    // fixme not detecting the type, only status code
     @GET
     @Path("/nested-builder")
     public Response getNestedBuilder() {
@@ -42,6 +47,7 @@ public class SophisticatedResponsesController {
         return builder.status(Response.Status.CREATED).build(); // 201
     }
 
+    // fixme not working
     @GET
     @Path("/numeric-status-code")
     public Response getWithNumericStatus() {
@@ -49,9 +55,10 @@ public class SophisticatedResponsesController {
         return Response.status(418).entity(val).build(); // 418 I'm a teapot
     }
 
+    // fixme not working
     @GET
     @Path("/prev-assigned-var-response")
-    public Response getDeferredResponse() {
+    public Response getResponseFromVar() {
         var val = new Simple().withName("Peter").withId(1);
         Response response = Response.ok(val).build();
         return response; // response built before return

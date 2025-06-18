@@ -13,12 +13,14 @@
         "operationId" : "getListOfSimpleUsingGET__simple-responses_array-multiple-lines",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "OK" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -33,12 +35,14 @@
         "operationId" : "getListOfSimplesInlineUsingGET__simple-responses_array-inline",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "OK" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
                 }
               }
             }
@@ -53,12 +57,11 @@
         "operationId" : "getSimpleUsingGET__simple-responses_object-multiple-lines",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "OK" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -73,12 +76,11 @@
         "operationId" : "getSimpleInlineUsingGET__simple-responses_object-inline",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "OK" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
@@ -100,152 +102,11 @@
           }
         } ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
+          "OK" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/prev-assigned-var-response" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getDeferredResponse",
-        "operationId" : "getDeferredResponseUsingGET__sophisticated-responses_prev-assigned-var-response",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/status-method-error" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getErrorStatusMethod",
-        "operationId" : "getErrorStatusMethodUsingGET__sophisticated-responses_status-method-error",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/status-method-with-response-obj" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getErrorStatusMethodWithResponse",
-        "operationId" : "getErrorStatusMethodWithResponseUsingGET__sophisticated-responses_status-method-with-response-obj",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/nested-builder" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getNestedBuilder",
-        "operationId" : "getNestedBuilderUsingGET__sophisticated-responses_nested-builder",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/object-inline-status-method" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getSimpleWithStatusMethod",
-        "operationId" : "getSimpleWithStatusMethodUsingGET__sophisticated-responses_object-inline-status-method",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/some-success-status-code" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getSomeSuccessStatusCode",
-        "operationId" : "getSomeSuccessStatusCodeUsingGET__sophisticated-responses_some-success-status-code",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sophisticated-responses/numeric-status-code" : {
-      "get" : {
-        "tags" : [ "sophisticated-responses-controller" ],
-        "summary" : "getWithNumericStatus",
-        "operationId" : "getWithNumericStatusUsingGET__sophisticated-responses_numeric-status-code",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "string"
                 }
               }
             }
@@ -262,6 +123,35 @@
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
         }
+      },
+      "SimpleBase" : {
+        "type" : "object",
+        "properties" : {
+          "someBaseProperty" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Simple" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SimpleBase"
+        }, {
+          "required" : [ "avgGrade" ],
+          "type" : "object",
+          "properties" : {
+            "avgGrade" : {
+              "type" : "number",
+              "format" : "double"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        } ]
       }
     }
   }

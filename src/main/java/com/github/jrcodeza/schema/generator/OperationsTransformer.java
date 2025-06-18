@@ -219,7 +219,9 @@ public class OperationsTransformer {
 	private ApiResponses createApiResponses(CtMethod<?> method, String produces) {
 		// todo merge logic for DeferredResult, ResponseEntity stripping
 
-		ApiResponse apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(method, produces);
+		// method.getType uses the method's return value's type, quite naive response type identification
+		//  this works well for Spring, because it defines the detailed type
+		ApiResponse apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(method.getType(), produces);
 
 		// create the API response
 		HttpStatus responseStatusCode = tryResolveResponseStatus(method);
