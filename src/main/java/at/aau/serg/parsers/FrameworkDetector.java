@@ -1,8 +1,6 @@
 package at.aau.serg.parsers;
 
 import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.frameworks.jakarta.JakartaRestFramework;
-import at.aau.serg.frameworks.spring.SpringRestFramework;
 import lombok.Getter;
 import spoon.MavenLauncher;
 import spoon.OutputType;
@@ -26,20 +24,10 @@ public class FrameworkDetector {
     @Getter
     private CtModel model;
 
-    public FrameworkDetector() {
-        frameworkAnnotations.put(new SpringRestFramework(), Set.of(
-                "org.springframework.web.bind.annotation.RestController",
-                "org.springframework.web.bind.annotation.RequestMapping"
-        ));
-
-        frameworkAnnotations.put(new JakartaRestFramework(), Set.of(
-                "jakarta.ws.rs.Path",
-                "javax.ws.rs.Path"
-        ));
-    }
-
-    public void addFramework(RestFramework framework, Set<String> keyAnnotations) {
-        frameworkAnnotations.put(framework, keyAnnotations);
+    public FrameworkDetector(Map<String, RestFramework> frameworkInstances) {
+        for (RestFramework framework : frameworkInstances.values()) {
+            frameworkAnnotations.put(framework, framework.getKeyAnnotations());
+        }
     }
 
     public RestFramework detectFramework(String projectPath) {
