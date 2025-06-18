@@ -20,10 +20,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
@@ -68,6 +65,14 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public List<String> getControllerAdviceAnnotations() {
         return List.of("jakarta.ws.rs.ext.Provider", "javax.ws.rs.ext.Provider");
+    }
+
+    @Override
+    public Set<String> getKeyAnnotations() {
+        return Set.of(
+                "jakarta.ws.rs.Path",
+                "javax.ws.rs.Path"
+        );
     }
 
     @Override

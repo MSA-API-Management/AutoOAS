@@ -10,6 +10,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface RestFramework {
     /**
@@ -72,6 +73,12 @@ public interface RestFramework {
      * @return A list of fully qualified annotation class names for controller advice classes
      */
     List<String> getControllerAdviceAnnotations();
+
+    /**
+     * TODO
+     * @return
+     */
+    Set<String> getKeyAnnotations();
 
     /**
      * Determines if a class type represents a global exception handler for this REST framework

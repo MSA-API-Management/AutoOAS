@@ -94,6 +94,14 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public Set<String> getKeyAnnotations() {
+        return Set.of(
+                "org.springframework.web.bind.annotation.RestController",
+                "org.springframework.web.bind.annotation.RequestMapping"
+        );
+    }
+
+    @Override
     public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
         return getControllerAdviceAnnotations().contains(annotationName);
     }
