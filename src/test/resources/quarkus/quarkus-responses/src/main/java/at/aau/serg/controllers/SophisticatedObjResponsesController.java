@@ -5,33 +5,29 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-//@Path("/sophisticated-responses")
-//@Produces(MediaType.APPLICATION_JSON)
-//@Consumes(MediaType.APPLICATION_JSON)
-public class SophisticatedResponsesController {
+@Path("/sophisticated-simple-responses")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class SophisticatedObjResponsesController {
 
-    // fixme not working
-    //  which explicit methods are fine as limitations
     @GET
     @Path("/some-success-status-code")
     public Response getSomeSuccessStatusCode() {
         return Response.noContent().build();
     }
 
-    // fixme not working
     @GET
     @Path("/object-inline-status-method")
     public Response getSimpleWithStatusMethod() {
         return Response.status(Response.Status.OK).entity(new Simple().withName("Peter").withId(1)).build();
     }
 
-//    @GET
-//    @Path("/status-method-error")
-//    public Response getErrorStatusMethod() {
-//        return Response.status(Response.Status.UNAUTHORIZED).build();
-//    }
+    @GET
+    @Path("/status-method-error")
+    public Response getErrorStatusMethod() {
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
 
-    // fixme not working
     @GET
     @Path("/status-method-with-response-obj")
     public Response getErrorStatusMethodWithResponse() {
@@ -47,7 +43,6 @@ public class SophisticatedResponsesController {
         return builder.status(Response.Status.CREATED).build(); // 201
     }
 
-    // fixme not working
     @GET
     @Path("/numeric-status-code")
     public Response getWithNumericStatus() {
@@ -55,7 +50,7 @@ public class SophisticatedResponsesController {
         return Response.status(418).entity(val).build(); // 418 I'm a teapot
     }
 
-    // fixme not working
+    // fixme not working !!
     @GET
     @Path("/prev-assigned-var-response")
     public Response getResponseFromVar() {

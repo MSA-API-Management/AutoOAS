@@ -11,7 +11,7 @@ import java.util.List;
 @Path("/simple-responses")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SimpleResponsesController {
+public class ObjResponsesController {
 
     @GET
     @Path("/array-multiple-lines")
@@ -39,12 +39,5 @@ public class SimpleResponsesController {
     public Response getSimpleInline() {
         return Response.ok(new Simple().withName("Peter").withId(1)).build();
     }
-
-    @GET
-    @Path("/primitive-echo")
-    public Response getStringEcho(@QueryParam("name") String name) {
-        return Response.ok(name).build();
-    }
-
 
 }

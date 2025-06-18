@@ -2,34 +2,40 @@ package at.aau.serg.interceptors;
 
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import jakarta.ws.rs.core.Response;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
-import spoon.reflect.code.CtExpression;
-import spoon.reflect.code.CtInvocation;
-import spoon.reflect.code.CtReturn;
-import spoon.reflect.code.CtVariableRead;
+import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
+import spoon.support.reflect.code.CtFieldReadImpl;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
 public class JakartaOperationResponseCodeInterceptor implements OperationInterceptor {
-    List<CtType<?>> adviceClasses; // todo check for equivalent of controllerAdviceClasses
-    DataTypeTransformer dataTypeTransformer;
 
-    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer) {
+    private static final int FALLBACK_STATUS_CODE = 200;
+
+    List<CtType<?>> adviceClasses; // todo check for equivalent of controllerAdviceClasses
+
+    DataTypeTransformer dataTypeTransformer;
+    SchemaGeneratorHelper schemaHelper;
+
+    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper) {
         this.adviceClasses = adviceClasses;
         this.dataTypeTransformer = dataTypeTransformer;
+        this.schemaHelper = schemaHelper;
     }
 
     @Override
@@ -58,7 +64,9 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
         for (var returnStatement : method.getElements(new TypeFilter<>(CtReturn.class))) {
             CtExpression<?> returned = returnStatement.getReturnedExpression();
             if (returned instanceof CtInvocation<?> inv) {
+
                 var response = analyzeResponseInvocation(inv);
+
                 if (response != null)
                     apiResponses.addApiResponse(response.getValue0(), response.getValue1());
             }
@@ -91,8 +99,8 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
      * @return the response code and response type pair
      */
     private Pair<String, ApiResponse> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
+        Integer responseStatus = null;
         ApiResponse response = new ApiResponse();
-        String statusCode = null;
 
         CtExpression<?> curMethodInChain = buildCallTarget;
         while (curMethodInChain instanceof CtInvocation<?> method) {
@@ -109,7 +117,6 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
             }
 
             // handle response code
-            int responseStatus;
             if (methodName.equals("ok")) {
                 responseStatus = Response.Status.OK.getStatusCode();
             } else if (methodName.equals("noContent")) {
@@ -120,26 +127,28 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
                 responseStatus = Response.Status.NOT_MODIFIED.getStatusCode();
             } else if (methodName.equals("created")) {
                 responseStatus = Response.Status.CREATED.getStatusCode();
-            } else if (methodName.equals("statusCode")) {
-                // custom statusCode
+            } else if (methodName.equals("status")) {
+                // custom statusCode with either Response.StatusType or int ::status overload
                 var statusCodeMethodArg = method.getArguments().getFirst();
-                if (statusCodeMethodArg.getType() instanceof Response.StatusType statusTypeMethodArg) {
-                    responseStatus = statusTypeMethodArg.getStatusCode();
-                }
-                else if(statusCodeMethodArg.getType() instanceof Integer) {
+                if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
+                    responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
 
+                } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
+                        || statusCodeMethodArg.getType().getSimpleName().equals("int"))
+                        && statusCodeMethodArg instanceof CtLiteral<?> literal) {
+                    responseStatus = (int) literal.getValue();
                 }
             }
-//
-//            System.out.println("Status: " + statusCode);
-//            System.out.println(response);
-
 
             curMethodInChain = method.getTarget();
         }
 
-
-        return new Pair<String, ApiResponse>(statusCode, response);
+        if (responseStatus == null) {
+            // fallback!
+            responseStatus = FALLBACK_STATUS_CODE;
+        }
+        response.setDescription(Response.Status.fromStatusCode(responseStatus) != null ? Response.Status.fromStatusCode(responseStatus).getReasonPhrase() : "");
+        return new Pair<String, ApiResponse>(String.valueOf(responseStatus), response);
     }
 
     private ApiResponse extractPayloadTypeInfo(CtExpression<?> expr) {

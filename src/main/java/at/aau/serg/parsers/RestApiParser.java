@@ -81,7 +81,7 @@ public class RestApiParser {
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework); // just provide all packages of the project's module
         dataTypeTransformer = new DataTypeTransformer(restFramework, schemaHelper);
         operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer,
-                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses, dataTypeTransformer)),
+                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses, dataTypeTransformer, schemaHelper)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, restFramework.getAnnotationProvider());
 

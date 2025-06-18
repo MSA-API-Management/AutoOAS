@@ -3,6 +3,7 @@ package at.aau.serg.frameworks;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -41,7 +42,7 @@ public interface RestFramework {
      * @param dataTypeTransformer
      * @return An implementation of OperationResponseCodeInterceptor specific to the REST framework
      */
-    OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer);
+    OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper);
 
     /**
      * Splits all detected controller classes into potentially overlapping sets of controller classes based on their profile assignment.

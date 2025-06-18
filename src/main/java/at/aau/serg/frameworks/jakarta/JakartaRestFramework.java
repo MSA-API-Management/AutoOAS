@@ -9,6 +9,7 @@ import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
@@ -38,8 +39,8 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer) {
-        return new JakartaOperationResponseCodeInterceptor(adviceClasses, dataTypeTransformer);
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper) {
+        return new JakartaOperationResponseCodeInterceptor(adviceClasses, dataTypeTransformer, schemaHelper);
     }
 
     @Override

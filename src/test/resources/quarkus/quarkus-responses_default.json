@@ -8,12 +8,13 @@
   "paths" : {
     "/simple-responses/array-multiple-lines" : {
       "get" : {
-        "tags" : [ "simple-responses-controller" ],
+        "tags" : [ "obj-responses-controller" ],
         "summary" : "getListOfSimple",
         "operationId" : "getListOfSimpleUsingGET__simple-responses_array-multiple-lines",
         "parameters" : [ ],
         "responses" : {
-          "OK" : {
+          "200" : {
+            "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -30,12 +31,13 @@
     },
     "/simple-responses/array-inline" : {
       "get" : {
-        "tags" : [ "simple-responses-controller" ],
+        "tags" : [ "obj-responses-controller" ],
         "summary" : "getListOfSimplesInline",
         "operationId" : "getListOfSimplesInlineUsingGET__simple-responses_array-inline",
         "parameters" : [ ],
         "responses" : {
-          "OK" : {
+          "200" : {
+            "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -52,12 +54,13 @@
     },
     "/simple-responses/object-multiple-lines" : {
       "get" : {
-        "tags" : [ "simple-responses-controller" ],
+        "tags" : [ "obj-responses-controller" ],
         "summary" : "getSimple",
         "operationId" : "getSimpleUsingGET__simple-responses_object-multiple-lines",
         "parameters" : [ ],
         "responses" : {
-          "OK" : {
+          "200" : {
+            "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -71,12 +74,13 @@
     },
     "/simple-responses/object-inline" : {
       "get" : {
-        "tags" : [ "simple-responses-controller" ],
+        "tags" : [ "obj-responses-controller" ],
         "summary" : "getSimpleInline",
         "operationId" : "getSimpleInlineUsingGET__simple-responses_object-inline",
         "parameters" : [ ],
         "responses" : {
-          "OK" : {
+          "200" : {
+            "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -88,25 +92,107 @@
         }
       }
     },
-    "/simple-responses/primitive-echo" : {
+    "/sophisticated-simple-responses/status-method-error" : {
       "get" : {
-        "tags" : [ "simple-responses-controller" ],
-        "summary" : "getStringEcho",
-        "operationId" : "getStringEchoUsingGET__simple-responses_primitive-echo",
-        "parameters" : [ {
-          "name" : "name",
-          "in" : "query",
-          "required" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getErrorStatusMethod",
+        "operationId" : "getErrorStatusMethodUsingGET__sophisticated-simple-responses_status-method-error",
+        "parameters" : [ ],
         "responses" : {
-          "OK" : {
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/status-method-with-response-obj" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getErrorStatusMethodWithResponse",
+        "operationId" : "getErrorStatusMethodWithResponseUsingGET__sophisticated-simple-responses_status-method-with-response-obj",
+        "parameters" : [ ],
+        "responses" : {
+          "401" : {
+            "description" : "Unauthorized",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "string"
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/nested-builder" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getNestedBuilder",
+        "operationId" : "getNestedBuilderUsingGET__sophisticated-simple-responses_nested-builder",
+        "parameters" : [ ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/prev-assigned-var-response" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getResponseFromVar",
+        "operationId" : "getResponseFromVarUsingGET__sophisticated-simple-responses_prev-assigned-var-response",
+        "parameters" : [ ],
+        "responses" : { }
+      }
+    },
+    "/sophisticated-simple-responses/object-inline-status-method" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getSimpleWithStatusMethod",
+        "operationId" : "getSimpleWithStatusMethodUsingGET__sophisticated-simple-responses_object-inline-status-method",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/some-success-status-code" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getSomeSuccessStatusCode",
+        "operationId" : "getSomeSuccessStatusCodeUsingGET__sophisticated-simple-responses_some-success-status-code",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/numeric-status-code" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getWithNumericStatus",
+        "operationId" : "getWithNumericStatusUsingGET__sophisticated-simple-responses_numeric-status-code",
+        "parameters" : [ ],
+        "responses" : {
+          "418" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
                 }
               }
             }
