@@ -75,8 +75,20 @@ public interface RestFramework {
     List<String> getControllerAdviceAnnotations();
 
     /**
-     * TODO
-     * @return
+     * Returns a list of annotations that indicate a specific Rest Framework.
+     *
+     * <p>Examples: </p>
+     * <pre> {@code
+     * // Spring annotation
+     * import org.springframework.web.bind.annotation.RestController;
+     * @RestController()
+     *
+     * // Jakarta annotation
+     * import jakarta.ws.rs.Path;
+     * @Path()
+     * } </pre>
+     *
+     * @return A list of annotations indicating a specific Rest Framework
      */
     Set<String> getKeyAnnotations();
 
@@ -84,7 +96,7 @@ public interface RestFramework {
      * Determines if a class type represents a global exception handler for this REST framework
      *
      * @param annotationName the name of the annotation found on the type
-     * @param type the class type to check
+     * @param type           the class type to check
      * @return true if the type is a global exception handler, false otherwise
      */
     boolean isGlobalExceptionHandler(String annotationName, CtType<?> type);
@@ -134,11 +146,11 @@ public interface RestFramework {
 
     /**
      * Returns the first parameter of a parameter list that is the RequestBody
+     *
      * @param parameters list of parameters
      * @return parameter that is the RequestBody or null if no RequestBody could be found
      */
     CtParameter<?> findRequestBody(List<CtParameter<?>> parameters);
-
 
 
 // endregion framework-specific classes
