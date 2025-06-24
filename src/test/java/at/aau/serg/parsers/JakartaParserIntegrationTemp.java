@@ -13,19 +13,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// TODO remove after real tests are implemented
+// TODO remove after responses are detected (already added to the real test class)
 public class JakartaParserIntegrationTemp {
 
     private static final String testResourcesPath = "src/test/resources/quarkus/";
 
     private RestApiParser parser;
 
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "simple-quarkus-2cc389",
-            "simple-quarkus-22c055"
-    })
-    public void integrationTest_OpenApiGeneration_Basics_DefaultStringProfile(String projectName) throws IOException {
+    public void integrationTest_OpenApiGeneration_Basics(String projectName) throws IOException {
         var outputPath = "target/openapi/" + projectName + ".json";
         parser = new RestApiParser(testResourcesPath + projectName, outputPath, new JakartaRestFramework());
         parser.run();
@@ -38,9 +33,9 @@ public class JakartaParserIntegrationTemp {
     }
 
     @Test
-    public void integrationTest_Quarkus_ResponseIdentification() throws IOException{
+    public void integrationTest_Quarkus_ResponseIdentification() throws IOException {
         // fixme its currently an extra test for debugging
-        integrationTest_OpenApiGeneration_Basics_DefaultStringProfile("quarkus-responses");
+        integrationTest_OpenApiGeneration_Basics("quarkus-responses");
     }
 
 }
