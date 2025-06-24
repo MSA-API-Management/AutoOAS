@@ -43,15 +43,12 @@ import static java.util.Collections.singletonList;
 public class OperationsTransformer {
 
 	private static final HttpStatus DEFAULT_RESPONSE_STATUS = HttpStatus.OK;
-	public static final String UNSPECIFIED_SIMPLE_NAME = "UNSPECIFIED_TYPE";
 
 	private static Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
 
-	private static final String DEFAULT_CONTENT_TYPE = "application/json";
-	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
-	private static final String MULTIPART_FORM_DATA_CONTENT_TYPE = "multipart/form-data";
 
 	private final SchemaGeneratorHelper schemaGeneratorHelper;
+	private final DataTypeTransformer dataTypeTransformer;
 	private final List<OperationParameterInterceptor> operationParameterInterceptors;
 	private final List<OperationInterceptor> operationInterceptors;
 	private final List<RequestBodyInterceptor> requestBodyInterceptors;
@@ -60,20 +57,22 @@ public class OperationsTransformer {
 	private final AtomicReference<OperationParameterFilter> operationParameterFilter;
 
 	public OperationsTransformer(SchemaGeneratorHelper schemaGeneratorHelper,
+								 DataTypeTransformer dataTypeTransformer,
 								 List<OperationParameterInterceptor> operationParameterInterceptors,
 								 List<OperationInterceptor> operationInterceptors,
 								 List<RequestBodyInterceptor> requestBodyInterceptors,
 								 List<com.github.jrcodeza.schema.generator.model.Header> globalHeaders,
 								 AtomicReference<OperationParameterFilter> operationParameterFilter,
 								 RestFramework restFramework) {
-		this.schemaGeneratorHelper = schemaGeneratorHelper;
-		this.operationParameterInterceptors = operationParameterInterceptors;
-		this.operationInterceptors = operationInterceptors;
-		this.requestBodyInterceptors = requestBodyInterceptors;
-		this.globalHeaders = globalHeaders;
-		this.operationParameterFilter = operationParameterFilter;
-		this.restFramework = restFramework;
-	}
+        this.schemaGeneratorHelper = schemaGeneratorHelper;
+        this.dataTypeTransformer = dataTypeTransformer;
+        this.operationParameterInterceptors = operationParameterInterceptors;
+        this.operationInterceptors = operationInterceptors;
+        this.requestBodyInterceptors = requestBodyInterceptors;
+        this.globalHeaders = globalHeaders;
+        this.operationParameterFilter = operationParameterFilter;
+        this.restFramework = restFramework;
+    }
 
 	/**
 	 * Creates all the operations, e.g., HTTP Get, Post.
@@ -202,44 +201,9 @@ public class OperationsTransformer {
 	private ApiResponses createApiResponses(CtMethod<?> method, String produces) {
 		// todo merge logic for DeferredResult, ResponseEntity stripping
 
-		CtTypeReference<?> methodReturnType = method.getType();
-		// strip the DeferredResult wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getAsyncResultWrapper())){
-			methodReturnType = stripReturnValueWrapper(methodReturnType);
-		}
-
-		// strip the ResponseEntity wrapper
-		if (schemaGeneratorHelper.isTypeEquivalent(methodReturnType, restFramework.getResponseWrapper())){
-			methodReturnType = stripReturnValueWrapper(methodReturnType);
-		}
-
-		ApiResponse apiResponse = new ApiResponse();
-
-		if (methodReturnType.getSimpleName().equals("void")) {
-			// dont add a content
-		} else if (methodReturnType.getPackage() != null && methodReturnType.getPackage().getSimpleName().equals("java.lang")) {
-			Content content = new Content();
-			MediaType simpleMediaType = new MediaType();
-			simpleMediaType.setSchema(schemaGeneratorHelper.parseClassRefTypeSignature(methodReturnType, null, null));
-			content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(methodReturnType) : produces, simpleMediaType);
-			apiResponse.setContent(content);
-		} else {
-			if (methodReturnType.getPackage() == null
-					// arrays have no package, do not omit arrays
-					&& !(methodReturnType instanceof CtArrayTypeReference<?>)) {
-				// e.g. for ? generic capture
-				logger.info("Ignoring methodReturnType {}", methodReturnType.getSimpleName());
-				methodReturnType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
-				methodReturnType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
-			}
-
-			MediaType mediaType = schemaGeneratorHelper.createMediaType(methodReturnType, null, getGenericParams(methodReturnType));
-			if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
-				Content content = new Content();
-				content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(methodReturnType) : produces, mediaType);
-				apiResponse.setContent(content);
-			}
-		}
+		// method.getType uses the method's return value's type, quite naive response type identification
+		//  this works well for Spring, because it defines the detailed type
+		ApiResponse apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(method.getType(), produces);
 
 		// create the API response
 		HttpStatus responseStatusCode = tryResolveResponseStatus(method);
@@ -257,38 +221,6 @@ public class OperationsTransformer {
 		return apiResponses;
 	}
 
-	/**
-	 * Strips the Spring return value wrappers, e.g., ResponseEntity&lt;T&gt; or DeferredResult&lt;T&gt;,
-	 * and returns the generic type T or OMITTED_TYPE_ARG_TYPE.
-	 * @param methodReturnType
-	 * @return
-	 */
-	private static CtTypeReference<?> stripReturnValueWrapper(CtTypeReference<?> methodReturnType) {
-		// check for generic type
-		if (!methodReturnType.getActualTypeArguments().isEmpty())
-			methodReturnType = methodReturnType.getActualTypeArguments().get(0);
-		else {
-			// ignoring empty ResponseEntity capture
-			methodReturnType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
-			methodReturnType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
-		}
-		return methodReturnType;
-	}
-
-	private String resolveDefaultContentType(CtTypeReference<?> responseBody) {
-		if (isFileResponse(responseBody)) {
-			return DEFAULT_FILE_RETURN_CONTENT_TYPE;
-		}
-		return DEFAULT_CONTENT_TYPE;
-	}
-
-	private boolean isFileResponse(CtTypeReference<?> responseBodyClass) {
-		return responseBodyClass.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileType()).getReference());
-	}
-
-	private List<CtTypeReference<?>> getGenericParams(CtTypeReference<?> methodType) {
-		return schemaGeneratorHelper.getGenericParams(methodType);
-	}
 
 	/**
 	 * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
@@ -300,6 +232,7 @@ public class OperationsTransformer {
 	 */
 	private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
 		// TODO ApiResponses annotation
+		//  pretty sure that the ApiResponses are only documentation, not functional
 
 		ResponseStatus responseStatusSpringAnnotation = method.getAnnotation(ResponseStatus.class);
 		if (responseStatusSpringAnnotation != null) {
@@ -314,6 +247,11 @@ public class OperationsTransformer {
 			} catch (NumberFormatException e) {
 				return null;
 			}
+		}
+
+		if (method.getType().getSimpleName().equals("void"))
+		{
+			return restFramework.getVoidMethodStatusCode();
 		}
 
 		return null;
@@ -649,7 +587,7 @@ public class OperationsTransformer {
 		}
 
 		Content content = new Content();
-		content.addMediaType(resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
+		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
 				schemaGeneratorHelper.createMediaType(
 						requestBodyParameter.getParameter().getType(),
 						requestBodyParameter.getName(),
@@ -697,13 +635,6 @@ public class OperationsTransformer {
 
 	private Annotation[] getActualAnnotations(CtParameter<?> parameter) {
 		return schemaGeneratorHelper.getActualAnnotations(parameter.getAnnotations());
-	}
-
-	private String resolveContentType(String userDefinedContentType, CtParameter<?> requestBody) {
-		if (StringUtils.isBlank(userDefinedContentType)) {
-			return schemaGeneratorHelper.isFile(requestBody.getType()) ? MULTIPART_FORM_DATA_CONTENT_TYPE : DEFAULT_CONTENT_TYPE;
-		}
-		return userDefinedContentType;
 	}
 
 	private ParameterNamePair getRequestBody(CtMethod<?> method) {
