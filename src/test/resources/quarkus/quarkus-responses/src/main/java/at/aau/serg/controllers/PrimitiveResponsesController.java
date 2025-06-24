@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// todo alex the interceptor removes the og detected responses and searches only for Response objs
 
 @Path("/primitive-responses")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PrimitiveResponsesController {
 
+    // fixme unspecified type
     @GET
     @Path("/int")
     public int getInt() {
@@ -30,12 +30,14 @@ public class PrimitiveResponsesController {
         return "hello";
     }
 
+    // fixme unspecified type
     @GET
     @Path("/double")
     public double getDouble() {
         return 5.1;
     }
 
+    // fixme unspecified type
     @GET
     @Path("/bool")
     public boolean getBool() {
@@ -57,7 +59,7 @@ public class PrimitiveResponsesController {
     @GET
     @Path("/string-echo")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFoos(@QueryParam("id") String id) {
+    public String getPlainText(@QueryParam("id") String id) {
         return "ID: " + id;
     }
 
@@ -69,7 +71,6 @@ public class PrimitiveResponsesController {
         return response;
     }
 
-    // todo void gives 204
     @GET
     @Path("/void-response")
     public void getAllNoReturn() {

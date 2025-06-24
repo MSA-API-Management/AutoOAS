@@ -232,6 +232,7 @@ public class OperationsTransformer {
 	 */
 	private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
 		// TODO ApiResponses annotation
+		//  pretty sure that the ApiResponses are only documentation, not functional
 
 		ResponseStatus responseStatusSpringAnnotation = method.getAnnotation(ResponseStatus.class);
 		if (responseStatusSpringAnnotation != null) {
@@ -246,6 +247,11 @@ public class OperationsTransformer {
 			} catch (NumberFormatException e) {
 				return null;
 			}
+		}
+
+		if (method.getType().getSimpleName().equals("void"))
+		{
+			return restFramework.getVoidMethodStatusCode();
 		}
 
 		return null;

@@ -106,7 +106,21 @@
             "format" : "int64"
           }
         } ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/map/{id}" : {
@@ -123,7 +137,21 @@
             "format" : "int64"
           }
         } ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/void-response" : {
@@ -132,7 +160,11 @@
         "summary" : "getAllNoReturn",
         "operationId" : "getAllNoReturnUsingGET__primitive-responses_void-response",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
       }
     },
     "/primitive-responses/bool" : {
@@ -141,7 +173,18 @@
         "summary" : "getBool",
         "operationId" : "getBoolUsingGET__primitive-responses_bool",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/double" : {
@@ -150,7 +193,18 @@
         "summary" : "getDouble",
         "operationId" : "getDoubleUsingGET__primitive-responses_double",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/simple-enum" : {
@@ -159,23 +213,18 @@
         "summary" : "getEnum",
         "operationId" : "getEnumUsingGET__primitive-responses_simple-enum",
         "parameters" : [ ],
-        "responses" : { }
-      }
-    },
-    "/primitive-responses/string-echo" : {
-      "get" : {
-        "tags" : [ "primitive-responses-controller" ],
-        "summary" : "getFoos",
-        "operationId" : "getFoosUsingGET__primitive-responses_string-echo",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "query",
-          "required" : false,
-          "schema" : {
-            "type" : "string"
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleEnum"
+                }
+              }
+            }
           }
-        } ],
-        "responses" : { }
+        }
       }
     },
     "/primitive-responses/int" : {
@@ -184,7 +233,18 @@
         "summary" : "getInt",
         "operationId" : "getIntUsingGET__primitive-responses_int",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/simple-obj" : {
@@ -193,7 +253,45 @@
         "summary" : "getObj",
         "operationId" : "getObjUsingGET__primitive-responses_simple-obj",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/string-echo" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getPlainText",
+        "operationId" : "getPlainTextUsingGET__primitive-responses_string-echo",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/primitive-responses/str" : {
@@ -202,7 +300,18 @@
         "summary" : "getString",
         "operationId" : "getStringUsingGET__primitive-responses_str",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sophisticated-simple-responses/status-method-error" : {
@@ -257,7 +366,18 @@
         "summary" : "getResponseFromVar",
         "operationId" : "getResponseFromVarUsingGET__sophisticated-simple-responses_prev-assigned-var-response",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sophisticated-simple-responses/object-inline-status-method" : {

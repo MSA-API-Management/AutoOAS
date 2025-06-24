@@ -4,6 +4,7 @@ import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
+import org.springframework.http.HttpStatus;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -250,4 +251,10 @@ public interface RestFramework {
      * {@code false} otherwise
      */
     boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods);
+
+    /**
+     * Returns the HTTP status code for handler methods returning void, e.g., 204 or 200.
+     * @return
+     */
+    HttpStatus getVoidMethodStatusCode();
 }

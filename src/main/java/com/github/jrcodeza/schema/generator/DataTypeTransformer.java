@@ -57,6 +57,8 @@ public class DataTypeTransformer {
         if (responseType.getSimpleName().equals("void")) {
             // dont add a content
         } else if (responseType.getPackage() != null && responseType.getPackage().getSimpleName().equals("java.lang")) {
+            // todo consider primitive types, not only the autoboxed object versions
+
             Content content = new Content();
             MediaType simpleMediaType = new MediaType();
             simpleMediaType.setSchema(schemaGeneratorHelper.parseClassRefTypeSignature(responseType, null, null));

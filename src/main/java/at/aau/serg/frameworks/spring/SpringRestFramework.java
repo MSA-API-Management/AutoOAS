@@ -10,6 +10,7 @@ import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -228,5 +229,10 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
+    }
+
+    @Override
+    public HttpStatus getVoidMethodStatusCode() {
+        return HttpStatus.OK;
     }
 }

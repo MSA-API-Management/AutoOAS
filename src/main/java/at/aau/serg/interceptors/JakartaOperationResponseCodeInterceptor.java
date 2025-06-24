@@ -13,7 +13,6 @@ import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
-import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
@@ -45,19 +44,22 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
 
     @Override
     public void intercept(CtMethod<?> method, Operation transformedOperation) {
-        ApiResponses existingMethodResponses = transformedOperation.getResponses();
+        var responses = tryDetectResponsesInMethod(method);
 
-
-        System.out.println(method);
-
-        var responses = analyzeRestMethod(method);
-
-
-        transformedOperation.setResponses(responses);
+        if (!responses.isEmpty()) {
+            // found some Jakarta Response obj
+            transformedOperation.setResponses(responses);
+        }
+        // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response
     }
 
 
-    private ApiResponses analyzeRestMethod(CtMethod<?> method) {
+    /**
+     * Detects returned jakarta.ws.rs.core.Response objects in Jakarta handler methods.
+     * @param method
+     * @return
+     */
+    private ApiResponses tryDetectResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
         // limitation: only handle direct invocation at return statement
