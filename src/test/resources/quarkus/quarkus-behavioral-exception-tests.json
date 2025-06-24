@@ -46,7 +46,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/SimpleObject"
                 }
               }
             }
@@ -74,7 +74,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/SimpleObject"
                 }
               }
             }
@@ -90,6 +90,19 @@
         "externalDocs" : {
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
+        }
+      },
+      "SimpleObject" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
         }
       }
     }

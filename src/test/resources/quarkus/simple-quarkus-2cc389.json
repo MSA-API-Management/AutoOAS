@@ -105,7 +105,18 @@
             "type" : "string"
           }
         } ],
-        "responses" : { }
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/simples/request-body-object" : {
@@ -236,7 +247,11 @@
         "summary" : "getAllNoReturn",
         "operationId" : "getAllNoReturnUsingGET__simples_void-response",
         "parameters" : [ ],
-        "responses" : { }
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
       }
     },
     "/simples/primitive-list" : {
