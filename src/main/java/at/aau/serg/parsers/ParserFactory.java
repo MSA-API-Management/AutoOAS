@@ -6,29 +6,37 @@ import at.aau.serg.frameworks.spring.SpringRestFramework;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class ParserFactory {
-    private final Map<String, Supplier<RestFramework>> FRAMEWORKS = new HashMap<>();
+    private final Map<String, RestFramework> frameworkInstances = new HashMap<>();
 
     public ParserFactory() {
-        registerRestFramework("spring", SpringRestFramework::new);
-        registerRestFramework("jakarta", JakartaRestFramework::new);
+        registerRestFramework(new SpringRestFramework());
+        registerRestFramework(new JakartaRestFramework());
     }
 
-    public void registerRestFramework(String identifier, Supplier<RestFramework> framework) {
-        // todo couple identifier to framework parameter
-        //  or better, remove from the frameworks' impl because the identifier requires static access
-        FRAMEWORKS.put(identifier.toLowerCase(), framework);
+    public void registerRestFramework(RestFramework framework) {
+        frameworkInstances.put(framework.getIdentifier().toLowerCase(), framework);
     }
 
     public RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
-        Supplier<RestFramework> frameworkSupplier = FRAMEWORKS.get(frameworkIdentifier.toLowerCase());
+        RestFramework framework = frameworkInstances.get(frameworkIdentifier.toLowerCase());
 
-        if (frameworkSupplier == null) {
+        if (framework == null) {
             throw new IllegalArgumentException("Unsupported framework: " + frameworkIdentifier);
         }
 
-        return new RestApiParser(projectPath, outputFileName, frameworkSupplier.get());
+        return new RestApiParser(projectPath, outputFileName, framework);
+    }
+
+    public RestApiParser createParserWithDetection(String projectPath, String outputFileName) {
+        FrameworkDetector frameworkDetector = new FrameworkDetector(frameworkInstances);
+        RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
+
+        if (detectedFramework == null) {
+            throw new IllegalArgumentException("No rest framework could be detected");
+        }
+
+        return new RestApiParser(projectPath, outputFileName, detectedFramework, frameworkDetector.getModel());
     }
 }
