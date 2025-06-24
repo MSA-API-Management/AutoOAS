@@ -14,6 +14,7 @@ import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class DataTypeTransformer {
@@ -56,14 +57,19 @@ public class DataTypeTransformer {
 
         if (responseType.getSimpleName().equals("void")) {
             // dont add a content
-        } else if (responseType.getPackage() != null && responseType.getPackage().getSimpleName().equals("java.lang")) {
-            // todo consider primitive types, not only the autoboxed object versions
 
+        } else if (responseType.isPrimitive() ||
+                (responseType.getPackage() != null && responseType.getPackage().getSimpleName().equals("java.lang"))) {
             Content content = new Content();
             MediaType simpleMediaType = new MediaType();
-            simpleMediaType.setSchema(schemaGeneratorHelper.parseClassRefTypeSignature(responseType, null, null));
+            simpleMediaType.setSchema(
+                    responseType.isPrimitive()
+                            ? schemaGeneratorHelper.parseBaseTypeSignature(responseType, new Annotation[0])
+                            : schemaGeneratorHelper.parseClassRefTypeSignature(responseType, new Annotation[0], null)
+            );
             content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, simpleMediaType);
             apiResponse.setContent(content);
+
         } else {
             if (responseType.getPackage() == null
                     // arrays have no package, do not omit arrays

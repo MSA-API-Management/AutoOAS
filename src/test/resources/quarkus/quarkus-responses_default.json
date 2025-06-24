@@ -179,7 +179,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "boolean"
                 }
               }
             }
@@ -199,7 +199,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "number",
+                  "format" : "double"
                 }
               }
             }
@@ -239,7 +240,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "integer",
+                  "format" : "int32"
                 }
               }
             }
@@ -478,7 +480,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "boolean"
                 }
               }
             }
@@ -498,7 +500,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "number",
+                  "format" : "double"
                 }
               }
             }
@@ -538,7 +541,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "integer",
+                  "format" : "int32"
                 }
               }
             }
