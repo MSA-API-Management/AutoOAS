@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class SpringOperationResponseCodeInterceptor implements OperationInterceptor {
-    List<CtType<?>> controllerAdviceClasses;
+    List<CtType<?>> globalExceptionHandlerClasses;
 
-    public SpringOperationResponseCodeInterceptor(List<CtType<?>> controllerAdviceClasses) {
-        this.controllerAdviceClasses = controllerAdviceClasses;
+    public SpringOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses) {
+        this.globalExceptionHandlerClasses = globalExceptionHandlerClasses;
     }
 
     @Override
@@ -148,7 +148,7 @@ public class SpringOperationResponseCodeInterceptor implements OperationIntercep
             return exceptionReturnStatusMappings.get(exceptionType);
         }
 
-        for (CtType<?> controllerAdviceClass : controllerAdviceClasses) {
+        for (CtType<?> controllerAdviceClass : globalExceptionHandlerClasses) {
 
             for (var adviceMethod : controllerAdviceClass.getMethods()) {
 

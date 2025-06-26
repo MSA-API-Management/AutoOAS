@@ -8,6 +8,7 @@ import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapt
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper) {
-        return new SpringOperationResponseCodeInterceptor(adviceClasses);
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                                    DataTypeTransformer dataTypeTransformer,
+                                                                    SchemaGeneratorHelper schemaHelper,
+                                                                    MethodResponseExtractor methodResponseExtractor) {
+        return new SpringOperationResponseCodeInterceptor(globalExceptionHandlerClasses);
     }
 
     @Override
