@@ -5,7 +5,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-// todo alex the interceptor only identifies wrapped objects and not primitives -> extend
 
 @Path("/wrapped-primitive-responses")
 @Produces(MediaType.APPLICATION_JSON)

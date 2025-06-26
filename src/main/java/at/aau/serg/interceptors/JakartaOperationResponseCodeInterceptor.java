@@ -1,12 +1,14 @@
 package at.aau.serg.interceptors;
 
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
 import spoon.reflect.code.*;
@@ -19,22 +21,29 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.reflect.code.CtFieldReadImpl;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JakartaOperationResponseCodeInterceptor implements OperationInterceptor {
 
     private static final int FALLBACK_STATUS_CODE = 200;
 
-    List<CtType<?>> adviceClasses; // todo check for equivalent of controllerAdviceClasses
+    List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
     DataTypeTransformer dataTypeTransformer;
     SchemaGeneratorHelper schemaHelper;
+    MethodResponseExtractor methodResponseExtractor;
 
-    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper) {
-        this.adviceClasses = adviceClasses;
+
+    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                   DataTypeTransformer dataTypeTransformer,
+                                                   SchemaGeneratorHelper schemaHelper,
+                                                   MethodResponseExtractor methodResponseExtractor) {
+        this.globalExceptionHandlerClasses = globalExceptionHandlerClasses;
         this.dataTypeTransformer = dataTypeTransformer;
         this.schemaHelper = schemaHelper;
+        this.methodResponseExtractor = methodResponseExtractor;
     }
 
     @Override
@@ -44,25 +53,45 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
 
     @Override
     public void intercept(CtMethod<?> method, Operation transformedOperation) {
-        var responses = tryDetectResponsesInMethod(method);
+
+        //// Response detection ////
+        var responses = tryDetectJakartaResponsesInMethod(method);
 
         if (!responses.isEmpty()) {
-            // found some Jakarta Response obj
+            // found some Jakarta Response obj, overwrite og responses
             transformedOperation.setResponses(responses);
         }
         // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response
+
+        //// Exception Detection ////
+        var exceptionResponses = tryDetectExceptionsInMethod(method);
+
+        if (!exceptionResponses.isEmpty()) {
+            boolean hasRegularReturnStatements = !method.getBody().getElements(new TypeFilter<>(CtReturn.class)).isEmpty();
+
+            if (hasRegularReturnStatements) {
+                // append exceptions to regular responses
+                transformedOperation.getResponses().putAll(exceptionResponses);
+            } else {
+                // overwrite any non-error default responses
+                transformedOperation.setResponses(exceptionResponses);
+            }
+        }
+
     }
 
+// region Response obj detection
 
     /**
      * Detects returned jakarta.ws.rs.core.Response objects in Jakarta handler methods.
+     *
      * @param method
      * @return
      */
-    private ApiResponses tryDetectResponsesInMethod(CtMethod<?> method) {
+    private ApiResponses tryDetectJakartaResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
-        // limitation: only handle direct invocation at return statement
+        // fixme limitation: only handle direct invocation at return statement
         for (var returnStatement : method.getElements(new TypeFilter<>(CtReturn.class))) {
             CtExpression<?> returned = returnStatement.getReturnedExpression();
             if (returned instanceof CtInvocation<?> inv) {
@@ -77,6 +106,12 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
         return apiResponses;
     }
 
+    /**
+     * Creates the ApiResponse starting from the build() call of a jakarta Response object.
+     *
+     * @param inv
+     * @return
+     */
     private Pair<String, ApiResponse> analyzeResponseInvocation(CtInvocation<?> inv) {
         CtExecutableReference<?> executable = inv.getExecutable();
         String methodName = executable.getSimpleName();
@@ -163,69 +198,98 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
                 CtTypeReference<?> type = varDecl.getType();
 
                 response = dataTypeTransformer.detectAndCreateApiResponseContent(type);
-
-//                printType(type);
-//                System.out.println(response);
             }
         }
 
         // Case 2: Factory call (e.g., List.of(...))
         else if (expr instanceof CtInvocation<?> call && isListFactoryCall(call)) {
-
             response = dataTypeTransformer.detectAndCreateApiResponseContent(call.getType());
-//            List<CtExpression<?>> args = call.getArguments();
-//            if (!args.isEmpty()) {
-//                CtTypeReference<?> itemType = args.get(0).getType();
-//
-//                System.out.println("type = array");
-//                System.out.println("contained type = " + itemType.getQualifiedName());
-//            }
         }
 
         // Fallback: direct object
         else {
             response = dataTypeTransformer.detectAndCreateApiResponseContent(expr.getType());
-//            CtTypeReference<?> type = expr.getType();
-//            System.out.println("type = object");
-//            System.out.println("object type = " + type.getQualifiedName());
         }
 
         return response;
     }
 
-    private void printType(CtTypeReference<?> type) {
-        if (isCollection(type)) {
-            CtTypeReference<?> elementType = getFirstTypeArgument(type);
-            if (elementType != null) {
-                System.out.println("type = array");
-                System.out.println("contained type = " + elementType.getQualifiedName());
-//                        response.set$ref();
-                // todo alex here, from operationstransofrmer
+// endregion Response obj detection
+
+// region Exception detection
+
+    private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
+        ApiResponses apiResponses = new ApiResponses();
+
+        for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
+            CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
+            ApiResponses apiResponsesForCurrentThrows = null;
+
+            // todo david check for local exception handling
+
+            // global exception handling
+            if (apiResponsesForCurrentThrows == null) {
+                apiResponsesForCurrentThrows = tryResolveStatusCodeFromGlobalExceptionHandlers(thrownType);
             }
-        } else {
 
-            System.out.println("type = object");
-            System.out.println("object type = " + type.getQualifiedName());
+            // 500 fallback, because no handler was found
+            if (apiResponsesForCurrentThrows == null) {
+                apiResponsesForCurrentThrows = new ApiResponses();
+                apiResponsesForCurrentThrows.addApiResponse("500", new ApiResponse().description("Internal Server Error"));
+            }
+
+            apiResponses.putAll(apiResponsesForCurrentThrows);
         }
+
+        return apiResponses;
     }
 
-    // region helpers
-    boolean isCollection(CtTypeReference<?> type) {
-        return type != null && type.isSubtypeOf(type.getFactory().Type().createReference(Collection.class));
-    }
+    // TODO should be moved to dedicated analysis
+    private Map<CtType<?>, ApiResponses> cachedExceptionApiResponsesMapping = new HashMap();
 
-    CtTypeReference<?> getFirstTypeArgument(CtTypeReference<?> type) {
-        if (type != null && !type.getActualTypeArguments().isEmpty()) {
-            return type.getActualTypeArguments().get(0);
+    private ApiResponses tryResolveStatusCodeFromGlobalExceptionHandlers(CtType<?> thrownType) {
+        if (cachedExceptionApiResponsesMapping.containsKey(thrownType)) {
+            return cachedExceptionApiResponsesMapping.get(thrownType);
         }
-        return null;
+
+        ApiResponses apiResponses = null;
+        boolean globalExceptionHandlerFound = false;
+
+        for (CtType<?> globalExceptionHandler : globalExceptionHandlerClasses) {
+            // Jakarta requires annotation and interface impl, just confirming we extracted correctly
+            assert schemaHelper.isTypeEquivalent(globalExceptionHandler.getReference(), ExceptionMapper.class);
+
+            var exceptionHandlerMethod = globalExceptionHandler.getMethod("toResponse", thrownType.getReference());
+            if (exceptionHandlerMethod != null) {
+
+                var exceptionHandlerResponseType = exceptionHandlerMethod.getType();
+                if (schemaHelper.isTypeEquivalent(exceptionHandlerResponseType, Response.class)) {
+                    // returning Jakarta Response -> extract actual response info
+                    apiResponses = tryDetectJakartaResponsesInMethod(exceptionHandlerMethod);
+                } else {
+                    // returning pojo
+                    apiResponses = methodResponseExtractor.createApiResponses(exceptionHandlerMethod, null);
+                }
+
+                // todo david whats happening in production if there are multiple global exception handlers?
+                cachedExceptionApiResponsesMapping.put(thrownType, apiResponses);
+                break;
+            }
+        }
+
+        return apiResponses;
     }
+
+// endregion Exception detection
+
+// region helpers
 
     boolean isListFactoryCall(CtInvocation<?> inv) {
         String methodName = inv.getExecutable().getSimpleName();
         String declaringType = inv.getExecutable().getDeclaringType().getQualifiedName();
         return (declaringType.equals("java.util.List") || declaringType.equals("java.util.Arrays")) && (methodName.equals("of") || methodName.equals("asList"));
     }
+
 // endregion helpers
 
 }

@@ -9,6 +9,7 @@ import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import jakarta.ws.rs.*;
@@ -38,8 +39,11 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses, DataTypeTransformer dataTypeTransformer, SchemaGeneratorHelper schemaHelper) {
-        return new JakartaOperationResponseCodeInterceptor(adviceClasses, dataTypeTransformer, schemaHelper);
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                                    DataTypeTransformer dataTypeTransformer,
+                                                                    SchemaGeneratorHelper schemaHelper,
+                                                                    MethodResponseExtractor methodResponseExtractor) {
+        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PrimitiveResponsesController {
 
-    // fixme unspecified type
     @GET
     @Path("/int")
     public int getInt() {
@@ -30,14 +29,12 @@ public class PrimitiveResponsesController {
         return "hello";
     }
 
-    // fixme unspecified type
     @GET
     @Path("/double")
     public double getDouble() {
         return 5.1;
     }
 
-    // fixme unspecified type
     @GET
     @Path("/bool")
     public boolean getBool() {

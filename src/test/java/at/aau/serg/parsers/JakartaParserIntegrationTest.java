@@ -53,4 +53,6 @@ public class JakartaParserIntegrationTest {
         );
     }
 
+    // info: not supporting profiles, because Jakarta does not define any profile functionality
+    // project: quarkus-profiles-behavior
 }

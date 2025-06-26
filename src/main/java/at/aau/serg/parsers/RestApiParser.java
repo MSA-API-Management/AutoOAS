@@ -6,6 +6,7 @@ import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.openapi.OpenApiGenerator;
 import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;
 import com.github.jrcodeza.schema.generator.model.InheritanceInfo;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
@@ -80,15 +81,16 @@ public class RestApiParser {
 
         RelevantClasses relevantClasses = getRelevantClassesFromPackages(packages);
         List<CtType<?>> controllerClasses = relevantClasses.getControllerClasses();
-        List<CtType<?>> controllerAdviceClasses = relevantClasses.getControllerAdviceClasses();
+        List<CtType<?>> globalExceptionHandlerClasses = relevantClasses.getGlobalExceptionHandlerClasses();
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
 
         ValidationAnnotationProvider annotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework, annotationProvider); // just provide all packages of the project's module
         dataTypeTransformer = new DataTypeTransformer(restFramework, schemaHelper);
-        operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer,
-                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(controllerAdviceClasses, dataTypeTransformer, schemaHelper)),
+        MethodResponseExtractor methodResponseExtractor = new MethodResponseExtractor(restFramework, dataTypeTransformer);
+        operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer, methodResponseExtractor,
+                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, annotationProvider);
 
@@ -229,7 +231,7 @@ public class RestApiParser {
     // TODO getControllerAnnotations, AdviceAnnotations, ModelSchemaAnnotations
     protected RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
         List<CtType<?>> controllerClasses = new LinkedList<>();
-        List<CtType<?>> controllerAdviceClasses = new LinkedList<>();
+        List<CtType<?>> globalExceptionHandlerClasses = new LinkedList<>();
         List<CtType<?>> explicitModelClasses = new LinkedList<>();
 
         for (CtPackage pkg : packages) {
@@ -242,7 +244,7 @@ public class RestApiParser {
                     }
 
                     if (annotationName != null && this.restFramework.isGlobalExceptionHandler(annotationName, type)) {
-                        controllerAdviceClasses.add(type);
+                        globalExceptionHandlerClasses.add(type);
                         break; // annotations
                     }
 
@@ -254,6 +256,6 @@ public class RestApiParser {
             }
         }
 
-        return new RelevantClasses(controllerClasses, controllerAdviceClasses, explicitModelClasses);
+        return new RelevantClasses(controllerClasses, globalExceptionHandlerClasses, explicitModelClasses);
     }
 }

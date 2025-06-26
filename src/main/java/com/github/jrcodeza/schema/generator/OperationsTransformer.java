@@ -42,13 +42,12 @@ import static java.util.Collections.singletonList;
 
 public class OperationsTransformer {
 
-	private static final HttpStatus DEFAULT_RESPONSE_STATUS = HttpStatus.OK;
-
 	private static Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
 
 
 	private final SchemaGeneratorHelper schemaGeneratorHelper;
 	private final DataTypeTransformer dataTypeTransformer;
+	private final MethodResponseExtractor methodResponseExtractor;
 	private final List<OperationParameterInterceptor> operationParameterInterceptors;
 	private final List<OperationInterceptor> operationInterceptors;
 	private final List<RequestBodyInterceptor> requestBodyInterceptors;
@@ -58,6 +57,7 @@ public class OperationsTransformer {
 
 	public OperationsTransformer(SchemaGeneratorHelper schemaGeneratorHelper,
 								 DataTypeTransformer dataTypeTransformer,
+								 MethodResponseExtractor methodResponseExtractor,
 								 List<OperationParameterInterceptor> operationParameterInterceptors,
 								 List<OperationInterceptor> operationInterceptors,
 								 List<RequestBodyInterceptor> requestBodyInterceptors,
@@ -66,6 +66,7 @@ public class OperationsTransformer {
 								 RestFramework restFramework) {
         this.schemaGeneratorHelper = schemaGeneratorHelper;
         this.dataTypeTransformer = dataTypeTransformer;
+		this.methodResponseExtractor = methodResponseExtractor;
         this.operationParameterInterceptors = operationParameterInterceptors;
         this.operationInterceptors = operationInterceptors;
         this.requestBodyInterceptors = requestBodyInterceptors;
@@ -198,80 +199,8 @@ public class OperationsTransformer {
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
 	}
 
-	private ApiResponses createApiResponses(CtMethod<?> method, String produces) {
-		// todo merge logic for DeferredResult, ResponseEntity stripping
-
-		// method.getType uses the method's return value's type, quite naive response type identification
-		//  this works well for Spring, because it defines the detailed type
-		ApiResponse apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(method.getType(), produces);
-
-		// create the API response
-		HttpStatus responseStatusCode = tryResolveResponseStatus(method);
-		if (responseStatusCode == null){
-//			if (apiResponse.getContent() != null)
-				responseStatusCode = DEFAULT_RESPONSE_STATUS;
-//			else
-//				responseStatusCode = HttpStatus.NO_CONTENT;
-		}
-
-		apiResponse.setDescription(responseStatusCode.getReasonPhrase());
-
-		ApiResponses apiResponses = new ApiResponses();
-		apiResponses.put(String.valueOf(responseStatusCode.value()), apiResponse);
-		return apiResponses;
-	}
-
-
-	/**
-	 * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
-	 *
-	 * // todo HttpStatus / ResponseStatus is spring-specific
-	 *
-	 * @param method
-	 * @return Optional.empty if no annotation was found
-	 */
-	private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
-		// TODO ApiResponses annotation
-		//  pretty sure that the ApiResponses are only documentation, not functional
-
-		ResponseStatus responseStatusSpringAnnotation = method.getAnnotation(ResponseStatus.class);
-		if (responseStatusSpringAnnotation != null) {
-			return HttpStatus.valueOf(defaultIfUnexpectedServerError(responseStatusSpringAnnotation.code(), responseStatusSpringAnnotation.value()).value());
-		}
-
-		io.swagger.v3.oas.annotations.responses.ApiResponse responseStatusSwaggerAnnotation = method.getAnnotation(io.swagger.v3.oas.annotations.responses.ApiResponse.class);
-		if (responseStatusSwaggerAnnotation != null) {
-			try {
-				int responseCode = Integer.parseInt(getStatusCodeFromApiResponseAnnotation(responseStatusSwaggerAnnotation));
-				return HttpStatus.valueOf(responseCode);
-			} catch (NumberFormatException e) {
-				return null;
-			}
-		}
-
-		if (method.getType().getSimpleName().equals("void"))
-		{
-			return restFramework.getVoidMethodStatusCode();
-		}
-
-		return null;
-	}
-
-	private String getStatusCodeFromApiResponseAnnotation(io.swagger.v3.oas.annotations.responses.ApiResponse response){
-		String defaultVal;
-		try {
-			defaultVal = (String)io.swagger.v3.oas.annotations.responses.ApiResponse.class.getDeclaredMethod("responseCode").getDefaultValue();
-		} catch (NoSuchMethodException e) {
-			defaultVal = "default";
-		}
-
-		return response.responseCode().equals(defaultVal) ? response.description() : response.responseCode();
-	}
-
-	// todo HttpStatus is Spring-specific
-	private HttpStatus defaultIfUnexpectedServerError(HttpStatus code, HttpStatus value) {
-		// code default value is internal server error
-		return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;
+	private ApiResponses createApiResponses(CtMethod<?> method, String firstFromArray) {
+		return methodResponseExtractor.createApiResponses(method, firstFromArray);
 	}
 
 	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {

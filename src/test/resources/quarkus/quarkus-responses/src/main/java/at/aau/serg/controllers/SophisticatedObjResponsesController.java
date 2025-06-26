@@ -59,5 +59,16 @@ public class SophisticatedObjResponsesController {
         return response; // response built before return
     }
 
+    @GET
+    @Path("/various-responses")
+    public Response getVariousResponses() {
+        if (Math.random() > 0.5) {
+            return Response.status(201).entity(new Simple().withName("Peter").withId(1)).build();
+        } else if (Math.random() > 0.5) {
+            return Response.noContent().build();
+        } else {
+            return Response.ok("Worked").build();
+        }
+    }
 
 }

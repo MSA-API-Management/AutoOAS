@@ -179,7 +179,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "boolean"
                 }
               }
             }
@@ -199,7 +199,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "number",
+                  "format" : "double"
                 }
               }
             }
@@ -239,7 +240,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "integer",
+                  "format" : "int32"
                 }
               }
             }
@@ -413,6 +415,39 @@
         }
       }
     },
+    "/sophisticated-simple-responses/various-responses" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getVariousResponses",
+        "operationId" : "getVariousResponsesUsingGET__sophisticated-simple-responses_various-responses",
+        "parameters" : [ ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
+          "204" : {
+            "description" : "No Content"
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/sophisticated-simple-responses/numeric-status-code" : {
       "get" : {
         "tags" : [ "sophisticated-obj-responses-controller" ],
@@ -445,7 +480,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "boolean"
                 }
               }
             }
@@ -465,7 +500,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "number",
+                  "format" : "double"
                 }
               }
             }
@@ -505,7 +541,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "integer",
+                  "format" : "int32"
                 }
               }
             }

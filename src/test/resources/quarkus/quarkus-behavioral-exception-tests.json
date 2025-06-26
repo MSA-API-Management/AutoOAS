@@ -13,15 +13,8 @@
         "operationId" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500UsingGET__simple_always-error",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -47,6 +40,16 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -78,6 +81,19 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -102,6 +118,17 @@
           "id" : {
             "type" : "integer",
             "format" : "int32"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
           }
         }
       }
