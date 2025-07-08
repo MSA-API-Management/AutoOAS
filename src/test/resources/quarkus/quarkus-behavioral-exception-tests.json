@@ -13,15 +13,8 @@
         "operationId" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500UsingGET__simple_always-error",
         "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -46,7 +39,17 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -74,10 +77,23 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "$ref" : "#/components/schemas/SimpleObject"
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -90,6 +106,30 @@
         "externalDocs" : {
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
+        }
+      },
+      "SimpleObject" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
         }
       }
     }

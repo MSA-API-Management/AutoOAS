@@ -8,10 +8,14 @@ import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapt
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
@@ -35,8 +39,11 @@ public class JakartaRestFramework implements RestFramework {
     }
 
     @Override
-    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> adviceClasses) {
-        return new JakartaOperationResponseCodeInterceptor(adviceClasses);
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                                    DataTypeTransformer dataTypeTransformer,
+                                                                    SchemaGeneratorHelper schemaHelper,
+                                                                    MethodResponseExtractor methodResponseExtractor) {
+        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
     }
 
     @Override
@@ -258,6 +265,11 @@ public class JakartaRestFramework implements RestFramework {
     @Override
     public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
         return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
+    }
+
+    @Override
+    public HttpStatus getVoidMethodStatusCode() {
+        return HttpStatus.NO_CONTENT;
     }
 
     /**

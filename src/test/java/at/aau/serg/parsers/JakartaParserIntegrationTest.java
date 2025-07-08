@@ -10,14 +10,15 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class QuarkusParserIntegrationTest {
+public class JakartaParserIntegrationTest {
 
     private static final String testResourcesPath = "src/test/resources/quarkus/";
 
     @ParameterizedTest
     @CsvSource({
             "simple-quarkus-22c055,simple-quarkus-22c055.json",
-            "simple-quarkus-2cc389,simple-quarkus-2cc389.json"
+            "simple-quarkus-2cc389,simple-quarkus-2cc389.json",
+            "quarkus-responses,quarkus-responses_default.json"
     })
     public void integrationTest_OpenApiGeneration_Basics(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);
@@ -52,4 +53,6 @@ public class QuarkusParserIntegrationTest {
         );
     }
 
+    // info: not supporting profiles, because Jakarta does not define any profile functionality
+    // project: quarkus-profiles-behavior
 }

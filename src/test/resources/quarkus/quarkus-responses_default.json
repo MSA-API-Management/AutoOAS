@@ -1,0 +1,645 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-responses",
+    "description" : "Quarkus Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/simple-responses/array-multiple-lines" : {
+      "get" : {
+        "tags" : [ "obj-responses-controller" ],
+        "summary" : "getListOfSimple",
+        "operationId" : "getListOfSimpleUsingGET__simple-responses_array-multiple-lines",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple-responses/array-inline" : {
+      "get" : {
+        "tags" : [ "obj-responses-controller" ],
+        "summary" : "getListOfSimplesInline",
+        "operationId" : "getListOfSimplesInlineUsingGET__simple-responses_array-inline",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Simple"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple-responses/object-multiple-lines" : {
+      "get" : {
+        "tags" : [ "obj-responses-controller" ],
+        "summary" : "getSimple",
+        "operationId" : "getSimpleUsingGET__simple-responses_object-multiple-lines",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple-responses/object-inline" : {
+      "get" : {
+        "tags" : [ "obj-responses-controller" ],
+        "summary" : "getSimpleInline",
+        "operationId" : "getSimpleInlineUsingGET__simple-responses_object-inline",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/list/{id}" : {
+      "delete" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "deleteListResp",
+        "operationId" : "deleteListRespUsingDELETE__primitive-responses_list_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/map/{id}" : {
+      "delete" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "deleteMapResp",
+        "operationId" : "deleteMapRespUsingDELETE__primitive-responses_map_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/void-response" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getAllNoReturn",
+        "operationId" : "getAllNoReturnUsingGET__primitive-responses_void-response",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/primitive-responses/bool" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getBool",
+        "operationId" : "getBoolUsingGET__primitive-responses_bool",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/double" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getDouble",
+        "operationId" : "getDoubleUsingGET__primitive-responses_double",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "format" : "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/simple-enum" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getEnum",
+        "operationId" : "getEnumUsingGET__primitive-responses_simple-enum",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleEnum"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/int" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getInt",
+        "operationId" : "getIntUsingGET__primitive-responses_int",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/simple-obj" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getObj",
+        "operationId" : "getObjUsingGET__primitive-responses_simple-obj",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/string-echo" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getPlainText",
+        "operationId" : "getPlainTextUsingGET__primitive-responses_string-echo",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primitive-responses/str" : {
+      "get" : {
+        "tags" : [ "primitive-responses-controller" ],
+        "summary" : "getString",
+        "operationId" : "getStringUsingGET__primitive-responses_str",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/status-method-error" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getErrorStatusMethod",
+        "operationId" : "getErrorStatusMethodUsingGET__sophisticated-simple-responses_status-method-error",
+        "parameters" : [ ],
+        "responses" : {
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/status-method-with-response-obj" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getErrorStatusMethodWithResponse",
+        "operationId" : "getErrorStatusMethodWithResponseUsingGET__sophisticated-simple-responses_status-method-with-response-obj",
+        "parameters" : [ ],
+        "responses" : {
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/nested-builder" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getNestedBuilder",
+        "operationId" : "getNestedBuilderUsingGET__sophisticated-simple-responses_nested-builder",
+        "parameters" : [ ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/prev-assigned-var-response" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getResponseFromVar",
+        "operationId" : "getResponseFromVarUsingGET__sophisticated-simple-responses_prev-assigned-var-response",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/object-inline-status-method" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getSimpleWithStatusMethod",
+        "operationId" : "getSimpleWithStatusMethodUsingGET__sophisticated-simple-responses_object-inline-status-method",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/some-success-status-code" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getSomeSuccessStatusCode",
+        "operationId" : "getSomeSuccessStatusCodeUsingGET__sophisticated-simple-responses_some-success-status-code",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/various-responses" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getVariousResponses",
+        "operationId" : "getVariousResponsesUsingGET__sophisticated-simple-responses_various-responses",
+        "parameters" : [ ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          },
+          "204" : {
+            "description" : "No Content"
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sophisticated-simple-responses/numeric-status-code" : {
+      "get" : {
+        "tags" : [ "sophisticated-obj-responses-controller" ],
+        "summary" : "getWithNumericStatus",
+        "operationId" : "getWithNumericStatusUsingGET__sophisticated-simple-responses_numeric-status-code",
+        "parameters" : [ ],
+        "responses" : {
+          "418" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/bool" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getBool",
+        "operationId" : "getBoolUsingGET__wrapped-primitive-responses_bool",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/double" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getDouble",
+        "operationId" : "getDoubleUsingGET__wrapped-primitive-responses_double",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "format" : "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/simple-enum" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getEnum",
+        "operationId" : "getEnumUsingGET__wrapped-primitive-responses_simple-enum",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleEnum"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/int" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getInt",
+        "operationId" : "getIntUsingGET__wrapped-primitive-responses_int",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/str" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getString",
+        "operationId" : "getStringUsingGET__wrapped-primitive-responses_str",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wrapped-primitive-responses/primitive-echo" : {
+      "get" : {
+        "tags" : [ "wrapped-primitive-responses-controller" ],
+        "summary" : "getStringEcho",
+        "operationId" : "getStringEchoUsingGET__wrapped-primitive-responses_primitive-echo",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "SimpleEnum" : {
+        "type" : "string",
+        "enum" : [ "NICE", "OK", "BAD" ]
+      },
+      "SimpleBase" : {
+        "type" : "object",
+        "properties" : {
+          "someBaseProperty" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Simple" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SimpleBase"
+        }, {
+          "required" : [ "avgGrade" ],
+          "type" : "object",
+          "properties" : {
+            "avgGrade" : {
+              "type" : "number",
+              "format" : "double"
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        } ]
+      }
+    }
+  }
+}

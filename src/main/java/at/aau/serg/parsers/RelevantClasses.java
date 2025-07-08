@@ -14,6 +14,6 @@ import java.util.List;
  */
 public class RelevantClasses {
     private List<CtType<?>> controllerClasses;
-    private List<CtType<?>> controllerAdviceClasses;
+    private List<CtType<?>> globalExceptionHandlerClasses;
     private List<CtType<?>> explicitModelClasses;
 }
