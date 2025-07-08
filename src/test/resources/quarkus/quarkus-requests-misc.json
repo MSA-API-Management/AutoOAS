@@ -146,6 +146,55 @@
         }
       }
     },
+    "/json-property" : {
+      "get" : {
+        "tags" : [ "json-property-resource" ],
+        "summary" : "handleSimpleJsonPropertyReturnValue",
+        "operationId" : "handleSimpleJsonPropertyReturnValueUsingGET__json-property",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "json-property-resource" ],
+        "summary" : "handleSimpleJsonPropertyRequestBody",
+        "operationId" : "handleSimpleJsonPropertyRequestBodyUsingPOST__json-property",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/body/formparam-body" : {
       "post" : {
         "tags" : [ "request-body-resource" ],
@@ -526,6 +575,19 @@
             "format" : "int32"
           },
           "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "SimpleJsonProperty" : {
+        "required" : [ "user_age" ],
+        "type" : "object",
+        "properties" : {
+          "full_name" : {
+            "type" : "string"
+          },
+          "user_age" : {
             "type" : "integer",
             "format" : "int32"
           }
