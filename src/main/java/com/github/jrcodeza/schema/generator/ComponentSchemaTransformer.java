@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -214,6 +215,17 @@ public class ComponentSchemaTransformer {
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
         if (isRequired(annotations)) {
             requiredFields.add(field.getSimpleName());
+        }
+
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof JsonProperty jsonProperty) {
+                String jsonPropertyValue = jsonProperty.value();
+
+                if (jsonPropertyValue != null) {
+                    System.out.println("Found @JsonProperty with value: " + jsonPropertyValue + ", replacing original field name: " + field.getSimpleName());
+                    field.setSimpleName(jsonPropertyValue);
+                }
+            }
         }
 
         if (typeSignature.isPrimitive()) {
