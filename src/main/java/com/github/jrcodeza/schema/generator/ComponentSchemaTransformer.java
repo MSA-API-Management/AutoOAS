@@ -14,6 +14,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spoon.reflect.declaration.CtEnum;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtType;
@@ -34,6 +36,8 @@ public class ComponentSchemaTransformer {
     private final List<SchemaFieldInterceptor> schemaFieldInterceptors;
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
+
+    private static final Logger logger = LoggerFactory.getLogger(ComponentSchemaTransformer.class);
 
     private final ValidationAnnotationProvider validationAnnotationProvider;
 
@@ -217,12 +221,13 @@ public class ComponentSchemaTransformer {
             requiredFields.add(field.getSimpleName());
         }
 
+        // Translate variable names if @JsonProperty annotation exists
         for (Annotation annotation : annotations) {
             if (annotation instanceof JsonProperty jsonProperty) {
                 String jsonPropertyValue = jsonProperty.value();
 
                 if (jsonPropertyValue != null) {
-                    System.out.println("Found @JsonProperty with value: " + jsonPropertyValue + ", replacing original field name: " + field.getSimpleName());
+                    logger.info("Found @JsonProperty with value: {}, replacing original field name: {}", jsonPropertyValue, field.getSimpleName());
                     field.setSimpleName(jsonPropertyValue);
                 }
             }

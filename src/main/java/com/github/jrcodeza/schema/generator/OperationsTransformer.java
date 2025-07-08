@@ -45,7 +45,7 @@ public class OperationsTransformer {
 	private static final HttpStatus DEFAULT_RESPONSE_STATUS = HttpStatus.OK;
 	public static final String UNSPECIFIED_SIMPLE_NAME = "UNSPECIFIED_TYPE";
 
-	private static Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
+	private static final Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
 
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
