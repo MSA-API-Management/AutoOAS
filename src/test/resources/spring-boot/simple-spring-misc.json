@@ -664,7 +664,6 @@
         }
       },
       "SimpleObject" : {
-        "required" : [ "age" ],
         "type" : "object",
         "properties" : {
           "name" : {
@@ -677,7 +676,6 @@
         }
       },
       "SimpleJsonProperty" : {
-        "required" : [ "user_age" ],
         "type" : "object",
         "properties" : {
           "full_name" : {
