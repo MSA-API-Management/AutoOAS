@@ -217,6 +217,7 @@ public class ComponentSchemaTransformer {
 
         CtTypeReference<?> typeSignature = field.getType();
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
+
         // Translate variable names if @JsonProperty annotation exists
         for (Annotation annotation : annotations) {
             if (annotation instanceof JsonProperty jsonProperty) {
@@ -285,7 +286,8 @@ public class ComponentSchemaTransformer {
 
     private Optional<Schema> createBaseTypeSchema(CtField<?> field, List<String> requiredFields, Annotation[] annotations) {
         if (!requiredFields.contains(field.getSimpleName())) {
-            requiredFields.add(field.getSimpleName());
+            // TODO check - primitive types such as int or boolean have a default value and are not required, also when adding @NotNull
+//            requiredFields.add(field.getSimpleName());
         }
         Schema<?> schema = schemaGeneratorHelper.parseBaseTypeSignature(field.getType(), annotations);
         schemaGeneratorHelper.enrichWithTypeAnnotations(schema, annotations);
