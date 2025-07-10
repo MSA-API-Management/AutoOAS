@@ -285,10 +285,11 @@ public class ComponentSchemaTransformer {
     }
 
     private Optional<Schema> createBaseTypeSchema(CtField<?> field, List<String> requiredFields, Annotation[] annotations) {
-        if (!requiredFields.contains(field.getSimpleName())) {
-            // TODO check - primitive types such as int or boolean have a default value and are not required, also when adding @NotNull
+        // TODO iterate through primitive datatypes and remove it from required fields (as they have default values)
+        // TODO check - primitive types such as int or boolean have a default value and are not required, also when adding @NotNull
+//        if (!requiredFields.contains(field.getSimpleName())) {
 //            requiredFields.add(field.getSimpleName());
-        }
+//         }
         Schema<?> schema = schemaGeneratorHelper.parseBaseTypeSignature(field.getType(), annotations);
         schemaGeneratorHelper.enrichWithTypeAnnotations(schema, annotations);
         return Optional.ofNullable(schema);
