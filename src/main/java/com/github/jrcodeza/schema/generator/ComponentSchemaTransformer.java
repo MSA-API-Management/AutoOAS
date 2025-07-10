@@ -217,10 +217,6 @@ public class ComponentSchemaTransformer {
 
         CtTypeReference<?> typeSignature = field.getType();
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
-        if (isRequired(annotations)) {
-            requiredFields.add(field.getSimpleName());
-        }
-
         // Translate variable names if @JsonProperty annotation exists
         for (Annotation annotation : annotations) {
             if (annotation instanceof JsonProperty jsonProperty) {
@@ -231,6 +227,10 @@ public class ComponentSchemaTransformer {
                     field.setSimpleName(jsonPropertyValue);
                 }
             }
+        }
+
+        if (isRequired(annotations)) {
+            requiredFields.add(field.getSimpleName());
         }
 
         if (typeSignature.isPrimitive()) {
