@@ -1,5 +1,6 @@
 package at.aau.serg.controllers;
 
+import at.aau.serg.models.ComplexJsonProperty;
 import at.aau.serg.models.SimpleJsonProperty;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -10,6 +11,12 @@ import jakarta.ws.rs.core.Response;
 public class JsonPropertyResource {
     @POST
     public Response handleSimpleJsonPropertyRequestBody(SimpleJsonProperty request) {
+        return Response.ok(request).build();
+    }
+
+    @POST
+    @Path("/complex")
+    public Response handleValidationJsonPropertyRequestBody(ComplexJsonProperty request) {
         return Response.ok(request).build();
     }
 
