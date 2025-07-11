@@ -42,6 +42,88 @@
         }
       }
     },
+    "/json-property/json-response-object" : {
+      "post" : {
+        "tags" : [ "json-property-request-controller" ],
+        "summary" : "handleJsonPropertyObject",
+        "operationId" : "handleJsonPropertyObjectUsingPOST__json-property_json-response-object",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json-property/json-response-entity-request-body" : {
+      "post" : {
+        "tags" : [ "json-property-request-controller" ],
+        "summary" : "handleJsonPropertyResponseEntityWithRequestBody",
+        "operationId" : "handleJsonPropertyResponseEntityWithRequestBodyUsingPOST__json-property_json-response-entity-request-body",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json-property/json-response-entity" : {
+      "get" : {
+        "tags" : [ "json-property-request-controller" ],
+        "summary" : "handleJsonPropertyResponseEntityWithoutRequestBody",
+        "operationId" : "handleJsonPropertyResponseEntityWithoutRequestBodyUsingGET__json-property_json-response-entity",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/get-and-post-method" : {
       "get" : {
         "tags" : [ "multiple-methods-controller" ],
@@ -582,13 +664,24 @@
         }
       },
       "SimpleObject" : {
-        "required" : [ "age" ],
         "type" : "object",
         "properties" : {
           "name" : {
             "type" : "string"
           },
           "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "SimpleJsonProperty" : {
+        "type" : "object",
+        "properties" : {
+          "full_name" : {
+            "type" : "string"
+          },
+          "user_age" : {
             "type" : "integer",
             "format" : "int32"
           }

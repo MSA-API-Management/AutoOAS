@@ -42,9 +42,7 @@ import static java.util.Collections.singletonList;
 
 public class OperationsTransformer {
 
-	private static Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
-
-
+	private static final Logger logger = LoggerFactory.getLogger(OperationsTransformer.class);
 	private final SchemaGeneratorHelper schemaGeneratorHelper;
 	private final DataTypeTransformer dataTypeTransformer;
 	private final MethodResponseExtractor methodResponseExtractor;

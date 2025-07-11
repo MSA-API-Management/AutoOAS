@@ -164,7 +164,6 @@
   "components" : {
     "schemas" : {
       "SimpleObject" : {
-        "required" : [ "age" ],
         "type" : "object",
         "properties" : {
           "name" : {
@@ -180,7 +179,6 @@
         "allOf" : [ {
           "$ref" : "#/components/schemas/BaseObject"
         }, {
-          "required" : [ "derivedFieldInt" ],
           "type" : "object",
           "properties" : {
             "derivedFieldInt" : {
@@ -194,7 +192,6 @@
         } ]
       },
       "BaseObject" : {
-        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "baseFieldString" : {

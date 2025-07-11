@@ -623,7 +623,6 @@
         "allOf" : [ {
           "$ref" : "#/components/schemas/SimpleBase"
         }, {
-          "required" : [ "avgGrade" ],
           "type" : "object",
           "properties" : {
             "avgGrade" : {
