@@ -1,0 +1,41 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "enviroCar-server",
+    "description" : "Jakarta Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "root-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonNode"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "JsonNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      }
+    }
+  }
+}

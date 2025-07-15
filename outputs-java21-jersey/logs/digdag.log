@@ -1,0 +1,108 @@
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.453s
+user	0m0.442s
+sys	0m0.248s
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.454s
+user	0m0.440s
+sys	0m0.247s
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.441s
+user	0m0.454s
+sys	0m0.246s
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.429s
+user	0m0.435s
+sys	0m0.229s
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.447s
+user	0m0.450s
+sys	0m0.226s
+Loading model: /home/alex/Respector-fork/dataset/digdag
+Exception in thread "main" spoon.SpoonException: Unable to read the pom
+	at spoon.MavenLauncher.init(MavenLauncher.java:193)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:127)
+	at spoon.MavenLauncher.<init>(MavenLauncher.java:58)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:23)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:34)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+Caused by: java.io.IOException: Pom does not exists.
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:119)
+	at spoon.support.compiler.SpoonPom.<init>(SpoonPom.java:86)
+	at spoon.MavenLauncher.init(MavenLauncher.java:191)
+	... 6 more
+
+real	0m0.443s
+user	0m0.437s
+sys	0m0.233s

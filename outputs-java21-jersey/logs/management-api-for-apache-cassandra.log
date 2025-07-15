@@ -1,0 +1,54 @@
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.960s
+user	0m5.755s
+sys	0m1.338s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.897s
+user	0m5.505s
+sys	0m1.369s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.974s
+user	0m5.625s
+sys	0m1.428s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.922s
+user	0m5.488s
+sys	0m1.470s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.945s
+user	0m5.562s
+sys	0m1.444s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m2.868s
+user	0m5.363s
+sys	0m1.429s

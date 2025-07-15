@@ -1,0 +1,48 @@
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m6.806s
+user	0m17.371s
+sys	0m2.781s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m6.963s
+user	0m18.172s
+sys	0m2.796s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m6.706s
+user	0m17.384s
+sys	0m2.706s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m6.819s
+user	0m17.482s
+sys	0m2.821s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m6.852s
+user	0m17.765s
+sys	0m2.761s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m7.743s
+user	0m19.774s
+sys	0m2.938s

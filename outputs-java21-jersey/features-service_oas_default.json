@@ -1,0 +1,109 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "features-service",
+    "description" : "Jakarta Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "getProductByName",
+        "operationId" : "getProductByNameUsingGET__",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "addProduct",
+        "operationId" : "addProductUsingPOST__",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "deleteProductByName",
+        "operationId" : "deleteProductByNameUsingDELETE__",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Response" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "javax.ws.rs.core"
+        }
+      },
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "Product" : {
+        "type" : "object",
+        "properties" : {
+          "productFeatures" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "productFeatureConstraints" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      }
+    }
+  }
+}

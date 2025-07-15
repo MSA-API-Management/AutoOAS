@@ -1,0 +1,48 @@
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m7.967s
+user	0m20.509s
+sys	0m3.232s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m7.876s
+user	0m20.086s
+sys	0m3.212s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m7.819s
+user	0m20.163s
+sys	0m3.114s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m7.786s
+user	0m19.831s
+sys	0m3.200s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m7.734s
+user	0m20.027s
+sys	0m3.171s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m8.867s
+user	0m22.582s
+sys	0m3.465s

@@ -1,0 +1,48 @@
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m3.940s
+user	0m7.756s
+sys	0m1.964s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m3.969s
+user	0m7.776s
+sys	0m1.979s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m4.037s
+user	0m7.832s
+sys	0m1.916s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m3.883s
+user	0m7.682s
+sys	0m1.912s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m3.925s
+user	0m7.674s
+sys	0m1.942s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m4.339s
+user	0m9.047s
+sys	0m2.068s

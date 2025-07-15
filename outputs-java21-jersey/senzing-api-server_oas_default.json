@@ -1,0 +1,461 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "senzing-api-server",
+    "description" : "Jakarta Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "why-services" ],
+        "summary" : "whyRecords",
+        "operationId" : "whyRecordsUsingGET__",
+        "parameters" : [ {
+          "name" : "dataSource1",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recordId1",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "dataSource2",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recordId2",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "forceMinimal",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "detailLevel",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SzDetailLevel"
+          }
+        }, {
+          "name" : "featureMode",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SzFeatureMode"
+          }
+        }, {
+          "name" : "withFeatureStats",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withInternalFeatures",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRelationships",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRaw",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SzWhyRecordsResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "entity-data-services" ],
+        "summary" : "loadRecord",
+        "operationId" : "loadRecordUsingPUT__",
+        "parameters" : [ {
+          "name" : "dataSourceCode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recordId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "loadId",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "withInfo",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRaw",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SzLoadRecordResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "entity-data-services" ],
+        "summary" : "searchEntitiesByPost",
+        "operationId" : "searchEntitiesByPostUsingPOST__",
+        "parameters" : [ {
+          "name" : "includeOnly",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Set"
+          }
+        }, {
+          "name" : "forceMinimal",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "detailLevel",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SzDetailLevel"
+          }
+        }, {
+          "name" : "featureMode",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SzFeatureMode"
+          }
+        }, {
+          "name" : "withFeatureStats",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withInternalFeatures",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRelationships",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRaw",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SzAttributeSearchResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "entity-data-services" ],
+        "summary" : "deleteRecord",
+        "operationId" : "deleteRecordUsingDELETE__",
+        "parameters" : [ {
+          "name" : "dataSourceCode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recordId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "loadId",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "withInfo",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "withRaw",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SzDeleteRecordResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "SzServerInfoResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "SzEntityResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzDataSourcesResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzBulkDataAnalysisResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzReevaluateResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzDataSourceResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzWhyEntitiesResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzRelationshipMode" : {
+        "type" : "string",
+        "enum" : [ "NONE", "PARTIAL", "FULL" ]
+      },
+      "SzBasicResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "MediaType" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "javax.ws.rs.core"
+        }
+      },
+      "SzAttributeTypesResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzLicenseResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzBulkLoadResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzFeatureMode" : {
+        "type" : "string",
+        "enum" : [ "NONE", "REPRESENTATIVE", "WITH_DUPLICATES", "ATTRIBUTED" ]
+      },
+      "SzEntityPathResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzWhyEntityResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzVersionResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzDetailLevel" : {
+        "type" : "string",
+        "enum" : [ "MINIMAL", "BRIEF", "SUMMARY", "VERBOSE" ]
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
+        }
+      },
+      "SzWhyRecordsResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzAttributeTypeResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzLoadRecordResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzRecordResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzDeleteRecordResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzConfigResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzHowEntityResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "SzEntityNetworkResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzAttributeSearchResponse" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SzVirtualEntityResponse" : {
+        "type" : "object",
+        "properties" : { }
+      }
+    }
+  }
+}

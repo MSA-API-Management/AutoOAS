@@ -1,0 +1,315 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "kafka-rest",
+    "description" : "Jakarta Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "listTopics",
+        "operationId" : "listTopicsUsingGET__",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "includeAuthorizedOperations",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "topic-configs-resource" ],
+        "summary" : "updateTopicConfig",
+        "operationId" : "updateTopicConfigUsingPUT__",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "createTopic",
+        "operationId" : "createTopicUsingPOST__",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "deleteTopic",
+        "operationId" : "deleteTopicUsingDELETE__",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ConsumerAssignmentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "partitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TopicPartition"
+            }
+          }
+        }
+      },
+      "PatternType" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "MATCH", "LITERAL", "PREFIXED" ]
+      },
+      "ConsumerCommittedResponse" : {
+        "type" : "object",
+        "properties" : {
+          "offsets" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TopicPartitionOffsetMetadata"
+            }
+          }
+        }
+      },
+      "EmbeddedFormat" : {
+        "type" : "string",
+        "enum" : [ "BINARY", "JSON", "AVRO", "JSONSCHEMA", "PROTOBUF" ]
+      },
+      "ConsumerSeekRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "CreateConsumerInstanceRequest" : {
+        "required" : [ "format" ],
+        "type" : "object",
+        "properties" : {
+          "requestWaitMs" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "responseMinBytes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "format" : {
+            "$ref" : "#/components/schemas/EmbeddedFormat"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "autoCommitEnable" : {
+            "type" : "string"
+          },
+          "autoOffsetReset" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ConsumerSeekToRequest" : {
+        "type" : "object",
+        "properties" : {
+          "partitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TopicPartition"
+            }
+          }
+        }
+      },
+      "ResourceType" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "TOPIC", "GROUP", "CLUSTER", "TRANSACTIONAL_ID", "DELEGATION_TOKEN" ]
+      },
+      "Operation" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "ALL", "READ", "WRITE", "CREATE", "DELETE", "ALTER", "DESCRIBE", "CLUSTER_ACTION", "DESCRIBE_CONFIGS", "ALTER_CONFIGS", "IDEMPOTENT_WRITE" ]
+      },
+      "TopicPartitionOffsetMetadata" : {
+        "required" : [ "topic" ],
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "type" : "string"
+          },
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "topic" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ConsumerAssignmentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "partitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TopicPartition"
+            }
+          }
+        }
+      },
+      "Type" : {
+        "type" : "string",
+        "enum" : [ "BROKER" ]
+      },
+      "ConsumerSubscriptionRecord" : {
+        "type" : "object",
+        "properties" : {
+          "topicPattern" : {
+            "type" : "string"
+          },
+          "topics" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "TopicPartition" : {
+        "required" : [ "topic" ],
+        "type" : "object",
+        "properties" : {
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "topic" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Permission" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "DENY", "ALLOW" ]
+      },
+      "CreateConsumerInstanceResponse" : {
+        "type" : "object",
+        "properties" : {
+          "instanceId" : {
+            "type" : "string"
+          },
+          "baseUri" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ConsumerSubscriptionResponse" : {
+        "type" : "object",
+        "properties" : {
+          "topics" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "AsyncResponse" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "javax.ws.rs.container"
+        }
+      }
+    }
+  }
+}

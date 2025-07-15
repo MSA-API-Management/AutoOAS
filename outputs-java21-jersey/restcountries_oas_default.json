@@ -1,0 +1,89 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "restcountries",
+    "description" : "Jakarta Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getCountries",
+        "operationId" : "getCountriesUsingGET__",
+        "parameters" : [ {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "stripe-rest" ],
+        "summary" : "contribute",
+        "operationId" : "contributeUsingPOST__",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contribution"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Contribution" : {
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "token" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

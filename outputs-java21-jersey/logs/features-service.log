@@ -1,0 +1,50 @@
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.123s
+user	0m8.687s
+sys	0m2.017s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.070s
+user	0m8.487s
+sys	0m1.990s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.051s
+user	0m8.506s
+sys	0m1.993s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.124s
+user	0m8.586s
+sys	0m2.020s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Quarkus
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.064s
+user	0m8.482s
+sys	0m2.038s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Jakarta
+Detected profiles: [default]
+javax.ws.rs.core.Response.created(new java.net.URI("/products/" + productName))
+javax.ws.rs.core.Response.noContent()
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.331s
+user	0m9.326s
+sys	0m2.106s

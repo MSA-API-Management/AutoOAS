@@ -1,0 +1,54 @@
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.769s
+user	0m13.882s
+sys	0m2.499s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.758s
+user	0m13.964s
+sys	0m2.456s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.824s
+user	0m13.958s
+sys	0m2.503s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.786s
+user	0m13.856s
+sys	0m2.486s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.629s
+user	0m13.506s
+sys	0m2.445s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.713s
+user	0m13.585s
+sys	0m2.505s
