@@ -118,8 +118,13 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
 
         if (methodName.equals("build")) {
             // detect builder call
-            CtInvocation<?> baseInvocation = (CtInvocation<?>) inv.getTarget();
-            return traceResponseCreationBackFromBuildCall(baseInvocation);
+            if (inv.getTarget() instanceof CtInvocation<?> baseInvocation) {
+                return traceResponseCreationBackFromBuildCall(baseInvocation);
+
+            } else {
+                // eg., builder.build()
+                // todo support this ^
+            }
         }
 
         return null;

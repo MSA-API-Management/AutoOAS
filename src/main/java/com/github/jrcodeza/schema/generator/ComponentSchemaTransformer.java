@@ -85,10 +85,14 @@ public class ComponentSchemaTransformer {
     }
 
     public Schema transformExternalSchema(CtTypeReference<?> type) {
+        var externalUrl = type.getPackage() != null
+                ? type.getPackage().getSimpleName() // regular class in package
+                : type.getDeclaringType().getSimpleName(); // inner class
+
         Schema<?> schema = new Schema<>();
         schema.setType("object");
         schema.setExternalDocs(new ExternalDocumentation()
-                .url(type.getPackage().getSimpleName())
+                .url(externalUrl)
                 .description("external package")
         );
 
