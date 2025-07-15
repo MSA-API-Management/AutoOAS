@@ -15,17 +15,16 @@ java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar <path-to-mvn-project> 
 The scripts for the evaluation are located in [scripts](./scripts).
 
 ### Runtime evaluation
-Execute the runtime evaluation with:
+Execute the runtime evaluation script with the following commands. The script also generates the OpenAPI descriptions in the *<output_dir>*.
+
 ```shell
 dataset_dir="/home/alex/Respector-fork/dataset"
-output_dir="outputs-java21"
-for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir; done
+output_dir="outputs-java21-jersey"
+for _ in {1..1}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir; done
 
 python3 scripts/calc_runtime_avg.py $output_dir/logs
 # or calculate manually
 ```
-
-
 
 
 ## Docker image
