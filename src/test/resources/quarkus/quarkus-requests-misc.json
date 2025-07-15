@@ -146,6 +146,86 @@
         }
       }
     },
+    "/json-property" : {
+      "get" : {
+        "tags" : [ "json-property-resource" ],
+        "summary" : "handleSimpleJsonPropertyReturnValue",
+        "operationId" : "handleSimpleJsonPropertyReturnValueUsingGET__json-property",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "json-property-resource" ],
+        "summary" : "handleSimpleJsonPropertyRequestBody",
+        "operationId" : "handleSimpleJsonPropertyRequestBodyUsingPOST__json-property",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SimpleJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json-property/complex" : {
+      "post" : {
+        "tags" : [ "json-property-resource" ],
+        "summary" : "handleValidationJsonPropertyRequestBody",
+        "operationId" : "handleValidationJsonPropertyRequestBodyUsingPOST__json-property_complex",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ComplexJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ComplexJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/body/formparam-body" : {
       "post" : {
         "tags" : [ "request-body-resource" ],
@@ -513,8 +593,25 @@
           }
         }
       },
+      "ComplexJsonProperty" : {
+        "required" : [ "full_name", "int_value" ],
+        "type" : "object",
+        "properties" : {
+          "full_name" : {
+            "type" : "string"
+          },
+          "user_age" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "int_value" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
       "SimpleValidation" : {
-        "required" : [ "age", "id", "value" ],
+        "required" : [ "age", "id" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -526,6 +623,18 @@
             "format" : "int32"
           },
           "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "SimpleJsonProperty" : {
+        "type" : "object",
+        "properties" : {
+          "full_name" : {
+            "type" : "string"
+          },
+          "user_age" : {
             "type" : "integer",
             "format" : "int32"
           }

@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -13,6 +14,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spoon.reflect.declaration.CtEnum;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtType;
@@ -33,6 +36,8 @@ public class ComponentSchemaTransformer {
     private final List<SchemaFieldInterceptor> schemaFieldInterceptors;
     private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
+
+    private static final Logger logger = LoggerFactory.getLogger(ComponentSchemaTransformer.class);
 
     private final ValidationAnnotationProvider validationAnnotationProvider;
 
@@ -212,6 +217,19 @@ public class ComponentSchemaTransformer {
 
         CtTypeReference<?> typeSignature = field.getType();
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
+
+        // Translate variable names if @JsonProperty annotation exists
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof JsonProperty jsonProperty) {
+                String jsonPropertyValue = jsonProperty.value();
+
+                if (jsonPropertyValue != null) {
+                    logger.info("Found @JsonProperty with value: {}, replacing original field name: {}", jsonPropertyValue, field.getSimpleName());
+                    field.setSimpleName(jsonPropertyValue);
+                }
+            }
+        }
+
         if (isRequired(annotations)) {
             requiredFields.add(field.getSimpleName());
         }
@@ -267,9 +285,11 @@ public class ComponentSchemaTransformer {
     }
 
     private Optional<Schema> createBaseTypeSchema(CtField<?> field, List<String> requiredFields, Annotation[] annotations) {
-        if (!requiredFields.contains(field.getSimpleName())) {
-            requiredFields.add(field.getSimpleName());
-        }
+        // TODO iterate through primitive datatypes and remove it from required fields (as they have default values)
+        // TODO check - primitive types such as int or boolean have a default value and are not required, also when adding @NotNull
+//        if (!requiredFields.contains(field.getSimpleName())) {
+//            requiredFields.add(field.getSimpleName());
+//         }
         Schema<?> schema = schemaGeneratorHelper.parseBaseTypeSignature(field.getType(), annotations);
         schemaGeneratorHelper.enrichWithTypeAnnotations(schema, annotations);
         return Optional.ofNullable(schema);

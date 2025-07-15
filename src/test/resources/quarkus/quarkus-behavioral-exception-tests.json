@@ -109,7 +109,6 @@
         }
       },
       "SimpleObject" : {
-        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "name" : {

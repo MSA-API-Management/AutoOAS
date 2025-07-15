@@ -446,7 +446,7 @@
         }
       },
       "AnotherSimple" : {
-        "required" : [ "avgGrade", "id", "notNullField" ],
+        "required" : [ "notNullField" ],
         "type" : "object",
         "properties" : {
           "notNullField" : {

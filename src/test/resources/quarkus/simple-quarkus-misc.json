@@ -435,7 +435,6 @@
         }
       },
       "SimpleObject" : {
-        "required" : [ "age" ],
         "type" : "object",
         "properties" : {
           "name" : {
