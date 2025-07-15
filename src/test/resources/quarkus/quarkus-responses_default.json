@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "quarkus-responses",
-    "description" : "Quarkus Profile: default",
+    "description" : "Jakarta Profile: default",
     "version" : ""
   },
   "paths" : {

@@ -2,9 +2,7 @@ package at.aau.serg.frameworks.jakarta;
 
 import at.aau.serg.frameworks.*;
 import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnnotationAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
+import at.aau.serg.frameworks.jakarta.adapters.parameters.*;
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
@@ -13,10 +11,10 @@ import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -30,12 +28,13 @@ import java.util.stream.Stream;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
+// todo consider splitting javax and jakarta namespaces into two frameworks
 public class JakartaRestFramework implements RestFramework {
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
     @Override
     public String getIdentifier() {
-        return "Quarkus";
+        return "Jakarta";
     }
 
     @Override
@@ -62,7 +61,10 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public List<String> getControllerAnnotations() {
-        return List.of("jakarta.ws.rs.Path", "javax.ws.rs.Path");
+        return List.of(
+                "jakarta.ws.rs.Path",
+                "javax.ws.rs.Path"
+        );
     }
 
     /**
@@ -71,7 +73,10 @@ public class JakartaRestFramework implements RestFramework {
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
-        return List.of("jakarta.ws.rs.ext.Provider", "javax.ws.rs.ext.Provider");
+        return List.of(
+                "jakarta.ws.rs.ext.Provider",
+                "javax.ws.rs.ext.Provider"
+        );
     }
 
     @Override
@@ -101,11 +106,13 @@ public class JakartaRestFramework implements RestFramework {
         return List.of();
     }
 
+    // todo what about javax namespace
     @Override
     public Class<?> getResponseWrapper() {
         return Response.class;
     }
 
+    // todo what about javax namespace
     @Override
     public Class<?> getSupportedFileType() {
         return MultivaluedMap.class;
@@ -116,6 +123,7 @@ public class JakartaRestFramework implements RestFramework {
         return CompletionStage.class;
     }
 
+    // todo what about javax namespace
     @Override
     public Class<? extends Annotation> getParameterGroupAnnotation() {
         return BeanParam.class;
@@ -136,27 +144,32 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
-        return getAnnotation(method, POST.class);
+        return getAnnotation(method, POST.class)
+                .or(() -> getAnnotation(method, javax.ws.rs.POST.class));
     }
 
     @Override
     public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
-        return getAnnotation(method, PUT.class);
+        return getAnnotation(method, PUT.class)
+                .or(() -> getAnnotation(method, javax.ws.rs.PUT.class));
     }
 
     @Override
     public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
-        return getAnnotation(method, PATCH.class);
+        return getAnnotation(method, PATCH.class)
+                .or(() -> getAnnotation(method, javax.ws.rs.PATCH.class));
     }
 
     @Override
     public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
-        return getAnnotation(method, GET.class);
+        return getAnnotation(method, GET.class)
+                .or(() -> getAnnotation(method, javax.ws.rs.GET.class));
     }
 
     @Override
     public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
-        return getAnnotation(method, DELETE.class);
+        return getAnnotation(method, DELETE.class)
+                .or(() -> getAnnotation(method, javax.ws.rs.DELETE.class));
     }
 
     @Override
@@ -168,7 +181,8 @@ public class JakartaRestFramework implements RestFramework {
     public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
         for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
             String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
-            if (annotationTypeName.equals(Path.class.getName())) {
+            if (annotationTypeName.equals(Path.class.getName())
+                    || annotationTypeName.equals(javax.ws.rs.Path.class.getName())) {
                 return Optional.of(new JakartaRestOperationAnnotationAdapter(clazz));
             }
         }
@@ -177,23 +191,20 @@ public class JakartaRestFramework implements RestFramework {
 
     @Override
     public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
-        if (annotation instanceof POST) {
+        if (annotation instanceof POST || annotation instanceof javax.ws.rs.POST) {
             return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.POST);
         }
-        if (annotation instanceof PUT) {
+        if (annotation instanceof PUT || annotation instanceof javax.ws.rs.PUT) {
             return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PUT);
         }
-        if (annotation instanceof PATCH) {
+        if (annotation instanceof PATCH || annotation instanceof javax.ws.rs.PATCH) {
             return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PATCH);
         }
-        if (annotation instanceof GET) {
+        if (annotation instanceof GET || annotation instanceof javax.ws.rs.GET) {
             return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.GET);
         }
-        if (annotation instanceof DELETE) {
+        if (annotation instanceof DELETE || annotation instanceof javax.ws.rs.DELETE) {
             return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.DELETE);
-        }
-        if (annotation instanceof RequestMapping) {
-            return null;
         }
 
         throw new IllegalArgumentException("No supported annotation found");
@@ -205,38 +216,56 @@ public class JakartaRestFramework implements RestFramework {
         if (annotation != null) {
             return new JakartaPathParamAdapter(annotation);
         }
+
+        var legacyAnnotation = parameter.getAnnotation(javax.ws.rs.PathParam.class);
+        if (legacyAnnotation != null) {
+            return new JavaxPathParamAdapter(legacyAnnotation);
+        }
+
         return null;
     }
 
     @Override
     public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
-        QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+        // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
+        // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+        boolean isParameterRequired = hasValidationAnnotation(parameter) && isParameterTypeString(parameter);
 
+        QueryParam annotation = parameter.getAnnotation(QueryParam.class);
         if (annotation != null) {
             JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
-
-            // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
-            // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
-            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
-                adapter.setRequired(true);
-            }
+            adapter.setRequired(isParameterRequired);
             return adapter;
         }
+
+        var legacyAnnotation = parameter.getAnnotation(javax.ws.rs.QueryParam.class);
+        if (legacyAnnotation != null) {
+            var adapter = new JavaxQueryParamAdapter(legacyAnnotation);
+            adapter.setRequired(isParameterRequired);
+            return adapter;
+        }
+
         return null;
     }
 
     @Override
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
-        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+        boolean isParameterRequired = hasValidationAnnotation(parameter) && isParameterTypeString(parameter);
 
+        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
         if (annotation != null) {
             JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
-
-            if (hasValidationAnnotation(parameter) && isParameterTypeString(parameter)) {
-                adapter.setRequired(true);
-            }
+            adapter.setRequired(isParameterRequired);
             return adapter;
         }
+
+        var legacyAnnotation = parameter.getAnnotation(javax.ws.rs.HeaderParam.class);
+        if (legacyAnnotation != null) {
+            JavaxHeaderParamAdapter adapter = new JavaxHeaderParamAdapter(legacyAnnotation);
+            adapter.setRequired(isParameterRequired);
+            return adapter;
+        }
+
         return null;
     }
 
@@ -287,6 +316,7 @@ public class JakartaRestFramework implements RestFramework {
         return typeName.equals("javax.ws.rs.core.SecurityContext") ||
                 typeName.equals("javax.ws.rs.core.UriInfo") ||
                 typeName.equals("javax.ws.rs.core.HttpHeaders") ||
+
                 typeName.equals("jakarta.ws.rs.core.SecurityContext") ||
                 typeName.equals("jakarta.ws.rs.core.UriInfo") ||
                 typeName.equals("jakarta.ws.rs.core.HttpHeaders");
