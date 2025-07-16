@@ -32,6 +32,11 @@ import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 public class JavaxRestFramework extends AbstractJaxRsFramework {
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
+    @Override
+    public String getIdentifier() {
+        return "JavaX";
+    }
+
     // TODO add Javax Interceptor
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,

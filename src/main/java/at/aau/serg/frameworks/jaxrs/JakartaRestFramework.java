@@ -33,6 +33,11 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
     @Override
+    public String getIdentifier() {
+        return "Jakarta";
+    }
+
+    @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                                     DataTypeTransformer dataTypeTransformer,
                                                                     SchemaGeneratorHelper schemaHelper,

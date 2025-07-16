@@ -15,11 +15,6 @@ import java.util.stream.Stream;
 
 public abstract class AbstractJaxRsFramework implements RestFramework {
     @Override
-    public String getIdentifier() {
-        return "Jax-RS";
-    }
-
-    @Override
     public Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
         //  Jax-RS does not define any profile functionality
         //  Jersey similarly does not provide profile functionality
