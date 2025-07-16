@@ -2,6 +2,7 @@ package at.aau.serg.parsers;
 
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.jaxrs.JakartaRestFramework;
+import at.aau.serg.frameworks.jaxrs.JavaxRestFramework;
 import at.aau.serg.frameworks.spring.SpringRestFramework;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class ParserFactory {
     public ParserFactory() {
         registerRestFramework(new SpringRestFramework());
         registerRestFramework(new JakartaRestFramework());
+        registerRestFramework(new JavaxRestFramework());
     }
 
     public void registerRestFramework(RestFramework framework) {
