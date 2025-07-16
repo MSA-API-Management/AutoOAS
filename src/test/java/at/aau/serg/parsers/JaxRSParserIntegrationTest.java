@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class JakartaParserIntegrationTest {
+public class JaxRSParserIntegrationTest {
 
     private static final String testResourcesPath = "src/test/resources/quarkus/";
 
