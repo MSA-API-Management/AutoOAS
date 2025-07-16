@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.jakarta;
+package at.aau.serg.frameworks.jaxrs;
 
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.parsers.HttpMethod;

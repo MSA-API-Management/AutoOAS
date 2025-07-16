@@ -1,6 +1,6 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.frameworks.jakarta.JakartaRestFramework;
+import at.aau.serg.frameworks.jaxrs.JakartaRestFramework;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

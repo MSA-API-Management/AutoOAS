@@ -1,10 +1,10 @@
-package at.aau.serg.frameworks.jakarta;
+package at.aau.serg.frameworks.jaxrs;
 
 import at.aau.serg.frameworks.*;
-import at.aau.serg.frameworks.jakarta.adapters.mappings.JakartaRestOperationAnnotationAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaHeaderParamAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaPathParamAdapter;
-import at.aau.serg.frameworks.jakarta.adapters.parameters.JakartaQueryParamAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.mappings.JavaxRestOperationAnnotationAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxHeaderParamAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxPathParamAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxQueryParamAdapter;
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
@@ -12,15 +12,15 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MultivaluedMap;
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
+import javax.ws.rs.*;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +29,10 @@ import java.util.concurrent.CompletionStage;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
-public class JakartaRestFramework extends AbstractJaxRsFramework {
+public class JavaxRestFramework extends AbstractJaxRsFramework {
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
+    // TODO add Javax Interceptor
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                                     DataTypeTransformer dataTypeTransformer,
@@ -42,21 +43,21 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
 
     @Override
     public List<String> getControllerAnnotations() {
-        return List.of("jakarta.ws.rs.Path");
+        return List.of("javax.ws.rs.Path");
     }
 
     /**
      * An exception contains @Provider as annotation and also
-     * implements the jakarta.ws.rs.ext.ExceptionMapper
+     * implements the javax.ws.rs.ext.ExceptionMapper
      */
     @Override
     public List<String> getControllerAdviceAnnotations() {
-        return List.of("jakarta.ws.rs.ext.Provider");
+        return List.of("javax.ws.rs.ext.Provider");
     }
 
     @Override
     public Set<String> getKeyAnnotations() {
-        return Set.of("jakarta.ws.rs.Path");
+        return Set.of("javax.ws.rs.Path");
     }
 
     @Override
@@ -64,7 +65,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
         if (getControllerAdviceAnnotations().contains(annotationName)) {
             for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
                 String qualifiedName = interfaceRef.getQualifiedName();
-                if (qualifiedName.equals("jakarta.ws.rs.ext.ExceptionMapper")) {
+                if (qualifiedName.equals("javax.ws.rs.ext.ExceptionMapper")) {
                     return true;
                 }
             }
@@ -132,7 +133,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
         for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
             String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
             if (annotationTypeName.equals(Path.class.getName())) {
-                return Optional.of(new JakartaRestOperationAnnotationAdapter(clazz));
+                return Optional.of(new JavaxRestOperationAnnotationAdapter(clazz));
             }
         }
         return Optional.empty();
@@ -141,19 +142,19 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     @Override
     public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
         if (annotation instanceof POST) {
-            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.POST);
+            return new JavaxRestOperationAnnotationAdapter(method, HttpMethod.POST);
         }
         if (annotation instanceof PUT) {
-            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PUT);
+            return new JavaxRestOperationAnnotationAdapter(method, HttpMethod.PUT);
         }
         if (annotation instanceof PATCH) {
-            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PATCH);
+            return new JavaxRestOperationAnnotationAdapter(method, HttpMethod.PATCH);
         }
         if (annotation instanceof GET) {
-            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.GET);
+            return new JavaxRestOperationAnnotationAdapter(method, HttpMethod.GET);
         }
         if (annotation instanceof DELETE) {
-            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.DELETE);
+            return new JavaxRestOperationAnnotationAdapter(method, HttpMethod.DELETE);
         }
 
         throw new IllegalArgumentException("No supported annotation found");
@@ -163,7 +164,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
         PathParam annotation = parameter.getAnnotation(PathParam.class);
         if (annotation != null) {
-            return new JakartaPathParamAdapter(annotation);
+            return new JavaxPathParamAdapter(annotation);
         }
 
         return null;
@@ -177,7 +178,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
 
         QueryParam annotation = parameter.getAnnotation(QueryParam.class);
         if (annotation != null) {
-            JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
+            JavaxQueryParamAdapter adapter = new JavaxQueryParamAdapter(annotation);
             adapter.setRequired(isParameterRequired);
             return adapter;
         }
@@ -191,7 +192,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
 
         HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
         if (annotation != null) {
-            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
+            JavaxHeaderParamAdapter adapter = new JavaxHeaderParamAdapter(annotation);
             adapter.setRequired(isParameterRequired);
             return adapter;
         }
@@ -223,30 +224,31 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
      * In Quarkus, framework-injected types can have @Context but can also be used without this annotation
      */
     private boolean hasAnyAnnotationDisqualifyingParameterAsRequestBody(CtParameter<?> parameter) {
-        return isJakartaMethodAnnotationParameter(parameter) || isJakartaConfigurationAnnotation(parameter);
+        return isJavaxMethodAnnotationParameter(parameter) || isJavaxConfigurationAnnotation(parameter);
     }
 
-    private boolean isJakartaConfigurationAnnotation(CtParameter<?> parameter) {
+    private boolean isJavaxConfigurationAnnotation(CtParameter<?> parameter) {
         String typeName = parameter.getType().getQualifiedName();
-        return typeName.equals("jakarta.ws.rs.core.SecurityContext") ||
-                typeName.equals("jakarta.ws.rs.core.UriInfo") ||
-                typeName.equals("jakarta.ws.rs.core.HttpHeaders");
+        return typeName.equals("javax.ws.rs.core.SecurityContext") ||
+                typeName.equals("javax.ws.rs.core.UriInfo") ||
+                typeName.equals("javax.ws.rs.core.HttpHeaders");
     }
 
-    private boolean isJakartaMethodAnnotationParameter(CtParameter<?> parameter) {
+    private boolean isJavaxMethodAnnotationParameter(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
                 .map(CtAnnotation::getAnnotationType)
                 .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isJakartaParameterAnnotation);
+                .anyMatch(this::isJavaxParameterAnnotation);
     }
 
-    private boolean isJakartaParameterAnnotation(String annotationName) {
-        return annotationName.equals("jakarta.ws.rs.PathParam") ||
-                annotationName.equals("jakarta.ws.rs.QueryParam") ||
-                annotationName.equals("jakarta.ws.rs.HeaderParam") ||
-                annotationName.equals("jakarta.ws.rs.CookieParam") ||
-                annotationName.equals("jakarta.ws.rs.MatrixParam") ||
-                annotationName.equals("jakarta.ws.rs.BeanParam") ||
-                annotationName.equals("jakarta.ws.rs.core.Context");
+    // Javax was used previously before it was replaced by Jakarta
+    private boolean isJavaxParameterAnnotation(String annotationName) {
+        return annotationName.equals("javax.ws.rs.PathParam") ||
+                annotationName.equals("javax.ws.rs.QueryParam") ||
+                annotationName.equals("javax.ws.rs.HeaderParam") ||
+                annotationName.equals("javax.ws.rs.CookieParam") ||
+                annotationName.equals("javax.ws.rs.MatrixParam") ||
+                annotationName.equals("javax.ws.rs.BeanParam") ||
+                annotationName.equals("javax.ws.rs.core.Context");
     }
 }

@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.jakarta.adapters.mappings;
+package at.aau.serg.frameworks.jaxrs.adapters.mappings;
 
 import at.aau.serg.frameworks.RestOperationAnnotation;
 import at.aau.serg.parsers.HttpMethod;

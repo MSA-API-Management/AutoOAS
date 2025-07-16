@@ -1,7 +1,7 @@
 package at.aau.serg.parsers;
 
 import at.aau.serg.frameworks.RestFramework;
-import at.aau.serg.frameworks.jakarta.JakartaRestFramework;
+import at.aau.serg.frameworks.jaxrs.JakartaRestFramework;
 import at.aau.serg.frameworks.spring.SpringRestFramework;
 
 import java.util.HashMap;
