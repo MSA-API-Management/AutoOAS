@@ -11,10 +11,8 @@ import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
-import org.springframework.http.HttpStatus;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -22,20 +20,16 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
-import java.util.stream.Stream;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 // todo consider splitting javax and jakarta namespaces into two frameworks
-public class JakartaRestFramework implements RestFramework {
+public class JakartaRestFramework extends AbstractJaxRsFramework {
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
-
-    @Override
-    public String getIdentifier() {
-        return "Jakarta";
-    }
 
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
@@ -43,20 +37,6 @@ public class JakartaRestFramework implements RestFramework {
                                                                     SchemaGeneratorHelper schemaHelper,
                                                                     MethodResponseExtractor methodResponseExtractor) {
         return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
-    }
-
-    @Override
-    public Map<String, List<CtType<?>>> splitClassesOnProfiles(List<CtType<?>> controllerClasses) {
-        // Jakarta does not define any profile functionality
-        //  Jersey similarly does not provide profile functionality
-        //  Quarkus does, @IfBuildProfile(allOf / anyOf = {"dev","prod"})
-        //  Todo: We do not support Quarkus profiles currently
-        return Map.of("default", controllerClasses);
-    }
-
-    @Override
-    public String getProfileAnnotation() {
-        return "";
     }
 
     @Override
@@ -101,11 +81,6 @@ public class JakartaRestFramework implements RestFramework {
         return false;
     }
 
-    @Override
-    public List<String> getModelSchemaAnnotations() {
-        return List.of();
-    }
-
     // todo what about javax namespace
     @Override
     public Class<?> getResponseWrapper() {
@@ -129,10 +104,6 @@ public class JakartaRestFramework implements RestFramework {
         return BeanParam.class;
     }
 
-    @Override
-    public Class<? extends Annotation> getRequestBodyAnnotation() {
-        return null; // No specific request body annotation exists in quarkus
-    }
 
     @Override
     public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
@@ -172,10 +143,6 @@ public class JakartaRestFramework implements RestFramework {
                 .or(() -> getAnnotation(method, javax.ws.rs.DELETE.class));
     }
 
-    @Override
-    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
-        return Optional.empty();    // no request mapping exists
-    }
 
     @Override
     public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
@@ -284,21 +251,6 @@ public class JakartaRestFramework implements RestFramework {
     private boolean isParameterTypeString(CtParameter<?> parameter) {
         String parameterType = parameter.getType().getQualifiedName();
         return parameterType.equals("java.lang.String");
-    }
-
-    @Override
-    public HttpMethod[] getAllSupportedHttpMethods() {
-        return HttpMethod.values();
-    }
-
-    @Override
-    public boolean isAnyHttpMethodWithRequestBody(HttpMethod... methods) {
-        return Stream.of(methods).anyMatch(method -> EnumSet.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH).contains(method));
-    }
-
-    @Override
-    public HttpStatus getVoidMethodStatusCode() {
-        return HttpStatus.NO_CONTENT;
     }
 
     /**
