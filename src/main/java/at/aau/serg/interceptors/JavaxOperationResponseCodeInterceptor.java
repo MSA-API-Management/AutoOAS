@@ -4,20 +4,21 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.ExceptionMapper;
-import spoon.reflect.code.*;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
 import spoon.support.reflect.code.CtFieldReadImpl;
 
 import java.util.List;
 
-public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
+public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
 
-    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
-                                                   DataTypeTransformer dataTypeTransformer,
-                                                   SchemaGeneratorHelper schemaHelper,
-                                                   MethodResponseExtractor methodResponseExtractor) {
+    public JavaxOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                 DataTypeTransformer dataTypeTransformer,
+                                                 SchemaGeneratorHelper schemaHelper,
+                                                 MethodResponseExtractor methodResponseExtractor) {
         super(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
     }
 

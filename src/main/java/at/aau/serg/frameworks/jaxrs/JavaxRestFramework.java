@@ -6,7 +6,7 @@ import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxHeaderParamAdapter;
 import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxPathParamAdapter;
 import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxQueryParamAdapter;
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
-import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
+import at.aau.serg.interceptors.JavaxOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
@@ -44,7 +44,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                                                                     DataTypeTransformer dataTypeTransformer,
                                                                     SchemaGeneratorHelper schemaHelper,
                                                                     MethodResponseExtractor methodResponseExtractor) {
-        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
+        return new JavaxOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
     }
 
     @Override
