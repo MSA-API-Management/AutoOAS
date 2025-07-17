@@ -4,8 +4,11 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
@@ -45,12 +48,27 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
                 responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
 
             } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
-                    || statusCodeMethodArg.getType().getSimpleName().equals("int"))
+                    || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))
                     && statusCodeMethodArg instanceof CtLiteral<?> literal) {
                 responseStatus = (int) literal.getValue();
+
+            } else {
+                responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
             }
         }
+
         return responseStatus;
+    }
+
+    private Integer tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+        if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
+            return Response.Status.BAD_REQUEST.getStatusCode();
+        }
+
+        // todo detect more common response code logic - especially apache HttpStatus
+        System.out.println("Cound not parse custom response code creation in builder::status: " + statusCodeMethodArg.toString());
+
+        return null;
     }
 
     @Override

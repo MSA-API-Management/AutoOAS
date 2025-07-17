@@ -191,6 +191,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             response = dataTypeTransformer.detectAndCreateApiResponseContent(call.getType());
         }
 
+        // Case 3: conditional (e.g., b ? a : b)
+        else if (expr instanceof CtConditional<?>) {
+            response = dataTypeTransformer.detectAndCreateApiResponseContent(((CtConditional<?>) expr).getThenExpression().getType()); // use any of then, else as they have to be the same type
+        }
+
         // Fallback: direct object
         else {
             response = dataTypeTransformer.detectAndCreateApiResponseContent(expr.getType());
