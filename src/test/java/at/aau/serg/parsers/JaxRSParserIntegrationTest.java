@@ -18,7 +18,7 @@ public class JaxRSParserIntegrationTest {
     @CsvSource({
             "simple-quarkus-22c055,simple-quarkus-22c055.json",
             "simple-quarkus-2cc389,simple-quarkus-2cc389.json",
-            "quarkus-responses,quarkus-responses_default.json"
+            "quarkus-responses,quarkus-responses.json"
     })
     public void integrationTest_OpenApiGeneration_Basics(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);

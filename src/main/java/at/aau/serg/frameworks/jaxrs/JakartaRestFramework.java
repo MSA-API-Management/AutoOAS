@@ -12,20 +12,19 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MultivaluedMap;
-import jakarta.ws.rs.core.Response;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CompletionStage;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
@@ -34,7 +33,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
 
     @Override
     public String getIdentifier() {
-        return "Jakarta";
+        return super.getIdentifier() + " (Jakarta EE)";
     }
 
     @Override
@@ -85,11 +84,6 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     @Override
     public Class<?> getSupportedFileType() {
         return MultivaluedMap.class;
-    }
-
-    @Override
-    public Class<?> getAsyncResultWrapper() {
-        return CompletionStage.class;
     }
 
     @Override
@@ -214,11 +208,6 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                                     validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
                         }
                 );
-    }
-
-    private boolean isParameterTypeString(CtParameter<?> parameter) {
-        String parameterType = parameter.getType().getQualifiedName();
-        return parameterType.equals("java.lang.String");
     }
 
     /**

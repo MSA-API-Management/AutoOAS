@@ -2,11 +2,12 @@ package at.aau.serg.frameworks.jaxrs.adapters.mappings;
 
 import at.aau.serg.frameworks.RestOperationAnnotation;
 import at.aau.serg.parsers.HttpMethod;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtType;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtType;
 
 import static at.aau.serg.util.Utils.convertToStringArray;
 

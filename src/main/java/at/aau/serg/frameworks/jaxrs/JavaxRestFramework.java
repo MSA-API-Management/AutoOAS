@@ -12,8 +12,6 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -21,20 +19,23 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CompletionStage;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class JavaxRestFramework extends AbstractJaxRsFramework {
+    public static final String JAVAX_EXCEPTION_MAPPER_CLASS = "javax.ws.rs.ext.ExceptionMapper";
+
     ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
 
     @Override
     public String getIdentifier() {
-        return "JavaX";
+        return super.getIdentifier() + " (Java EE)";
     }
 
     // TODO add Javax Interceptor
@@ -70,7 +71,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
         if (getControllerAdviceAnnotations().contains(annotationName)) {
             for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
                 String qualifiedName = interfaceRef.getQualifiedName();
-                if (qualifiedName.equals("javax.ws.rs.ext.ExceptionMapper")) {
+                if (qualifiedName.equals(JAVAX_EXCEPTION_MAPPER_CLASS)) {
                     return true;
                 }
             }
@@ -86,11 +87,6 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     @Override
     public Class<?> getSupportedFileType() {
         return MultivaluedMap.class;
-    }
-
-    @Override
-    public Class<?> getAsyncResultWrapper() {
-        return CompletionStage.class;
     }
 
     @Override
@@ -215,11 +211,6 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                                     validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
                         }
                 );
-    }
-
-    private boolean isParameterTypeString(CtParameter<?> parameter) {
-        String parameterType = parameter.getType().getQualifiedName();
-        return parameterType.equals("java.lang.String");
     }
 
     /**
