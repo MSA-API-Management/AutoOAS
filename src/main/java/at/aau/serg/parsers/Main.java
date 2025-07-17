@@ -10,9 +10,20 @@ public class Main {
         } else {
 //            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
 
-            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api"; // /gravitee-apim-rest-api-management-v4/gravitee-apim-rest-api-management-v4-rest";
+            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/management-api-for-apache-cassandra/management-api-server";
+            //gravitee-api-management/gravitee-apim-rest-api";
+            // gravitee-apim-rest-api-management-v4/gravitee-apim-rest-api-management-v4-rest";
             outputPath = "target/openapi/swagger.json";
         }
+
+        /** todo exception in cassandra
+         * Exception in thread "main" java.lang.NullPointerException: Cannot invoke "spoon.reflect.reference.CtTypeReference.getSimpleName()" because the return value of "spoon.reflect.code.CtExpression.getType()" is null
+         * 	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.traceResponseCreationBackFromBuildCall(JakartaOperationResponseCodeInterceptor.java:179)
+         * 	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.analyzeResponseInvocation(JakartaOperationResponseCodeInterceptor.java:122)
+         * 	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.tryDetectJakartaResponsesInMethod(JakartaOperationResponseCodeInterceptor.java:99)
+         * 	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.intercept(JakartaOperationResponseCodeInterceptor.java:58)
+         * 	at com.github.jrcodeza.schema.generator.OperationsTransformer.lambda$mapPost$16(OperationsTransformer.java:278)
+         */
 
         RestApiParser parser = new ParserFactory().createParserWithDetection(projectPath, outputPath);
         parser.run();

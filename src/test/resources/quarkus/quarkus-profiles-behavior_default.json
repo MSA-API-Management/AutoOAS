@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "quarkus-profiles-behavior",
-    "description" : "Quarkus Profile: default",
+    "description" : "Jax-RS Profile: default",
     "version" : ""
   },
   "paths" : {

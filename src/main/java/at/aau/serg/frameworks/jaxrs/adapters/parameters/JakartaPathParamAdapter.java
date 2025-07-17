@@ -1,12 +1,12 @@
-package at.aau.serg.frameworks.jakarta.adapters.parameters;
+package at.aau.serg.frameworks.jaxrs.adapters.parameters;
 
 import at.aau.serg.frameworks.PathVariableAnnotation;
-import javax.ws.rs.PathParam;
+import jakarta.ws.rs.PathParam;
 
-public class JavaxPathParamAdapter implements PathVariableAnnotation {
+public class JakartaPathParamAdapter implements PathVariableAnnotation {
     private final PathParam annotation;
 
-    public JavaxPathParamAdapter(PathParam annotation) {
+    public JakartaPathParamAdapter(PathParam annotation) {
         this.annotation = annotation;
     }
 

@@ -45,6 +45,7 @@ public class FrameworkDetector {
                 }
             }
         }
+
         System.out.println("No RestFramework detected");
         return null;
     }
