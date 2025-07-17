@@ -146,7 +146,6 @@ public class JakartaOperationResponseCodeInterceptor implements OperationInterce
 
         CtExpression<?> curMethodInChain = buildCallTarget;
         while (curMethodInChain instanceof CtInvocation<?> method) {
-            System.out.println(method);
             String methodName = method.getExecutable().getSimpleName();
 
             // handle response type

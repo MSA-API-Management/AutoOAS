@@ -25,17 +25,6 @@ public class Main {
          * 	at com.github.jrcodeza.schema.generator.OperationsTransformer.lambda$mapPost$16(OperationsTransformer.java:278)
          */
 
-        /** todo many prints
-         * e.Response.ok().entity("OK\n")
-         * javax.ws.rs.core.Response.ok()
-         * javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE).entity("Invalid JSON:" + e.getMessage())
-         * javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE)
-         * javax.ws.rs.core.Response.ok(java.lang.Integer.toString(maybePid.get()))
-         * javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_NO_CONTENT)
-         * javax.ws.rs.core.Response.serverError().entity(t.getLocalizedMessage())
-         * javax.ws.rs.core.Response.serverError()
-         */
-
         RestApiParser parser = new ParserFactory().createParserWithDetection(projectPath, outputPath);
         parser.run();
     }
