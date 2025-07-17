@@ -4,6 +4,11 @@
 
 AutoOAS uses Java 21 and [Spoon](https://spoon.gforge.inria.fr/) 11, which allows analyzing projects written also in Java up to version 21.
 
+Currently, AutoOAS supports Maven projects and Gradle projects that support POM generation via the legacy maven plugin (typically Groovy-based builds). 
+Gradle projects using the Kotlin DSL (build.gradle.kts) are not supported at this time.
+If the Gradle project under analysis requires an older Java version, please set the `JAVA11_HOME` environment variable to point to a compatible JDK (e.g., Java 11). 
+This ensures compatibility with legacy Gradle builds during POM generation. 
+
 Compile and run:
 ```shell
 mvn clean package

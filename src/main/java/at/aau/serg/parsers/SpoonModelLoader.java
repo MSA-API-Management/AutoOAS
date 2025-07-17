@@ -14,8 +14,7 @@ public class SpoonModelLoader {
     private static final int EXPECTED_JAVA_VERSION = 21;
 
     // todo jar arg
-    private static final String JAVA_11_PATH = System.getenv().getOrDefault("JAVA11_HOME",
-            "/Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home");
+    private static final String JAVA_11_PATH = System.getenv().getOrDefault("JAVA11_HOME", null);
 
     // todo jar arg
     protected boolean deleteSpoonTmpFile = true;
@@ -79,7 +78,8 @@ public class SpoonModelLoader {
                 .directory(new File(projectDir))
                 .command(getGradleCommand(), "pom", "-q");
 
-        builder.environment().put("JAVA_HOME", JAVA_11_PATH); // for legacy support
+        if (JAVA_11_PATH != null)
+            builder.environment().put("JAVA_HOME", JAVA_11_PATH); // for legacy support
         builder.redirectErrorStream(true);
 
         Process process = builder.start();
