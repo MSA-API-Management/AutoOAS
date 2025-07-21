@@ -14,13 +14,14 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spoon.reflect.declaration.CtEnum;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.*;
+import spoon.reflect.reference.CtTypeParameterReference;
 import spoon.reflect.reference.CtTypeReference;
 
+import javax.sound.midi.Soundbank;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -85,18 +86,76 @@ public class ComponentSchemaTransformer {
     }
 
     public Schema transformExternalSchema(CtTypeReference<?> type) {
-        var externalUrl = type.getPackage() != null
-                ? type.getPackage().getSimpleName() // regular class in package
-                : type.getDeclaringType().getSimpleName(); // inner class
+        var urlAndDescription = getTypeInformationForExternalSchema(type);
 
         Schema<?> schema = new Schema<>();
         schema.setType("object");
         schema.setExternalDocs(new ExternalDocumentation()
-                .url(externalUrl)
-                .description("external package")
+                .url(urlAndDescription.getValue0())
+                .description(urlAndDescription.getValue1())
         );
 
         return schema;
+    }
+
+    private Pair<String, String> getTypeInformationForExternalSchema(CtTypeReference<?> type) {
+        var genericExternalPackageString = "external package";
+
+        if (type.getPackage() != null)
+            // regular class in package
+            return new Pair(type.getPackage().getSimpleName(), genericExternalPackageString);
+
+        else if (type.getDeclaringType() != null)
+            // inner class
+            return new Pair(type.getDeclaringType().getPackage(), "Inner class: " + type.getDeclaringType().getSimpleName());
+
+        else {
+            var declaration = tryGetGenericTypeDeclaration(type);
+
+            if (declaration != null)
+                // generic parameter
+                return new Pair(tryGetClassDeclaringGenericType(type), "Generic parameter: " + (declaration != null ? declaration : type.getQualifiedName()));
+
+            else {
+                System.out.println("Encountered unknown, unparsable type: " + type.toStringDebug());
+                return new Pair("unknown", type.toString());
+            }
+        }
+
+    }
+
+    /**
+     * Returns the declaration string of a generic type parameter, e.g., T extends Serializable,
+     * or null if the type is not a generic type.
+     *
+     * @param type
+     * @return
+     */
+    private String tryGetGenericTypeDeclaration(CtTypeReference<?> type) {
+        if (type instanceof CtTypeParameterReference typeParamRef) {
+            CtTypeParameter declaration = typeParamRef.getDeclaration();
+            if (declaration != null) {
+                return declaration.toString();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the fully qualified name of the class declaring the generic type parameter, e.g., {@code XX} for {@code X<T>},
+     * or null if the type is not a generic type.
+     *
+     * @param type
+     * @return
+     */
+    private String tryGetClassDeclaringGenericType(CtTypeReference<?> type) {
+        return Optional.ofNullable(type)
+                .map(CtElement::getParent)
+                .map(CtElement::getParent)
+                .filter(CtClass.class::isInstance)
+                .map(CtClass.class::cast)
+                .map(CtClass::getQualifiedName)
+                .orElse(null);
     }
 
     /**
