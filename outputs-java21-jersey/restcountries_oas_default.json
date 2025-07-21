@@ -1,0 +1,825 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "restcountries",
+    "description" : "JAX-RS (Java EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/v1" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getCountries",
+        "operationId" : "getCountriesUsingGET__v1",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "doPOST",
+        "operationId" : "doPOSTUsingPOST__v1",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/all" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getAllCountries",
+        "operationId" : "getAllCountriesUsingGET__v1_all",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alpha/{alphacode}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByAlpha",
+        "operationId" : "getByAlphaUsingGET__v1_alpha_alphacode",
+        "parameters" : [ {
+          "name" : "alphacode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alpha" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByAlphaList",
+        "operationId" : "getByAlphaListUsingGET__v1_alpha",
+        "parameters" : [ {
+          "name" : "codes",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callingcode/{callingcode}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCallingCode",
+        "operationId" : "getByCallingCodeUsingGET__v1_callingcode_callingcode",
+        "parameters" : [ {
+          "name" : "callingcode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/capital/{capital}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCapital",
+        "operationId" : "getByCapitalUsingGET__v1_capital_capital",
+        "parameters" : [ {
+          "name" : "capital",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/currency/{currency}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCurrency",
+        "operationId" : "getByCurrencyUsingGET__v1_currency_currency",
+        "parameters" : [ {
+          "name" : "currency",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/lang/{lang}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByLanguage",
+        "operationId" : "getByLanguageUsingGET__v1_lang_lang",
+        "parameters" : [ {
+          "name" : "lang",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/name/{name}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByName",
+        "operationId" : "getByNameUsingGET__v1_name_name",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fullText",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/region/{region}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByRegion",
+        "operationId" : "getByRegionUsingGET__v1_region_region",
+        "parameters" : [ {
+          "name" : "region",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subregion/{subregion}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getBySubregion",
+        "operationId" : "getBySubregionUsingGET__v1_subregion_subregion",
+        "parameters" : [ {
+          "name" : "subregion",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getCountries",
+        "operationId" : "getCountriesUsingGET__v2",
+        "parameters" : [ {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "doPOST",
+        "operationId" : "doPOSTUsingPOST__v2",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/all" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getAllCountries",
+        "operationId" : "getAllCountriesUsingGET__v2_all",
+        "parameters" : [ {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/alpha/{alphacode}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByAlpha",
+        "operationId" : "getByAlphaUsingGET__v2_alpha_alphacode",
+        "parameters" : [ {
+          "name" : "alphacode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/alpha" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByAlphaList",
+        "operationId" : "getByAlphaListUsingGET__v2_alpha",
+        "parameters" : [ {
+          "name" : "codes",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/callingcode/{callingcode}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCallingCode",
+        "operationId" : "getByCallingCodeUsingGET__v2_callingcode_callingcode",
+        "parameters" : [ {
+          "name" : "callingcode",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/capital/{capital}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCapital",
+        "operationId" : "getByCapitalUsingGET__v2_capital_capital",
+        "parameters" : [ {
+          "name" : "capital",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/currency/{currency}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByCurrency",
+        "operationId" : "getByCurrencyUsingGET__v2_currency_currency",
+        "parameters" : [ {
+          "name" : "currency",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/demonym/{demonym}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByDemonym",
+        "operationId" : "getByDemonymUsingGET__v2_demonym_demonym",
+        "parameters" : [ {
+          "name" : "demonym",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/lang/{lang}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByLanguage",
+        "operationId" : "getByLanguageUsingGET__v2_lang_lang",
+        "parameters" : [ {
+          "name" : "lang",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/name/{name}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByName",
+        "operationId" : "getByNameUsingGET__v2_name_name",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fullText",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/region/{region}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByRegion",
+        "operationId" : "getByRegionUsingGET__v2_region_region",
+        "parameters" : [ {
+          "name" : "region",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/regionalbloc/{regionalbloc}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getByRegionalBloc",
+        "operationId" : "getByRegionalBlocUsingGET__v2_regionalbloc_regionalbloc",
+        "parameters" : [ {
+          "name" : "regionalbloc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/subregion/{subregion}" : {
+      "get" : {
+        "tags" : [ "country-rest" ],
+        "summary" : "getBySubRegion",
+        "operationId" : "getBySubRegionUsingGET__v2_subregion_subregion",
+        "parameters" : [ {
+          "name" : "subregion",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contribute" : {
+      "post" : {
+        "tags" : [ "stripe-rest" ],
+        "summary" : "contribute",
+        "operationId" : "contributeUsingPOST__contribute",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contribution"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Contribution" : {
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "token" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1413 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "gravitee-apim-rest-api",
+    "description" : "JAX-RS (Java EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/openapi.yaml" : {
+      "get" : {
+        "tags" : [ "open-api-resource" ],
+        "summary" : "getOpenApi",
+        "operationId" : "getOpenApiUsingGET__openapi.yaml",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InputStream"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}" : {
+      "get" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "getApiById",
+        "operationId" : "getApiByIdUsingGET__apis_apiId",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "updateApi",
+        "operationId" : "updateApiUsingPUT__apis_apiId",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateApiEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "deleteApi",
+        "operationId" : "deleteApiUsingDELETE__apis_apiId",
+        "parameters" : [ {
+          "name" : "closePlans",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/deployments" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "deployApi",
+        "operationId" : "deployApiUsingPOST__apis_apiId_deployments",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiDeploymentEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/_start" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "startAPI",
+        "operationId" : "startAPIUsingPOST__apis_apiId__start",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/_stop" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "stopAPI",
+        "operationId" : "stopAPIUsingPOST__apis_apiId__stop",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/endpoints" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEndpoints",
+        "operationId" : "getEndpointsUsingGET__endpoints",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypoint",
+        "operationId" : "getEntrypointUsingGET__endpoints_endpointId",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}/documentation" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypointDoc",
+        "operationId" : "getEntrypointDocUsingGET__endpoints_endpointId_documentation",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}/schema" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypointSchema",
+        "operationId" : "getEntrypointSchemaUsingGET__endpoints_endpointId_schema",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypoint",
+        "operationId" : "getEntrypointUsingGET__entrypoints_entrypointId",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/documentation" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointDoc",
+        "operationId" : "getEntrypointDocUsingGET__entrypoints_entrypointId_documentation",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/schema" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointSchema",
+        "operationId" : "getEntrypointSchemaUsingGET__entrypoints_entrypointId_schema",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/subscriptionSchema" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointSubscriptionSchema",
+        "operationId" : "getEntrypointSubscriptionSchemaUsingGET__entrypoints_entrypointId_subscriptionSchema",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypoints",
+        "operationId" : "getEntrypointsUsingGET__entrypoints",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/{envId}/apis" : {
+      "post" : {
+        "tags" : [ "environment-resource" ],
+        "summary" : "createApi",
+        "operationId" : "createApiUsingPOST__environments_envId_apis",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/NewApiEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/{envId}" : {
+      "get" : {
+        "tags" : [ "environment-resource" ],
+        "summary" : "getEnvironment",
+        "operationId" : "getEnvironmentUsingGET__environments_envId",
+        "parameters" : [ {
+          "name" : "envId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnvironmentEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{orgId}" : {
+      "get" : {
+        "tags" : [ "organization-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__organizations_orgId",
+        "parameters" : [ {
+          "name" : "orgId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{orgId}/environments" : {
+      "get" : {
+        "tags" : [ "organization-resource" ],
+        "summary" : "getEnvironments",
+        "operationId" : "getEnvironmentsUsingGET__organizations_orgId_environments",
+        "parameters" : [ {
+          "name" : "orgId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EnvironmentEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/cockpit" : {
+      "get" : {
+        "tags" : [ "cockpit-authentication-resource" ],
+        "summary" : "tokenExchange",
+        "operationId" : "tokenExchangeUsingGET__auth_cockpit",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Not Found"
+          },
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/openapi.{type}" : {
+      "get" : {
+        "tags" : [ "open-api-resource" ],
+        "summary" : "getOpenApi",
+        "operationId" : "getOpenApiUsingGET__openapi.type",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : "json|yaml",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InputStream"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi" : {
+      "get" : {
+        "tags" : [ "open-api-resource" ],
+        "summary" : "getOpenApiDefinition",
+        "operationId" : "getOpenApiDefinitionUsingGET__openapi",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InputStream"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "Listener" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.listener"
+        }
+      },
+      "PlatformPluginEntity" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "version" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MetadataFormat" : {
+        "type" : "string",
+        "enum" : [ "STRING", "NUMERIC", "BOOLEAN", "DATE", "MAIL", "URL" ]
+      },
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "OrganizationEntity" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "hrids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "flowMode" : {
+            "$ref" : "#/components/schemas/FlowMode"
+          },
+          "flows" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Flow"
+            }
+          },
+          "cockpitId" : {
+            "type" : "string"
+          },
+          "name" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "domainRestrictions" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "ApiType" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4"
+        }
+      },
+      "ConnectorPluginEntity" : {
+        "description" : "",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/PlatformPluginEntity"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "supportedApiType" : {
+              "$ref" : "#/components/schemas/ApiType"
+            },
+            "supportedListenerType" : {
+              "$ref" : "#/components/schemas/ListenerType"
+            },
+            "supportedQos" : {
+              "$ref" : "#/components/schemas/Set"
+            },
+            "supportedModes" : {
+              "$ref" : "#/components/schemas/Set"
+            },
+            "availableFeatures" : {
+              "$ref" : "#/components/schemas/Set"
+            }
+          },
+          "description" : "",
+          "deprecated" : false
+        } ]
+      },
+      "Property" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.property"
+        }
+      },
+      "FlowMode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.flow"
+        }
+      },
+      "UpdateApiEntity" : {
+        "required" : [ "analytics", "definitionVersion", "endpointGroups", "listeners", "name", "type", "visibility" ],
+        "type" : "object",
+        "properties" : {
+          "backgroundUrl" : {
+            "type" : "string",
+            "description" : "the API background url.",
+            "deprecated" : false
+          },
+          "metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ApiMetadataEntity"
+            }
+          },
+          "flowMode" : {
+            "description" : "API's flow mode.",
+            "$ref" : "#/components/schemas/FlowMode",
+            "deprecated" : false
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "API's description. A short description of your API.",
+            "deprecated" : false
+          },
+          "type" : {
+            "description" : "API's type",
+            "$ref" : "#/components/schemas/ApiType",
+            "deprecated" : false
+          },
+          "responseTemplates" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Map"
+            },
+            "description" : "A map that allows you to configure the output of a request based on the event throws by the gateway. Example : Quota exceeded, api-key is missing, ...",
+            "deprecated" : false
+          },
+          "analytics" : {
+            "description" : "Analytics configuration",
+            "$ref" : "#/components/schemas/Analytics",
+            "deprecated" : false
+          },
+          "apiVersion" : {
+            "type" : "string",
+            "description" : "Api's version. It's a simple string only used in the portal.",
+            "deprecated" : false
+          },
+          "definitionVersion" : {
+            "description" : "API's gravitee definition version",
+            "$ref" : "#/components/schemas/DefinitionVersion",
+            "deprecated" : false
+          },
+          "flows" : {
+            "type" : "array",
+            "description" : "A list of flows containing the policies configuration.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Flow"
+            }
+          },
+          "crossId" : {
+            "type" : "string",
+            "description" : "API's crossId. Identifies API across environments.",
+            "deprecated" : false
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "API's uuid.",
+            "deprecated" : false
+          },
+          "categories" : {
+            "description" : "the list of categories associated with this API",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "lifecycleState" : {
+            "$ref" : "#/components/schemas/ApiLifecycleState"
+          },
+          "listeners" : {
+            "type" : "array",
+            "description" : "A list of listeners used to describe our you api could be reached.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Listener"
+            }
+          },
+          "visibility" : {
+            "description" : "The visibility of the API regarding the portal.",
+            "$ref" : "#/components/schemas/Visibility",
+            "deprecated" : false
+          },
+          "pictureUrl" : {
+            "type" : "string",
+            "description" : "the API logo URL.",
+            "deprecated" : false
+          },
+          "endpointGroups" : {
+            "type" : "array",
+            "description" : "A list of endpoint describing the endpoints to contact.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/EndpointGroup"
+            }
+          },
+          "resources" : {
+            "type" : "array",
+            "description" : "The list of API resources used by policies like cache resources or oauth2",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Resource"
+            }
+          },
+          "groups" : {
+            "description" : "API's groups. Used to add team in your API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "services" : {
+            "description" : "The configuration of API services like the dynamic properties.",
+            "$ref" : "#/components/schemas/ApiServices",
+            "deprecated" : false
+          },
+          "picture" : {
+            "type" : "string",
+            "description" : "the API logo encoded in base64",
+            "deprecated" : false
+          },
+          "disableMembershipNotifications" : {
+            "type" : "boolean"
+          },
+          "tags" : {
+            "description" : "The list of sharding tags associated with this API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "labels" : {
+            "type" : "array",
+            "description" : "the free list of labels associated with this API",
+            "deprecated" : false,
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "plans" : {
+            "description" : "A list of plans to apply on the API",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "background" : {
+            "type" : "string",
+            "description" : "the API background encoded in base64",
+            "deprecated" : false
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "API's name. Duplicate names can exists.",
+            "deprecated" : false
+          },
+          "properties" : {
+            "type" : "array",
+            "description" : "A dictionary (could be dynamic) of properties available in the API context.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/PropertyEntity"
+            }
+          }
+        },
+        "description" : "",
+        "deprecated" : false
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
+        }
+      },
+      "EnvironmentEntity" : {
+        "required" : [ "name", "organizationId" ],
+        "type" : "object",
+        "properties" : {
+          "hrids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "organizationId" : {
+            "type" : "string"
+          },
+          "cockpitId" : {
+            "type" : "string"
+          },
+          "name" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "domainRestrictions" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "PrimaryOwnerEntity" : {
+        "type" : "object",
+        "properties" : {
+          "displayName" : {
+            "type" : "string",
+            "description" : "The user or group display name.",
+            "deprecated" : false
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The user or group id.",
+            "deprecated" : false
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The primary owner type",
+            "deprecated" : false
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "The user or group email.",
+            "deprecated" : false
+          }
+        }
+      },
+      "EndpointGroup" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.endpointgroup"
+        }
+      },
+      "Resource" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.resource"
+        }
+      },
+      "ApiMetadataEntity" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ReferenceMetadataEntity"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "apiId" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "ApiEntity" : {
+        "type" : "object",
+        "properties" : {
+          "backgroundUrl" : {
+            "type" : "string",
+            "description" : "the API background url.",
+            "deprecated" : false
+          },
+          "metadata" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Object"
+            }
+          },
+          "flowMode" : {
+            "description" : "API's flow mode.",
+            "$ref" : "#/components/schemas/FlowMode",
+            "deprecated" : false
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "API's description. A short description of your API.",
+            "deprecated" : false
+          },
+          "referenceType" : {
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "API's type",
+            "$ref" : "#/components/schemas/ApiType",
+            "deprecated" : false
+          },
+          "deployedAt" : {
+            "type" : "string",
+            "description" : "The last date (as timestamp) when the API was deployed.",
+            "format" : "date",
+            "deprecated" : false
+          },
+          "responseTemplates" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Map"
+            },
+            "description" : "A map that allows you to configure the output of a request based on the event throws by the gateway. Example : Quota exceeded, api-key is missing, ...",
+            "deprecated" : false
+          },
+          "definitionContext" : {
+            "description" : "the context where the api definition was created from",
+            "$ref" : "#/components/schemas/DefinitionContext",
+            "deprecated" : false
+          },
+          "referenceId" : {
+            "type" : "string"
+          },
+          "analytics" : {
+            "description" : "Analytics configuration",
+            "$ref" : "#/components/schemas/Analytics",
+            "deprecated" : false
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "The date (as a timestamp) when the API was created.",
+            "format" : "date",
+            "deprecated" : false
+          },
+          "apiVersion" : {
+            "type" : "string",
+            "description" : "Api's version. It's a simple string only used in the portal.",
+            "deprecated" : false
+          },
+          "definitionVersion" : {
+            "description" : "API's gravitee definition version",
+            "$ref" : "#/components/schemas/DefinitionVersion",
+            "deprecated" : false
+          },
+          "flows" : {
+            "type" : "array",
+            "description" : "A list of flows containing the policies configuration.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Flow"
+            }
+          },
+          "crossId" : {
+            "type" : "string",
+            "description" : "API's crossId. Identifies API across environments.",
+            "deprecated" : false
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "API's uuid.",
+            "deprecated" : false
+          },
+          "state" : {
+            "description" : "The status of the API regarding the gateway.",
+            "$ref" : "#/components/schemas/State",
+            "deprecated" : false
+          },
+          "categories" : {
+            "description" : "the list of categories associated with this API",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "The last date (as a timestamp) when the API was updated.",
+            "format" : "date",
+            "deprecated" : false
+          },
+          "lifecycleState" : {
+            "$ref" : "#/components/schemas/ApiLifecycleState"
+          },
+          "listeners" : {
+            "type" : "array",
+            "description" : "A list of listeners used to describe our you api could be reached.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Listener"
+            }
+          },
+          "visibility" : {
+            "description" : "The visibility of the API regarding the portal.",
+            "$ref" : "#/components/schemas/Visibility",
+            "deprecated" : false
+          },
+          "primaryOwner" : {
+            "description" : "The user with role PRIMARY_OWNER on this API.",
+            "$ref" : "#/components/schemas/PrimaryOwnerEntity",
+            "deprecated" : false
+          },
+          "pictureUrl" : {
+            "type" : "string",
+            "description" : "the API logo URL.",
+            "deprecated" : false
+          },
+          "endpointGroups" : {
+            "type" : "array",
+            "description" : "A list of endpoint describing the endpoints to contact.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/EndpointGroup"
+            }
+          },
+          "resources" : {
+            "type" : "array",
+            "description" : "The list of API resources used by policies like cache resources or oauth2",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Resource"
+            }
+          },
+          "groups" : {
+            "description" : "API's groups. Used to add team in your API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "services" : {
+            "description" : "The configuration of API services like the dynamic properties.",
+            "$ref" : "#/components/schemas/ApiServices",
+            "deprecated" : false
+          },
+          "picture" : {
+            "type" : "string",
+            "description" : "the API logo encoded in base64",
+            "deprecated" : false
+          },
+          "disableMembershipNotifications" : {
+            "type" : "boolean"
+          },
+          "tags" : {
+            "description" : "The list of sharding tags associated with this API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "labels" : {
+            "type" : "array",
+            "description" : "the free list of labels associated with this API",
+            "deprecated" : false,
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "workflowState" : {
+            "$ref" : "#/components/schemas/WorkflowState"
+          },
+          "plans" : {
+            "description" : "A list of plans to apply on the API",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "background" : {
+            "type" : "string",
+            "description" : "the API background encoded in base64",
+            "deprecated" : false
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "API's name. Duplicate names can exists.",
+            "deprecated" : false
+          },
+          "properties" : {
+            "type" : "array",
+            "description" : "A dictionary (could be dynamic) of properties available in the API context.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Property"
+            }
+          }
+        },
+        "description" : "",
+        "deprecated" : false
+      },
+      "DefinitionContext" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model"
+        }
+      },
+      "ApiServices" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.service"
+        }
+      },
+      "NewApiEntity" : {
+        "required" : [ "definitionVersion", "endpointGroups", "listeners", "name", "type" ],
+        "type" : "object",
+        "properties" : {
+          "analytics" : {
+            "description" : "Analytics configuration",
+            "$ref" : "#/components/schemas/Analytics",
+            "deprecated" : false
+          },
+          "apiVersion" : {
+            "type" : "string",
+            "description" : "Api's version. It's a simple string only used in the portal.",
+            "deprecated" : false
+          },
+          "listeners" : {
+            "type" : "array",
+            "description" : "A list of listeners used to describe our you api could be reached.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Listener"
+            }
+          },
+          "definitionVersion" : {
+            "description" : "API's gravitee definition version",
+            "$ref" : "#/components/schemas/DefinitionVersion",
+            "deprecated" : false
+          },
+          "flowMode" : {
+            "description" : "API's flow mode.",
+            "$ref" : "#/components/schemas/FlowMode",
+            "deprecated" : false
+          },
+          "flows" : {
+            "type" : "array",
+            "description" : "A list of flows containing the policies configuration.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/Flow"
+            }
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "API's name. Duplicate names can exists.",
+            "deprecated" : false
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "API's description. A short description of your API.",
+            "deprecated" : false
+          },
+          "endpointGroups" : {
+            "type" : "array",
+            "description" : "A list of endpoint describing the endpoints to contact.",
+            "deprecated" : false,
+            "items" : {
+              "$ref" : "#/components/schemas/EndpointGroup"
+            }
+          },
+          "groups" : {
+            "description" : "API's groups. Used to add team in your API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          },
+          "type" : {
+            "description" : "API's type",
+            "$ref" : "#/components/schemas/ApiType",
+            "deprecated" : false
+          },
+          "tags" : {
+            "description" : "The list of sharding tags associated with this API.",
+            "$ref" : "#/components/schemas/Set",
+            "deprecated" : false
+          }
+        },
+        "description" : "",
+        "deprecated" : false
+      },
+      "Analytics" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.analytics"
+        }
+      },
+      "Flow" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.flow"
+        }
+      },
+      "DefinitionVersion" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model"
+        }
+      },
+      "ReferenceMetadataEntity" : {
+        "required" : [ "key", "value" ],
+        "type" : "object",
+        "properties" : {
+          "defaultValue" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "format" : {
+            "$ref" : "#/components/schemas/MetadataFormat"
+          },
+          "value" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "key" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
+      "PropertyEntity" : {
+        "type" : "object",
+        "properties" : {
+          "" : {
+            "type" : "string"
+          },
+          "encrypted" : {
+            "type" : "boolean"
+          },
+          "encryptable" : {
+            "type" : "boolean"
+          },
+          "dynamic" : {
+            "type" : "boolean"
+          }
+        },
+        "description" : "",
+        "deprecated" : false
+      },
+      "WorkflowState" : {
+        "type" : "string",
+        "enum" : [ "DRAFT", "IN_REVIEW", "REQUEST_FOR_CHANGES", "REVIEW_OK" ]
+      },
+      "State" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "Lifecycle"
+        }
+      },
+      "ListenerType" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.definition.model.v4.listener"
+        }
+      },
+      "ApiDeploymentEntity" : {
+        "type" : "object",
+        "properties" : {
+          "deploymentLabel" : {
+            "maxLength" : 32,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Label for an Api deployment. Duplicate names can exists.",
+            "deprecated" : false
+          }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Visibility" : {
+        "type" : "string",
+        "enum" : [ "PUBLIC", "PRIVATE" ]
+      },
+      "Map" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "ApiLifecycleState" : {
+        "type" : "string",
+        "enum" : [ "CREATED", "PUBLISHED", "UNPUBLISHED", "DEPRECATED", "ARCHIVED" ]
+      }
+    }
+  }
+}

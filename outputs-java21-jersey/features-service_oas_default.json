@@ -1,0 +1,132 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "features-service",
+    "description" : "JAX-RS (Java EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/products/{productName}" : {
+      "get" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "getProductByName",
+        "operationId" : "getProductByNameUsingGET__products_productName",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "addProduct",
+        "operationId" : "addProductUsingPOST__products_productName",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "deleteProductByName",
+        "operationId" : "deleteProductByNameUsingDELETE__products_productName",
+        "parameters" : [ {
+          "name" : "productName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/products" : {
+      "get" : {
+        "tags" : [ "products-resource" ],
+        "summary" : "getAllProducts",
+        "operationId" : "getAllProductsUsingGET__products",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "Product" : {
+        "type" : "object",
+        "properties" : {
+          "productFeatures" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "productFeatureConstraints" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      }
+    }
+  }
+}

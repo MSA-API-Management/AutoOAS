@@ -115,7 +115,9 @@ public interface RestFramework {
      *
      * @return A list of fully qualified annotation class names for model schema classes
      */
-    List<String> getModelSchemaAnnotations();
+    default List<String> getModelSchemaAnnotations() {
+        return List.of();
+    }
 
     /**
      * Returns the class that wraps HTTP responses in the current framework.

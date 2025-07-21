@@ -1,6 +1,6 @@
 package at.aau.serg.parsers;
 
-import at.aau.serg.frameworks.jakarta.JakartaRestFramework;
+import at.aau.serg.frameworks.jaxrs.JakartaRestFramework;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class JakartaParserIntegrationTest {
+public class JaxRSParserIntegrationTest {
 
     private static final String testResourcesPath = "src/test/resources/quarkus/";
 
@@ -18,7 +18,7 @@ public class JakartaParserIntegrationTest {
     @CsvSource({
             "simple-quarkus-22c055,simple-quarkus-22c055.json",
             "simple-quarkus-2cc389,simple-quarkus-2cc389.json",
-            "quarkus-responses,quarkus-responses_default.json"
+            "quarkus-responses,quarkus-responses.json"
     })
     public void integrationTest_OpenApiGeneration_Basics(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);

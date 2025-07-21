@@ -332,36 +332,42 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
-                .ifPresent(schema::pattern);
+        if(annotation.annotationType() != null) {
+            validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
+                    .ifPresent(schema::pattern);
 
-        validationAnnotationProvider.getSizeMinIfPresent(annotation)
-                .ifPresent(schema::minLength);
+            validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                    .ifPresent(schema::minLength);
 
-        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
-                .ifPresent(schema::maxLength);
+            validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                    .ifPresent(schema::maxLength);
+        }
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
-                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+        if(annotation.annotationType() != null) {
+            validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
+                    .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
 
-        validationAnnotationProvider.getDecimalMaxValueIfPresent(annotation)
-                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+            validationAnnotationProvider.getDecimalMaxValueIfPresent(annotation)
+                    .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
 
-        validationAnnotationProvider.getMinValueIfPresent(annotation)
-                .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
+            validationAnnotationProvider.getMinValueIfPresent(annotation)
+                    .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
 
-        validationAnnotationProvider.getMaxValueIfPresent(annotation)
-                .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+            validationAnnotationProvider.getMaxValueIfPresent(annotation)
+                    .ifPresent(value -> schema.setMaximum(new BigDecimal(value)));
+        }
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        validationAnnotationProvider.getSizeMinIfPresent(annotation)
-                .ifPresent(schema::minItems);
+        if(annotation.annotationType() != null) {
+            validationAnnotationProvider.getSizeMinIfPresent(annotation)
+                    .ifPresent(schema::minItems);
 
-        validationAnnotationProvider.getSizeMaxIfPresent(annotation)
-                .ifPresent(schema::maxItems);
+            validationAnnotationProvider.getSizeMaxIfPresent(annotation)
+                    .ifPresent(schema::maxItems);
+        }
     }
 
     protected String mapBasicLangItemsType(CtTypeReference<?> classRefTypeSignature) {

@@ -1,0 +1,1011 @@
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.769s
+user	0m13.882s
+sys	0m2.499s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.758s
+user	0m13.964s
+sys	0m2.456s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.824s
+user	0m13.958s
+sys	0m2.503s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.786s
+user	0m13.856s
+sys	0m2.486s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.629s
+user	0m13.506s
+sys	0m2.445s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m5.713s
+user	0m13.585s
+sys	0m2.505s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:17)
+
+real	0m5.556s
+user	0m13.154s
+sys	0m2.459s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+javax.ws.rs.core.Response.ok(this.getClass().getClassLoader().getResourceAsStream("management-openapi-v4.yaml"))
+javax.ws.rs.core.Response.noContent()
+javax.ws.rs.core.Response.ok(apiEntity).tag(java.lang.Long.toString(apiEntity.getUpdatedAt().getTime())).lastModified(apiEntity.getUpdatedAt())
+javax.ws.rs.core.Response.ok(apiEntity).tag(java.lang.Long.toString(apiEntity.getUpdatedAt().getTime()))
+javax.ws.rs.core.Response.ok(apiEntity)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity("JsonProcessingException " + e)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR)
+javax.ws.rs.core.Response.ok(apiEntity).tag(java.lang.Long.toString(apiEntity.getUpdatedAt().getTime())).lastModified(apiEntity.getUpdatedAt())
+javax.ws.rs.core.Response.ok(apiEntity).tag(java.lang.Long.toString(apiEntity.getUpdatedAt().getTime()))
+javax.ws.rs.core.Response.ok(apiEntity)
+javax.ws.rs.core.Response.noContent().tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime())).lastModified(updatedApi.getUpdatedAt())
+javax.ws.rs.core.Response.noContent().tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime()))
+javax.ws.rs.core.Response.noContent()
+javax.ws.rs.core.Response.noContent().tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime())).lastModified(updatedApi.getUpdatedAt())
+javax.ws.rs.core.Response.noContent().tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime()))
+javax.ws.rs.core.Response.noContent()
+javax.ws.rs.core.Response.ok(updatedApi).tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime())).lastModified(updatedApi.getUpdatedAt())
+javax.ws.rs.core.Response.ok(updatedApi).tag(java.lang.Long.toString(updatedApi.getUpdatedAt().getTime()))
+javax.ws.rs.core.Response.ok(updatedApi)
+javax.ws.rs.core.Response.created(this.getLocationHeader(newApi.getId())).entity(newApi)
+javax.ws.rs.core.Response.created(this.getLocationHeader(newApi.getId()))
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND)
+javax.ws.rs.core.Response.temporaryRedirect(new java.net.URI(url))
+javax.ws.rs.core.Response.serverError()
+javax.ws.rs.core.Response.ok(this.getClass().getClassLoader().getResourceAsStream("console-openapi." + type))
+javax.ws.rs.core.Response.ok(this.getClass().getClassLoader().getResourceAsStream("portal-openapi.yaml"))
+Wrote OpenAPI to outputs-java21-jersey/gravitee-api-management_oas_default.json
+
+real	0m25.479s
+user	0m41.832s
+sys	0m5.661s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+11:08:34.462 [StreamPumper-systemOut] DEBUG - [INFO] Scanning for projects...
+11:08:34.731 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:34.731 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Build Order:
+11:08:34.731 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API                                  [pom]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Fetcher                        [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Model                          [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers             [pom]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - API       [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - Core      [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - LDAP      [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - InMemory  [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Spec Converter                 [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Service                        [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - Repository [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Repository                     [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Security                       [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services                       [pom]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Sync                [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Dynamic Properties  [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Subscriptions       [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Dictionary          [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Search Indexer      [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - V3 - Upgrader       [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Auto Fetch          [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Subscription Pre Expiration Notif [jar]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management                     [pom]
+11:08:34.734 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - Security          [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - Rest API          [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4                [pom]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4 - Security     [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4 - Rest API     [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal                         [pom]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal - Security              [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal - Rest API              [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone                     [pom]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Boostrap          [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Container         [jar]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Distribution      [pom]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Distribution - Zip [pom]
+11:08:34.735 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Aggregated Code Coverage       [jar]
+11:08:34.874 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:34.875 [StreamPumper-systemOut] DEBUG - [INFO] ----------< io.gravitee.apim.rest.api:gravitee-apim-rest-api >----------
+11:08:34.875 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API 3.21.0-SNAPSHOT        [1/37]
+11:08:34.875 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:34.952 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:34.953 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api ---
+11:08:35.339 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/spoon.classpath-app.tmp'.
+11:08:35.340 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:35.341 [StreamPumper-systemOut] DEBUG - [INFO] ------< io.gravitee.apim.rest.api:gravitee-apim-rest-api-fetcher >------
+11:08:35.341 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Fetcher 3.21.0-SNAPSHOT [2/37]
+11:08:35.341 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:35.363 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:35.363 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-fetcher ---
+11:08:35.365 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-fetcher/spoon.classpath-app.tmp'.
+11:08:35.365 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:35.366 [StreamPumper-systemOut] DEBUG - [INFO] -------< io.gravitee.apim.rest.api:gravitee-apim-rest-api-model >-------
+11:08:35.366 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Model 3.21.0-SNAPSHOT [3/37]
+11:08:35.366 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:35.547 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition-model/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:36.505 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition-model/3.21.0-SNAPSHOT/maven-metadata.xml (816 B at 848 B/s)
+11:08:36.525 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:36.764 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition/3.21.0-SNAPSHOT/maven-metadata.xml (634 B at 2.7 kB/s)
+11:08:36.766 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/gravitee-api-management/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:37.004 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/gravitee-api-management/3.21.0-SNAPSHOT/maven-metadata.xml (622 B at 2.6 kB/s)
+11:08:37.040 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition-jackson/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:37.277 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/definition/gravitee-apim-definition-jackson/3.21.0-SNAPSHOT/maven-metadata.xml (818 B at 3.4 kB/s)
+11:08:37.326 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.327 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-model ---
+11:08:37.330 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-model/spoon.classpath-app.tmp'.
+11:08:37.331 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.331 [StreamPumper-systemOut] DEBUG - [INFO] ------< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp >------
+11:08:37.331 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers 3.21.0-SNAPSHOT [4/37]
+11:08:37.331 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:37.340 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp ---
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/spoon.classpath-app.tmp'.
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] ----< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp-api >----
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers - API 3.21.0-SNAPSHOT [5/37]
+11:08:37.341 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.344 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.344 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp-api ---
+11:08:37.346 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/gravitee-apim-rest-api-idp-api/spoon.classpath-app.tmp'.
+11:08:37.346 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.347 [StreamPumper-systemOut] DEBUG - [INFO] ---< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp-core >----
+11:08:37.347 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers - Core 3.21.0-SNAPSHOT [6/37]
+11:08:37.347 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.351 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-api/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:37.588 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-api/3.21.0-SNAPSHOT/maven-metadata.xml (818 B at 3.5 kB/s)
+11:08:37.606 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.606 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp-core ---
+11:08:37.607 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/gravitee-apim-rest-api-idp-core/spoon.classpath-app.tmp'.
+11:08:37.607 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.608 [StreamPumper-systemOut] DEBUG - [INFO] ---< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp-ldap >----
+11:08:37.608 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers - LDAP 3.21.0-SNAPSHOT [7/37]
+11:08:37.608 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.615 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp-ldap ---
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/gravitee-apim-rest-api-idp-ldap/spoon.classpath-app.tmp'.
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp-memory >---
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers - InMemory 3.21.0-SNAPSHOT [8/37]
+11:08:37.617 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.635 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.636 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp-memory ---
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/gravitee-apim-rest-api-idp-memory/spoon.classpath-app.tmp'.
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api:gravitee-apim-rest-api-spec-converter >---
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Spec Converter 3.21.0-SNAPSHOT [9/37]
+11:08:37.637 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.646 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.648 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-spec-converter ---
+11:08:37.648 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-spec-converter/spoon.classpath-app.tmp'.
+11:08:37.648 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:37.649 [StreamPumper-systemOut] DEBUG - [INFO] ------< io.gravitee.apim.rest.api:gravitee-apim-rest-api-service >------
+11:08:37.649 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Service 3.21.0-SNAPSHOT [10/37]
+11:08:37.649 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:37.666 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-model/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:37.906 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-model/3.21.0-SNAPSHOT/maven-metadata.xml (812 B at 3.4 kB/s)
+11:08:37.909 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-core/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:38.145 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-core/3.21.0-SNAPSHOT/maven-metadata.xml (819 B at 3.5 kB/s)
+11:08:38.147 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-fetcher/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:38.384 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-fetcher/3.21.0-SNAPSHOT/maven-metadata.xml (814 B at 3.4 kB/s)
+11:08:38.386 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-spec-converter/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:38.622 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-spec-converter/3.21.0-SNAPSHOT/maven-metadata.xml (821 B at 3.5 kB/s)
+11:08:38.660 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-handler/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:38.895 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-handler/3.21.0-SNAPSHOT/maven-metadata.xml (828 B at 3.5 kB/s)
+11:08:38.898 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:39.135 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint/3.21.0-SNAPSHOT/maven-metadata.xml (644 B at 2.7 kB/s)
+11:08:39.137 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/gravitee-apim-plugin/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:39.374 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/gravitee-apim-plugin/3.21.0-SNAPSHOT/maven-metadata.xml (626 B at 2.6 kB/s)
+11:08:39.379 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-handler/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:39.615 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-handler/3.21.0-SNAPSHOT/maven-metadata.xml (832 B at 3.5 kB/s)
+11:08:39.618 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:39.980 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint/3.21.0-SNAPSHOT/maven-metadata.xml (648 B at 1.8 kB/s)
+11:08:39.984 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-api/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:40.221 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-api/3.21.0-SNAPSHOT/maven-metadata.xml (814 B at 3.4 kB/s)
+11:08:40.235 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:40.472 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository/3.21.0-SNAPSHOT/maven-metadata.xml (634 B at 2.7 kB/s)
+11:08:40.591 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.592 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-service ---
+11:08:40.592 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/spoon.classpath-app.tmp'.
+11:08:40.592 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.593 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.idp:gravitee-apim-rest-api-idp-repository >--
+11:08:40.593 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Identity Providers - Repository 3.21.0-SNAPSHOT [11/37]
+11:08:40.593 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.595 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-service/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:40.832 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-service/3.21.0-SNAPSHOT/maven-metadata.xml (814 B at 3.4 kB/s)
+11:08:40.850 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.850 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-idp-repository ---
+11:08:40.851 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:40.852 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-idp/gravitee-apim-rest-api-idp-repository/spoon.classpath-app.tmp'.
+11:08:40.854 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.855 [StreamPumper-systemOut] DEBUG - [INFO] ----< io.gravitee.apim.rest.api:gravitee-apim-rest-api-repository >-----
+11:08:40.855 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Repository 3.21.0-SNAPSHOT [12/37]
+11:08:40.855 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.862 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-repository ---
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-repository/spoon.classpath-app.tmp'.
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] -----< io.gravitee.apim.rest.api:gravitee-apim-rest-api-security >------
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Security 3.21.0-SNAPSHOT [13/37]
+11:08:40.863 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.900 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.900 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-security ---
+11:08:40.903 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-security/spoon.classpath-app.tmp'.
+11:08:40.903 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.903 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services >--
+11:08:40.903 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services 3.21.0-SNAPSHOT [14/37]
+11:08:40.903 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:40.915 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.915 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services ---
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/spoon.classpath-app.tmp'.
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-sync >--
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Sync 3.21.0-SNAPSHOT [15/37]
+11:08:40.917 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.929 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.930 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-sync ---
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-sync/spoon.classpath-app.tmp'.
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-dynamic-properties >--
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Dynamic Properties 3.21.0-SNAPSHOT [16/37]
+11:08:40.931 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.946 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.947 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-dynamic-properties ---
+11:08:40.948 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-dynamic-properties/spoon.classpath-app.tmp'.
+11:08:40.948 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.948 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-subscriptions >--
+11:08:40.948 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Subscriptions 3.21.0-SNAPSHOT [17/37]
+11:08:40.948 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.969 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.969 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-subscriptions ---
+11:08:40.970 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:40.972 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-subscriptions/spoon.classpath-app.tmp'.
+11:08:40.973 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.973 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-dictionary >--
+11:08:40.973 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Dictionary 3.21.0-SNAPSHOT [18/37]
+11:08:40.973 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.984 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.984 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-dictionary ---
+11:08:40.985 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-dictionary/spoon.classpath-app.tmp'.
+11:08:40.986 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.986 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-search-indexer >--
+11:08:40.986 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Search Indexer 3.21.0-SNAPSHOT [19/37]
+11:08:40.986 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:40.997 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:40.999 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-search-indexer ---
+11:08:40.999 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:40.999 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-search-indexer/spoon.classpath-app.tmp'.
+11:08:41.000 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.000 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-v3-upgrader >--
+11:08:41.000 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - V3 - Upgrader 3.21.0-SNAPSHOT [20/37]
+11:08:41.000 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.009 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.009 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-v3-upgrader ---
+11:08:41.011 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:41.011 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-v3-upgrader/spoon.classpath-app.tmp'.
+11:08:41.012 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.012 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-auto-fetch >--
+11:08:41.012 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Auto Fetch 3.21.0-SNAPSHOT [21/37]
+11:08:41.012 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.021 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.024 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-auto-fetch ---
+11:08:41.024 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:41.024 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-auto-fetch/spoon.classpath-app.tmp'.
+11:08:41.024 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.025 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.services:gravitee-apim-rest-api-services-subscription-pre-expiration-notif >--
+11:08:41.025 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Services - Subscription Pre Expiration Notif 3.21.0-SNAPSHOT [22/37]
+11:08:41.025 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.039 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.039 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-services-subscription-pre-expiration-notif ---
+11:08:41.040 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:41.041 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-services/gravitee-apim-rest-api-services-subscription-pre-expiration-notif/spoon.classpath-app.tmp'.
+11:08:41.041 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.042 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management:gravitee-apim-rest-api-management >--
+11:08:41.042 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management 3.21.0-SNAPSHOT [23/37]
+11:08:41.043 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:41.043 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.043 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management ---
+11:08:41.043 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management/spoon.classpath-app.tmp'.
+11:08:41.043 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.044 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management:gravitee-apim-rest-api-management-security >--
+11:08:41.044 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management - Security 3.21.0-SNAPSHOT [24/37]
+11:08:41.044 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.045 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-security/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:41.283 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-security/3.21.0-SNAPSHOT/maven-metadata.xml (815 B at 3.4 kB/s)
+11:08:41.301 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.301 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management-security ---
+11:08:41.303 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management/gravitee-apim-rest-api-management-security/spoon.classpath-app.tmp'.
+11:08:41.305 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.305 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management:gravitee-apim-rest-api-management-rest >--
+11:08:41.305 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management - Rest API 3.21.0-SNAPSHOT [25/37]
+11:08:41.305 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.308 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/gravitee-apim-rest-api-management-security/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:41.547 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/gravitee-apim-rest-api-management-security/3.21.0-SNAPSHOT/maven-metadata.xml (837 B at 3.5 kB/s)
+11:08:41.604 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.605 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management-rest ---
+11:08:41.606 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management/gravitee-apim-rest-api-management-rest/spoon.classpath-app.tmp'.
+11:08:41.606 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.606 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management.v4:gravitee-apim-rest-api-management-v4 >--
+11:08:41.606 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management - v4 3.21.0-SNAPSHOT [26/37]
+11:08:41.606 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:41.609 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.609 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management-v4 ---
+11:08:41.611 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4/spoon.classpath-app.tmp'.
+11:08:41.612 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.612 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management.v4:gravitee-apim-rest-api-management-v4-security >--
+11:08:41.612 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management - v4 - Security 3.21.0-SNAPSHOT [27/37]
+11:08:41.612 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.625 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.625 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management-v4-security ---
+11:08:41.627 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4/gravitee-apim-rest-api-management-v4-security/spoon.classpath-app.tmp'.
+11:08:41.628 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.628 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.management.v4:gravitee-apim-rest-api-management-v4-rest >--
+11:08:41.628 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Management - v4 - Rest API 3.21.0-SNAPSHOT [28/37]
+11:08:41.628 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.631 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/v4/gravitee-apim-rest-api-management-v4-security/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:41.870 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/v4/gravitee-apim-rest-api-management-v4-security/3.21.0-SNAPSHOT/maven-metadata.xml (843 B at 3.5 kB/s)
+11:08:41.896 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.896 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-management-v4-rest ---
+11:08:41.898 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4/gravitee-apim-rest-api-management-v4-rest/spoon.classpath-app.tmp'.
+11:08:41.898 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] ---< io.gravitee.apim.rest.api.portal:gravitee-apim-rest-api-portal >---
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Portal 3.21.0-SNAPSHOT [29/37]
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-portal ---
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-portal/spoon.classpath-app.tmp'.
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.portal:gravitee-apim-rest-api-portal-security >--
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Portal - Security 3.21.0-SNAPSHOT [30/37]
+11:08:41.901 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.921 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.922 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-portal-security ---
+11:08:41.923 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-portal/gravitee-apim-rest-api-portal-security/spoon.classpath-app.tmp'.
+11:08:41.923 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:41.924 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.portal:gravitee-apim-rest-api-portal-rest >--
+11:08:41.924 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Portal - Rest API 3.21.0-SNAPSHOT [31/37]
+11:08:41.924 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:41.929 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/portal/gravitee-apim-rest-api-portal-security/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:42.165 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/portal/gravitee-apim-rest-api-portal-security/3.21.0-SNAPSHOT/maven-metadata.xml (829 B at 3.5 kB/s)
+11:08:42.183 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.184 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-portal-rest ---
+11:08:42.185 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-portal/gravitee-apim-rest-api-portal-rest/spoon.classpath-app.tmp'.
+11:08:42.186 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.186 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.standalone:gravitee-apim-rest-api-standalone >--
+11:08:42.186 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Standalone 3.21.0-SNAPSHOT [32/37]
+11:08:42.186 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:42.187 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-standalone ---
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-standalone/spoon.classpath-app.tmp'.
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.standalone:gravitee-apim-rest-api-standalone-bootstrap >--
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Standalone - Boostrap 3.21.0-SNAPSHOT [33/37]
+11:08:42.189 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:42.193 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.193 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-standalone-bootstrap ---
+11:08:42.194 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-standalone/gravitee-apim-rest-api-standalone-bootstrap/spoon.classpath-app.tmp'.
+11:08:42.194 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:42.194 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.standalone:gravitee-apim-rest-api-standalone-container >--
+11:08:42.194 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Standalone - Container 3.21.0-SNAPSHOT [34/37]
+11:08:42.194 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:42.216 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/gravitee-apim-rest-api-management-rest/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:42.453 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/gravitee-apim-rest-api-management-rest/3.21.0-SNAPSHOT/maven-metadata.xml (833 B at 3.5 kB/s)
+11:08:42.458 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/v4/gravitee-apim-rest-api-management-v4-rest/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:42.694 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/management/v4/gravitee-apim-rest-api-management-v4-rest/3.21.0-SNAPSHOT/maven-metadata.xml (839 B at 3.6 kB/s)
+11:08:42.696 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/portal/gravitee-apim-rest-api-portal-rest/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:42.933 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/portal/gravitee-apim-rest-api-portal-rest/3.21.0-SNAPSHOT/maven-metadata.xml (825 B at 3.5 kB/s)
+11:08:42.935 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-repository/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:43.171 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/gravitee-apim-rest-api-repository/3.21.0-SNAPSHOT/maven-metadata.xml (817 B at 3.5 kB/s)
+11:08:43.202 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:43.202 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-standalone-container ---
+11:08:43.204 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-standalone/gravitee-apim-rest-api-standalone-container/spoon.classpath-app.tmp'.
+11:08:43.206 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:43.207 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.standalone.distribution:gravitee-apim-rest-api-standalone-distribution >--
+11:08:43.207 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Standalone - Distribution 3.21.0-SNAPSHOT [35/37]
+11:08:43.207 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:43.207 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/standalone/gravitee-apim-rest-api-standalone-bootstrap/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:43.441 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/standalone/gravitee-apim-rest-api-standalone-bootstrap/3.21.0-SNAPSHOT/maven-metadata.xml (838 B at 3.5 kB/s)
+11:08:43.443 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/standalone/gravitee-apim-rest-api-standalone-container/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:43.678 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/standalone/gravitee-apim-rest-api-standalone-container/3.21.0-SNAPSHOT/maven-metadata.xml (838 B at 3.6 kB/s)
+11:08:43.684 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-ldap/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:43.922 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-ldap/3.21.0-SNAPSHOT/maven-metadata.xml (995 B at 4.2 kB/s)
+11:08:43.924 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-repository/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:44.161 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-repository/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:44.173 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-memory/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:44.409 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/idp/gravitee-apim-rest-api-idp-memory/3.21.0-SNAPSHOT/maven-metadata.xml (997 B at 4.2 kB/s)
+11:08:44.411 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-subscriptions/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:44.647 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-subscriptions/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:44.648 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-subscription-pre-expiration-notif/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:44.889 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-subscription-pre-expiration-notif/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:44.891 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-search-indexer/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:45.127 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-search-indexer/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:45.129 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-sync/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:45.366 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-sync/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:45.368 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-dynamic-properties/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:45.605 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-dynamic-properties/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:45.607 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-dictionary/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:45.842 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-dictionary/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:45.844 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-auto-fetch/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:46.079 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-auto-fetch/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:46.081 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-elasticsearch/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:46.317 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-elasticsearch/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:46.329 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-get/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:46.566 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-get/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:46.570 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-post/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:46.809 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-post/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:46.812 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-sse/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:47.049 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-sse/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:47.053 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-webhook/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:47.292 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-webhook/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:47.296 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-websocket/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:47.626 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-websocket/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 3.1 kB/s)
+11:08:47.629 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-proxy/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:47.866 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/entrypoint/gravitee-apim-plugin-entrypoint-http-proxy/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:47.869 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-mock/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:48.104 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-mock/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:48.107 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-kafka/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:48.345 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-kafka/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:48.350 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-mqtt5/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:48.588 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-mqtt5/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:48.593 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-http-proxy/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:48.830 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/plugin/endpoint/gravitee-apim-plugin-endpoint-http-proxy/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:48.917 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http-server/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:49.157 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http-server/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.3 kB/s)
+11:08:49.159 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:49.394 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http/3.21.0-SNAPSHOT/maven-metadata.xml (674 B at 2.9 kB/s)
+11:08:49.397 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http-client/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:49.632 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gateway/bridge/http/gravitee-apim-repository-gateway-bridge-http-client/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.4 kB/s)
+11:08:49.636 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-jdbc/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:49.872 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-jdbc/3.21.0-SNAPSHOT/maven-metadata.xml (991 B at 4.2 kB/s)
+11:08:49.881 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-mongodb/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:50.118 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/repository/gravitee-apim-repository-mongodb/3.21.0-SNAPSHOT/maven-metadata.xml (994 B at 4.2 kB/s)
+11:08:50.175 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/grpc/grpc-core/maven-metadata.xml
+11:08:50.176 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/grpc/grpc-core/maven-metadata.xml
+11:08:50.176 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-default-http-blocker: http://0.0.0.0/io/grpc/grpc-core/maven-metadata.xml
+11:08:50.249 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/grpc/grpc-core/maven-metadata.xml (6.0 kB at 80 kB/s)
+11:08:50.400 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/grpc/grpc-core/maven-metadata.xml (598 B at 2.6 kB/s)
+11:08:50.402 [StreamPumper-systemOut] DEBUG - [WARNING] Could not transfer metadata io.grpc:grpc-core/maven-metadata.xml from/to maven-default-http-blocker (http://0.0.0.0/): transfer failed for http://0.0.0.0/io/grpc/grpc-core/maven-metadata.xml
+11:08:50.407 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/grpc/grpc-api/maven-metadata.xml
+11:08:50.407 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/grpc/grpc-api/maven-metadata.xml
+11:08:50.407 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-default-http-blocker: http://0.0.0.0/io/grpc/grpc-api/maven-metadata.xml
+11:08:50.424 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/grpc/grpc-api/maven-metadata.xml (4.4 kB at 242 kB/s)
+11:08:50.522 [StreamPumper-systemOut] DEBUG - [WARNING] Could not transfer metadata io.grpc:grpc-api/maven-metadata.xml from/to maven-default-http-blocker (http://0.0.0.0/): transfer failed for http://0.0.0.0/io/grpc/grpc-api/maven-metadata.xml
+11:08:50.560 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.561 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-standalone-distribution ---
+11:08:50.563 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-standalone/gravitee-apim-rest-api-standalone-distribution/spoon.classpath-app.tmp'.
+11:08:50.563 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.563 [StreamPumper-systemOut] DEBUG - [INFO] --< io.gravitee.apim.rest.api.standalone.distribution:gravitee-apim-rest-api-standalone-distribution-zip >--
+11:08:50.563 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Standalone - Distribution - Zip 3.21.0-SNAPSHOT [36/37]
+11:08:50.563 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:50.571 [StreamPumper-systemOut] DEBUG - [WARNING] io.grpc:grpc-core/maven-metadata.xmlfailed to transfer from http://0.0.0.0/ during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of maven-default-http-blocker has elapsed or updates are forced. Original error: Could not transfer metadata io.grpc:grpc-core/maven-metadata.xml from/to maven-default-http-blocker (http://0.0.0.0/): transfer failed for http://0.0.0.0/io/grpc/grpc-core/maven-metadata.xml
+11:08:50.572 [StreamPumper-systemOut] DEBUG - [WARNING] io.grpc:grpc-api/maven-metadata.xmlfailed to transfer from http://0.0.0.0/ during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of maven-default-http-blocker has elapsed or updates are forced. Original error: Could not transfer metadata io.grpc:grpc-api/maven-metadata.xml from/to maven-default-http-blocker (http://0.0.0.0/): transfer failed for http://0.0.0.0/io/grpc/grpc-api/maven-metadata.xml
+11:08:50.615 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.615 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-standalone-distribution-zip ---
+11:08:50.619 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-standalone/gravitee-apim-rest-api-standalone-distribution/gravitee-apim-rest-api-standalone-distribution-zip/spoon.classpath-app.tmp'.
+11:08:50.620 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.620 [StreamPumper-systemOut] DEBUG - [INFO] -----< io.gravitee.apim.rest.api:gravitee-apim-rest-api-coverage >------
+11:08:50.620 [StreamPumper-systemOut] DEBUG - [INFO] Building Gravitee.io APIM - Management API - Aggregated Code Coverage 3.21.0-SNAPSHOT [37/37]
+11:08:50.620 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:50.637 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-v3-upgrader/3.21.0-SNAPSHOT/maven-metadata.xml
+11:08:50.880 [StreamPumper-systemOut] DEBUG - [INFO] Downloaded from oss.sonatype.org-snapshot: https://oss.sonatype.org/content/repositories/snapshots/io/gravitee/apim/rest/api/services/gravitee-apim-rest-api-services-v3-upgrader/3.21.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 4.2 kB/s)
+11:08:50.908 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.909 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ gravitee-apim-rest-api-coverage ---
+11:08:50.909 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-coverage/spoon.classpath-app.tmp'.
+11:08:50.910 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:50.910 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Summary for Gravitee.io APIM - Management API 3.21.0-SNAPSHOT:
+11:08:50.910 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:50.910 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API .................. SUCCESS [  0.467 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Fetcher ........ SUCCESS [  0.025 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Model .......... SUCCESS [  1.965 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers SUCCESS [  0.009 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - API SUCCESS [  0.007 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - Core SUCCESS [  0.261 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - LDAP SUCCESS [  0.009 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - InMemory SUCCESS [  0.021 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Spec Converter . SUCCESS [  0.011 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Service ........ SUCCESS [  2.944 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Identity Providers - Repository SUCCESS [  0.260 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Repository ..... SUCCESS [  0.010 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Security ....... SUCCESS [  0.040 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services ....... SUCCESS [  0.014 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Sync  SUCCESS [  0.014 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Dynamic Properties SUCCESS [  0.018 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Subscriptions SUCCESS [  0.023 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Dictionary SUCCESS [  0.014 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Search Indexer SUCCESS [  0.013 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - V3 - Upgrader SUCCESS [  0.012 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Auto Fetch SUCCESS [  0.012 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Services - Subscription Pre Expiration Notif SUCCESS [  0.019 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management ..... SUCCESS [  0.002 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - Security SUCCESS [  0.260 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - Rest API SUCCESS [  0.303 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4  SUCCESS [  0.004 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4 - Security SUCCESS [  0.016 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Management - v4 - Rest API SUCCESS [  0.272 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal ......... SUCCESS [  0.003 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal - Security SUCCESS [  0.022 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Portal - Rest API SUCCESS [  0.262 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone ..... SUCCESS [  0.004 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Boostrap SUCCESS [  0.005 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Container SUCCESS [  1.009 s]
+11:08:50.911 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Distribution SUCCESS [  7.360 s]
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Standalone - Distribution - Zip SUCCESS [  0.056 s]
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] Gravitee.io APIM - Management API - Aggregated Code Coverage SUCCESS [  0.289 s]
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] BUILD SUCCESS
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] Total time:  16.484 s
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] Finished at: 2025-07-21T11:08:50+02:00
+11:08:50.913 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:50.968 [main] INFO  - Running in FULLCLASSPATH mode. Source folders and dependencies are inferred from the pom.xml file (doc: http://spoon.gforge.inria.fr/launcher.html).
+11:08:56.992 [main] DEBUG - Could not find declaration for variable UuidString at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiDuplicatorServiceImpl.java:217).
+11:08:57.073 [main] DEBUG - Could not find declaration for variable Collectors at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1189).
+11:08:57.099 [main] DEBUG - Could not find declaration for variable Pattern at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1361).
+11:08:57.156 [main] DEBUG - Could not find declaration for variable Pattern at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1483).
+11:08:57.172 [main] DEBUG - Could not find declaration for variable pse at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1485).
+11:08:57.182 [main] DEBUG - Could not find declaration for variable pse at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1486).
+11:08:57.192 [main] DEBUG - Could not find declaration for variable Pattern at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1499).
+11:08:57.206 [main] DEBUG - Could not find declaration for variable pse at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1501).
+11:08:57.214 [main] DEBUG - Could not find declaration for variable pse at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/impl/ApiServiceImpl.java:1502).
+11:08:57.526 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_20VersionSerializer.java:59).
+11:08:57.527 [main] DEBUG - Could not find declaration for variable Collectors at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_20VersionSerializer.java:107).
+11:08:57.527 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_20VersionSerializer.java:113).
+11:08:57.529 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_25VersionSerializer.java:60).
+11:08:57.531 [main] DEBUG - Could not find declaration for variable Collectors at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_25VersionSerializer.java:95).
+11:08:57.532 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api1_25VersionSerializer.java:101).
+11:08:57.534 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api3_0VersionSerializer.java:52).
+11:08:57.535 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/Api3_7VersionSerializer.java:53).
+11:08:57.537 [main] DEBUG - Could not find declaration for variable e at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/jackson/ser/api/ApiDefaultSerializer.java:59).
+11:08:57.574 [main] DEBUG - Could not find declaration for variable Collectors at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/v4/impl/ApiServiceImpl.java:333).
+11:08:57.589 [main] DEBUG - Could not find declaration for variable PlanSecurityType at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-service/src/main/java/io/gravitee/rest/api/service/v4/impl/PlanSearchServiceImpl.java:130).
+11:09:00.461 [main] DEBUG - Using SLF4J as the default logging framework
+11:09:00.464 [main] DEBUG - -Dio.netty.noUnsafe: false
+11:09:00.464 [main] DEBUG - Java version: 21
+11:09:00.468 [main] DEBUG - sun.misc.Unsafe.theUnsafe: available
+11:09:00.469 [main] DEBUG - sun.misc.Unsafe.copyMemory: available
+11:09:00.469 [main] DEBUG - sun.misc.Unsafe.storeFence: available
+11:09:00.469 [main] DEBUG - java.nio.Buffer.address: available
+11:09:00.470 [main] DEBUG - direct buffer constructor: unavailable: java.nio.DirectByteBuffer.<init>(long,int)
+11:09:00.474 [main] DEBUG - java.nio.Bits.unaligned: available, true
+11:09:00.474 [main] DEBUG - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$7 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @55ef1be1
+11:09:00.475 [main] DEBUG - java.nio.DirectByteBuffer.<init>(long, int): unavailable
+11:09:00.475 [main] DEBUG - sun.misc.Unsafe: available
+11:09:00.495 [main] DEBUG - maxDirectMemory: 4188012544 bytes (maybe)
+11:09:00.496 [main] DEBUG - -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+11:09:00.496 [main] DEBUG - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+11:09:00.497 [main] DEBUG - -Dio.netty.maxDirectMemory: -1 bytes
+11:09:00.497 [main] DEBUG - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+11:09:00.501 [main] DEBUG - java.nio.ByteBuffer.cleaner(): available
+11:09:00.502 [main] DEBUG - -Dio.netty.noPreferDirect: false
+11:09:01.815 [main] WARN  - cannot create shadow class: io.gravitee.plugin.endpoint.EndpointConnectorPlugin
+java.lang.TypeNotPresentException: Type io.gravitee.gateway.reactive.api.connector.endpoint.EndpointConnectorConfiguration not present
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
+	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
+	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
+	at java.base/sun.reflect.generics.reflectiveObjects.LazyReflectiveObjectGenerator.reifyBounds(LazyReflectiveObjectGenerator.java:65)
+	at java.base/sun.reflect.generics.reflectiveObjects.TypeVariableImpl.getBounds(TypeVariableImpl.java:125)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeParameterReference(JavaReflectionVisitorImpl.java:423)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitTypeParameterReference(JavaReflectionTreeBuilder.java:479)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:436)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:481)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitTypeReference(JavaReflectionTreeBuilder.java:505)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:440)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitInterface(JavaReflectionVisitorImpl.java:135)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitInterface(JavaReflectionTreeBuilder.java:226)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.scan(JavaReflectionTreeBuilder.java:116)
+	at spoon.reflect.factory.TypeFactory.buildNewShadowClass(TypeFactory.java:688)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1740)
+	at spoon.reflect.factory.TypeFactory.get(TypeFactory.java:680)
+	at spoon.support.compiler.jdt.JDTImportBuilder.getOrLoadClass(JDTImportBuilder.java:176)
+	at spoon.support.compiler.jdt.JDTImportBuilder.build(JDTImportBuilder.java:77)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.lambda$buildModel$1(JDTBasedSpoonCompiler.java:466)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.forEachCompilationUnit(JDTBasedSpoonCompiler.java:489)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildModel(JDTBasedSpoonCompiler.java:465)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildUnitsAndModel(JDTBasedSpoonCompiler.java:389)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildSources(JDTBasedSpoonCompiler.java:347)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.build(JDTBasedSpoonCompiler.java:118)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.build(JDTBasedSpoonCompiler.java:101)
+	at spoon.Launcher.buildModel(Launcher.java:781)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:50)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:36)
+	at at.aau.serg.parsers.Main.main(Main.java:28)
+Caused by: java.lang.ClassNotFoundException: io.gravitee.gateway.reactive.api.connector.endpoint.EndpointConnectorConfiguration
+	at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:445)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:593)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:114)
+	... 30 common frames omitted
+11:09:01.818 [main] WARN  - cannot create shadow class: io.gravitee.plugin.entrypoint.EntrypointConnectorPlugin
+java.lang.TypeNotPresentException: Type io.gravitee.gateway.reactive.api.connector.entrypoint.EntrypointConnectorConfiguration not present
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
+	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
+	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
+	at java.base/sun.reflect.generics.reflectiveObjects.LazyReflectiveObjectGenerator.reifyBounds(LazyReflectiveObjectGenerator.java:65)
+	at java.base/sun.reflect.generics.reflectiveObjects.TypeVariableImpl.getBounds(TypeVariableImpl.java:125)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeParameterReference(JavaReflectionVisitorImpl.java:423)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitTypeParameterReference(JavaReflectionTreeBuilder.java:479)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:436)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:481)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitTypeReference(JavaReflectionTreeBuilder.java:505)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitTypeReference(JavaReflectionVisitorImpl.java:440)
+	at spoon.support.visitor.java.JavaReflectionVisitorImpl.visitInterface(JavaReflectionVisitorImpl.java:135)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.visitInterface(JavaReflectionTreeBuilder.java:226)
+	at spoon.support.visitor.java.JavaReflectionTreeBuilder.scan(JavaReflectionTreeBuilder.java:116)
+	at spoon.reflect.factory.TypeFactory.buildNewShadowClass(TypeFactory.java:688)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at spoon.reflect.factory.TypeFactory.get(TypeFactory.java:680)
+	at spoon.support.compiler.jdt.JDTImportBuilder.getOrLoadClass(JDTImportBuilder.java:176)
+	at spoon.support.compiler.jdt.JDTImportBuilder.build(JDTImportBuilder.java:77)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.lambda$buildModel$1(JDTBasedSpoonCompiler.java:466)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.forEachCompilationUnit(JDTBasedSpoonCompiler.java:489)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildModel(JDTBasedSpoonCompiler.java:465)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildUnitsAndModel(JDTBasedSpoonCompiler.java:389)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.buildSources(JDTBasedSpoonCompiler.java:347)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.build(JDTBasedSpoonCompiler.java:118)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.build(JDTBasedSpoonCompiler.java:101)
+	at spoon.Launcher.buildModel(Launcher.java:781)
+	at at.aau.serg.parsers.SpoonModelLoader.loadModel(SpoonModelLoader.java:50)
+	at at.aau.serg.parsers.FrameworkDetector.detectFramework(FrameworkDetector.java:29)
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:36)
+	at at.aau.serg.parsers.Main.main(Main.java:28)
+Caused by: java.lang.ClassNotFoundException: io.gravitee.gateway.reactive.api.connector.entrypoint.EntrypointConnectorConfiguration
+	at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:445)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:593)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:114)
+	... 30 common frames omitted
+11:09:02.183 [main] DEBUG - Logging to Logger[org.eclipse.jetty.util.log] via org.eclipse.jetty.util.log.Slf4jLog
+11:09:02.185 [main] INFO  - Logging initialized @29648ms to org.eclipse.jetty.util.log.Slf4jLog
+11:09:02.422 [main] ERROR - "// if permission changes or a new one is added, please update io.gravitee.rest.api.service.impl.UserServiceImpl#canResetPassword" cannot be added into the AST, with parent class spoon.support.reflect.declaration.CtAnnotationImpl at (/home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management/gravitee-apim-rest-api-management-rest/src/main/java/io/gravitee/rest/api/management/rest/resource/organization/UserResource.java:185), please report the bug by posting on https://github.com/INRIA/spoon/issues/2482
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+11:09:03.312 [main] INFO  - Transforming getOpenApi controller method
+11:09:03.315 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/yaml
+11:09:03.316 [main] DEBUG - Base Controller Path /openapi.yaml, Path null, fullPath /openapi.yaml, cleanedPath /openapi.yaml
+11:09:03.383 [main] INFO  - Transforming checkApiLifeCycle controller method
+11:09:03.383 [main] INFO  - Transforming deleteApi controller method
+11:09:03.384 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("closePlans")
+boolean closePlans 
+11:09:03.389 [main] DEBUG - Mapping simple parameter closePlans (Parameter: @javax.ws.rs.QueryParam("closePlans")
+boolean closePlans)
+11:09:03.402 [main] INFO  - Transforming deployApi controller method
+11:09:03.421 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+final io.gravitee.rest.api.model.api.ApiDeploymentEntity apiDeploymentEntity 
+11:09:03.442 [main] INFO  - Transforming filterSensitiveData controller method
+11:09:03.442 [main] INFO  - Transforming getApiById controller method
+11:09:03.442 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.443 [main] DEBUG - Base Controller Path /apis/{apiId}, Path null, fullPath /apis/{apiId}, cleanedPath /apis/{apiId}
+11:09:03.461 [main] INFO  - Transforming getApiPlansResource controller method
+11:09:03.461 [main] INFO  - Transforming setPictures controller method
+11:09:03.461 [main] INFO  - Transforming startAPI controller method
+11:09:03.471 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.HttpHeaders headers 
+11:09:03.471 [main] INFO  - Transforming stopAPI controller method
+11:09:03.480 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.HttpHeaders headers 
+11:09:03.481 [main] INFO  - Transforming updateApi controller method
+11:09:03.496 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.HttpHeaders headers 
+11:09:03.497 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+final io.gravitee.rest.api.model.v4.api.UpdateApiEntity apiToUpdate 
+11:09:03.507 [main] INFO  - Transforming getEndpoints controller method
+11:09:03.508 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.508 [main] DEBUG - Base Controller Path /endpoints, Path null, fullPath /endpoints, cleanedPath /endpoints
+11:09:03.521 [main] INFO  - Transforming getEntrypoint controller method
+11:09:03.521 [main] DEBUG - Called mapGet with annotation name "", path /{endpointId}, method [GET], produces application/json
+11:09:03.521 [main] DEBUG - Base Controller Path /endpoints, Path /{endpointId}, fullPath /endpoints/{endpointId}, cleanedPath /endpoints/{endpointId}
+11:09:03.521 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId 
+11:09:03.522 [main] DEBUG - Mapping simple parameter endpointId (Parameter: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId)
+11:09:03.535 [main] INFO  - Transforming getEntrypointDoc controller method
+11:09:03.536 [main] DEBUG - Called mapGet with annotation name "", path /{endpointId}/documentation, method [GET], produces text/plain
+11:09:03.536 [main] DEBUG - Base Controller Path /endpoints, Path /{endpointId}/documentation, fullPath /endpoints/{endpointId}/documentation, cleanedPath /endpoints/{endpointId}/documentation
+11:09:03.536 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId 
+11:09:03.536 [main] DEBUG - Mapping simple parameter endpointId (Parameter: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId)
+11:09:03.541 [main] INFO  - Transforming getEntrypointSchema controller method
+11:09:03.541 [main] DEBUG - Called mapGet with annotation name "", path /{endpointId}/schema, method [GET], produces application/json
+11:09:03.541 [main] DEBUG - Base Controller Path /endpoints, Path /{endpointId}/schema, fullPath /endpoints/{endpointId}/schema, cleanedPath /endpoints/{endpointId}/schema
+11:09:03.541 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId 
+11:09:03.542 [main] DEBUG - Mapping simple parameter endpointId (Parameter: @javax.ws.rs.PathParam("endpointId")
+java.lang.String endpointId)
+11:09:03.546 [main] INFO  - Transforming getEntrypoint controller method
+11:09:03.547 [main] DEBUG - Called mapGet with annotation name "", path /{entrypointId}, method [GET], produces application/json
+11:09:03.547 [main] DEBUG - Base Controller Path /entrypoints, Path /{entrypointId}, fullPath /entrypoints/{entrypointId}, cleanedPath /entrypoints/{entrypointId}
+11:09:03.547 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId 
+11:09:03.547 [main] DEBUG - Mapping simple parameter entrypointId (Parameter: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId)
+11:09:03.557 [main] INFO  - Transforming getEntrypointDoc controller method
+11:09:03.557 [main] DEBUG - Called mapGet with annotation name "", path /{entrypointId}/documentation, method [GET], produces text/plain
+11:09:03.558 [main] DEBUG - Base Controller Path /entrypoints, Path /{entrypointId}/documentation, fullPath /entrypoints/{entrypointId}/documentation, cleanedPath /entrypoints/{entrypointId}/documentation
+11:09:03.558 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId 
+11:09:03.558 [main] DEBUG - Mapping simple parameter entrypointId (Parameter: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId)
+11:09:03.563 [main] INFO  - Transforming getEntrypointSchema controller method
+11:09:03.563 [main] DEBUG - Called mapGet with annotation name "", path /{entrypointId}/schema, method [GET], produces application/json
+11:09:03.563 [main] DEBUG - Base Controller Path /entrypoints, Path /{entrypointId}/schema, fullPath /entrypoints/{entrypointId}/schema, cleanedPath /entrypoints/{entrypointId}/schema
+11:09:03.563 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId 
+11:09:03.563 [main] DEBUG - Mapping simple parameter entrypointId (Parameter: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId)
+11:09:03.568 [main] INFO  - Transforming getEntrypointSubscriptionSchema controller method
+11:09:03.568 [main] DEBUG - Called mapGet with annotation name "", path /{entrypointId}/subscriptionSchema, method [GET], produces application/json
+11:09:03.569 [main] DEBUG - Base Controller Path /entrypoints, Path /{entrypointId}/subscriptionSchema, fullPath /entrypoints/{entrypointId}/subscriptionSchema, cleanedPath /entrypoints/{entrypointId}/subscriptionSchema
+11:09:03.569 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId 
+11:09:03.569 [main] DEBUG - Mapping simple parameter entrypointId (Parameter: @javax.ws.rs.PathParam("entrypointId")
+java.lang.String entrypointId)
+11:09:03.573 [main] INFO  - Transforming getEntrypoints controller method
+11:09:03.574 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.574 [main] DEBUG - Base Controller Path /entrypoints, Path null, fullPath /entrypoints, cleanedPath /entrypoints
+11:09:03.580 [main] INFO  - Transforming createApi controller method
+11:09:03.598 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+final io.gravitee.rest.api.model.v4.api.NewApiEntity newApiEntity 
+11:09:03.609 [main] INFO  - Transforming getEnvironment controller method
+11:09:03.609 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.609 [main] DEBUG - Base Controller Path /environments/{envId}, Path null, fullPath /environments/{envId}, cleanedPath /environments/{envId}
+11:09:03.609 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("envId")
+java.lang.String envId 
+11:09:03.609 [main] DEBUG - Mapping simple parameter envId (Parameter: @javax.ws.rs.PathParam("envId")
+java.lang.String envId)
+11:09:03.620 [main] INFO  - Transforming get controller method
+11:09:03.621 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.621 [main] DEBUG - Base Controller Path /organizations/{orgId}, Path null, fullPath /organizations/{orgId}, cleanedPath /organizations/{orgId}
+11:09:03.621 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("orgId")
+java.lang.String orgId 
+11:09:03.621 [main] DEBUG - Mapping simple parameter orgId (Parameter: @javax.ws.rs.PathParam("orgId")
+java.lang.String orgId)
+11:09:03.631 [main] INFO  - Transforming getEnvironments controller method
+11:09:03.631 [main] DEBUG - Called mapGet with annotation name "", path /environments, method [GET], produces application/json
+11:09:03.631 [main] DEBUG - Base Controller Path /organizations/{orgId}, Path /environments, fullPath /organizations/{orgId}/environments, cleanedPath /organizations/{orgId}/environments
+11:09:03.631 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("orgId")
+java.lang.String orgId 
+11:09:03.631 [main] DEBUG - Mapping simple parameter orgId (Parameter: @javax.ws.rs.PathParam("orgId")
+java.lang.String orgId)
+11:09:03.639 [main] INFO  - Transforming afterPropertiesSet controller method
+11:09:03.639 [main] INFO  - Transforming getPublicKey controller method
+11:09:03.639 [main] INFO  - Transforming loadTrustStore controller method
+11:09:03.639 [main] INFO  - Transforming tokenExchange controller method
+11:09:03.639 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:03.639 [main] DEBUG - Base Controller Path /auth/cockpit, Path null, fullPath /auth/cockpit, cleanedPath /auth/cockpit
+11:09:03.639 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("token")
+final java.lang.String token 
+11:09:03.640 [main] DEBUG - Mapping simple parameter token (Parameter: @javax.ws.rs.QueryParam("token")
+final java.lang.String token)
+11:09:03.642 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+final javax.servlet.http.HttpServletResponse httpResponse 
+11:09:03.652 [main] INFO  - Transforming getOrganizationResource controller method
+11:09:03.652 [main] INFO  - Transforming getOrganizationResource controller method
+11:09:03.652 [main] INFO  - Transforming getOpenApi controller method
+11:09:03.652 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:03.652 [main] DEBUG - Base Controller Path /openapi.{type:json|yaml}, Path null, fullPath /openapi.{type:json|yaml}, cleanedPath /openapi.{type}
+11:09:03.653 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("type")
+java.lang.String type 
+11:09:03.653 [main] DEBUG - Mapping simple parameter type (Parameter: @javax.ws.rs.PathParam("type")
+java.lang.String type)
+11:09:03.671 [main] INFO  - Transforming getApisResource controller method
+11:09:03.671 [main] INFO  - Transforming getApplicationsResource controller method
+11:09:03.671 [main] INFO  - Transforming getAuthResource controller method
+11:09:03.671 [main] INFO  - Transforming getCategoriesResource controller method
+11:09:03.671 [main] INFO  - Transforming getConfigurationResource controller method
+11:09:03.671 [main] INFO  - Transforming getDashboardsResource controller method
+11:09:03.672 [main] INFO  - Transforming getGroupsResource controller method
+11:09:03.672 [main] INFO  - Transforming getInfoResource controller method
+11:09:03.672 [main] INFO  - Transforming getMediaResource controller method
+11:09:03.672 [main] INFO  - Transforming getNotifiersResource controller method
+11:09:03.672 [main] INFO  - Transforming getPagesResource controller method
+11:09:03.672 [main] INFO  - Transforming getPermissionsResource controller method
+11:09:03.672 [main] INFO  - Transforming getSubscriptionsResource controller method
+11:09:03.672 [main] INFO  - Transforming getThemeResource controller method
+11:09:03.672 [main] INFO  - Transforming getTicketsResource controller method
+11:09:03.672 [main] INFO  - Transforming getUserResource controller method
+11:09:03.672 [main] INFO  - Transforming getUsersResource controller method
+11:09:03.672 [main] INFO  - Transforming getOpenApiDefinition controller method
+11:09:03.672 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces text/plain
+11:09:03.672 [main] DEBUG - Base Controller Path /openapi, Path null, fullPath /openapi, cleanedPath /openapi
+11:09:03.690 [main] INFO  - Transforming canManageApi controller method
+11:09:03.690 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.690 [main] INFO  - Transforming canReadApi controller method
+11:09:03.690 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.690 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.690 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.690 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.690 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.690 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.690 [main] INFO  - Transforming hasPermission controller method
+11:09:03.690 [main] INFO  - Transforming hasPermission controller method
+11:09:03.690 [main] INFO  - Transforming isAdmin controller method
+11:09:03.690 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.690 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.690 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.690 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.690 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.690 [main] INFO  - Transforming canManageApi controller method
+11:09:03.690 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.691 [main] INFO  - Transforming canReadApi controller method
+11:09:03.691 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.691 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.691 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.691 [main] INFO  - Transforming hasPermission controller method
+11:09:03.691 [main] INFO  - Transforming hasPermission controller method
+11:09:03.691 [main] INFO  - Transforming isAdmin controller method
+11:09:03.691 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.691 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.691 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.691 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.691 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.691 [main] INFO  - Transforming canManageApi controller method
+11:09:03.691 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.691 [main] INFO  - Transforming canReadApi controller method
+11:09:03.691 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.691 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.691 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.691 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.691 [main] INFO  - Transforming hasPermission controller method
+11:09:03.691 [main] INFO  - Transforming hasPermission controller method
+11:09:03.691 [main] INFO  - Transforming isAdmin controller method
+11:09:03.691 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.691 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.691 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.692 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.692 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.692 [main] INFO  - Transforming connectUser controller method
+11:09:03.692 [main] INFO  - Transforming connectUser controller method
+11:09:03.692 [main] INFO  - Transforming connectUserInternal controller method
+11:09:03.692 [main] INFO  - Transforming getEntity controller method
+11:09:03.692 [main] INFO  - Transforming getResponseEntity controller method
+11:09:03.692 [main] INFO  - Transforming getResponseEntityAsString controller method
+11:09:03.692 [main] INFO  - Transforming canManageApi controller method
+11:09:03.692 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.692 [main] INFO  - Transforming canReadApi controller method
+11:09:03.692 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.692 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.692 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.692 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.692 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.693 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.693 [main] INFO  - Transforming hasPermission controller method
+11:09:03.693 [main] INFO  - Transforming hasPermission controller method
+11:09:03.693 [main] INFO  - Transforming isAdmin controller method
+11:09:03.693 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.693 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.693 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.693 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.693 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.693 [main] INFO  - Transforming canManageApi controller method
+11:09:03.693 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.693 [main] INFO  - Transforming canReadApi controller method
+11:09:03.693 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.693 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.693 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.693 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.693 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.693 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.693 [main] INFO  - Transforming hasPermission controller method
+11:09:03.693 [main] INFO  - Transforming hasPermission controller method
+11:09:03.693 [main] INFO  - Transforming isAdmin controller method
+11:09:03.693 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.693 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.693 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.694 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.694 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.694 [main] INFO  - Transforming canManageApi controller method
+11:09:03.694 [main] INFO  - Transforming canReadAPIConfiguration controller method
+11:09:03.694 [main] INFO  - Transforming canReadApi controller method
+11:09:03.694 [main] INFO  - Transforming evaluateIfMatch controller method
+11:09:03.694 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.694 [main] INFO  - Transforming getAuthenticatedUserDetails controller method
+11:09:03.694 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.694 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.694 [main] INFO  - Transforming getRequestUriBuilder controller method
+11:09:03.694 [main] INFO  - Transforming hasPermission controller method
+11:09:03.694 [main] INFO  - Transforming hasPermission controller method
+11:09:03.694 [main] INFO  - Transforming isAdmin controller method
+11:09:03.694 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.694 [main] INFO  - Transforming isDirectMember controller method
+11:09:03.694 [main] INFO  - Transforming isMemberThroughGroup controller method
+11:09:03.694 [main] INFO  - Transforming isUserInRole controller method
+11:09:03.694 [main] INFO  - Transforming retrieveApiMembership controller method
+11:09:03.694 [main] INFO  - Transforming checkAndScaleImage controller method
+11:09:03.694 [main] INFO  - Transforming checkImageFormat controller method
+11:09:03.694 [main] INFO  - Transforming computeMetadata controller method
+11:09:03.694 [main] INFO  - Transforming computePaginatedLinks controller method
+11:09:03.694 [main] INFO  - Transforming createDataResponse controller method
+11:09:03.694 [main] INFO  - Transforming createListResponse controller method
+11:09:03.694 [main] INFO  - Transforming createListResponse controller method
+11:09:03.694 [main] INFO  - Transforming createListResponse controller method
+11:09:03.694 [main] INFO  - Transforming createListResponse controller method
+11:09:03.694 [main] INFO  - Transforming createMediaResponse controller method
+11:09:03.694 [main] INFO  - Transforming createPictureResponse controller method
+11:09:03.694 [main] INFO  - Transforming fillMetadata controller method
+11:09:03.695 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.695 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.695 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.695 [main] INFO  - Transforming hasPermission controller method
+11:09:03.695 [main] INFO  - Transforming hasPermission controller method
+11:09:03.695 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.695 [main] INFO  - Transforming paginateResultList controller method
+11:09:03.695 [main] INFO  - Transforming transformPageContent controller method
+11:09:03.695 [main] INFO  - Transforming checkAndScaleImage controller method
+11:09:03.695 [main] INFO  - Transforming checkImageFormat controller method
+11:09:03.695 [main] INFO  - Transforming computeMetadata controller method
+11:09:03.695 [main] INFO  - Transforming computePaginatedLinks controller method
+11:09:03.695 [main] INFO  - Transforming createDataResponse controller method
+11:09:03.695 [main] INFO  - Transforming createListResponse controller method
+11:09:03.695 [main] INFO  - Transforming createListResponse controller method
+11:09:03.695 [main] INFO  - Transforming createListResponse controller method
+11:09:03.695 [main] INFO  - Transforming createListResponse controller method
+11:09:03.695 [main] INFO  - Transforming createMediaResponse controller method
+11:09:03.695 [main] INFO  - Transforming createPictureResponse controller method
+11:09:03.696 [main] INFO  - Transforming fillMetadata controller method
+11:09:03.696 [main] INFO  - Transforming getAuthenticatedUser controller method
+11:09:03.696 [main] INFO  - Transforming getAuthenticatedUserOrNull controller method
+11:09:03.696 [main] INFO  - Transforming getLocationHeader controller method
+11:09:03.696 [main] INFO  - Transforming hasPermission controller method
+11:09:03.696 [main] INFO  - Transforming hasPermission controller method
+11:09:03.696 [main] INFO  - Transforming isAuthenticated controller method
+11:09:03.696 [main] INFO  - Transforming paginateResultList controller method
+11:09:03.696 [main] INFO  - Transforming transformPageContent controller method
+11:09:04.505 [main] INFO  - Found @JsonProperty with value: encryptable, replacing original field name: encryptable
+11:09:04.508 [main] INFO  - Found @JsonProperty with value: , replacing original field name: key
+11:09:04.545 [main] INFO  - Found @JsonProperty with value: , replacing original field name: value
+Wrote OpenAPI to outputs-java21-jersey/gravitee-api-management_oas_default.json
+
+real	0m32.479s
+user	0m46.385s
+sys	0m6.163s

@@ -1,0 +1,246 @@
+package at.aau.serg.frameworks.jaxrs;
+
+import at.aau.serg.frameworks.*;
+import at.aau.serg.frameworks.jaxrs.adapters.mappings.JakartaRestOperationAnnotationAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JakartaHeaderParamAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JakartaPathParamAdapter;
+import at.aau.serg.frameworks.jaxrs.adapters.parameters.JakartaQueryParamAdapter;
+import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
+import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
+import at.aau.serg.parsers.HttpMethod;
+import com.github.jrcodeza.schema.generator.DataTypeTransformer;
+import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
+import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
+import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
+
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
+import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
+
+public class JakartaRestFramework extends AbstractJaxRsFramework {
+    ValidationAnnotationProvider validationAnnotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
+
+    @Override
+    public String getIdentifier() {
+        return super.getIdentifier() + " (Jakarta EE)";
+    }
+
+    @Override
+    public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                                    DataTypeTransformer dataTypeTransformer,
+                                                                    SchemaGeneratorHelper schemaHelper,
+                                                                    MethodResponseExtractor methodResponseExtractor) {
+        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
+    }
+
+    @Override
+    public List<String> getControllerAnnotations() {
+        return List.of("jakarta.ws.rs.Path");
+    }
+
+    /**
+     * An exception contains @Provider as annotation and also
+     * implements the jakarta.ws.rs.ext.ExceptionMapper
+     */
+    @Override
+    public List<String> getControllerAdviceAnnotations() {
+        return List.of("jakarta.ws.rs.ext.Provider");
+    }
+
+    @Override
+    public Set<String> getKeyAnnotations() {
+        return Set.of("jakarta.ws.rs.Path");
+    }
+
+    @Override
+    public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
+        if (getControllerAdviceAnnotations().contains(annotationName)) {
+            for (CtTypeReference<?> interfaceRef : type.getSuperInterfaces()) {
+                String qualifiedName = interfaceRef.getQualifiedName();
+                if (qualifiedName.equals("jakarta.ws.rs.ext.ExceptionMapper")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Class<?> getResponseWrapper() {
+        return Response.class;
+    }
+
+    @Override
+    public Class<?> getSupportedFileType() {
+        return MultivaluedMap.class;
+    }
+
+    @Override
+    public Class<? extends Annotation> getParameterGroupAnnotation() {
+        return BeanParam.class;
+    }
+
+
+    @Override
+    public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(param -> !hasAnyAnnotationDisqualifyingParameterAsRequestBody(param))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
+        return getAnnotation(method, POST.class);
+    }
+
+    @Override
+    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
+        return getAnnotation(method, PUT.class);
+    }
+
+    @Override
+    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
+        return getAnnotation(method, PATCH.class);
+    }
+
+    @Override
+    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
+        return getAnnotation(method, GET.class);
+    }
+
+    @Override
+    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
+        return getAnnotation(method, DELETE.class);
+    }
+
+
+    @Override
+    public Optional<RestOperationAnnotation> findClassRequestMappingAnnotation(CtType<?> clazz) {
+        for (CtAnnotation<?> annotation : clazz.getAnnotations()) {
+            String annotationTypeName = annotation.getAnnotationType().getQualifiedName();
+            if (annotationTypeName.equals(Path.class.getName())) {
+                return Optional.of(new JakartaRestOperationAnnotationAdapter(clazz));
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public RestOperationAnnotation convertToRequestAnnotation(Annotation annotation, CtMethod<?> method) {
+        if (annotation instanceof POST) {
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.POST);
+        }
+        if (annotation instanceof PUT) {
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PUT);
+        }
+        if (annotation instanceof PATCH) {
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.PATCH);
+        }
+        if (annotation instanceof GET) {
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.GET);
+        }
+        if (annotation instanceof DELETE) {
+            return new JakartaRestOperationAnnotationAdapter(method, HttpMethod.DELETE);
+        }
+
+        throw new IllegalArgumentException("No supported annotation found");
+    }
+
+    @Override
+    public PathVariableAnnotation tryConvertPathVariableAnnotation(CtParameter<?> parameter) {
+        PathParam annotation = parameter.getAnnotation(PathParam.class);
+        if (annotation != null) {
+            return new JakartaPathParamAdapter(annotation);
+        }
+
+        return null;
+    }
+
+    @Override
+    public RequestParamAnnotation tryConvertRequestParamAnnotation(CtParameter<?> parameter) {
+        // Checks if NotEmpty or NotNull annotation exists and if parameter is type String.
+        // int/long/double are required in OpenAPI for NotNull but not in an actual request as they have a default value
+        boolean isParameterRequired = hasValidationAnnotation(parameter) && isParameterTypeString(parameter);
+
+        QueryParam annotation = parameter.getAnnotation(QueryParam.class);
+        if (annotation != null) {
+            JakartaQueryParamAdapter adapter = new JakartaQueryParamAdapter(annotation);
+            adapter.setRequired(isParameterRequired);
+            return adapter;
+        }
+
+        return null;
+    }
+
+    @Override
+    public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
+        boolean isParameterRequired = hasValidationAnnotation(parameter) && isParameterTypeString(parameter);
+
+        HeaderParam annotation = parameter.getAnnotation(HeaderParam.class);
+        if (annotation != null) {
+            JakartaHeaderParamAdapter adapter = new JakartaHeaderParamAdapter(annotation);
+            adapter.setRequired(isParameterRequired);
+            return adapter;
+        }
+
+        return null;
+    }
+
+    private boolean hasValidationAnnotation(CtParameter<?> parameter) {
+        List<CtAnnotation<? extends Annotation>> annotations = parameter.getAnnotations();
+
+        return annotations.stream()
+                .anyMatch(annotation -> {
+                            Annotation actualAnnotation = annotation.getActualAnnotation();
+                            return validationAnnotationProvider.isNotNullAnnotation(actualAnnotation) ||
+                                    validationAnnotationProvider.isNotEmptyAnnotation(actualAnnotation);
+                        }
+                );
+    }
+
+    /**
+     * Returns true if parameter should be disqualified as a request body.
+     * Disqualifies if parameter has JAX-RS binding annotations (@PathParam, @QueryParam, @Context, etc.)
+     * or if parameter type is a framework-injected type (SecurityContext, HttpHeaders, UriInfo)
+     * In Quarkus, framework-injected types can have @Context but can also be used without this annotation
+     */
+    private boolean hasAnyAnnotationDisqualifyingParameterAsRequestBody(CtParameter<?> parameter) {
+        return isJakartaMethodAnnotationParameter(parameter) || isJakartaConfigurationAnnotation(parameter);
+    }
+
+    private boolean isJakartaConfigurationAnnotation(CtParameter<?> parameter) {
+        String typeName = parameter.getType().getQualifiedName();
+        return typeName.equals("jakarta.ws.rs.core.SecurityContext") ||
+                typeName.equals("jakarta.ws.rs.core.UriInfo") ||
+                typeName.equals("jakarta.ws.rs.core.HttpHeaders");
+    }
+
+    private boolean isJakartaMethodAnnotationParameter(CtParameter<?> parameter) {
+        return parameter.getAnnotations().stream()
+                .map(CtAnnotation::getAnnotationType)
+                .map(CtTypeReference::getQualifiedName)
+                .anyMatch(this::isJakartaParameterAnnotation);
+    }
+
+    private boolean isJakartaParameterAnnotation(String annotationName) {
+        return annotationName.equals("jakarta.ws.rs.PathParam") ||
+                annotationName.equals("jakarta.ws.rs.QueryParam") ||
+                annotationName.equals("jakarta.ws.rs.HeaderParam") ||
+                annotationName.equals("jakarta.ws.rs.CookieParam") ||
+                annotationName.equals("jakarta.ws.rs.MatrixParam") ||
+                annotationName.equals("jakarta.ws.rs.BeanParam") ||
+                annotationName.equals("jakarta.ws.rs.core.Context");
+    }
+}

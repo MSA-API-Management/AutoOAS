@@ -1,4 +1,4 @@
-package at.aau.serg.frameworks.jakarta.adapters.parameters;
+package at.aau.serg.frameworks.jaxrs.adapters.parameters;
 
 import at.aau.serg.frameworks.RequestParamAnnotation;
 import jakarta.ws.rs.QueryParam;

@@ -1,12 +1,13 @@
-package at.aau.serg.frameworks.jakarta.adapters.mappings;
+package at.aau.serg.frameworks.jaxrs.adapters.mappings;
 
 import at.aau.serg.frameworks.RestOperationAnnotation;
 import at.aau.serg.parsers.HttpMethod;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtType;
+
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtType;
 
 import static at.aau.serg.util.Utils.convertToStringArray;
 

@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 RUN apt-get install maven -y
 
-ARG JAR_FILE="./target/auto-oas-1.0.0-jar-with-dependencies.jar"
+ARG JAR_FILE="./target/auto-oas-1.2.0-jar-with-dependencies.jar"
 
 WORKDIR /app/
 COPY ${JAR_FILE} /app/auto-oas.jar

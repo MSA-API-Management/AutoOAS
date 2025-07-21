@@ -4,21 +4,22 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.ExceptionMapper;
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
 import spoon.support.reflect.code.CtFieldReadImpl;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
 import java.util.List;
 
-public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
+public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
 
-    public JakartaOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
-                                                   DataTypeTransformer dataTypeTransformer,
-                                                   SchemaGeneratorHelper schemaHelper,
-                                                   MethodResponseExtractor methodResponseExtractor) {
+    public JavaxOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
+                                                 DataTypeTransformer dataTypeTransformer,
+                                                 SchemaGeneratorHelper schemaHelper,
+                                                 MethodResponseExtractor methodResponseExtractor) {
         super(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
     }
 
@@ -41,13 +42,28 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
                     responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
 
                 } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
-                        || statusCodeMethodArg.getType().getSimpleName().equals("int"))
+                        || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))
                         && statusCodeMethodArg instanceof CtLiteral<?> literal) {
                     responseStatus = (int) literal.getValue();
+
+                } else {
+                    responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
                 }
             }
         }
+
         return responseStatus;
+    }
+
+    private Integer tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+        if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
+            return Response.Status.BAD_REQUEST.getStatusCode();
+        }
+
+        // todo detect more common response code logic - especially apache HttpStatus
+        System.out.println("Could not parse custom response code creation in builder::status: " + statusCodeMethodArg);
+
+        return null;
     }
 
     @Override

@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "simple-quarkus-2cc389",
-    "description" : "Quarkus Profile: default",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
     "version" : ""
   },
   "paths" : {

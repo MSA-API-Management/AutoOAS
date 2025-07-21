@@ -9,12 +9,13 @@ public class Main {
             outputPath = args[1];
         } else {
 //            throw new IllegalArgumentException("Please provide mvn project path and OAS output path");
-            projectPath = "src/test/resources/quarkus/quarkus-requests-misc";
-//            projectPath = "src/test/resources/spring-boot/simple-spring-22c055";
+
+            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/management-api-for-apache-cassandra/management-api-server";
+            //gravitee-api-management/gravitee-apim-rest-api";
+            // gravitee-apim-rest-api-management-v4/gravitee-apim-rest-api-management-v4-rest";
             outputPath = "target/openapi/swagger.json";
         }
 
-//        RestApiParser parser = new ParserFactory().createParser("jakarta", projectPath, outputPath);
         RestApiParser parser = new ParserFactory().createParserWithDetection(projectPath, outputPath);
         parser.run();
     }
