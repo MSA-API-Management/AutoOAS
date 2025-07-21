@@ -187,7 +187,6 @@
         "deprecated" : false
       },
       "TestResult" : {
-        "required" : [ "sc", "testResult" ],
         "type" : "object",
         "properties" : {
           "sc" : {

@@ -1,210 +1,50 @@
 Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
 Detected Framework via Type Annotations: Spring
 Detected profiles: [external, internal, default]
-Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.equals(Object)" because the return value of "java.lang.annotation.Annotation.annotationType()" is null
-	at at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider.isNotNullAnnotation(JakartaValidationAnnotationProvider.java:12)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.lambda$isNotNullAnnotation$1(CompositeValidationAnnotationProvider.java:25)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.isNotNullAnnotation(CompositeValidationAnnotationProvider.java:25)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.lambda$isRequired$3(ComponentSchemaTransformer.java:304)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1034)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.isRequired(ComponentSchemaTransformer.java:303)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getFieldSchema(ComponentSchemaTransformer.java:237)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getClassProperties(ComponentSchemaTransformer.java:208)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.transformSimpleSchema(ComponentSchemaTransformer.java:69)
-	at at.aau.serg.parsers.RestApiParser.createComponentsSchemasFromModels(RestApiParser.java:206)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:132)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
-	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
-	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
-	at at.aau.serg.parsers.Main.main(Main.java:20)
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_external.json
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
 
-real	0m4.910s
-user	0m11.222s
-sys	0m2.117s
+real	0m5.098s
+user	0m11.787s
+sys	0m2.286s
 Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
 Detected Framework via Type Annotations: Spring
 Detected profiles: [external, internal, default]
-Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.equals(Object)" because the return value of "java.lang.annotation.Annotation.annotationType()" is null
-	at at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider.isNotNullAnnotation(JakartaValidationAnnotationProvider.java:12)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.lambda$isNotNullAnnotation$1(CompositeValidationAnnotationProvider.java:25)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.isNotNullAnnotation(CompositeValidationAnnotationProvider.java:25)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.lambda$isRequired$3(ComponentSchemaTransformer.java:304)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1034)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.isRequired(ComponentSchemaTransformer.java:303)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getFieldSchema(ComponentSchemaTransformer.java:237)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getClassProperties(ComponentSchemaTransformer.java:208)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.transformSimpleSchema(ComponentSchemaTransformer.java:69)
-	at at.aau.serg.parsers.RestApiParser.createComponentsSchemasFromModels(RestApiParser.java:206)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:132)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
-	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
-	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
-	at at.aau.serg.parsers.Main.main(Main.java:20)
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_external.json
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
 
-real	0m4.819s
-user	0m11.042s
-sys	0m2.158s
+real	0m5.360s
+user	0m12.394s
+sys	0m2.411s
 Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
 Detected Framework via Type Annotations: Spring
 Detected profiles: [external, internal, default]
-Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.equals(Object)" because the return value of "java.lang.annotation.Annotation.annotationType()" is null
-	at at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider.isNotNullAnnotation(JakartaValidationAnnotationProvider.java:12)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.lambda$isNotNullAnnotation$1(CompositeValidationAnnotationProvider.java:25)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.isNotNullAnnotation(CompositeValidationAnnotationProvider.java:25)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.lambda$isRequired$3(ComponentSchemaTransformer.java:304)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1034)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.isRequired(ComponentSchemaTransformer.java:303)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getFieldSchema(ComponentSchemaTransformer.java:237)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getClassProperties(ComponentSchemaTransformer.java:208)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.transformSimpleSchema(ComponentSchemaTransformer.java:69)
-	at at.aau.serg.parsers.RestApiParser.createComponentsSchemasFromModels(RestApiParser.java:206)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:132)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
-	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
-	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
-	at at.aau.serg.parsers.Main.main(Main.java:20)
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_external.json
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
 
-real	0m4.924s
-user	0m11.307s
-sys	0m2.229s
+real	0m5.219s
+user	0m12.154s
+sys	0m2.352s
 Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
 Detected Framework via Type Annotations: Spring
 Detected profiles: [external, internal, default]
-Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.equals(Object)" because the return value of "java.lang.annotation.Annotation.annotationType()" is null
-	at at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider.isNotNullAnnotation(JakartaValidationAnnotationProvider.java:12)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.lambda$isNotNullAnnotation$1(CompositeValidationAnnotationProvider.java:25)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.isNotNullAnnotation(CompositeValidationAnnotationProvider.java:25)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.lambda$isRequired$3(ComponentSchemaTransformer.java:304)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1034)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.isRequired(ComponentSchemaTransformer.java:303)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getFieldSchema(ComponentSchemaTransformer.java:237)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getClassProperties(ComponentSchemaTransformer.java:208)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.transformSimpleSchema(ComponentSchemaTransformer.java:69)
-	at at.aau.serg.parsers.RestApiParser.createComponentsSchemasFromModels(RestApiParser.java:206)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:132)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
-	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
-	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
-	at at.aau.serg.parsers.Main.main(Main.java:20)
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_external.json
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
 
-real	0m4.803s
-user	0m11.022s
-sys	0m2.226s
+real	0m5.251s
+user	0m12.084s
+sys	0m2.365s
 Loading model: /home/alex/Respector-fork/dataset/cwa-verification-server
 Detected Framework via Type Annotations: Spring
 Detected profiles: [external, internal, default]
-Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.equals(Object)" because the return value of "java.lang.annotation.Annotation.annotationType()" is null
-	at at.aau.serg.frameworks.validation.JakartaValidationAnnotationProvider.isNotNullAnnotation(JakartaValidationAnnotationProvider.java:12)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.lambda$isNotNullAnnotation$1(CompositeValidationAnnotationProvider.java:25)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at at.aau.serg.frameworks.validation.CompositeValidationAnnotationProvider.isNotNullAnnotation(CompositeValidationAnnotationProvider.java:25)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.lambda$isRequired$3(ComponentSchemaTransformer.java:304)
-	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90)
-	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1034)
-	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
-	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
-	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.isRequired(ComponentSchemaTransformer.java:303)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getFieldSchema(ComponentSchemaTransformer.java:237)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.getClassProperties(ComponentSchemaTransformer.java:208)
-	at com.github.jrcodeza.schema.generator.ComponentSchemaTransformer.transformSimpleSchema(ComponentSchemaTransformer.java:69)
-	at at.aau.serg.parsers.RestApiParser.createComponentsSchemasFromModels(RestApiParser.java:206)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:132)
-	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
-	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
-	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
-	at at.aau.serg.parsers.Main.main(Main.java:20)
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_external.json
+Wrote OpenAPI to outputs-java21/cwa-verification-server_oas_internal.json
+Skipping empty profile: default
 
-real	0m4.928s
-user	0m11.173s
-sys	0m2.220s
+real	0m5.418s
+user	0m12.537s
+sys	0m2.357s

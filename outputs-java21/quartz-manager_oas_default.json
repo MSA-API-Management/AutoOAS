@@ -377,7 +377,6 @@
         }
       },
       "TriggerDTO" : {
-        "required" : [ "mayFireAgain", "misfireInstruction", "priority" ],
         "type" : "object",
         "properties" : {
           "finalFireTime" : {
@@ -425,7 +424,6 @@
         "allOf" : [ {
           "$ref" : "#/components/schemas/TriggerDTO"
         }, {
-          "required" : [ "repeatCount", "repeatInterval", "timesTriggered" ],
           "type" : "object",
           "properties" : {
             "repeatInterval" : {
