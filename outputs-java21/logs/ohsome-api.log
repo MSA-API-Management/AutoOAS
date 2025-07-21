@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ohsome-api_oas_default.json
+
+real	0m8.335s
+user	0m19.451s
+sys	0m3.121s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ohsome-api_oas_default.json
+
+real	0m7.530s
+user	0m18.328s
+sys	0m2.942s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ohsome-api_oas_default.json
+
+real	0m7.603s
+user	0m18.251s
+sys	0m3.070s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ohsome-api_oas_default.json
+
+real	0m7.867s
+user	0m18.995s
+sys	0m3.130s
+Loading model: /home/alex/Respector-fork/dataset/ohsome-api
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ohsome-api_oas_default.json
+
+real	0m7.559s
+user	0m17.692s
+sys	0m3.072s

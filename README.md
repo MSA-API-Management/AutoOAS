@@ -24,8 +24,8 @@ Execute the runtime evaluation script with the following commands. The script al
 
 ```shell
 dataset_dir="/home/alex/Respector-fork/dataset"
-output_dir="outputs-java21-jersey"
-for _ in {1..1}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jersey; done
+output_dir="outputs-java21"
+for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jersey -spring; done
 
 python3 scripts/calc_runtime_avg.py $output_dir/logs
 # or calculate manually

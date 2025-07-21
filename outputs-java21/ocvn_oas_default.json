@@ -35332,7 +35332,6 @@
         }
       },
       "Dummy" : {
-        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "id" : {

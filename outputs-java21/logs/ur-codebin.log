@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/Ur-Codebin-API
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/Ur-Codebin-API_oas_default.json
+
+real	0m4.776s
+user	0m10.822s
+sys	0m2.172s
+Loading model: /home/alex/Respector-fork/dataset/Ur-Codebin-API
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/Ur-Codebin-API_oas_default.json
+
+real	0m4.570s
+user	0m10.239s
+sys	0m2.137s
+Loading model: /home/alex/Respector-fork/dataset/Ur-Codebin-API
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/Ur-Codebin-API_oas_default.json
+
+real	0m4.745s
+user	0m10.417s
+sys	0m2.200s
+Loading model: /home/alex/Respector-fork/dataset/Ur-Codebin-API
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/Ur-Codebin-API_oas_default.json
+
+real	0m4.716s
+user	0m10.416s
+sys	0m2.147s
+Loading model: /home/alex/Respector-fork/dataset/Ur-Codebin-API
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/Ur-Codebin-API_oas_default.json
+
+real	0m4.733s
+user	0m10.559s
+sys	0m2.228s

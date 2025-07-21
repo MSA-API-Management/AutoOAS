@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/senzing-api-server_oas_default.json
+
+real	0m7.737s
+user	0m19.952s
+sys	0m3.064s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/senzing-api-server_oas_default.json
+
+real	0m7.860s
+user	0m20.465s
+sys	0m2.976s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/senzing-api-server_oas_default.json
+
+real	0m7.686s
+user	0m19.847s
+sys	0m3.019s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/senzing-api-server_oas_default.json
+
+real	0m7.858s
+user	0m20.207s
+sys	0m3.092s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/senzing-api-server_oas_default.json
+
+real	0m7.560s
+user	0m19.490s
+sys	0m3.048s

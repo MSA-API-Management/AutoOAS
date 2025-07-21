@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/kafka-rest_oas_default.json
+
+real	0m8.835s
+user	0m22.316s
+sys	0m3.400s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/kafka-rest_oas_default.json
+
+real	0m8.756s
+user	0m22.517s
+sys	0m3.366s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/kafka-rest_oas_default.json
+
+real	0m8.769s
+user	0m22.429s
+sys	0m3.389s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/kafka-rest_oas_default.json
+
+real	0m8.739s
+user	0m22.106s
+sys	0m3.465s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/kafka-rest_oas_default.json
+
+real	0m8.833s
+user	0m22.509s
+sys	0m3.497s

@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m6.054s
+user	0m14.287s
+sys	0m2.590s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.949s
+user	0m13.875s
+sys	0m2.521s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m6.031s
+user	0m14.137s
+sys	0m2.591s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m5.900s
+user	0m14.171s
+sys	0m2.490s
+Loading model: /home/alex/Respector-fork/dataset/catwatch
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/catwatch_oas_default.json
+
+real	0m6.090s
+user	0m14.298s
+sys	0m2.730s

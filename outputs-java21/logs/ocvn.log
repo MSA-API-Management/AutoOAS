@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/ocvn/web
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ocvn_oas_default.json
+
+real	0m18.664s
+user	0m29.401s
+sys	0m3.491s
+Loading model: /home/alex/Respector-fork/dataset/ocvn/web
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ocvn_oas_default.json
+
+real	0m15.210s
+user	0m24.733s
+sys	0m3.268s
+Loading model: /home/alex/Respector-fork/dataset/ocvn/web
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ocvn_oas_default.json
+
+real	0m16.012s
+user	0m27.202s
+sys	0m3.414s
+Loading model: /home/alex/Respector-fork/dataset/ocvn/web
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ocvn_oas_default.json
+
+real	0m15.851s
+user	0m26.160s
+sys	0m3.268s
+Loading model: /home/alex/Respector-fork/dataset/ocvn/web
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/ocvn_oas_default.json
+
+real	0m15.650s
+user	0m26.476s
+sys	0m3.414s

@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m7.086s
+user	0m17.180s
+sys	0m2.826s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.276s
+user	0m15.391s
+sys	0m2.541s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.274s
+user	0m15.246s
+sys	0m2.569s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.185s
+user	0m14.973s
+sys	0m2.567s
+Loading model: /home/alex/Respector-fork/dataset/proxyprint-kitchen
+Detected Framework via Type Annotations: Spring
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/proxyprint-kitchen_oas_default.json
+
+real	0m6.189s
+user	0m15.011s
+sys	0m2.598s

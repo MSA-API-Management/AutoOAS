@@ -207,14 +207,14 @@
       "UserAccountDTO" : {
         "type" : "object",
         "properties" : {
-          "id" : {
+          "account_email" : {
+            "type" : "string"
+          },
+          "account_id" : {
             "type" : "integer",
             "format" : "int64"
           },
-          "email" : {
-            "type" : "string"
-          },
-          "username" : {
+          "account_username" : {
             "type" : "string"
           }
         }
@@ -230,19 +230,19 @@
       "UploadPasteRequestBody" : {
         "type" : "object",
         "properties" : {
-          "pasteVisibility" : {
+          "paste_visibility" : {
             "$ref" : "#/components/schemas/PasteVisibility"
           },
-          "pasteTitle" : {
+          "paste_title" : {
             "type" : "string"
           },
-          "sourceCode" : {
-            "type" : "string"
-          },
-          "pasteExpiration" : {
+          "paste_expiration" : {
             "$ref" : "#/components/schemas/PasteExpiration"
           },
-          "pasteSyntax" : {
+          "source_code" : {
+            "type" : "string"
+          },
+          "paste_syntax" : {
             "$ref" : "#/components/schemas/PasteSyntax"
           }
         }
@@ -250,23 +250,23 @@
       "CodePasteDTO" : {
         "type" : "object",
         "properties" : {
-          "pasteVisibility" : {
+          "paste_visibility" : {
             "$ref" : "#/components/schemas/PasteVisibility"
           },
-          "sourceCode" : {
+          "paste_title" : {
             "type" : "string"
           },
-          "pasteTitle" : {
-            "type" : "string"
+          "paste_id" : {
+            "$ref" : "#/components/schemas/UUID"
           },
-          "pasteExpirationDate" : {
+          "paste_expiration_date" : {
             "type" : "string",
             "format" : "date-time"
           },
-          "pasteId" : {
-            "$ref" : "#/components/schemas/UUID"
+          "source_code" : {
+            "type" : "string"
           },
-          "pasteSyntax" : {
+          "paste_syntax" : {
             "$ref" : "#/components/schemas/PasteSyntax"
           }
         }
@@ -281,13 +281,13 @@
       "SignupRequestBody" : {
         "type" : "object",
         "properties" : {
-          "password" : {
+          "account_email" : {
             "type" : "string"
           },
-          "email" : {
+          "account_password" : {
             "type" : "string"
           },
-          "username" : {
+          "account_username" : {
             "type" : "string"
           }
         }

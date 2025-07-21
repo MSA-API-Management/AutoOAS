@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/features-service_oas_default.json
+
+real	0m4.248s
+user	0m9.160s
+sys	0m2.048s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/features-service_oas_default.json
+
+real	0m4.370s
+user	0m9.340s
+sys	0m2.090s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/features-service_oas_default.json
+
+real	0m4.292s
+user	0m9.326s
+sys	0m2.059s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/features-service_oas_default.json
+
+real	0m4.375s
+user	0m9.379s
+sys	0m2.185s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/features-service_oas_default.json
+
+real	0m4.236s
+user	0m9.074s
+sys	0m2.067s

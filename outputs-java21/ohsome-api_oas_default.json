@@ -2879,7 +2879,6 @@
         }
       },
       "MetadataResponse" : {
-        "required" : [ "timeout" ],
         "type" : "object",
         "properties" : {
           "apiVersion" : {
@@ -2898,7 +2897,6 @@
         }
       },
       "ExtractRegion" : {
-        "required" : [ "replicationSequenceNumber" ],
         "type" : "object",
         "properties" : {
           "replicationSequenceNumber" : {

@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/restcountries_oas_default.json
+
+real	0m4.303s
+user	0m8.892s
+sys	0m2.083s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/restcountries_oas_default.json
+
+real	0m4.329s
+user	0m8.916s
+sys	0m2.083s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/restcountries_oas_default.json
+
+real	0m4.197s
+user	0m8.591s
+sys	0m2.061s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/restcountries_oas_default.json
+
+real	0m4.404s
+user	0m9.056s
+sys	0m2.059s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/restcountries_oas_default.json
+
+real	0m4.269s
+user	0m8.734s
+sys	0m2.090s

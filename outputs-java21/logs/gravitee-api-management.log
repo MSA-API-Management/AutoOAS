@@ -1,0 +1,40 @@
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/gravitee-api-management_oas_default.json
+
+real	0m16.342s
+user	0m41.496s
+sys	0m5.498s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/gravitee-api-management_oas_default.json
+
+real	0m15.832s
+user	0m40.743s
+sys	0m5.344s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/gravitee-api-management_oas_default.json
+
+real	0m16.498s
+user	0m41.700s
+sys	0m5.504s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/gravitee-api-management_oas_default.json
+
+real	0m16.333s
+user	0m41.452s
+sys	0m5.382s
+Loading model: /home/alex/Respector-fork/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21/gravitee-api-management_oas_default.json
+
+real	0m16.286s
+user	0m41.928s
+sys	0m5.393s

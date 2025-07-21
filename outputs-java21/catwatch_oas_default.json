@@ -590,7 +590,6 @@
         }
       },
       "Project" : {
-        "required" : [ "gitHubProjectId", "id" ],
         "type" : "object",
         "properties" : {
           "snapshotDate" : {
@@ -668,7 +667,6 @@
         }
       },
       "ContributorKey" : {
-        "required" : [ "id", "organizationId" ],
         "type" : "object",
         "properties" : {
           "organizationId" : {
@@ -772,7 +770,6 @@
         }
       },
       "StatisticsKey" : {
-        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "snapshotDate" : {

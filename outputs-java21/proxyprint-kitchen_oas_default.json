@@ -2084,7 +2084,6 @@
   "components" : {
     "schemas" : {
       "RegisterRequest" : {
-        "required" : [ "accepted", "id" ],
         "type" : "object",
         "properties" : {
           "pShopName" : {
@@ -2132,7 +2131,6 @@
         }
       },
       "User" : {
-        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "password" : {
@@ -2180,7 +2178,6 @@
         } ]
       },
       "Notification" : {
-        "required" : [ "id", "read" ],
         "type" : "object",
         "properties" : {
           "read" : {
@@ -2200,7 +2197,6 @@
         }
       },
       "Money" : {
-        "required" : [ "fractionalPart", "integerPart" ],
         "type" : "object",
         "properties" : {
           "currency" : {
@@ -2224,7 +2220,6 @@
         }
       },
       "PaperTableItem" : {
-        "required" : [ "infLim", "supLim" ],
         "type" : "object",
         "properties" : {
           "supLim" : {
@@ -2274,7 +2269,6 @@
         }
       },
       "PrintingSchema" : {
-        "required" : [ "deleted", "id" ],
         "type" : "object",
         "properties" : {
           "coverSpecs" : {
@@ -2299,7 +2293,6 @@
         }
       },
       "RingTableItem" : {
-        "required" : [ "infLim", "supLim" ],
         "type" : "object",
         "properties" : {
           "supLim" : {

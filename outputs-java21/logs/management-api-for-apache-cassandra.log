@@ -1,0 +1,90 @@
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NOT_FOUND
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_PARTIAL_CONTENT
+Could not parse custom response code creation in builder::status: started ? org.apache.http.HttpStatus.SC_CREATED : org.apache.http.HttpStatus.SC_METHOD_FAILURE
+Wrote OpenAPI to outputs-java21/management-api-for-apache-cassandra_oas_default.json
+
+real	0m5.726s
+user	0m12.747s
+sys	0m2.441s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NOT_FOUND
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_PARTIAL_CONTENT
+Could not parse custom response code creation in builder::status: started ? org.apache.http.HttpStatus.SC_CREATED : org.apache.http.HttpStatus.SC_METHOD_FAILURE
+Wrote OpenAPI to outputs-java21/management-api-for-apache-cassandra_oas_default.json
+
+real	0m5.757s
+user	0m13.172s
+sys	0m2.356s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NOT_FOUND
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_PARTIAL_CONTENT
+Could not parse custom response code creation in builder::status: started ? org.apache.http.HttpStatus.SC_CREATED : org.apache.http.HttpStatus.SC_METHOD_FAILURE
+Wrote OpenAPI to outputs-java21/management-api-for-apache-cassandra_oas_default.json
+
+real	0m5.741s
+user	0m13.169s
+sys	0m2.376s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NOT_FOUND
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_PARTIAL_CONTENT
+Could not parse custom response code creation in builder::status: started ? org.apache.http.HttpStatus.SC_CREATED : org.apache.http.HttpStatus.SC_METHOD_FAILURE
+Wrote OpenAPI to outputs-java21/management-api-for-apache-cassandra_oas_default.json
+
+real	0m5.921s
+user	0m13.091s
+sys	0m2.466s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NOT_FOUND
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT
+Could not parse custom response code creation in builder::status: org.apache.http.HttpStatus.SC_PARTIAL_CONTENT
+Could not parse custom response code creation in builder::status: started ? org.apache.http.HttpStatus.SC_CREATED : org.apache.http.HttpStatus.SC_METHOD_FAILURE
+Wrote OpenAPI to outputs-java21/management-api-for-apache-cassandra_oas_default.json
+
+real	0m5.553s
+user	0m12.297s
+sys	0m2.409s
