@@ -4,6 +4,7 @@ import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import org.springframework.http.HttpStatus;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
@@ -57,7 +58,7 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
 
     private Integer tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
         if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
-            return Response.Status.BAD_REQUEST.getStatusCode();
+            return HttpStatus.BAD_REQUEST.value();
         }
 
         // todo detect more common response code logic - especially apache HttpStatus
