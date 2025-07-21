@@ -66,7 +66,7 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         }
 
         // todo detect more common response code logic - especially apache HttpStatus
-        System.out.println("Cound not parse custom response code creation in builder::status: " + statusCodeMethodArg.toString());
+        System.out.println("Could not parse custom response code creation in builder::status: " + statusCodeMethodArg);
 
         return null;
     }
