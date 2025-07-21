@@ -301,9 +301,12 @@ public class ComponentSchemaTransformer {
 
     private boolean isRequired(Annotation[] annotations) {
         return Stream.of(annotations).anyMatch(annotation -> {
-                    return validationAnnotationProvider.isNotNullAnnotation(annotation) || validationAnnotationProvider.isNotEmptyAnnotation(annotation);
-//                        || (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
+                    if (annotation.annotationType() != null) {
+                        return validationAnnotationProvider.isNotNullAnnotation(annotation) || validationAnnotationProvider.isNotEmptyAnnotation(annotation);
+//                             || (annotation instanceof io.swagger.v3.oas.annotations.media.Schema &&
 //                                ((io.swagger.v3.oas.annotations.media.Schema) annotation).required())
+                    }
+                    return false;
                 }
         );
     }
