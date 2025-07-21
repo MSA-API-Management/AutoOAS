@@ -154,7 +154,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 }
             }
 
-            responseStatus = getResponseCodeFromResponseBuilderMethod(method);
+            responseStatus = getResponseCodesFromResponseBuilderMethod(method);
 
             curMethodInChain = method.getTarget();
         }
@@ -170,7 +170,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     abstract protected void setResponseDescription(ApiResponse response, Integer responseStatus);
 
-    abstract protected Integer getResponseCodeFromResponseBuilderMethod(CtInvocation<?> method);
+    abstract protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
 
 
     private ApiResponse extractPayloadTypeInfo(CtExpression<?> expr) {

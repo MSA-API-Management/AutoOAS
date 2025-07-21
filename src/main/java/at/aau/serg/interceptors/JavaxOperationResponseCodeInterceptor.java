@@ -25,27 +25,28 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
     }
 
     @Override
-    protected Integer getResponseCodeFromResponseBuilderMethod(CtInvocation<?> method) {
+    protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method) {
         String methodName = method.getExecutable().getSimpleName();
-        Integer responseStatus = null;
+        List<Integer> responseStatus = null;
 
         // handle response code
         switch (methodName) {
-            case "ok" -> responseStatus = Response.Status.OK.getStatusCode();
-            case "noContent" -> responseStatus = Response.Status.NO_CONTENT.getStatusCode();
-            case "accepted" -> responseStatus = Response.Status.ACCEPTED.getStatusCode();
-            case "notModified" -> responseStatus = Response.Status.NOT_MODIFIED.getStatusCode();
-            case "created" -> responseStatus = Response.Status.CREATED.getStatusCode();
+            case "ok" -> responseStatus = List.of(Response.Status.OK.getStatusCode());
+            case "noContent" -> responseStatus = List.of(Response.Status.NO_CONTENT.getStatusCode());
+            case "accepted" -> responseStatus = List.of(Response.Status.ACCEPTED.getStatusCode());
+            case "notModified" -> responseStatus = List.of(Response.Status.NOT_MODIFIED.getStatusCode());
+            case "created" -> responseStatus = List.of(Response.Status.CREATED.getStatusCode());
             case "status" -> {
                 // custom statusCode with either Response.StatusType or int (::status overload)
                 var statusCodeMethodArg = method.getArguments().getFirst();
                 if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
-                    responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
+                    int statusCode = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
+                    responseStatus = List.of(statusCode);
 
                 } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
                         || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))
                         && statusCodeMethodArg instanceof CtLiteral<?> literal) {
-                    responseStatus = (int) literal.getValue();
+                    responseStatus = List.of((int) literal.getValue());
 
                 } else {
                     responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
@@ -56,9 +57,9 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         return responseStatus;
     }
 
-    private Integer tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+    private List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
         if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
-            return HttpStatus.BAD_REQUEST.value();
+            return List.of(HttpStatus.BAD_REQUEST.value());
         }
 
         // todo detect more common response code logic - especially apache HttpStatus
