@@ -6,7 +6,8 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
-import spoon.reflect.code.*;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
 import spoon.support.reflect.code.CtFieldReadImpl;
 
@@ -27,26 +28,23 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
         Integer responseStatus = null;
 
         // handle response code
-        if (methodName.equals("ok")) {
-            responseStatus = Response.Status.OK.getStatusCode();
-        } else if (methodName.equals("noContent")) {
-            responseStatus = Response.Status.NO_CONTENT.getStatusCode();
-        } else if (methodName.equals("accepted")) {
-            responseStatus = Response.Status.ACCEPTED.getStatusCode();
-        } else if (methodName.equals("notModified")) {
-            responseStatus = Response.Status.NOT_MODIFIED.getStatusCode();
-        } else if (methodName.equals("created")) {
-            responseStatus = Response.Status.CREATED.getStatusCode();
-        } else if (methodName.equals("status")) {
-            // custom statusCode with either Response.StatusType or int (::status overload)
-            var statusCodeMethodArg = method.getArguments().getFirst();
-            if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
-                responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
+        switch (methodName) {
+            case "ok" -> responseStatus = Response.Status.OK.getStatusCode();
+            case "noContent" -> responseStatus = Response.Status.NO_CONTENT.getStatusCode();
+            case "accepted" -> responseStatus = Response.Status.ACCEPTED.getStatusCode();
+            case "notModified" -> responseStatus = Response.Status.NOT_MODIFIED.getStatusCode();
+            case "created" -> responseStatus = Response.Status.CREATED.getStatusCode();
+            case "status" -> {
+                // custom statusCode with either Response.StatusType or int (::status overload)
+                var statusCodeMethodArg = method.getArguments().getFirst();
+                if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
+                    responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
 
-            } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
-                    || statusCodeMethodArg.getType().getSimpleName().equals("int"))
-                    && statusCodeMethodArg instanceof CtLiteral<?> literal) {
-                responseStatus = (int) literal.getValue();
+                } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
+                        || statusCodeMethodArg.getType().getSimpleName().equals("int"))
+                        && statusCodeMethodArg instanceof CtLiteral<?> literal) {
+                    responseStatus = (int) literal.getValue();
+                }
             }
         }
         return responseStatus;
