@@ -2,15 +2,728 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "kafka-rest",
-    "description" : "Jakarta Profile: default",
+    "description" : "JAX-RS (Java EE) Profile: default",
     "version" : ""
   },
   "paths" : {
-    "/" : {
+    "/brokers" : {
+      "get" : {
+        "tags" : [ "brokers-resource" ],
+        "summary" : "list",
+        "operationId" : "listUsingGET__brokers",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/assignments" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "assignment",
+        "operationId" : "assignmentUsingGET__consumers_group_instances_instance_assignments",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConsumerAssignmentResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "assign",
+        "operationId" : "assignUsingPOST__consumers_group_instances_instance_assignments",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConsumerAssignmentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/offsets" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "committedOffsets",
+        "operationId" : "committedOffsetsUsingGET__consumers_group_instances_instance_offsets",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConsumerCommittedResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "commitOffsets",
+        "operationId" : "commitOffsetsUsingPOST__consumers_group_instances_instance_offsets",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "async",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/consumers/{group}" : {
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "createGroup",
+        "operationId" : "createGroupUsingPOST__consumers_group",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateConsumerInstanceRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateConsumerInstanceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}" : {
+      "delete" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "deleteGroup",
+        "operationId" : "deleteGroupUsingDELETE__consumers_group_instances_instance",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/records" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "readRecordProtobuf",
+        "operationId" : "readRecordProtobufUsingGET__consumers_group_instances_instance_records",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "timeout",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "max_bytes",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/positions/beginning" : {
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "seekToBeginning",
+        "operationId" : "seekToBeginningUsingPOST__consumers_group_instances_instance_positions_beginning",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConsumerSeekToRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/positions/end" : {
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "seekToEnd",
+        "operationId" : "seekToEndUsingPOST__consumers_group_instances_instance_positions_end",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConsumerSeekToRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/positions" : {
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "seekToOffset",
+        "operationId" : "seekToOffsetUsingPOST__consumers_group_instances_instance_positions",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConsumerSeekRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/consumers/{group}/instances/{instance}/subscription" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "subscription",
+        "operationId" : "subscriptionUsingGET__consumers_group_instances_instance_subscription",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConsumerSubscriptionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "subscribe",
+        "operationId" : "subscribeUsingPOST__consumers_group_instances_instance_subscription",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConsumerSubscriptionRecord"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "unsubscribe",
+        "operationId" : "unsubscribeUsingDELETE__consumers_group_instances_instance_subscription",
+        "parameters" : [ {
+          "name" : "group",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/topics/{topic}/partitions/{partition}/offsets" : {
+      "get" : {
+        "tags" : [ "partitions-resource" ],
+        "summary" : "getOffsets",
+        "operationId" : "getOffsetsUsingGET__topics_topic_partitions_partition_offsets",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partition",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/topics/{topic}/partitions/{partition}" : {
+      "get" : {
+        "tags" : [ "partitions-resource" ],
+        "summary" : "getPartition",
+        "operationId" : "getPartitionUsingGET__topics_topic_partitions_partition",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partition",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "produce-to-partition-action" ],
+        "summary" : "produceProtobuf",
+        "operationId" : "produceProtobufUsingPOST__topics_topic_partitions_partition",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partition",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/vnd.kafka.protobuf.v2+json; qs=0.1" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/topics/{topic}/partitions" : {
+      "get" : {
+        "tags" : [ "partitions-resource" ],
+        "summary" : "list",
+        "operationId" : "listUsingGET__topics_topic_partitions",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/topics/{topic}" : {
       "get" : {
         "tags" : [ "topics-resource" ],
-        "summary" : "listTopics",
-        "operationId" : "listTopicsUsingGET__",
+        "summary" : "getTopic",
+        "operationId" : "getTopicUsingGET__topics_topic",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "produce-to-topic-action" ],
+        "summary" : "produceProtobuf",
+        "operationId" : "produceProtobufUsingPOST__topics_topic",
+        "parameters" : [ {
+          "name" : "topic",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/vnd.kafka.protobuf.v2+json; qs=0.1" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/" : {
+      "get" : {
+        "tags" : [ "root-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "root-resource" ],
+        "summary" : "post",
+        "operationId" : "postUsingPOST__",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topics" : {
+      "get" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "list",
+        "operationId" : "listUsingGET__topics",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/acls" : {
+      "get" : {
+        "tags" : [ "acls-resource" ],
+        "summary" : "searchAcls",
+        "operationId" : "searchAclsUsingGET__v3_clusters_clusterId_acls",
         "parameters" : [ {
           "name" : "clusterId",
           "in" : "path",
@@ -19,11 +732,1273 @@
             "type" : "string"
           }
         }, {
-          "name" : "includeAuthorizedOperations",
+          "name" : "resource_type",
           "in" : "query",
           "required" : false,
           "schema" : {
-            "type" : "boolean"
+            "$ref" : "#/components/schemas/ResourceType"
+          }
+        }, {
+          "name" : "resource_name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pattern_type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/PatternType"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "operation",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Operation"
+          }
+        }, {
+          "name" : "permission",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Permission"
+          }
+        } ],
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "acls-resource" ],
+        "summary" : "createAcl",
+        "operationId" : "createAclUsingPOST__v3_clusters_clusterId_acls",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "acls-resource" ],
+        "summary" : "deleteAcls",
+        "operationId" : "deleteAclsUsingDELETE__v3_clusters_clusterId_acls",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ResourceType"
+          }
+        }, {
+          "name" : "resource_name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pattern_type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/PatternType"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "operation",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Operation"
+          }
+        }, {
+          "name" : "permission",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Permission"
+          }
+        } ],
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/{brokerId}/configs:alter" : {
+      "post" : {
+        "tags" : [ "alter-broker-config-batch-action" ],
+        "summary" : "alterBrokerConfigBatch",
+        "operationId" : "alterBrokerConfigBatchUsingPOST__v3_clusters_clusterId_brokers_brokerId_configs:alter",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/{config_type}-configs:alter" : {
+      "post" : {
+        "tags" : [ "alter-cluster-config-batch-action" ],
+        "summary" : "alterClusterConfigBatch",
+        "operationId" : "alterClusterConfigBatchUsingPOST__v3_clusters_clusterId_config_type-configs:alter",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "config_type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Type"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/configs:alter" : {
+      "post" : {
+        "tags" : [ "alter-topic-config-batch-action" ],
+        "summary" : "alterTopicConfigBatch",
+        "operationId" : "alterTopicConfigBatchUsingPOST__v3_clusters_clusterId_topics_topicName_configs:alter",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/{brokerId}/configs/{name}" : {
+      "get" : {
+        "tags" : [ "broker-configs-resource" ],
+        "summary" : "getBrokerConfig",
+        "operationId" : "getBrokerConfigUsingGET__v3_clusters_clusterId_brokers_brokerId_configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "broker-configs-resource" ],
+        "summary" : "updateBrokerConfig",
+        "operationId" : "updateBrokerConfigUsingPUT__v3_clusters_clusterId_brokers_brokerId_configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "broker-configs-resource" ],
+        "summary" : "resetBrokerConfig",
+        "operationId" : "resetBrokerConfigUsingDELETE__v3_clusters_clusterId_brokers_brokerId_configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/{brokerId}/configs" : {
+      "get" : {
+        "tags" : [ "broker-configs-resource" ],
+        "summary" : "listBrokerConfigs",
+        "operationId" : "listBrokerConfigsUsingGET__v3_clusters_clusterId_brokers_brokerId_configs",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/{brokerId}" : {
+      "get" : {
+        "tags" : [ "brokers-resource" ],
+        "summary" : "getBroker",
+        "operationId" : "getBrokerUsingGET__v3_clusters_clusterId_brokers_brokerId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers" : {
+      "get" : {
+        "tags" : [ "brokers-resource" ],
+        "summary" : "listBrokers",
+        "operationId" : "listBrokersUsingGET__v3_clusters_clusterId_brokers",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/{config_type}-configs/{name}" : {
+      "get" : {
+        "tags" : [ "cluster-configs-resource" ],
+        "summary" : "getClusterConfig",
+        "operationId" : "getClusterConfigUsingGET__v3_clusters_clusterId_config_type-configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "config_type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Type"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "cluster-configs-resource" ],
+        "summary" : "upsertClusterConfig",
+        "operationId" : "upsertClusterConfigUsingPUT__v3_clusters_clusterId_config_type-configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "config_type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Type"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "cluster-configs-resource" ],
+        "summary" : "deleteClusterConfig",
+        "operationId" : "deleteClusterConfigUsingDELETE__v3_clusters_clusterId_config_type-configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "config_type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Type"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/{config_type}-configs" : {
+      "get" : {
+        "tags" : [ "cluster-configs-resource" ],
+        "summary" : "listClusterConfigs",
+        "operationId" : "listClusterConfigsUsingGET__v3_clusters_clusterId_config_type-configs",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "config_type",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Type"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}" : {
+      "get" : {
+        "tags" : [ "clusters-resource" ],
+        "summary" : "getCluster",
+        "operationId" : "getClusterUsingGET__v3_clusters_clusterId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters" : {
+      "get" : {
+        "tags" : [ "clusters-resource" ],
+        "summary" : "listClusters",
+        "operationId" : "listClustersUsingGET__v3_clusters",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments/{topicName}/partitions/{partitionId}" : {
+      "get" : {
+        "tags" : [ "consumer-assignments-resource" ],
+        "summary" : "getConsumerAssignment",
+        "operationId" : "getConsumerAssignmentUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_consumers_consumerId_assignments_topicName_partitions_partitionId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments" : {
+      "get" : {
+        "tags" : [ "consumer-assignments-resource" ],
+        "summary" : "listConsumerAssignments",
+        "operationId" : "listConsumerAssignmentsUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_consumers_consumerId_assignments",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lag-summary" : {
+      "get" : {
+        "tags" : [ "consumer-group-lag-summaries-resource" ],
+        "summary" : "getConsumerGroupLagSummary",
+        "operationId" : "getConsumerGroupLagSummaryUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_lag-summary",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}" : {
+      "get" : {
+        "tags" : [ "consumer-groups-resource" ],
+        "summary" : "getConsumerGroup",
+        "operationId" : "getConsumerGroupUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups" : {
+      "get" : {
+        "tags" : [ "consumer-groups-resource" ],
+        "summary" : "listConsumerGroups",
+        "operationId" : "listConsumerGroupsUsingGET__v3_clusters_clusterId_consumer-groups",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags/{topicName}/partitions/{partitionId}" : {
+      "get" : {
+        "tags" : [ "consumer-lags-resource" ],
+        "summary" : "getConsumerLag",
+        "operationId" : "getConsumerLagUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_lags_topicName_partitions_partitionId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags" : {
+      "get" : {
+        "tags" : [ "consumer-lags-resource" ],
+        "summary" : "listConsumerLags",
+        "operationId" : "listConsumerLagsUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_lags",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "getConsumer",
+        "operationId" : "getConsumerUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_consumers_consumerId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers" : {
+      "get" : {
+        "tags" : [ "consumers-resource" ],
+        "summary" : "listConsumers",
+        "operationId" : "listConsumersUsingGET__v3_clusters_clusterId_consumer-groups_consumerGroupId_consumers",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "consumerGroupId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/reassignment" : {
+      "get" : {
+        "tags" : [ "get-reassignment-action" ],
+        "summary" : "getReassignment",
+        "operationId" : "getReassignmentUsingGET__v3_clusters_clusterId_topics_topicName_partitions_partitionId_reassignment",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/-/configs" : {
+      "get" : {
+        "tags" : [ "list-all-brokers-configs-action" ],
+        "summary" : "listBrokersConfigs",
+        "operationId" : "listBrokersConfigsUsingGET__v3_clusters_clusterId_brokers_-_configs",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/-/partitions/-/reassignment" : {
+      "get" : {
+        "tags" : [ "list-all-reassignments-action" ],
+        "summary" : "listReassignments",
+        "operationId" : "listReassignmentsUsingGET__v3_clusters_clusterId_topics_-_partitions_-_reassignment",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/-/configs" : {
+      "get" : {
+        "tags" : [ "list-all-topics-configs-action" ],
+        "summary" : "listTopicConfigs",
+        "operationId" : "listTopicConfigsUsingGET__v3_clusters_clusterId_topics_-_configs",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}" : {
+      "get" : {
+        "tags" : [ "partitions-resource" ],
+        "summary" : "getPartition",
+        "operationId" : "getPartitionUsingGET__v3_clusters_clusterId_topics_topicName_partitions_partitionId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions" : {
+      "get" : {
+        "tags" : [ "partitions-resource" ],
+        "summary" : "listPartitions",
+        "operationId" : "listPartitionsUsingGET__v3_clusters_clusterId_topics_topicName_partitions",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/records" : {
+      "post" : {
+        "tags" : [ "produce-action" ],
+        "summary" : "produce",
+        "operationId" : "produceUsingPOST__v3_clusters_clusterId_topics_topicName_records",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AsyncResponse"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas/{brokerId}" : {
+      "get" : {
+        "tags" : [ "replicas-resource" ],
+        "summary" : "getReplica",
+        "operationId" : "getReplicaUsingGET__v3_clusters_clusterId_topics_topicName_partitions_partitionId_replicas_brokerId",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas" : {
+      "get" : {
+        "tags" : [ "replicas-resource" ],
+        "summary" : "listReplicas",
+        "operationId" : "listReplicasUsingGET__v3_clusters_clusterId_topics_topicName_partitions_partitionId_replicas",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "partitionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/partitions/-/reassignment" : {
+      "get" : {
+        "tags" : [ "search-reassignments-by-topic-action" ],
+        "summary" : "listReassignmentsByTopic",
+        "operationId" : "listReassignmentsByTopicUsingGET__v3_clusters_clusterId_topics_topicName_partitions_-_reassignment",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/brokers/{brokerId}/partition-replicas" : {
+      "get" : {
+        "tags" : [ "search-replicas-by-broker-action" ],
+        "summary" : "searchReplicasByBroker",
+        "operationId" : "searchReplicasByBrokerUsingGET__v3_clusters_clusterId_brokers_brokerId_partition-replicas",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "brokerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/configs/{name}" : {
+      "get" : {
+        "tags" : [ "topic-configs-resource" ],
+        "summary" : "getTopicConfig",
+        "operationId" : "getTopicConfigUsingGET__v3_clusters_clusterId_topics_topicName_configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
           }
         } ],
         "responses" : {
@@ -35,7 +2010,7 @@
       "put" : {
         "tags" : [ "topic-configs-resource" ],
         "summary" : "updateTopicConfig",
-        "operationId" : "updateTopicConfigUsingPUT__",
+        "operationId" : "updateTopicConfigUsingPUT__v3_clusters_clusterId_topics_topicName_configs_name",
         "parameters" : [ {
           "name" : "clusterId",
           "in" : "path",
@@ -75,10 +2050,96 @@
           }
         }
       },
+      "delete" : {
+        "tags" : [ "topic-configs-resource" ],
+        "summary" : "resetTopicConfig",
+        "operationId" : "resetTopicConfigUsingDELETE__v3_clusters_clusterId_topics_topicName_configs_name",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}/configs" : {
+      "get" : {
+        "tags" : [ "topic-configs-resource" ],
+        "summary" : "listTopicConfigs",
+        "operationId" : "listTopicConfigsUsingGET__v3_clusters_clusterId_topics_topicName_configs",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics" : {
+      "get" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "listTopics",
+        "operationId" : "listTopicsUsingGET__v3_clusters_clusterId_topics",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "includeAuthorizedOperations",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
       "post" : {
         "tags" : [ "topics-resource" ],
         "summary" : "createTopic",
-        "operationId" : "createTopicUsingPOST__",
+        "operationId" : "createTopicUsingPOST__v3_clusters_clusterId_topics",
         "parameters" : [ {
           "name" : "clusterId",
           "in" : "path",
@@ -103,11 +2164,45 @@
             "description" : "No Content"
           }
         }
+      }
+    },
+    "/v3/clusters/{clusterId}/topics/{topicName}" : {
+      "get" : {
+        "tags" : [ "topics-resource" ],
+        "summary" : "getTopic",
+        "operationId" : "getTopicUsingGET__v3_clusters_clusterId_topics_topicName",
+        "parameters" : [ {
+          "name" : "clusterId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "topicName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "include_authorized_operations",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
       },
       "delete" : {
         "tags" : [ "topics-resource" ],
         "summary" : "deleteTopic",
-        "operationId" : "deleteTopicUsingDELETE__",
+        "operationId" : "deleteTopicUsingDELETE__v3_clusters_clusterId_topics_topicName",
         "parameters" : [ {
           "name" : "clusterId",
           "in" : "path",

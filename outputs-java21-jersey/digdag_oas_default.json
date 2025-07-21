@@ -1,0 +1,1689 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "digdag",
+    "description" : "JAX-RS (Java EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "//api/admin/attempts/{id}/userinfo" : {
+      "get" : {
+        "tags" : [ "admin-resource" ],
+        "summary" : "getUserInfo",
+        "operationId" : "getUserInfoUsingGET___api_admin_attempts_id_userinfo",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Config"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "//api/attempts/{id}" : {
+      "get" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "getAttempt",
+        "operationId" : "getAttemptUsingGET___api_attempts_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttempt"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/attempts/{id}/retries" : {
+      "get" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "getAttemptRetries",
+        "operationId" : "getAttemptRetriesUsingGET___api_attempts_id_retries",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttemptCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/attempts" : {
+      "get" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "getAttempts",
+        "operationId" : "getAttemptsUsingGET___api_attempts",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "workflow",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "include_retried",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttemptCollection"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "startAttempt",
+        "operationId" : "startAttemptUsingPUT___api_attempts",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RestSessionAttemptRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttempt"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "Conflict",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttempt"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/attempts/{id}/tasks" : {
+      "get" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "getTasks",
+        "operationId" : "getTasksUsingGET___api_attempts_id_tasks",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestTaskCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/attempts/{id}/kill" : {
+      "post" : {
+        "tags" : [ "attempt-resource" ],
+        "summary" : "killAttempt",
+        "operationId" : "killAttemptUsingPOST___api_attempts_id_kill",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttempt"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "//api/logs/{attempt_id}/files/{file_name}" : {
+      "get" : {
+        "tags" : [ "log-resource" ],
+        "summary" : "getFile",
+        "operationId" : "getFileUsingGET___api_logs_attempt_id_files_file_name",
+        "parameters" : [ {
+          "name" : "attempt_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "file_name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/gzip" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/logs/{attempt_id}/files" : {
+      "get" : {
+        "tags" : [ "log-resource" ],
+        "summary" : "getFileHandles",
+        "operationId" : "getFileHandlesUsingGET___api_logs_attempt_id_files",
+        "parameters" : [ {
+          "name" : "attempt_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "task",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "direct_download",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestLogFileHandleCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getProject",
+        "operationId" : "getProjectUsingGET___api_projects_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestProject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "deleteProject",
+        "operationId" : "deleteProjectUsingDELETE___api_projects_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestProject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/secrets/{key}" : {
+      "put" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "putProjectSecret",
+        "operationId" : "putProjectSecretUsingPUT___api_projects_id_secrets_key",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RestSetSecretRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSecret"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "deleteProjectSecret",
+        "operationId" : "deleteProjectSecretUsingDELETE___api_projects_id_secrets_key",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSecret"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/archive" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getArchive",
+        "operationId" : "getArchiveUsingGET___api_projects_id_archive",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "direct_download",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StreamingOutput"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "//api/project" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getProject",
+        "operationId" : "getProjectUsingGET___api_project",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestProject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/secrets" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getProjectSecrets",
+        "operationId" : "getProjectSecretsUsingGET___api_projects_id_secrets",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "//api/projects" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getProjects",
+        "operationId" : "getProjectsUsingGET___api_projects",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name_pattern",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestProjectCollection"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "putProject",
+        "operationId" : "putProjectUsingPUT___api_projects",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Content-Length",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "schedule_from",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/gzip" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InputStream"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestProject"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/revisions" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getRevisions",
+        "operationId" : "getRevisionsUsingGET___api_projects_id_revisions",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestRevisionCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/schedules" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getSchedules",
+        "operationId" : "getSchedulesUsingGET___api_projects_id_schedules",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "workflow",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/sessions" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getSessions",
+        "operationId" : "getSessionsUsingGET___api_projects_id_sessions",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "workflow",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/workflow" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getWorkflow",
+        "operationId" : "getWorkflowUsingGET___api_projects_id_workflow",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/workflows/{name}" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getWorkflowByName",
+        "operationId" : "getWorkflowByNameUsingGET___api_projects_id_workflows_name",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/projects/{id}/workflows" : {
+      "get" : {
+        "tags" : [ "project-resource" ],
+        "summary" : "getWorkflows",
+        "operationId" : "getWorkflowsUsingGET___api_projects_id_workflows",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinitionCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules/{id}/backfill" : {
+      "post" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "backfillSchedule",
+        "operationId" : "backfillScheduleUsingPOST___api_schedules_id_backfill",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RestScheduleBackfillRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleAttemptCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules/{id}/disable" : {
+      "post" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "disableSchedule",
+        "operationId" : "disableScheduleUsingPOST___api_schedules_id_disable",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules/{id}/enable" : {
+      "post" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "enableSchedule",
+        "operationId" : "enableScheduleUsingPOST___api_schedules_id_enable",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RestScheduleEnableRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules/{id}" : {
+      "get" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "getSchedules",
+        "operationId" : "getSchedulesUsingGET___api_schedules_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSchedule"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules" : {
+      "get" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "getSchedules",
+        "operationId" : "getSchedulesUsingGET___api_schedules",
+        "parameters" : [ {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/schedules/{id}/skip" : {
+      "post" : {
+        "tags" : [ "schedule-resource" ],
+        "summary" : "skipSchedule",
+        "operationId" : "skipScheduleUsingPOST___api_schedules_id_skip",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RestScheduleSkipRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestScheduleSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/sessions/{id}" : {
+      "get" : {
+        "tags" : [ "session-resource" ],
+        "summary" : "getSession",
+        "operationId" : "getSessionUsingGET___api_sessions_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSession"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/sessions/{id}/attempts" : {
+      "get" : {
+        "tags" : [ "session-resource" ],
+        "summary" : "getSessionAttempts",
+        "operationId" : "getSessionAttemptsUsingGET___api_sessions_id_attempts",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionAttemptCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/sessions" : {
+      "get" : {
+        "tags" : [ "session-resource" ],
+        "summary" : "getSessions",
+        "operationId" : "getSessionsUsingGET___api_sessions",
+        "parameters" : [ {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSessionCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//{path}" : {
+      "get" : {
+        "tags" : [ "ui-resource" ],
+        "summary" : "getApplication",
+        "operationId" : "getApplicationUsingGET___path",
+        "parameters" : [ {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "pattern" : ".*",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//assets/{path}" : {
+      "get" : {
+        "tags" : [ "ui-resource" ],
+        "summary" : "getAssets",
+        "operationId" : "getAssetsUsingGET___assets_path",
+        "parameters" : [ {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/version/check" : {
+      "get" : {
+        "tags" : [ "version-resource" ],
+        "summary" : "checkClientVersion",
+        "operationId" : "checkClientVersionUsingGET___api_version_check",
+        "parameters" : [ {
+          "name" : "client",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "//api/version" : {
+      "get" : {
+        "tags" : [ "version-resource" ],
+        "summary" : "getVersion",
+        "operationId" : "getVersionUsingGET___api_version",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "$ref" : "#/components/schemas/Object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/workflow" : {
+      "get" : {
+        "tags" : [ "workflow-resource" ],
+        "summary" : "getWorkflowDefinition",
+        "operationId" : "getWorkflowDefinitionUsingGET___api_workflow",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "revision",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/workflows/{id}" : {
+      "get" : {
+        "tags" : [ "workflow-resource" ],
+        "summary" : "getWorkflowDefinition",
+        "operationId" : "getWorkflowDefinitionUsingGET___api_workflows_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/workflows/{id}/truncated_session_time" : {
+      "get" : {
+        "tags" : [ "workflow-resource" ],
+        "summary" : "getWorkflowDefinition",
+        "operationId" : "getWorkflowDefinitionUsingGET___api_workflows_id_truncated_session_time",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "session_time",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/LocalTimeOrInstant"
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SessionTimeTruncate"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowSessionTime"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "//api/workflows" : {
+      "get" : {
+        "tags" : [ "workflow-resource" ],
+        "summary" : "getWorkflowDefinitions",
+        "operationId" : "getWorkflowDefinitionsUsingGET___api_workflows",
+        "parameters" : [ {
+          "name" : "last_id",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name_pattern",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "search_project_name",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestWorkflowDefinitionCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Config" : {
+        "type" : "object",
+        "properties" : {
+          "mapper" : {
+            "$ref" : "#/components/schemas/ObjectMapper"
+          },
+          "object" : {
+            "$ref" : "#/components/schemas/ObjectNode"
+          }
+        }
+      },
+      "RestSession" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestScheduleEnableRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSchedule" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "StreamingOutput" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "javax.ws.rs.core"
+        }
+      },
+      "RestProject" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestProjectCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestVersionCheckResult" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestWorkflowDefinitionCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "RestWorkflowDefinition" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestWorkflowSessionTime" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestScheduleBackfillRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ObjectMapper" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      },
+      "RestTaskCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSessionCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSetSecretRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSecret" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ObjectNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind.node"
+        }
+      },
+      "RestScheduleSummary" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
+        }
+      },
+      "Instant" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
+      "RestScheduleSkipRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "SessionTimeTruncate" : {
+        "type" : "string",
+        "enum" : [ "SECOND", "MINUTE", "HOUR", "DAY", "SCHEDULE", "NEXT_SCHEDULE" ]
+      },
+      "RestRevisionCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSessionAttempt" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "LocalTimeOrInstant" : {
+        "type" : "object",
+        "properties" : {
+          "local" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "instant" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "RestScheduleCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSecretList" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestScheduleAttemptCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSessionAttemptCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "RestLogFileHandleCollection" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "RestSessionAttemptRequest" : {
+        "type" : "object",
+        "properties" : { }
+      }
+    }
+  }
+}

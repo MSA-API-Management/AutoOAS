@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "enviroCar-server",
-    "description" : "Jakarta Profile: default",
+    "description" : "JAX-RS (Java EE) Profile: default",
     "version" : ""
   },
   "paths" : {

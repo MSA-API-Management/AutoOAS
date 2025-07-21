@@ -145,3 +145,163 @@ Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
 real	0m6.087s
 user	0m15.100s
 sys	0m2.590s
+Loading model: /home/alex/Respector-fork/dataset/enviroCar-server
+11:08:17.208 [StreamPumper-systemOut] DEBUG - [INFO] Scanning for projects...
+11:08:17.305 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:17.305 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Build Order:
+11:08:17.305 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.306 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server                                                   [pom]
+11:08:17.307 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server core                                              [jar]
+11:08:17.309 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server mongo backend                                     [jar]
+11:08:17.309 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server rest interface                                    [jar]
+11:08:17.310 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server event module                                      [jar]
+11:08:17.310 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server webapp                                            [war]
+11:08:17.398 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.399 [StreamPumper-systemOut] DEBUG - [INFO] --------------------< org.envirocar.server:server >---------------------
+11:08:17.399 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server 1.2.0-SNAPSHOT                           [1/6]
+11:08:17.400 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:08:17.412 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.412 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ server ---
+11:08:17.831 [StreamPumper-systemOut] DEBUG - [INFO] No dependencies found.
+11:08:17.832 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/enviroCar-server/spoon.classpath-app.tmp'.
+11:08:17.833 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.833 [StreamPumper-systemOut] DEBUG - [INFO] ---------------------< org.envirocar.server:core >----------------------
+11:08:17.833 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server core 1.2.0-SNAPSHOT                      [2/6]
+11:08:17.833 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:17.893 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.893 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ core ---
+11:08:17.895 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/enviroCar-server/core/spoon.classpath-app.tmp'.
+11:08:17.896 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:17.896 [StreamPumper-systemOut] DEBUG - [INFO] ---------------------< org.envirocar.server:mongo >---------------------
+11:08:17.896 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server mongo backend 1.2.0-SNAPSHOT             [3/6]
+11:08:17.896 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:18.090 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/core/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:18.090 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/core/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:19.222 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/core/1.2.0-SNAPSHOT/core-1.2.0-SNAPSHOT.jar
+11:08:19.361 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/core/1.2.0-SNAPSHOT/core-1.2.0-SNAPSHOT.jar
+11:08:19.970 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:19.970 [StreamPumper-systemOut] DEBUG - [INFO] ---------------------< org.envirocar.server:rest >----------------------
+11:08:19.970 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server rest interface 1.2.0-SNAPSHOT            [4/6]
+11:08:19.970 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:20.114 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/mongo/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:20.115 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/mongo/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:20.760 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/mongo/1.2.0-SNAPSHOT/mongo-1.2.0-SNAPSHOT.jar
+11:08:20.898 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/mongo/1.2.0-SNAPSHOT/mongo-1.2.0-SNAPSHOT.jar
+11:08:21.494 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:21.495 [StreamPumper-systemOut] DEBUG - [INFO] ---------------------< org.envirocar.server:event >---------------------
+11:08:21.496 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server event module 1.2.0-SNAPSHOT              [5/6]
+11:08:21.496 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:08:21.508 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/rest/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:21.510 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/rest/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:22.121 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/rest/1.2.0-SNAPSHOT/rest-1.2.0-SNAPSHOT.jar
+11:08:22.255 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/rest/1.2.0-SNAPSHOT/rest-1.2.0-SNAPSHOT.jar
+11:08:22.878 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:22.878 [StreamPumper-systemOut] DEBUG - [INFO] --------------------< org.envirocar.server:webapp >---------------------
+11:08:22.878 [StreamPumper-systemOut] DEBUG - [INFO] Building enviroCar server webapp 1.2.0-SNAPSHOT                    [6/6]
+11:08:22.878 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ war ]---------------------------------
+11:08:22.898 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/event/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:22.898 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/event/1.2.0-SNAPSHOT/maven-metadata.xml
+11:08:23.544 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/event/1.2.0-SNAPSHOT/event-1.2.0-SNAPSHOT.jar
+11:08:23.545 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from maven-central: https://repo.maven.apache.org/maven2/org/envirocar/server/rest/1.2.0-SNAPSHOT/rest-1.2.0-SNAPSHOT-tests.jar
+11:08:23.719 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/event/1.2.0-SNAPSHOT/event-1.2.0-SNAPSHOT.jar
+11:08:23.721 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from clojars.org: https://clojars.org/repo/org/envirocar/server/rest/1.2.0-SNAPSHOT/rest-1.2.0-SNAPSHOT-tests.jar
+11:08:24.614 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:24.614 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Summary for enviroCar server 1.2.0-SNAPSHOT:
+11:08:24.614 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:08:24.614 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server ................................... SUCCESS [  0.435 s]
+11:08:24.614 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server core .............................. SUCCESS [  0.062 s]
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server mongo backend ..................... FAILURE [  2.075 s]
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server rest interface .................... FAILURE [  1.524 s]
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server event module ...................... FAILURE [  1.383 s]
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] enviroCar server webapp ............................ FAILURE [  1.736 s]
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] BUILD FAILURE
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] Total time:  7.441 s
+11:08:24.615 [StreamPumper-systemOut] DEBUG - [INFO] Finished at: 2025-07-21T11:08:24+02:00
+11:08:24.616 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:08:24.617 [StreamPumper-systemOut] DEBUG - [ERROR] Failed to execute goal on project mongo: Could not resolve dependencies for project org.envirocar.server:mongo:jar:1.2.0-SNAPSHOT: Could not find artifact org.envirocar.server:core:jar:1.2.0-SNAPSHOT in maven-central (https://repo.maven.apache.org/maven2) -> [Help 1]
+11:08:24.617 [StreamPumper-systemOut] DEBUG - [ERROR] Failed to execute goal on project rest: Could not resolve dependencies for project org.envirocar.server:rest:jar:1.2.0-SNAPSHOT: The following artifacts could not be resolved: org.envirocar.server:core:jar:1.2.0-SNAPSHOT, org.envirocar.server:mongo:jar:1.2.0-SNAPSHOT: org.envirocar.server:core:jar:1.2.0-SNAPSHOT was not found in https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution is not reattempted until the update interval of maven-central has elapsed or updates are forced -> [Help 1]
+11:08:24.617 [StreamPumper-systemOut] DEBUG - [ERROR] Failed to execute goal on project event: Could not resolve dependencies for project org.envirocar.server:event:jar:1.2.0-SNAPSHOT: The following artifacts could not be resolved: org.envirocar.server:core:jar:1.2.0-SNAPSHOT, org.envirocar.server:rest:jar:1.2.0-SNAPSHOT: org.envirocar.server:core:jar:1.2.0-SNAPSHOT was not found in https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution is not reattempted until the update interval of maven-central has elapsed or updates are forced -> [Help 1]
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] Failed to execute goal on project webapp: Could not resolve dependencies for project org.envirocar.server:webapp:war:1.2.0-SNAPSHOT: The following artifacts could not be resolved: org.envirocar.server:core:jar:1.2.0-SNAPSHOT, org.envirocar.server:event:jar:1.2.0-SNAPSHOT, org.envirocar.server:rest:jar:1.2.0-SNAPSHOT, org.envirocar.server:mongo:jar:1.2.0-SNAPSHOT, org.envirocar.server:rest:jar:tests:1.2.0-SNAPSHOT: org.envirocar.server:core:jar:1.2.0-SNAPSHOT was not found in https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution is not reattempted until the update interval of maven-central has elapsed or updates are forced -> [Help 1]
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] 
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] 
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] For more information about the errors and possible solutions, please read the following articles:
+11:08:24.619 [StreamPumper-systemOut] DEBUG - [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+11:08:24.620 [StreamPumper-systemOut] DEBUG - [ERROR] 
+11:08:24.620 [StreamPumper-systemOut] DEBUG - [ERROR] After correcting the problems, you can resume the build with the command
+11:08:24.620 [StreamPumper-systemOut] DEBUG - [ERROR]   mvn <args> -rf :mongo
+11:08:24.620 [StreamPumper-systemOut] DEBUG - [INFO] Build failures were ignored.
+11:08:24.643 [main] INFO  - Running in FULLCLASSPATH mode. Source folders and dependencies are inferred from the pom.xml file (doc: http://spoon.gforge.inria.fr/launcher.html).
+The method public static HashSet<E> newHashSet()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public abstract R collect(Collector<? super java.lang.String,A,R>)  is wrongly tagged as containing missing types
+The method public static LinkedListMultimap<K,V> create()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+11:08:26.455 [main] DEBUG - Could not find declaration for variable String at (/home/alex/Respector-fork/dataset/enviroCar-server/event/src/main/java/org/envirocar/server/event/kafka/GeofenceKafkaMeasurementListener.java:53).
+11:08:26.766 [main] DEBUG - Could not find declaration for variable Response at (/home/alex/Respector-fork/dataset/enviroCar-server/rest/src/main/java/org/envirocar/server/rest/resources/ApiDocsResource.java:102).
+11:08:26.768 [main] DEBUG - Could not find declaration for variable Response at (/home/alex/Respector-fork/dataset/enviroCar-server/rest/src/main/java/org/envirocar/server/rest/resources/ApiDocsResource.java:103).
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+11:08:27.870 [main] INFO  - Transforming announcements controller method
+11:08:27.874 [main] INFO  - Transforming apiDocs controller method
+11:08:27.874 [main] INFO  - Transforming badges controller method
+11:08:27.874 [main] INFO  - Transforming confirm controller method
+11:08:27.874 [main] INFO  - Transforming get controller method
+11:08:27.875 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:08:27.876 [main] DEBUG - Base Controller Path /, Path null, fullPath /, cleanedPath /
+11:08:27.904 [main] INFO  - Transforming getUriBuilder controller method
+11:08:27.904 [main] INFO  - Transforming groups controller method
+11:08:27.904 [main] INFO  - Transforming measurements controller method
+11:08:27.904 [main] INFO  - Transforming phenomenons controller method
+11:08:27.904 [main] INFO  - Transforming privacyStatements controller method
+11:08:27.904 [main] INFO  - Transforming redirect controller method
+11:08:27.905 [main] INFO  - Transforming resetPassword controller method
+11:08:27.905 [main] INFO  - Transforming schemas controller method
+11:08:27.905 [main] INFO  - Transforming sensors controller method
+11:08:27.905 [main] INFO  - Transforming statistics controller method
+11:08:27.905 [main] INFO  - Transforming termsOfUse controller method
+11:08:27.905 [main] INFO  - Transforming tracks controller method
+11:08:27.905 [main] INFO  - Transforming users controller method
+11:08:27.906 [main] INFO  - Transforming checkRights controller method
+11:08:27.906 [main] INFO  - Transforming getCurrentUser controller method
+11:08:27.906 [main] INFO  - Transforming getDataService controller method
+11:08:27.906 [main] INFO  - Transforming getEntityFactory controller method
+11:08:27.906 [main] INFO  - Transforming getFriendService controller method
+11:08:27.906 [main] INFO  - Transforming getGroupService controller method
+11:08:27.907 [main] INFO  - Transforming getPagination controller method
+11:08:27.907 [main] INFO  - Transforming getResourceFactory controller method
+11:08:27.907 [main] INFO  - Transforming getRights controller method
+11:08:27.907 [main] INFO  - Transforming getStatisticsService controller method
+11:08:27.907 [main] INFO  - Transforming getUriInfo controller method
+11:08:27.907 [main] INFO  - Transforming getUserService controller method
+11:08:27.907 [main] INFO  - Transforming getUserStatisticService controller method
+11:08:27.907 [main] INFO  - Transforming parseTemporalFilterForInstant controller method
+11:08:27.907 [main] INFO  - Transforming parseTemporalFilterForInterval controller method
+11:08:27.908 [main] INFO  - Transforming setDataService controller method
+11:08:27.908 [main] INFO  - Transforming setEntityFactory controller method
+11:08:27.908 [main] INFO  - Transforming setFriendService controller method
+11:08:27.908 [main] INFO  - Transforming setGroupService controller method
+11:08:27.908 [main] INFO  - Transforming setPagination controller method
+11:08:27.908 [main] INFO  - Transforming setResourceFactory controller method
+11:08:27.908 [main] INFO  - Transforming setRights controller method
+11:08:27.908 [main] INFO  - Transforming setSecurityContext controller method
+11:08:27.908 [main] INFO  - Transforming setStatisticsService controller method
+11:08:27.908 [main] INFO  - Transforming setUriInfo controller method
+11:08:27.908 [main] INFO  - Transforming setUserService controller method
+11:08:27.908 [main] INFO  - Transforming setUserStatisticService controller method
+Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
+
+real	0m12.737s
+user	0m17.606s
+sys	0m3.101s

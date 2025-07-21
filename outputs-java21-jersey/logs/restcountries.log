@@ -54,3 +54,252 @@ Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
 real	0m4.130s
 user	0m8.532s
 sys	0m2.031s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+11:09:22.878 [StreamPumper-systemOut] DEBUG - [INFO] Scanning for projects...
+11:09:23.047 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:23.048 [StreamPumper-systemOut] DEBUG - [INFO] ----------------------< eu.fayder:restcountries >-----------------------
+11:09:23.048 [StreamPumper-systemOut] DEBUG - [INFO] Building restcountries 2.0.5
+11:09:23.048 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ war ]---------------------------------
+11:09:23.144 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:23.144 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:2.8:build-classpath (default-cli) @ restcountries ---
+11:09:23.550 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/restcountries/spoon.classpath-app.tmp'.
+11:09:23.551 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:23.551 [StreamPumper-systemOut] DEBUG - [INFO] BUILD SUCCESS
+11:09:23.551 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:23.552 [StreamPumper-systemOut] DEBUG - [INFO] Total time:  0.706 s
+11:09:23.552 [StreamPumper-systemOut] DEBUG - [INFO] Finished at: 2025-07-21T11:09:23+02:00
+11:09:23.552 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:23.590 [main] INFO  - Running in FULLCLASSPATH mode. Source folders and dependencies are inferred from the pom.xml file (doc: http://spoon.gforge.inria.fr/launcher.html).
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+11:09:24.921 [main] INFO  - Transforming doPOST controller method
+11:09:24.969 [main] INFO  - Transforming getAllCountries controller method
+11:09:24.970 [main] DEBUG - Called mapGet with annotation name "", path all, method [GET], produces null
+11:09:24.970 [main] DEBUG - Base Controller Path /v1, Path all, fullPath /v1/all, cleanedPath /v1/all
+11:09:24.979 [main] INFO  - Transforming getByAlpha controller method
+11:09:24.980 [main] DEBUG - Called mapGet with annotation name "", path alpha/{alphacode}, method [GET], produces null
+11:09:24.980 [main] DEBUG - Base Controller Path /v1, Path alpha/{alphacode}, fullPath /v1/alpha/{alphacode}, cleanedPath /v1/alpha/{alphacode}
+11:09:24.980 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("alphacode")
+java.lang.String alpha 
+11:09:24.984 [main] DEBUG - Mapping simple parameter alpha (Parameter: @javax.ws.rs.PathParam("alphacode")
+java.lang.String alpha)
+11:09:25.011 [main] INFO  - Transforming getByAlphaList controller method
+11:09:25.011 [main] DEBUG - Called mapGet with annotation name "", path alpha/, method [GET], produces null
+11:09:25.011 [main] DEBUG - Base Controller Path /v1, Path alpha/, fullPath /v1/alpha, cleanedPath /v1/alpha
+11:09:25.011 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("codes")
+java.lang.String codes 
+11:09:25.014 [main] DEBUG - Mapping simple parameter codes (Parameter: @javax.ws.rs.QueryParam("codes")
+java.lang.String codes)
+11:09:25.024 [main] INFO  - Transforming getByCallingCode controller method
+11:09:25.024 [main] DEBUG - Called mapGet with annotation name "", path callingcode/{callingcode}, method [GET], produces null
+11:09:25.024 [main] DEBUG - Base Controller Path /v1, Path callingcode/{callingcode}, fullPath /v1/callingcode/{callingcode}, cleanedPath /v1/callingcode/{callingcode}
+11:09:25.024 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("callingcode")
+java.lang.String callingcode 
+11:09:25.025 [main] DEBUG - Mapping simple parameter callingcode (Parameter: @javax.ws.rs.PathParam("callingcode")
+java.lang.String callingcode)
+11:09:25.035 [main] INFO  - Transforming getByCapital controller method
+11:09:25.035 [main] DEBUG - Called mapGet with annotation name "", path capital/{capital}, method [GET], produces null
+11:09:25.035 [main] DEBUG - Base Controller Path /v1, Path capital/{capital}, fullPath /v1/capital/{capital}, cleanedPath /v1/capital/{capital}
+11:09:25.035 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("capital")
+java.lang.String capital 
+11:09:25.035 [main] DEBUG - Mapping simple parameter capital (Parameter: @javax.ws.rs.PathParam("capital")
+java.lang.String capital)
+11:09:25.055 [main] INFO  - Transforming getByCurrency controller method
+11:09:25.055 [main] DEBUG - Called mapGet with annotation name "", path currency/{currency}, method [GET], produces null
+11:09:25.055 [main] DEBUG - Base Controller Path /v1, Path currency/{currency}, fullPath /v1/currency/{currency}, cleanedPath /v1/currency/{currency}
+11:09:25.055 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("currency")
+java.lang.String currency 
+11:09:25.056 [main] DEBUG - Mapping simple parameter currency (Parameter: @javax.ws.rs.PathParam("currency")
+java.lang.String currency)
+11:09:25.064 [main] INFO  - Transforming getByLanguage controller method
+11:09:25.064 [main] DEBUG - Called mapGet with annotation name "", path lang/{lang}, method [GET], produces null
+11:09:25.064 [main] DEBUG - Base Controller Path /v1, Path lang/{lang}, fullPath /v1/lang/{lang}, cleanedPath /v1/lang/{lang}
+11:09:25.064 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("lang")
+java.lang.String language 
+11:09:25.065 [main] DEBUG - Mapping simple parameter language (Parameter: @javax.ws.rs.PathParam("lang")
+java.lang.String language)
+11:09:25.074 [main] INFO  - Transforming getByName controller method
+11:09:25.074 [main] DEBUG - Called mapGet with annotation name "", path name/{name}, method [GET], produces null
+11:09:25.075 [main] DEBUG - Base Controller Path /v1, Path name/{name}, fullPath /v1/name/{name}, cleanedPath /v1/name/{name}
+11:09:25.075 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:25.076 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:25.080 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fullText")
+boolean fullText 
+11:09:25.080 [main] DEBUG - Mapping simple parameter fullText (Parameter: @javax.ws.rs.QueryParam("fullText")
+boolean fullText)
+11:09:25.088 [main] INFO  - Transforming getByRegion controller method
+11:09:25.088 [main] DEBUG - Called mapGet with annotation name "", path region/{region}, method [GET], produces null
+11:09:25.089 [main] DEBUG - Base Controller Path /v1, Path region/{region}, fullPath /v1/region/{region}, cleanedPath /v1/region/{region}
+11:09:25.089 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("region")
+java.lang.String region 
+11:09:25.089 [main] DEBUG - Mapping simple parameter region (Parameter: @javax.ws.rs.PathParam("region")
+java.lang.String region)
+11:09:25.099 [main] INFO  - Transforming getBySubregion controller method
+11:09:25.100 [main] DEBUG - Called mapGet with annotation name "", path subregion/{subregion}, method [GET], produces null
+11:09:25.100 [main] DEBUG - Base Controller Path /v1, Path subregion/{subregion}, fullPath /v1/subregion/{subregion}, cleanedPath /v1/subregion/{subregion}
+11:09:25.100 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("subregion")
+java.lang.String subregion 
+11:09:25.100 [main] DEBUG - Mapping simple parameter subregion (Parameter: @javax.ws.rs.PathParam("subregion")
+java.lang.String subregion)
+11:09:25.108 [main] INFO  - Transforming getCountries controller method
+11:09:25.108 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:25.108 [main] DEBUG - Base Controller Path /v1, Path null, fullPath /v1, cleanedPath /v1
+11:09:25.113 [main] INFO  - Transforming getResponse controller method
+11:09:25.113 [main] INFO  - Transforming isEmpty controller method
+11:09:25.114 [main] INFO  - Transforming doPOST controller method
+11:09:25.119 [main] INFO  - Transforming getAllCountries controller method
+11:09:25.119 [main] DEBUG - Called mapGet with annotation name "", path all, method [GET], produces null
+11:09:25.119 [main] DEBUG - Base Controller Path /v2, Path all, fullPath /v2/all, cleanedPath /v2/all
+11:09:25.119 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.120 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.132 [main] INFO  - Transforming getByAlpha controller method
+11:09:25.132 [main] DEBUG - Called mapGet with annotation name "", path alpha/{alphacode}, method [GET], produces null
+11:09:25.132 [main] DEBUG - Base Controller Path /v2, Path alpha/{alphacode}, fullPath /v2/alpha/{alphacode}, cleanedPath /v2/alpha/{alphacode}
+11:09:25.132 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("alphacode")
+java.lang.String alpha 
+11:09:25.132 [main] DEBUG - Mapping simple parameter alpha (Parameter: @javax.ws.rs.PathParam("alphacode")
+java.lang.String alpha)
+11:09:25.135 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.136 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.144 [main] INFO  - Transforming getByAlphaList controller method
+11:09:25.145 [main] DEBUG - Called mapGet with annotation name "", path alpha/, method [GET], produces null
+11:09:25.145 [main] DEBUG - Base Controller Path /v2, Path alpha/, fullPath /v2/alpha, cleanedPath /v2/alpha
+11:09:25.145 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("codes")
+java.lang.String codes 
+11:09:25.145 [main] DEBUG - Mapping simple parameter codes (Parameter: @javax.ws.rs.QueryParam("codes")
+java.lang.String codes)
+11:09:25.150 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.151 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.162 [main] INFO  - Transforming getByCallingCode controller method
+11:09:25.162 [main] DEBUG - Called mapGet with annotation name "", path callingcode/{callingcode}, method [GET], produces null
+11:09:25.162 [main] DEBUG - Base Controller Path /v2, Path callingcode/{callingcode}, fullPath /v2/callingcode/{callingcode}, cleanedPath /v2/callingcode/{callingcode}
+11:09:25.163 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("callingcode")
+java.lang.String callingcode 
+11:09:25.163 [main] DEBUG - Mapping simple parameter callingcode (Parameter: @javax.ws.rs.PathParam("callingcode")
+java.lang.String callingcode)
+11:09:25.168 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.168 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.179 [main] INFO  - Transforming getByCapital controller method
+11:09:25.180 [main] DEBUG - Called mapGet with annotation name "", path capital/{capital}, method [GET], produces null
+11:09:25.180 [main] DEBUG - Base Controller Path /v2, Path capital/{capital}, fullPath /v2/capital/{capital}, cleanedPath /v2/capital/{capital}
+11:09:25.180 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("capital")
+java.lang.String capital 
+11:09:25.181 [main] DEBUG - Mapping simple parameter capital (Parameter: @javax.ws.rs.PathParam("capital")
+java.lang.String capital)
+11:09:25.184 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.185 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.195 [main] INFO  - Transforming getByCurrency controller method
+11:09:25.195 [main] DEBUG - Called mapGet with annotation name "", path currency/{currency}, method [GET], produces null
+11:09:25.195 [main] DEBUG - Base Controller Path /v2, Path currency/{currency}, fullPath /v2/currency/{currency}, cleanedPath /v2/currency/{currency}
+11:09:25.195 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("currency")
+java.lang.String currency 
+11:09:25.196 [main] DEBUG - Mapping simple parameter currency (Parameter: @javax.ws.rs.PathParam("currency")
+java.lang.String currency)
+11:09:25.199 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.200 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.210 [main] INFO  - Transforming getByDemonym controller method
+11:09:25.210 [main] DEBUG - Called mapGet with annotation name "", path demonym/{demonym}, method [GET], produces null
+11:09:25.210 [main] DEBUG - Base Controller Path /v2, Path demonym/{demonym}, fullPath /v2/demonym/{demonym}, cleanedPath /v2/demonym/{demonym}
+11:09:25.210 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("demonym")
+java.lang.String demonym 
+11:09:25.211 [main] DEBUG - Mapping simple parameter demonym (Parameter: @javax.ws.rs.PathParam("demonym")
+java.lang.String demonym)
+11:09:25.214 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.215 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.224 [main] INFO  - Transforming getByLanguage controller method
+11:09:25.225 [main] DEBUG - Called mapGet with annotation name "", path lang/{lang}, method [GET], produces null
+11:09:25.225 [main] DEBUG - Base Controller Path /v2, Path lang/{lang}, fullPath /v2/lang/{lang}, cleanedPath /v2/lang/{lang}
+11:09:25.225 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("lang")
+java.lang.String language 
+11:09:25.225 [main] DEBUG - Mapping simple parameter language (Parameter: @javax.ws.rs.PathParam("lang")
+java.lang.String language)
+11:09:25.229 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.229 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.236 [main] INFO  - Transforming getByName controller method
+11:09:25.236 [main] DEBUG - Called mapGet with annotation name "", path name/{name}, method [GET], produces null
+11:09:25.236 [main] DEBUG - Base Controller Path /v2, Path name/{name}, fullPath /v2/name/{name}, cleanedPath /v2/name/{name}
+11:09:25.237 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:25.237 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:25.239 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fullText")
+boolean fullText 
+11:09:25.240 [main] DEBUG - Mapping simple parameter fullText (Parameter: @javax.ws.rs.QueryParam("fullText")
+boolean fullText)
+11:09:25.240 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.240 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.250 [main] INFO  - Transforming getByRegion controller method
+11:09:25.250 [main] DEBUG - Called mapGet with annotation name "", path region/{region}, method [GET], produces null
+11:09:25.251 [main] DEBUG - Base Controller Path /v2, Path region/{region}, fullPath /v2/region/{region}, cleanedPath /v2/region/{region}
+11:09:25.251 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("region")
+java.lang.String region 
+11:09:25.251 [main] DEBUG - Mapping simple parameter region (Parameter: @javax.ws.rs.PathParam("region")
+java.lang.String region)
+11:09:25.253 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.254 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.260 [main] INFO  - Transforming getByRegionalBloc controller method
+11:09:25.260 [main] DEBUG - Called mapGet with annotation name "", path regionalbloc/{regionalbloc}, method [GET], produces null
+11:09:25.260 [main] DEBUG - Base Controller Path /v2, Path regionalbloc/{regionalbloc}, fullPath /v2/regionalbloc/{regionalbloc}, cleanedPath /v2/regionalbloc/{regionalbloc}
+11:09:25.260 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("regionalbloc")
+java.lang.String regionalBlock 
+11:09:25.260 [main] DEBUG - Mapping simple parameter regionalBlock (Parameter: @javax.ws.rs.PathParam("regionalbloc")
+java.lang.String regionalBlock)
+11:09:25.263 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.263 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.270 [main] INFO  - Transforming getBySubRegion controller method
+11:09:25.270 [main] DEBUG - Called mapGet with annotation name "", path subregion/{subregion}, method [GET], produces null
+11:09:25.270 [main] DEBUG - Base Controller Path /v2, Path subregion/{subregion}, fullPath /v2/subregion/{subregion}, cleanedPath /v2/subregion/{subregion}
+11:09:25.270 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("subregion")
+java.lang.String subregion 
+11:09:25.270 [main] DEBUG - Mapping simple parameter subregion (Parameter: @javax.ws.rs.PathParam("subregion")
+java.lang.String subregion)
+11:09:25.272 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.273 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.279 [main] INFO  - Transforming getCountries controller method
+11:09:25.279 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:25.279 [main] DEBUG - Base Controller Path /v2, Path null, fullPath /v2, cleanedPath /v2
+11:09:25.279 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields 
+11:09:25.280 [main] DEBUG - Mapping simple parameter fields (Parameter: @javax.ws.rs.QueryParam("fields")
+java.lang.String fields)
+11:09:25.285 [main] INFO  - Transforming getCountriesJson controller method
+11:09:25.285 [main] INFO  - Transforming getCountryJson controller method
+11:09:25.285 [main] INFO  - Transforming getExcludedFields controller method
+11:09:25.286 [main] INFO  - Transforming getResponse controller method
+11:09:25.286 [main] INFO  - Transforming isEmpty controller method
+11:09:25.286 [main] INFO  - Transforming parsedCountries controller method
+11:09:25.286 [main] INFO  - Transforming parsedCountry controller method
+11:09:25.287 [main] INFO  - Transforming contribute controller method
+11:09:25.301 [main] DEBUG - Transforming Parameters - Actual Param: eu.fayder.restcountries.v2.domain.Contribution contribution 
+11:09:25.303 [main] INFO  - Transforming getResponse controller method
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m4.444s
+user	0m9.000s
+sys	0m2.146s

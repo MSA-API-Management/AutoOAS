@@ -54,3 +54,1279 @@ Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
 real	0m8.693s
 user	0m22.027s
 sys	0m3.463s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+11:09:06.762 [StreamPumper-systemOut] DEBUG - [INFO] Scanning for projects...
+11:09:07.142 [StreamPumper-systemOut] DEBUG - [INFO] Downloading from confluent: https://packages.confluent.io/maven/joda-time/joda-time/maven-metadata.xml
+11:09:08.450 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:08.452 [StreamPumper-systemOut] DEBUG - [INFO] Detecting the operating system and CPU architecture
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.name: linux
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.arch: x86_64
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.bitness: 64
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.version: 6.8
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.version.major: 6
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.version.minor: 8
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.release: ubuntu
+11:09:08.453 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.release.version: 24.04
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.release.like.ubuntu: true
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.release.like.debian: true
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] os.detected.classifier: linux-x86_64
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Build Order:
+11:09:08.454 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:08.455 [StreamPumper-systemOut] DEBUG - [INFO] kafka-rest-parent                                                  [pom]
+11:09:08.455 [StreamPumper-systemOut] DEBUG - [INFO] kafka-rest                                                         [jar]
+11:09:08.623 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:08.624 [StreamPumper-systemOut] DEBUG - [INFO] -------------------< io.confluent:kafka-rest-parent >-------------------
+11:09:08.624 [StreamPumper-systemOut] DEBUG - [INFO] Building kafka-rest-parent 7.3.0                                   [1/2]
+11:09:08.624 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ pom ]---------------------------------
+11:09:08.638 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:08.638 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:3.3.0:build-classpath (default-cli) @ kafka-rest-parent ---
+11:09:09.049 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/kafka-rest/spoon.classpath-app.tmp'.
+11:09:09.049 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:09.049 [StreamPumper-systemOut] DEBUG - [INFO] ----------------------< io.confluent:kafka-rest >-----------------------
+11:09:09.049 [StreamPumper-systemOut] DEBUG - [INFO] Building kafka-rest 7.3.0                                          [2/2]
+11:09:09.049 [StreamPumper-systemOut] DEBUG - [INFO] --------------------------------[ jar ]---------------------------------
+11:09:09.292 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:09.292 [StreamPumper-systemOut] DEBUG - [INFO] --- maven-dependency-plugin:3.3.0:build-classpath (default-cli) @ kafka-rest ---
+11:09:09.295 [StreamPumper-systemOut] DEBUG - [INFO] Wrote classpath file '/home/alex/Respector-fork/dataset/kafka-rest/kafka-rest/spoon.classpath-app.tmp'.
+11:09:09.295 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:09.295 [StreamPumper-systemOut] DEBUG - [INFO] Reactor Summary for kafka-rest-parent 7.3.0:
+11:09:09.296 [StreamPumper-systemOut] DEBUG - [INFO] 
+11:09:09.296 [StreamPumper-systemOut] DEBUG - [INFO] kafka-rest-parent .................................. SUCCESS [  0.425 s]
+11:09:09.296 [StreamPumper-systemOut] DEBUG - [INFO] kafka-rest ......................................... SUCCESS [  0.246 s]
+11:09:09.296 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:09.297 [StreamPumper-systemOut] DEBUG - [INFO] BUILD SUCCESS
+11:09:09.299 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:09.301 [StreamPumper-systemOut] DEBUG - [INFO] Total time:  2.567 s
+11:09:09.301 [StreamPumper-systemOut] DEBUG - [INFO] Finished at: 2025-07-21T11:09:09+02:00
+11:09:09.301 [StreamPumper-systemOut] DEBUG - [INFO] ------------------------------------------------------------------------
+11:09:09.339 [main] INFO  - Running in FULLCLASSPATH mode. Source folders and dependencies are inferred from the pom.xml file (doc: http://spoon.gforge.inria.fr/launcher.html).
+11:09:12.493 [main] DEBUG - Logging to Logger[org.eclipse.jetty.util.log] via org.eclipse.jetty.util.log.Slf4jLog
+11:09:12.513 [main] INFO  - Logging initialized @7486ms to org.eclipse.jetty.util.log.Slf4jLog
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+11:09:13.838 [main] INFO  - Transforming list controller method
+11:09:13.841 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:13.842 [main] DEBUG - Base Controller Path /brokers, Path null, fullPath /brokers, cleanedPath /brokers
+11:09:13.846 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:13.865 [main] INFO  - Transforming assign controller method
+11:09:13.882 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:13.883 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:13.886 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:13.899 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:13.899 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:13.902 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ConsumerAssignmentRequest assignmentRequest 
+11:09:13.905 [main] INFO  - Transforming assignment controller method
+11:09:13.905 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/assignments, method [GET], produces null
+11:09:13.905 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/assignments, fullPath /consumers/{group}/instances/{instance}/assignments, cleanedPath /consumers/{group}/instances/{instance}/assignments
+11:09:13.905 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:13.905 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:13.906 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:13.908 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:13.908 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:13.922 [main] INFO  - Transforming commitOffsets controller method
+11:09:13.934 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:13.934 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:13.934 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:13.937 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:13.937 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:13.939 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("async")
+@javax.ws.rs.DefaultValue("false")
+java.lang.String async 
+11:09:13.941 [main] DEBUG - Mapping simple parameter async (Parameter: @javax.ws.rs.QueryParam("async")
+@javax.ws.rs.DefaultValue("false")
+java.lang.String async)
+11:09:13.943 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v2.ConsumerOffsetCommitRequest offsetCommitRequest 
+11:09:13.944 [main] INFO  - Transforming committedOffsets controller method
+11:09:13.944 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/offsets, method [GET], produces null
+11:09:13.944 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/offsets, fullPath /consumers/{group}/instances/{instance}/offsets, cleanedPath /consumers/{group}/instances/{instance}/offsets
+11:09:13.944 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:13.944 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:13.971 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:13.971 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:13.975 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v2.ConsumerCommittedRequest request 
+11:09:13.987 [main] INFO  - Transforming createGroup controller method
+11:09:14.006 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.006 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.006 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.009 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v2.CreateConsumerInstanceRequest config 
+11:09:14.009 [main] INFO  - Transforming deleteGroup controller method
+11:09:14.010 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.010 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.013 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.013 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.018 [main] INFO  - Transforming readRecordAvro controller method
+11:09:14.021 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/records, method [GET], produces application/vnd.kafka.avro.v2+json; qs=0.1
+11:09:14.021 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/records, fullPath /consumers/{group}/instances/{instance}/records, cleanedPath /consumers/{group}/instances/{instance}/records
+11:09:14.021 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.021 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.021 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.023 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.024 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.026 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs 
+11:09:14.026 [main] DEBUG - Mapping simple parameter timeoutMs (Parameter: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs)
+11:09:14.029 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes 
+11:09:14.029 [main] DEBUG - Mapping simple parameter maxBytes (Parameter: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes)
+11:09:14.033 [main] INFO  - Transforming readRecordBinary controller method
+11:09:14.033 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/records, method [GET], produces application/vnd.kafka.binary.v2+json
+11:09:14.033 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/records, fullPath /consumers/{group}/instances/{instance}/records, cleanedPath /consumers/{group}/instances/{instance}/records
+11:09:14.033 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.033 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.033 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.036 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.036 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.038 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs 
+11:09:14.038 [main] DEBUG - Mapping simple parameter timeoutMs (Parameter: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs)
+11:09:14.039 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes 
+11:09:14.039 [main] DEBUG - Mapping simple parameter maxBytes (Parameter: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes)
+11:09:14.042 [main] INFO  - Transforming readRecordJson controller method
+11:09:14.043 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/records, method [GET], produces application/vnd.kafka.json.v2+json; qs=0.1
+11:09:14.043 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/records, fullPath /consumers/{group}/instances/{instance}/records, cleanedPath /consumers/{group}/instances/{instance}/records
+11:09:14.043 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.043 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.043 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.047 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.048 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.051 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs 
+11:09:14.053 [main] DEBUG - Mapping simple parameter timeoutMs (Parameter: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs)
+11:09:14.053 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes 
+11:09:14.055 [main] DEBUG - Mapping simple parameter maxBytes (Parameter: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes)
+11:09:14.059 [main] INFO  - Transforming readRecordJsonSchema controller method
+11:09:14.060 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/records, method [GET], produces application/vnd.kafka.jsonschema.v2+json; qs=0.1
+11:09:14.060 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/records, fullPath /consumers/{group}/instances/{instance}/records, cleanedPath /consumers/{group}/instances/{instance}/records
+11:09:14.061 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.061 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.061 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.064 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.065 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.067 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs 
+11:09:14.067 [main] DEBUG - Mapping simple parameter timeoutMs (Parameter: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs)
+11:09:14.068 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes 
+11:09:14.068 [main] DEBUG - Mapping simple parameter maxBytes (Parameter: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes)
+11:09:14.072 [main] INFO  - Transforming readRecordProtobuf controller method
+11:09:14.073 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/records, method [GET], produces application/vnd.kafka.protobuf.v2+json; qs=0.1
+11:09:14.073 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/records, fullPath /consumers/{group}/instances/{instance}/records, cleanedPath /consumers/{group}/instances/{instance}/records
+11:09:14.073 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+final javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.074 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.074 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.076 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.076 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.079 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs 
+11:09:14.079 [main] DEBUG - Mapping simple parameter timeoutMs (Parameter: @javax.ws.rs.QueryParam("timeout")
+@javax.ws.rs.DefaultValue("-1")
+long timeoutMs)
+11:09:14.080 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes 
+11:09:14.080 [main] DEBUG - Mapping simple parameter maxBytes (Parameter: @javax.ws.rs.QueryParam("max_bytes")
+@javax.ws.rs.DefaultValue("-1")
+long maxBytes)
+11:09:14.083 [main] INFO  - Transforming readRecords controller method
+11:09:14.083 [main] INFO  - Transforming seekToBeginning controller method
+11:09:14.092 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.092 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.093 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.095 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.095 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.097 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ConsumerSeekToRequest seekToRequest 
+11:09:14.098 [main] INFO  - Transforming seekToEnd controller method
+11:09:14.107 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.108 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.108 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.110 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.110 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.113 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ConsumerSeekToRequest seekToRequest 
+11:09:14.113 [main] INFO  - Transforming seekToOffset controller method
+11:09:14.122 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.122 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.123 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.125 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.125 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.127 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ConsumerSeekRequest request 
+11:09:14.128 [main] INFO  - Transforming subscribe controller method
+11:09:14.137 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.137 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.138 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.140 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.140 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.142 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ConsumerSubscriptionRecord subscription 
+11:09:14.143 [main] INFO  - Transforming subscription controller method
+11:09:14.143 [main] DEBUG - Called mapGet with annotation name "", path /{group}/instances/{instance}/subscription, method [GET], produces null
+11:09:14.143 [main] DEBUG - Base Controller Path /consumers, Path /{group}/instances/{instance}/subscription, fullPath /consumers/{group}/instances/{instance}/subscription, cleanedPath /consumers/{group}/instances/{instance}/subscription
+11:09:14.143 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.143 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.143 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.146 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.146 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.157 [main] INFO  - Transforming unsubscribe controller method
+11:09:14.157 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.core.Context
+javax.ws.rs.core.UriInfo uriInfo 
+11:09:14.158 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("group")
+final java.lang.String group 
+11:09:14.158 [main] DEBUG - Mapping simple parameter group (Parameter: @javax.ws.rs.PathParam("group")
+final java.lang.String group)
+11:09:14.160 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance 
+11:09:14.161 [main] DEBUG - Mapping simple parameter instance (Parameter: @javax.ws.rs.PathParam("instance")
+final java.lang.String instance)
+11:09:14.166 [main] INFO  - Transforming getOffsets controller method
+11:09:14.166 [main] DEBUG - Called mapGet with annotation name "", path /{partition}/offsets, method [GET], produces null
+11:09:14.166 [main] DEBUG - Base Controller Path /topics/{topic}/partitions, Path /{partition}/offsets, fullPath /topics/{topic}/partitions/{partition}/offsets, cleanedPath /topics/{topic}/partitions/{partition}/offsets
+11:09:14.166 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.166 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topic 
+11:09:14.166 [main] DEBUG - Mapping simple parameter topic (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topic)
+11:09:14.169 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.169 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.172 [main] INFO  - Transforming getPartition controller method
+11:09:14.172 [main] DEBUG - Called mapGet with annotation name "", path /{partition}, method [GET], produces null
+11:09:14.172 [main] DEBUG - Base Controller Path /topics/{topic}/partitions, Path /{partition}, fullPath /topics/{topic}/partitions/{partition}, cleanedPath /topics/{topic}/partitions/{partition}
+11:09:14.172 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.172 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topic 
+11:09:14.172 [main] DEBUG - Mapping simple parameter topic (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topic)
+11:09:14.174 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.175 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.177 [main] INFO  - Transforming list controller method
+11:09:14.177 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:14.178 [main] DEBUG - Base Controller Path /topics/{topic}/partitions, Path null, fullPath /topics/{topic}/partitions, cleanedPath /topics/{topic}/partitions
+11:09:14.178 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.178 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topic 
+11:09:14.178 [main] DEBUG - Mapping simple parameter topic (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topic)
+11:09:14.182 [main] INFO  - Transforming produceAvro controller method
+11:09:14.203 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.203 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.203 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.206 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.206 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.206 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.206 [main] INFO  - Transforming produceBinary controller method
+11:09:14.215 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.215 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.215 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.217 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.218 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.218 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.218 [main] INFO  - Transforming produceJson controller method
+11:09:14.227 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.227 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.227 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.229 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.229 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.229 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.230 [main] INFO  - Transforming produceJsonSchema controller method
+11:09:14.238 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.239 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.239 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.241 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.241 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.241 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.242 [main] INFO  - Transforming produceProtobuf controller method
+11:09:14.250 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.250 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.251 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.253 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partition")
+int partitionId 
+11:09:14.253 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partition")
+int partitionId)
+11:09:14.253 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.254 [main] INFO  - Transforming produceAvro controller method
+11:09:14.262 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.263 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.263 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.265 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.266 [main] INFO  - Transforming produceBinary controller method
+11:09:14.274 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.274 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.274 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.276 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.277 [main] INFO  - Transforming produceJson controller method
+11:09:14.285 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.286 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.286 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.288 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.288 [main] INFO  - Transforming produceJsonSchema controller method
+11:09:14.297 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.297 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.297 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.299 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.299 [main] INFO  - Transforming produceProtobuf controller method
+11:09:14.308 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.309 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.309 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.311 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+@javax.validation.constraints.NotNull
+io.confluent.kafkarest.entities.v2.ProduceRequest request 
+11:09:14.311 [main] INFO  - Transforming get controller method
+11:09:14.312 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:14.312 [main] DEBUG - Base Controller Path /, Path null, fullPath /, cleanedPath /
+11:09:14.326 [main] INFO  - Transforming post controller method
+11:09:14.346 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+java.util.Map<java.lang.String, java.lang.String> request 
+11:09:14.348 [main] INFO  - Transforming getTopic controller method
+11:09:14.348 [main] DEBUG - Called mapGet with annotation name "", path /{topic}, method [GET], produces null
+11:09:14.348 [main] DEBUG - Base Controller Path /topics, Path /{topic}, fullPath /topics/{topic}, cleanedPath /topics/{topic}
+11:09:14.348 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.348 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName 
+11:09:14.348 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topic")
+java.lang.String topicName)
+11:09:14.353 [main] INFO  - Transforming list controller method
+11:09:14.353 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces null
+11:09:14.353 [main] DEBUG - Base Controller Path /topics, Path null, fullPath /topics, cleanedPath /topics
+11:09:14.353 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.355 [main] INFO  - Transforming createAcl controller method
+11:09:14.363 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.363 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.363 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.366 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.CreateAclRequest request 
+11:09:14.366 [main] INFO  - Transforming deleteAcls controller method
+11:09:14.366 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.367 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.367 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.369 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("resource_type")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.ResourceType resourceType 
+11:09:14.370 [main] DEBUG - Mapping simple parameter resourceType (Parameter: @javax.ws.rs.QueryParam("resource_type")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.ResourceType resourceType)
+11:09:14.375 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("resource_name")
+@javax.ws.rs.DefaultValue("")
+java.lang.String resourceName 
+11:09:14.375 [main] DEBUG - Mapping simple parameter resourceName (Parameter: @javax.ws.rs.QueryParam("resource_name")
+@javax.ws.rs.DefaultValue("")
+java.lang.String resourceName)
+11:09:14.378 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("pattern_type")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.PatternType patternType 
+11:09:14.378 [main] DEBUG - Mapping simple parameter patternType (Parameter: @javax.ws.rs.QueryParam("pattern_type")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.PatternType patternType)
+11:09:14.381 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("principal")
+@javax.ws.rs.DefaultValue("")
+java.lang.String principal 
+11:09:14.381 [main] DEBUG - Mapping simple parameter principal (Parameter: @javax.ws.rs.QueryParam("principal")
+@javax.ws.rs.DefaultValue("")
+java.lang.String principal)
+11:09:14.383 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("host")
+@javax.ws.rs.DefaultValue("")
+java.lang.String host 
+11:09:14.383 [main] DEBUG - Mapping simple parameter host (Parameter: @javax.ws.rs.QueryParam("host")
+@javax.ws.rs.DefaultValue("")
+java.lang.String host)
+11:09:14.385 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("operation")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.Operation operation 
+11:09:14.386 [main] DEBUG - Mapping simple parameter operation (Parameter: @javax.ws.rs.QueryParam("operation")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.Operation operation)
+11:09:14.401 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("permission")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.Permission permission 
+11:09:14.402 [main] DEBUG - Mapping simple parameter permission (Parameter: @javax.ws.rs.QueryParam("permission")
+@javax.ws.rs.DefaultValue("unknown")
+io.confluent.kafkarest.entities.Acl.Permission permission)
+11:09:14.411 [main] INFO  - Transforming searchAcls controller method
+11:09:14.411 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.411 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/acls, Path null, fullPath /v3/clusters/{clusterId}/acls, cleanedPath /v3/clusters/{clusterId}/acls
+11:09:14.411 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.412 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.412 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.415 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("resource_type")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.ResourceType resourceType 
+11:09:14.416 [main] DEBUG - Mapping simple parameter resourceType (Parameter: @javax.ws.rs.QueryParam("resource_type")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.ResourceType resourceType)
+11:09:14.420 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("resource_name")
+@javax.ws.rs.DefaultValue("")
+java.lang.String resourceName 
+11:09:14.420 [main] DEBUG - Mapping simple parameter resourceName (Parameter: @javax.ws.rs.QueryParam("resource_name")
+@javax.ws.rs.DefaultValue("")
+java.lang.String resourceName)
+11:09:14.424 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("pattern_type")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.PatternType patternType 
+11:09:14.424 [main] DEBUG - Mapping simple parameter patternType (Parameter: @javax.ws.rs.QueryParam("pattern_type")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.PatternType patternType)
+11:09:14.428 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("principal")
+@javax.ws.rs.DefaultValue("")
+java.lang.String principal 
+11:09:14.429 [main] DEBUG - Mapping simple parameter principal (Parameter: @javax.ws.rs.QueryParam("principal")
+@javax.ws.rs.DefaultValue("")
+java.lang.String principal)
+11:09:14.432 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("host")
+@javax.ws.rs.DefaultValue("")
+java.lang.String host 
+11:09:14.432 [main] DEBUG - Mapping simple parameter host (Parameter: @javax.ws.rs.QueryParam("host")
+@javax.ws.rs.DefaultValue("")
+java.lang.String host)
+11:09:14.436 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("operation")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.Operation operation 
+11:09:14.436 [main] DEBUG - Mapping simple parameter operation (Parameter: @javax.ws.rs.QueryParam("operation")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.Operation operation)
+11:09:14.440 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("permission")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.Permission permission 
+11:09:14.440 [main] DEBUG - Mapping simple parameter permission (Parameter: @javax.ws.rs.QueryParam("permission")
+@javax.ws.rs.DefaultValue("any")
+io.confluent.kafkarest.entities.Acl.Permission permission)
+11:09:14.449 [main] INFO  - Transforming toAclData controller method
+11:09:14.449 [main] INFO  - Transforming alterBrokerConfigBatch controller method
+11:09:14.464 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.464 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.464 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.468 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+int brokerId 
+11:09:14.468 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+int brokerId)
+11:09:14.468 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.AlterBrokerConfigBatchRequest request 
+11:09:14.469 [main] INFO  - Transforming alterClusterConfigBatch controller method
+11:09:14.483 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.483 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.483 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.486 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType 
+11:09:14.487 [main] DEBUG - Mapping simple parameter configType (Parameter: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType)
+11:09:14.490 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.AlterClusterConfigBatchRequest request 
+11:09:14.491 [main] INFO  - Transforming alterTopicConfigBatch controller method
+11:09:14.505 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.505 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.505 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.509 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.509 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.513 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.AlterTopicConfigBatchRequest request 
+11:09:14.513 [main] INFO  - Transforming getBrokerConfig controller method
+11:09:14.514 [main] DEBUG - Called mapGet with annotation name "", path /{name}, method [GET], produces application/json
+11:09:14.514 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers/{brokerId}/configs, Path /{name}, fullPath /v3/clusters/{clusterId}/brokers/{brokerId}/configs/{name}, cleanedPath /v3/clusters/{clusterId}/brokers/{brokerId}/configs/{name}
+11:09:14.514 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.514 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.514 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.517 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+int brokerId 
+11:09:14.518 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+int brokerId)
+11:09:14.518 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.518 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.525 [main] INFO  - Transforming listBrokerConfigs controller method
+11:09:14.525 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.526 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers/{brokerId}/configs, Path null, fullPath /v3/clusters/{clusterId}/brokers/{brokerId}/configs, cleanedPath /v3/clusters/{clusterId}/brokers/{brokerId}/configs
+11:09:14.526 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.526 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.526 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.529 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+int brokerId 
+11:09:14.529 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+int brokerId)
+11:09:14.534 [main] INFO  - Transforming resetBrokerConfig controller method
+11:09:14.534 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.534 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.534 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.538 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+int brokerId 
+11:09:14.538 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+int brokerId)
+11:09:14.538 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.538 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.546 [main] INFO  - Transforming toBrokerConfigData controller method
+11:09:14.546 [main] INFO  - Transforming updateBrokerConfig controller method
+11:09:14.561 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.561 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.562 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.565 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+int brokerId 
+11:09:14.565 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+int brokerId)
+11:09:14.566 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.566 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.569 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.UpdateBrokerConfigRequest request 
+11:09:14.570 [main] INFO  - Transforming getBroker controller method
+11:09:14.570 [main] DEBUG - Called mapGet with annotation name "", path /{brokerId}, method [GET], produces application/json
+11:09:14.570 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers, Path /{brokerId}, fullPath /v3/clusters/{clusterId}/brokers/{brokerId}, cleanedPath /v3/clusters/{clusterId}/brokers/{brokerId}
+11:09:14.570 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.571 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.571 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.574 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId 
+11:09:14.574 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId)
+11:09:14.583 [main] INFO  - Transforming listBrokers controller method
+11:09:14.584 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.584 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers, Path null, fullPath /v3/clusters/{clusterId}/brokers, cleanedPath /v3/clusters/{clusterId}/brokers
+11:09:14.584 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.584 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.584 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.591 [main] INFO  - Transforming toBrokerData controller method
+11:09:14.591 [main] INFO  - Transforming deleteClusterConfig controller method
+11:09:14.592 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.592 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.592 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.595 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType 
+11:09:14.596 [main] DEBUG - Mapping simple parameter configType (Parameter: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType)
+11:09:14.600 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.600 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.607 [main] INFO  - Transforming getClusterConfig controller method
+11:09:14.607 [main] DEBUG - Called mapGet with annotation name "", path /{name}, method [GET], produces application/json
+11:09:14.607 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/{config_type}-configs, Path /{name}, fullPath /v3/clusters/{clusterId}/{config_type}-configs/{name}, cleanedPath /v3/clusters/{clusterId}/{config_type}-configs/{name}
+11:09:14.607 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.607 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.608 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.611 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType 
+11:09:14.611 [main] DEBUG - Mapping simple parameter configType (Parameter: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType)
+11:09:14.615 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.615 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.622 [main] INFO  - Transforming listClusterConfigs controller method
+11:09:14.623 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.623 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/{config_type}-configs, Path null, fullPath /v3/clusters/{clusterId}/{config_type}-configs, cleanedPath /v3/clusters/{clusterId}/{config_type}-configs
+11:09:14.623 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.623 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.623 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.626 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType 
+11:09:14.626 [main] DEBUG - Mapping simple parameter configType (Parameter: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType)
+11:09:14.634 [main] INFO  - Transforming toClusterConfigData controller method
+11:09:14.634 [main] INFO  - Transforming upsertClusterConfig controller method
+11:09:14.648 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.648 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.648 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.651 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType 
+11:09:14.652 [main] DEBUG - Mapping simple parameter configType (Parameter: @javax.ws.rs.PathParam("config_type")
+io.confluent.kafkarest.entities.ClusterConfig.Type configType)
+11:09:14.655 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.656 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.659 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.UpdateClusterConfigRequest request 
+11:09:14.659 [main] INFO  - Transforming getCluster controller method
+11:09:14.659 [main] DEBUG - Called mapGet with annotation name "", path /{clusterId}, method [GET], produces application/json
+11:09:14.659 [main] DEBUG - Base Controller Path /v3/clusters, Path /{clusterId}, fullPath /v3/clusters/{clusterId}, cleanedPath /v3/clusters/{clusterId}
+11:09:14.659 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.660 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.660 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.664 [main] INFO  - Transforming listClusters controller method
+11:09:14.664 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.664 [main] DEBUG - Base Controller Path /v3/clusters, Path null, fullPath /v3/clusters, cleanedPath /v3/clusters
+11:09:14.664 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.668 [main] INFO  - Transforming toClusterData controller method
+11:09:14.668 [main] INFO  - Transforming getConsumerAssignment controller method
+11:09:14.668 [main] DEBUG - Called mapGet with annotation name "", path /{topicName}/partitions/{partitionId}, method [GET], produces application/json
+11:09:14.668 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments, Path /{topicName}/partitions/{partitionId}, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments/{topicName}/partitions/{partitionId}, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments/{topicName}/partitions/{partitionId}
+11:09:14.668 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.668 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.668 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.672 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.672 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.675 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId 
+11:09:14.675 [main] DEBUG - Mapping simple parameter consumerId (Parameter: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId)
+11:09:14.678 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.678 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.682 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+int partitionId 
+11:09:14.682 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+int partitionId)
+11:09:14.686 [main] INFO  - Transforming listConsumerAssignments controller method
+11:09:14.686 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.686 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments, Path null, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}/assignments
+11:09:14.687 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.687 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.687 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.690 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.690 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.693 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId 
+11:09:14.693 [main] DEBUG - Mapping simple parameter consumerId (Parameter: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId)
+11:09:14.701 [main] INFO  - Transforming toConsumerAssignmentData controller method
+11:09:14.701 [main] INFO  - Transforming getConsumerGroupLagSummary controller method
+11:09:14.701 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.701 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lag-summary, Path null, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lag-summary, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lag-summary
+11:09:14.701 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.701 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.701 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.704 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.705 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.712 [main] INFO  - Transforming toConsumerGroupLagSummaryData controller method
+11:09:14.712 [main] INFO  - Transforming getConsumerGroup controller method
+11:09:14.712 [main] DEBUG - Called mapGet with annotation name "", path /{consumerGroupId}, method [GET], produces application/json
+11:09:14.712 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups, Path /{consumerGroupId}, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}
+11:09:14.712 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.712 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.712 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.716 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.716 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.720 [main] INFO  - Transforming listConsumerGroups controller method
+11:09:14.720 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.721 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups, Path null, fullPath /v3/clusters/{clusterId}/consumer-groups, cleanedPath /v3/clusters/{clusterId}/consumer-groups
+11:09:14.721 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.721 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.721 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.725 [main] INFO  - Transforming toConsumerGroupData controller method
+11:09:14.725 [main] INFO  - Transforming getConsumerLag controller method
+11:09:14.725 [main] DEBUG - Called mapGet with annotation name "", path /{topicName}/partitions/{partitionId}, method [GET], produces application/json
+11:09:14.725 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags, Path /{topicName}/partitions/{partitionId}, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags/{topicName}/partitions/{partitionId}, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags/{topicName}/partitions/{partitionId}
+11:09:14.725 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.725 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.726 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.729 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.730 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.732 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.732 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.734 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId 
+11:09:14.734 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId)
+11:09:14.739 [main] INFO  - Transforming listConsumerLags controller method
+11:09:14.739 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.739 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags, Path null, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/lags
+11:09:14.739 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.739 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.739 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.741 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.742 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.746 [main] INFO  - Transforming toConsumerLagData controller method
+11:09:14.746 [main] INFO  - Transforming getConsumer controller method
+11:09:14.746 [main] DEBUG - Called mapGet with annotation name "", path /{consumerId}, method [GET], produces application/json
+11:09:14.746 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers, Path /{consumerId}, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers/{consumerId}
+11:09:14.746 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.746 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.746 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.748 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.749 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.750 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId 
+11:09:14.751 [main] DEBUG - Mapping simple parameter consumerId (Parameter: @javax.ws.rs.PathParam("consumerId")
+java.lang.String consumerId)
+11:09:14.755 [main] INFO  - Transforming listConsumers controller method
+11:09:14.755 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.755 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers, Path null, fullPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers, cleanedPath /v3/clusters/{clusterId}/consumer-groups/{consumerGroupId}/consumers
+11:09:14.755 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.755 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.755 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.757 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId 
+11:09:14.757 [main] DEBUG - Mapping simple parameter consumerGroupId (Parameter: @javax.ws.rs.PathParam("consumerGroupId")
+java.lang.String consumerGroupId)
+11:09:14.761 [main] INFO  - Transforming toConsumerData controller method
+11:09:14.761 [main] INFO  - Transforming getReassignment controller method
+11:09:14.762 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.762 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/reassignment, Path null, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/reassignment, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/reassignment
+11:09:14.762 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.762 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.762 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.764 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.764 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.766 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId 
+11:09:14.766 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId)
+11:09:14.770 [main] INFO  - Transforming toReassignmentData controller method
+11:09:14.770 [main] INFO  - Transforming listBrokersConfigs controller method
+11:09:14.770 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.770 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers/-/configs, Path null, fullPath /v3/clusters/{clusterId}/brokers/-/configs, cleanedPath /v3/clusters/{clusterId}/brokers/-/configs
+11:09:14.770 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.770 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.770 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.774 [main] INFO  - Transforming listReassignments controller method
+11:09:14.774 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.775 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/-/partitions/-/reassignment, Path null, fullPath /v3/clusters/{clusterId}/topics/-/partitions/-/reassignment, cleanedPath /v3/clusters/{clusterId}/topics/-/partitions/-/reassignment
+11:09:14.775 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.775 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.775 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.779 [main] INFO  - Transforming toReassignmentData controller method
+11:09:14.779 [main] INFO  - Transforming listTopicConfigs controller method
+11:09:14.779 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.779 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/-/configs, Path null, fullPath /v3/clusters/{clusterId}/topics/-/configs, cleanedPath /v3/clusters/{clusterId}/topics/-/configs
+11:09:14.779 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.779 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.779 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.783 [main] INFO  - Transforming getPartition controller method
+11:09:14.783 [main] DEBUG - Called mapGet with annotation name "", path /{partitionId}, method [GET], produces application/json
+11:09:14.783 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions, Path /{partitionId}, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}
+11:09:14.784 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.784 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.784 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.786 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.786 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.788 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId 
+11:09:14.788 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId)
+11:09:14.792 [main] INFO  - Transforming listPartitions controller method
+11:09:14.792 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.792 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions, Path null, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions
+11:09:14.792 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.792 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.793 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.795 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.795 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.799 [main] INFO  - Transforming toPartitionData controller method
+11:09:14.799 [main] INFO  - Transforming toPartitionData controller method
+11:09:14.799 [main] INFO  - Transforming getSchema controller method
+11:09:14.799 [main] INFO  - Transforming produce controller method
+11:09:14.800 [main] INFO  - Transforming produce controller method
+11:09:14.807 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.807 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.808 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.810 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.810 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.812 [main] DEBUG - Transforming Parameters - Actual Param: io.confluent.kafkarest.response.JsonStream<io.confluent.kafkarest.entities.v3.ProduceRequest> requests 
+11:09:14.812 [main] INFO  - Transforming recordErrorMetrics controller method
+11:09:14.812 [main] INFO  - Transforming recordRateLimitedMetrics controller method
+11:09:14.812 [main] INFO  - Transforming recordRequestMetrics controller method
+11:09:14.812 [main] INFO  - Transforming recordResponseMetrics controller method
+11:09:14.813 [main] INFO  - Transforming serialize controller method
+11:09:14.813 [main] INFO  - Transforming toProduceResponse controller method
+11:09:14.813 [main] INFO  - Transforming getReplica controller method
+11:09:14.813 [main] DEBUG - Called mapGet with annotation name "", path /{brokerId}, method [GET], produces application/json
+11:09:14.813 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas, Path /{brokerId}, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas/{brokerId}, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas/{brokerId}
+11:09:14.813 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.813 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.813 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.815 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.815 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.817 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId 
+11:09:14.817 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId)
+11:09:14.832 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId 
+11:09:14.832 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId)
+11:09:14.836 [main] INFO  - Transforming listReplicas controller method
+11:09:14.836 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.837 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas, Path null, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/{partitionId}/replicas
+11:09:14.837 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.837 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.837 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.839 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.839 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.841 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId 
+11:09:14.841 [main] DEBUG - Mapping simple parameter partitionId (Parameter: @javax.ws.rs.PathParam("partitionId")
+java.lang.Integer partitionId)
+11:09:14.845 [main] INFO  - Transforming toReplicaData controller method
+11:09:14.845 [main] INFO  - Transforming listReassignmentsByTopic controller method
+11:09:14.845 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.845 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/partitions/-/reassignment, Path null, fullPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/-/reassignment, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/partitions/-/reassignment
+11:09:14.845 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.845 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.846 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.847 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.848 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.852 [main] INFO  - Transforming toReassignmentData controller method
+11:09:14.852 [main] INFO  - Transforming searchReplicasByBroker controller method
+11:09:14.852 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.852 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/brokers/{brokerId}/partition-replicas, Path null, fullPath /v3/clusters/{clusterId}/brokers/{brokerId}/partition-replicas, cleanedPath /v3/clusters/{clusterId}/brokers/{brokerId}/partition-replicas
+11:09:14.852 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.852 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.852 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.854 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId 
+11:09:14.854 [main] DEBUG - Mapping simple parameter brokerId (Parameter: @javax.ws.rs.PathParam("brokerId")
+java.lang.Integer brokerId)
+11:09:14.858 [main] INFO  - Transforming toReplicaData controller method
+11:09:14.858 [main] INFO  - Transforming getTopicConfig controller method
+11:09:14.858 [main] DEBUG - Called mapGet with annotation name "", path /{name}, method [GET], produces application/json
+11:09:14.859 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/configs, Path /{name}, fullPath /v3/clusters/{clusterId}/topics/{topicName}/configs/{name}, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/configs/{name}
+11:09:14.859 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.859 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.859 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.861 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.861 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.863 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.863 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.867 [main] INFO  - Transforming listTopicConfigs controller method
+11:09:14.867 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.867 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics/{topicName}/configs, Path null, fullPath /v3/clusters/{clusterId}/topics/{topicName}/configs, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}/configs
+11:09:14.867 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.867 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.867 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.869 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.870 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.874 [main] INFO  - Transforming resetTopicConfig controller method
+11:09:14.874 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.874 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.874 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.876 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.876 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.878 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.878 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.882 [main] INFO  - Transforming toTopicConfigData controller method
+11:09:14.882 [main] INFO  - Transforming updateTopicConfig controller method
+11:09:14.891 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.891 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.891 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.893 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.893 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.895 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("name")
+java.lang.String name 
+11:09:14.895 [main] DEBUG - Mapping simple parameter name (Parameter: @javax.ws.rs.PathParam("name")
+java.lang.String name)
+11:09:14.897 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.UpdateTopicConfigRequest request 
+11:09:14.897 [main] INFO  - Transforming createTopic controller method
+11:09:14.905 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.905 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.905 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.907 [main] DEBUG - Transforming Parameters - Actual Param: @javax.validation.Valid
+io.confluent.kafkarest.entities.v3.CreateTopicRequest request 
+11:09:14.908 [main] INFO  - Transforming deleteTopic controller method
+11:09:14.908 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.908 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.908 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.910 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.910 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.914 [main] INFO  - Transforming getTopic controller method
+11:09:14.914 [main] DEBUG - Called mapGet with annotation name "", path /{topicName}, method [GET], produces application/json
+11:09:14.914 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics, Path /{topicName}, fullPath /v3/clusters/{clusterId}/topics/{topicName}, cleanedPath /v3/clusters/{clusterId}/topics/{topicName}
+11:09:14.914 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.915 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.915 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.917 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName 
+11:09:14.917 [main] DEBUG - Mapping simple parameter topicName (Parameter: @javax.ws.rs.PathParam("topicName")
+java.lang.String topicName)
+11:09:14.918 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("include_authorized_operations")
+@javax.ws.rs.DefaultValue("false")
+boolean includeAuthorizedOperations 
+11:09:14.919 [main] DEBUG - Mapping simple parameter includeAuthorizedOperations (Parameter: @javax.ws.rs.QueryParam("include_authorized_operations")
+@javax.ws.rs.DefaultValue("false")
+boolean includeAuthorizedOperations)
+11:09:14.921 [main] INFO  - Transforming listTopics controller method
+11:09:14.921 [main] DEBUG - Called mapGet with annotation name "", path null, method [GET], produces application/json
+11:09:14.921 [main] DEBUG - Base Controller Path /v3/clusters/{clusterId}/topics, Path null, fullPath /v3/clusters/{clusterId}/topics, cleanedPath /v3/clusters/{clusterId}/topics
+11:09:14.921 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.container.Suspended
+javax.ws.rs.container.AsyncResponse asyncResponse 
+11:09:14.921 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId 
+11:09:14.922 [main] DEBUG - Mapping simple parameter clusterId (Parameter: @javax.ws.rs.PathParam("clusterId")
+java.lang.String clusterId)
+11:09:14.923 [main] DEBUG - Transforming Parameters - Actual Param: @javax.ws.rs.QueryParam("includeAuthorizedOperations")
+@javax.ws.rs.DefaultValue("false")
+boolean includeAuthorizedOperations 
+11:09:14.924 [main] DEBUG - Mapping simple parameter includeAuthorizedOperations (Parameter: @javax.ws.rs.QueryParam("includeAuthorizedOperations")
+@javax.ws.rs.DefaultValue("false")
+boolean includeAuthorizedOperations)
+11:09:14.926 [main] INFO  - Transforming toTopicData controller method
+11:09:14.928 [main] INFO  - Transforming doProduce controller method
+11:09:14.928 [main] INFO  - Transforming errorCodeFromProducerException controller method
+11:09:14.928 [main] INFO  - Transforming getSchema controller method
+11:09:14.928 [main] INFO  - Transforming produceResultsToResponse controller method
+11:09:14.928 [main] INFO  - Transforming produceWithSchema controller method
+11:09:14.928 [main] INFO  - Transforming produceWithoutSchema controller method
+11:09:14.928 [main] INFO  - Transforming serialize controller method
+11:09:14.928 [main] INFO  - Transforming doProduce controller method
+11:09:14.928 [main] INFO  - Transforming errorCodeFromProducerException controller method
+11:09:14.928 [main] INFO  - Transforming getSchema controller method
+11:09:14.928 [main] INFO  - Transforming produceResultsToResponse controller method
+11:09:14.928 [main] INFO  - Transforming produceWithSchema controller method
+11:09:14.928 [main] INFO  - Transforming produceWithoutSchema controller method
+11:09:14.928 [main] INFO  - Transforming serialize controller method
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m10.183s
+user	0m23.094s
+sys	0m3.706s
