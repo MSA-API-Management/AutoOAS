@@ -5,6 +5,7 @@ import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
+import spoon.reflect.code.CtConditional;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
@@ -13,7 +14,9 @@ import spoon.support.reflect.code.CtFieldReadImpl;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
 
@@ -57,15 +60,48 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         return responseStatus;
     }
 
+    // TODO make it cleaner & extract to use it in jakarta
     private List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
-        if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
-            return List.of(HttpStatus.BAD_REQUEST.value());
+        List<Integer> responseCodes = new ArrayList<>();
+        if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
+            Integer thenCondition = extractSingleResponseCode(ctConditional.getThenExpression());
+            if (thenCondition != null) {
+                responseCodes.add(thenCondition);
+            }
+
+            Integer elseCondition = extractSingleResponseCode(ctConditional.getElseExpression());
+            if (elseCondition != null) {
+                responseCodes.add(elseCondition);
+            }
+        } else {
+            Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
+            if (singleCode != null) {
+                responseCodes.add(singleCode);
+            }
         }
 
-        // todo detect more common response code logic - especially apache HttpStatus
-        System.out.println("Could not parse custom response code creation in builder::status: " + statusCodeMethodArg);
+        return responseCodes;
+    }
 
-        return null;
+    private Integer extractSingleResponseCode(CtExpression<?> expression) {
+        Map<String, HttpStatus> statusMap = Map.of(
+                "BAD_REQUEST", HttpStatus.BAD_REQUEST,
+                "NOT_FOUND", HttpStatus.NOT_FOUND,
+                "NO_CONTENT", HttpStatus.NO_CONTENT,
+                "ACCEPTED", HttpStatus.ACCEPTED,
+                "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
+                "CREATED", HttpStatus.CREATED,
+                "FAILURE", HttpStatus.METHOD_FAILURE
+        );
+
+        return statusMap.entrySet().stream()
+                .filter(entry -> expression.toString().contains(entry.getKey()))
+                .map(entry -> entry.getValue().value())
+                .findFirst()
+                .orElseGet(() -> {
+                    System.out.println("Could not parse custom response code creation in builder::status: " + expression);
+                    return null;
+                });
     }
 
     @Override
