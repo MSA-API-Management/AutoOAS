@@ -9,46 +9,46 @@ import java.util.Optional;
 public class JakartaValidationAnnotationProvider implements ValidationAnnotationProvider {
     @Override
     public boolean isNotNullAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(NotNull.class);
+        return NotNull.class.equals(annotation.annotationType());
     }
 
     @Override
     public boolean isNotEmptyAnnotation(Annotation annotation) {
-        return annotation.annotationType().equals(NotEmpty.class);
+        return NotEmpty.class.equals(annotation.annotationType());
     }
 
     @Override
     public Optional<String> getPatternRegexpIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(Pattern.class) ? Optional.of(((Pattern) annotation).regexp()) : Optional.empty();
+        return Pattern.class.equals(annotation.annotationType()) ? Optional.of(((Pattern) annotation).regexp()) : Optional.empty();
     }
 
     @Override
     public Optional<Integer> getSizeMinIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(Size.class) ? Optional.of(((Size) annotation).min()) : Optional.empty();
+        return Size.class.equals(annotation.annotationType()) ? Optional.of(((Size) annotation).min()) : Optional.empty();
     }
 
     @Override
     public Optional<Integer> getSizeMaxIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(Size.class) ? Optional.of(((Size) annotation).max()) : Optional.empty();
+        return Size.class.equals(annotation.annotationType()) ? Optional.of(((Size) annotation).max()) : Optional.empty();
     }
 
     @Override
     public Optional<String> getDecimalMinValueIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMin.class) ? Optional.of(((DecimalMin) annotation).value()) : Optional.empty();
+        return DecimalMin.class.equals(annotation.annotationType()) ? Optional.of(((DecimalMin) annotation).value()) : Optional.empty();
     }
 
     @Override
     public Optional<String> getDecimalMaxValueIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(DecimalMax.class) ? Optional.of(((DecimalMax) annotation).value()) : Optional.empty();
+        return DecimalMax.class.equals(annotation.annotationType()) ? Optional.of(((DecimalMax) annotation).value()) : Optional.empty();
     }
 
     @Override
     public Optional<Long> getMinValueIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(Min.class) ? Optional.of(((Min) annotation).value()) : Optional.empty();
+        return Min.class.equals(annotation.annotationType()) ? Optional.of(((Min) annotation).value()) : Optional.empty();
     }
 
     @Override
     public Optional<Long> getMaxValueIfPresent(Annotation annotation) {
-        return annotation.annotationType().equals(Max.class) ? Optional.of(((Max) annotation).value()) : Optional.empty();
+        return Max.class.equals(annotation.annotationType()) ? Optional.of(((Max) annotation).value()) : Optional.empty();
     }
 }
