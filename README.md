@@ -13,7 +13,7 @@ Compile and run:
 ```shell
 mvn clean package
 
-java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
+java -jar target/auto-oas-1.2.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
 ```
 
 ## Evaluation

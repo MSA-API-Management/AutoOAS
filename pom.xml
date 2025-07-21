@@ -5,7 +5,7 @@
 
     <artifactId>auto-oas</artifactId>
     <groupId>at.aau.serg</groupId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>auto-oas</name>
     <!-- FIXME change it to the project's website -->
