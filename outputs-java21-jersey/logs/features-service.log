@@ -48,3 +48,13 @@ Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
 real	0m4.331s
 user	0m9.326s
 sys	0m2.106s
+Loading model: /home/alex/Respector-fork/dataset/features-service
+Detected Framework via Method Annotations: Jakarta
+Detected profiles: [default]
+javax.ws.rs.core.Response.created(new java.net.URI("/products/" + productName))
+javax.ws.rs.core.Response.noContent()
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m4.295s
+user	0m9.114s
+sys	0m2.123s

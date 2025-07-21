@@ -46,3 +46,11 @@ Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
 real	0m4.339s
 user	0m9.047s
 sys	0m2.068s
+Loading model: /home/alex/Respector-fork/dataset/restcountries
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m4.130s
+user	0m8.532s
+sys	0m2.031s

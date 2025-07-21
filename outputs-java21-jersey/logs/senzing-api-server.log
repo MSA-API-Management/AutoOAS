@@ -46,3 +46,11 @@ Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
 real	0m7.743s
 user	0m19.774s
 sys	0m2.938s
+Loading model: /home/alex/Respector-fork/dataset/senzing-api-server
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m7.654s
+user	0m19.630s
+sys	0m3.098s

@@ -46,3 +46,11 @@ Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
 real	0m8.867s
 user	0m22.582s
 sys	0m3.465s
+Loading model: /home/alex/Respector-fork/dataset/kafka-rest
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m8.693s
+user	0m22.027s
+sys	0m3.463s

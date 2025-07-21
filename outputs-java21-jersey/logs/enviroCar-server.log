@@ -124,3 +124,24 @@ Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
 real	0m6.487s
 user	0m15.504s
 sys	0m2.704s
+Loading model: /home/alex/Respector-fork/dataset/enviroCar-server
+The method public static HashSet<E> newHashSet()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public abstract R collect(Collector<? super java.lang.String,A,R>)  is wrongly tagged as containing missing types
+The method public static LinkedListMultimap<K,V> create()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+Detected Framework via Method Annotations: Jakarta
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
+
+real	0m6.087s
+user	0m15.100s
+sys	0m2.590s
