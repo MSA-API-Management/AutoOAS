@@ -52,3 +52,99 @@ Exception in thread "main" java.lang.IllegalArgumentException: No rest framework
 real	0m2.868s
 user	0m5.363s
 sys	0m1.429s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra
+No RestFramework detected
+Exception in thread "main" java.lang.IllegalArgumentException: No rest framework could be detected
+	at at.aau.serg.parsers.ParserFactory.createParserWithDetection(ParserFactory.java:37)
+	at at.aau.serg.parsers.Main.main(Main.java:17)
+
+real	0m2.833s
+user	0m5.321s
+sys	0m1.346s
+Loading model: /home/alex/Respector-fork/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: Jakarta
+Detected profiles: [default]
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode(), "Username is empty")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode(), "Password is empty")
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.ok()
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(com.datastax.mgmtapi.resources.K8OperatorResources.jsonMapper.writeValueAsString(response)).type(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(com.datastax.mgmtapi.resources.K8OperatorResources.jsonMapper.writeValueAsString(response))
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR)
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND).entity(jobResponse)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND)
+javax.ws.rs.core.Response.ok(jobResponse, javax.ws.rs.core.MediaType.APPLICATION_JSON)
+javax.ws.rs.core.Response.ok(com.datastax.mgmtapi.resources.K8OperatorResources.jsonMapper.writeValueAsString(response), javax.ws.rs.core.MediaType.APPLICATION_JSON)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Altering Keyspace failed. Non-empty 'keyspace_name' must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Altering Keyspace failed. 'replication_settings' must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.ok(com.datastax.mgmtapi.resources.helpers.ResponseTools.getSingleRowStringResponse(app.dbUnixSocketFile, cqlService, "CALL NodeOps.forceKeyspaceCleanup(?, ?, ?, ?)", keyspaceRequest.jobs, keyspaceName, tables, false))
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Keyspace creation failed. Non-empty 'keyspace_name' must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Keyspace creation failed. 'replication_settings' must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Get keyspace replication failed. Non-empty 'keyspaceName' must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_NOT_FOUND).entity(java.lang.String.format("Get keyspace replication failed. Keyspace '%s' does not exist.", keyspaceName))
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_NOT_FOUND)
+javax.ws.rs.core.Response.ok(replication, javax.ws.rs.core.MediaType.APPLICATION_JSON)
+javax.ws.rs.core.Response.ok(com.datastax.mgmtapi.resources.KeyspaceOpsResources.jsonMapper.writeValueAsString(keyspaces), javax.ws.rs.core.MediaType.APPLICATION_JSON)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("Must provide a keyspace name")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST).entity("table must be provided")
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_BAD_REQUEST)
+javax.ws.rs.core.Response.ok("OK")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE).entity("Cassandra is running, try /api/v0/lifecycle/stop first\n")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode()).entity("The profile query parameter is required, try /api/v0/lifecycle/configure?profile=<profile>\n")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode())
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST).entity("spec missing\n")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST).entity("cluster name missing\n")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode()).entity("config missing\n")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST.getStatusCode())
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST).entity("Both max_heap_size and heap_new_size must be defined")
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+javax.ws.rs.core.Response.serverError()
+javax.ws.rs.core.Response.ok().entity("OK\n")
+javax.ws.rs.core.Response.ok()
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE).entity("Invalid JSON:" + e.getMessage())
+javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.NOT_ACCEPTABLE)
+javax.ws.rs.core.Response.ok(java.lang.Integer.toString(maybePid.get()))
+javax.ws.rs.core.Response.status(org.apache.http.HttpStatus.SC_NO_CONTENT)
+javax.ws.rs.core.Response.serverError().entity(t.getLocalizedMessage())
+javax.ws.rs.core.Response.serverError()
+javax.ws.rs.core.Response.status(canConnect ? org.apache.http.HttpStatus.SC_ACCEPTED : org.apache.http.HttpStatus.SC_NO_CONTENT)
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "spoon.reflect.reference.CtTypeReference.getSimpleName()" because the return value of "spoon.reflect.code.CtExpression.getType()" is null
+	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.traceResponseCreationBackFromBuildCall(JakartaOperationResponseCodeInterceptor.java:179)
+	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.analyzeResponseInvocation(JakartaOperationResponseCodeInterceptor.java:122)
+	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.tryDetectJakartaResponsesInMethod(JakartaOperationResponseCodeInterceptor.java:99)
+	at at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor.intercept(JakartaOperationResponseCodeInterceptor.java:58)
+	at com.github.jrcodeza.schema.generator.OperationsTransformer.lambda$mapPost$16(OperationsTransformer.java:278)
+	at java.base/java.util.Collections$SingletonList.forEach(Collections.java:5186)
+	at com.github.jrcodeza.schema.generator.OperationsTransformer.mapPost(OperationsTransformer.java:278)
+	at com.github.jrcodeza.schema.generator.OperationsTransformer.lambda$createOperation$0(OperationsTransformer.java:85)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at com.github.jrcodeza.schema.generator.OperationsTransformer.createOperation(OperationsTransformer.java:85)
+	at at.aau.serg.parsers.RestApiParser.createPathsFromControllers(RestApiParser.java:166)
+	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromControllers(RestApiParser.java:126)
+	at at.aau.serg.parsers.RestApiParser.createOpenAPIFromProfile(RestApiParser.java:121)
+	at at.aau.serg.parsers.RestApiParser.generateOpenApi(RestApiParser.java:103)
+	at at.aau.serg.parsers.RestApiParser.run(RestApiParser.java:65)
+	at at.aau.serg.parsers.Main.main(Main.java:18)
+
+real	0m4.560s
+user	0m10.346s
+sys	0m2.013s

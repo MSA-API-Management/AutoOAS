@@ -79,25 +79,25 @@ echo "Running for Jersey projects..."
 echo "1/8 Running digdag"
 { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/digdag" "$OUTPUT_DIR/digdag_oas" ; } >> "$LOG_DIR/digdag.log" 2>&1
 
-echo "2/8 Running enviroCar-server"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/enviroCar-server" "$OUTPUT_DIR/enviroCar-server_oas" ; } >> "$LOG_DIR/enviroCar-server.log" 2>&1
+# echo "2/8 Running enviroCar-server"
+# { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/enviroCar-server" "$OUTPUT_DIR/enviroCar-server_oas" ; } >> "$LOG_DIR/enviroCar-server.log" 2>&1
 
-echo "3/8 Running features-service"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/features-service" "$OUTPUT_DIR/features-service_oas" ; } >> "$LOG_DIR/features-service.log" 2>&1
+# echo "3/8 Running features-service"
+# { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/features-service" "$OUTPUT_DIR/features-service_oas" ; } >> "$LOG_DIR/features-service.log" 2>&1
 
 echo "4/8 Running gravitee-api-management"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/gravitee-api-management" "$OUTPUT_DIR/gravitee-api-management_oas" ; } >> "$LOG_DIR/gravitee-api-management.log" 2>&1
+{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api" "$OUTPUT_DIR/gravitee-api-management_oas" ; } >> "$LOG_DIR/gravitee-api-management.log" 2>&1
 
-echo "5/8 Running kafka-rest"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/kafka-rest" "$OUTPUT_DIR/kafka-rest_oas" ; } >> "$LOG_DIR/kafka-rest.log" 2>&1
+# echo "5/8 Running kafka-rest"
+# { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/kafka-rest" "$OUTPUT_DIR/kafka-rest_oas" ; } >> "$LOG_DIR/kafka-rest.log" 2>&1
 
 echo "6/8 Running management-api-for-apache-cassandra"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/management-api-for-apache-cassandra" "$OUTPUT_DIR/management-api-for-apache-cassandra_oas" ; } >> "$LOG_DIR/management-api-for-apache-cassandra.log" 2>&1
+{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/management-api-for-apache-cassandra/management-api-server" "$OUTPUT_DIR/management-api-for-apache-cassandra_oas" ; } >> "$LOG_DIR/management-api-for-apache-cassandra.log" 2>&1
 
-echo "7/8 Running restcountries"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/restcountries" "$OUTPUT_DIR/restcountries_oas" ; } >> "$LOG_DIR/restcountries.log" 2>&1
+# echo "7/8 Running restcountries"
+# { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/restcountries" "$OUTPUT_DIR/restcountries_oas" ; } >> "$LOG_DIR/restcountries.log" 2>&1
 
-echo "8/8 Running senzing-api-server"
-{ time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/senzing-api-server" "$OUTPUT_DIR/senzing-api-server_oas" ; } >> "$LOG_DIR/senzing-api-server.log" 2>&1
+# echo "8/8 Running senzing-api-server"
+# { time java -jar target/auto-oas-1.1.0-jar-with-dependencies.jar "$DATASET_DIR/senzing-api-server" "$OUTPUT_DIR/senzing-api-server_oas" ; } >> "$LOG_DIR/senzing-api-server.log" 2>&1
 
 fi
