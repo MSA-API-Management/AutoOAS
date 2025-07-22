@@ -456,7 +456,7 @@
         "parameters" : [ ],
         "responses" : {
           "418" : {
-            "description" : "",
+            "description" : "I'm a teapot",
             "content" : {
               "application/json" : {
                 "schema" : {
