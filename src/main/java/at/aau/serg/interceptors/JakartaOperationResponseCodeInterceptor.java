@@ -33,6 +33,7 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
             case "accepted" -> responseStatus = List.of(Response.Status.ACCEPTED.getStatusCode());
             case "notModified" -> responseStatus = List.of(Response.Status.NOT_MODIFIED.getStatusCode());
             case "created" -> responseStatus = List.of(Response.Status.CREATED.getStatusCode());
+            case "serverError" -> responseStatus = List.of(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
             case "status" -> {
                 // custom statusCode with either Response.StatusType or int (::status overload)
                 var statusCodeMethodArg = method.getArguments().getFirst();
@@ -49,6 +50,7 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
                     responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
                 }
             }
+            default -> System.out.println("Unrecognized response builder status code method: " + methodName);
         }
 
         return responseStatus;
