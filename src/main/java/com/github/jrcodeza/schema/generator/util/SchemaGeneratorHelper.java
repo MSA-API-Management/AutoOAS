@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.TypeFactory;
@@ -332,7 +333,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
                     .ifPresent(schema::pattern);
 
@@ -345,7 +346,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
                     .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
 
@@ -361,7 +362,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getSizeMinIfPresent(annotation)
                     .ifPresent(schema::minItems);
 
@@ -422,7 +423,14 @@ public class SchemaGeneratorHelper {
 
     public boolean isInPackagesToBeScanned(CtType<?> clazz, List<String> modelPackages) {
         return modelPackages == null
-                || modelPackages.stream().anyMatch(pkg -> clazz.getPackage().getQualifiedName().equals(pkg));
+                || modelPackages.stream().anyMatch(pkg -> {
+                    CtPackage clazzPackage = clazz.getPackage();
+                    if (clazzPackage != null) {
+                        return clazzPackage.getQualifiedName().equals(pkg);
+                    }
+                    return false;
+                }
+        );
     }
 
     public void enrichWithTypeAnnotations(Schema<?> schema, Annotation[] annotations) {
