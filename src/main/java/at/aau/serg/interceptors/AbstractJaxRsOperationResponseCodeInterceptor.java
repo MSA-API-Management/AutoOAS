@@ -204,6 +204,41 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     abstract protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
 
+    protected List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+        List<Integer> responseCodes = new ArrayList<>();
+        if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getThenExpression()));
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getElseExpression()));
+        } else {
+            Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
+            if (singleCode != null) {
+                responseCodes.add(singleCode);
+            }
+        }
+
+        return responseCodes;
+    }
+
+    protected Integer extractSingleResponseCode(CtExpression<?> expression) {
+        Map<String, HttpStatus> statusMap = Map.of(
+                "BAD_REQUEST", HttpStatus.BAD_REQUEST,
+                "NOT_FOUND", HttpStatus.NOT_FOUND,
+                "NO_CONTENT", HttpStatus.NO_CONTENT,
+                "ACCEPTED", HttpStatus.ACCEPTED,
+                "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
+                "CREATED", HttpStatus.CREATED,
+                "FAILURE", HttpStatus.METHOD_FAILURE
+        );
+
+        return statusMap.entrySet().stream()
+                .filter(entry -> expression.toString().contains(entry.getKey()))
+                .map(entry -> entry.getValue().value())
+                .findFirst()
+                .orElseGet(() -> {
+                    System.out.println("Could not parse custom response code creation in builder::status: " + expression);
+                    return null;
+                });
+    }
 
     private ApiResponse extractPayloadTypeInfo(CtExpression<?> expr) {
         ApiResponse response = null;

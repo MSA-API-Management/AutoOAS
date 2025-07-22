@@ -3,11 +3,8 @@ package at.aau.serg.interceptors;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
-import org.springframework.http.HttpStatus;
-import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
@@ -55,17 +52,6 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
         }
 
         return responseStatus;
-    }
-
-    private List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
-        if (statusCodeMethodArg.toString().contains("BAD_REQUEST")) {
-            return List.of(HttpStatus.BAD_REQUEST.value());
-        }
-
-        // todo detect more common response code logic - especially apache HttpStatus
-        System.out.println("Could not parse custom response code creation in builder::status: " + statusCodeMethodArg);
-
-        return null;
     }
 
     @Override

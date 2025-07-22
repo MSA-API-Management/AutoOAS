@@ -3,9 +3,6 @@ package at.aau.serg.interceptors;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import org.springframework.http.HttpStatus;
-import spoon.reflect.code.CtConditional;
-import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
@@ -13,9 +10,7 @@ import spoon.support.reflect.code.CtFieldReadImpl;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
 
@@ -57,43 +52,6 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         }
 
         return responseStatus;
-    }
-
-    private List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
-        List<Integer> responseCodes = new ArrayList<>();
-        if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
-            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getThenExpression()));
-            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getElseExpression()));
-        } else {
-            Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
-            if (singleCode != null) {
-                responseCodes.add(singleCode);
-            }
-        }
-
-        return responseCodes;
-    }
-
-    // TODO extract if we are sure to use HttpStatus
-    private Integer extractSingleResponseCode(CtExpression<?> expression) {
-        Map<String, HttpStatus> statusMap = Map.of(
-                "BAD_REQUEST", HttpStatus.BAD_REQUEST,
-                "NOT_FOUND", HttpStatus.NOT_FOUND,
-                "NO_CONTENT", HttpStatus.NO_CONTENT,
-                "ACCEPTED", HttpStatus.ACCEPTED,
-                "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
-                "CREATED", HttpStatus.CREATED,
-                "FAILURE", HttpStatus.METHOD_FAILURE
-        );
-
-        return statusMap.entrySet().stream()
-                .filter(entry -> expression.toString().contains(entry.getKey()))
-                .map(entry -> entry.getValue().value())
-                .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("Could not parse custom response code creation in builder::status: " + expression);
-                    return null;
-                });
     }
 
     @Override
