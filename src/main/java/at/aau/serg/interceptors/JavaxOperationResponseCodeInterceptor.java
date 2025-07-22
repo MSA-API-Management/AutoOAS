@@ -3,7 +3,6 @@ package at.aau.serg.interceptors;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.code.CtConditional;
 import spoon.reflect.code.CtExpression;
@@ -60,19 +59,11 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         return responseStatus;
     }
 
-    // TODO make it cleaner & extract to use it in jakarta
     private List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
         List<Integer> responseCodes = new ArrayList<>();
         if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
-            Integer thenCondition = extractSingleResponseCode(ctConditional.getThenExpression());
-            if (thenCondition != null) {
-                responseCodes.add(thenCondition);
-            }
-
-            Integer elseCondition = extractSingleResponseCode(ctConditional.getElseExpression());
-            if (elseCondition != null) {
-                responseCodes.add(elseCondition);
-            }
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getThenExpression()));
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getElseExpression()));
         } else {
             Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
             if (singleCode != null) {
