@@ -53,13 +53,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     public void intercept(CtMethod<?> method, Operation transformedOperation) {
 
         //// Response detection ////
-        var responses = tryDetectJakartaResponsesInMethod(method);
+        var responses = tryDetectJaxRSResponsesInMethod(method);
 
         if (!responses.isEmpty()) {
-            // found some Jakarta Response obj, overwrite og responses
+            // found some Jax-RS Response obj, overwrite og responses
             transformedOperation.setResponses(responses);
         }
-        // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response
+        // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response or javax.ws.rs.core.Response
 
         //// Exception Detection ////
         var exceptionResponses = tryDetectExceptionsInMethod(method);
@@ -81,13 +81,12 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // region Response obj detection
 
     /**
-     * todo update jd and name
-     * Detects returned jakarta.ws.rs.core.Response objects in Jakarta handler methods.
+     * Detects returned jakarta.ws.rs.core.Response and javax.ws.rs.core.Response objects in Jax-RS handler methods.
      *
      * @param method
      * @return
      */
-    private ApiResponses tryDetectJakartaResponsesInMethod(CtMethod<?> method) {
+    private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
         // fixme limitation: only handle direct invocation at return statement
@@ -109,8 +108,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     /**
-     * todo update jd
-     * Creates the ApiResponse starting from the build() call of a jakarta Response object.
+     * Creates the ApiResponse starting from the build() call of a Jax-RS Response object.
      *
      * @param inv
      * @return
@@ -260,7 +258,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         boolean globalExceptionHandlerFound = false;
 
         for (CtType<?> globalExceptionHandler : globalExceptionHandlerClasses) {
-            // Jakarta requires annotation and interface impl, just confirming we extracted correctly
+            // Jax-RS requires annotation and interface impl, just confirming we extracted correctly
             assert schemaHelper.isTypeEquivalent(globalExceptionHandler.getReference(), getExceptionMapperClass());
 
             var exceptionHandlerMethod = globalExceptionHandler.getMethod("toResponse", thrownType.getReference());
@@ -268,8 +266,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
                 var exceptionHandlerResponseType = exceptionHandlerMethod.getType();
                 if (schemaHelper.isTypeEquivalent(exceptionHandlerResponseType, getResponseClass())) {
-                    // returning Jakarta Response -> extract actual response info
-                    apiResponses = tryDetectJakartaResponsesInMethod(exceptionHandlerMethod);
+                    // returning Jax-RS Response -> extract actual response info
+                    apiResponses = tryDetectJaxRSResponsesInMethod(exceptionHandlerMethod);
                 } else {
                     // returning pojo
                     apiResponses = methodResponseExtractor.createApiResponses(exceptionHandlerMethod, null);
