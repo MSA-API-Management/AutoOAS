@@ -69,12 +69,6 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
     }
 
     @Override
-    protected void setResponseDescription(ApiResponse response, Integer responseStatus) {
-        Response.Status status = Response.Status.fromStatusCode(responseStatus);
-        response.setDescription(status != null ? status.getReasonPhrase() : "");
-    }
-
-    @Override
     protected Class<?> getExceptionMapperClass() {
         return ExceptionMapper.class;
     }

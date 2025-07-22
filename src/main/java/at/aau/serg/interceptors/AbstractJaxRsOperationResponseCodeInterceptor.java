@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
+import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
@@ -180,7 +181,9 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return responses;
     }
 
-    abstract protected void setResponseDescription(ApiResponse response, Integer responseStatus);
+    private void setResponseDescription(ApiResponse response, Integer responseStatus) {
+        response.setDescription(HttpStatus.valueOf(responseStatus).getReasonPhrase());
+    }
 
     abstract protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
 
