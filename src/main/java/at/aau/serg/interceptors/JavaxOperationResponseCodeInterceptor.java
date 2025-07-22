@@ -83,6 +83,7 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         return responseCodes;
     }
 
+    // TODO extract if we are sure to use HttpStatus
     private Integer extractSingleResponseCode(CtExpression<?> expression) {
         Map<String, HttpStatus> statusMap = Map.of(
                 "BAD_REQUEST", HttpStatus.BAD_REQUEST,
@@ -104,9 +105,11 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
                 });
     }
 
+    // TODO use HttpStatus?
     @Override
     protected void setResponseDescription(ApiResponse response, Integer responseStatus) {
-        response.setDescription(Response.Status.fromStatusCode(responseStatus) != null ? Response.Status.fromStatusCode(responseStatus).getReasonPhrase() : "");
+        Response.Status status = Response.Status.fromStatusCode(responseStatus);
+        response.setDescription(status != null ? status.getReasonPhrase() : "");
     }
 
     @Override

@@ -18,6 +18,7 @@ import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // region Response obj detection
 
     /**
+     * todo update jd and name
      * Detects returned jakarta.ws.rs.core.Response objects in Jakarta handler methods.
      *
      * @param method
@@ -93,10 +95,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtExpression<?> returned = returnStatement.getReturnedExpression();
             if (returned instanceof CtInvocation<?> inv) {
 
-                var response = analyzeResponseInvocation(inv);
+                var responses = analyzeResponseInvocation(inv);
 
-                if (response != null)
-                    apiResponses.addApiResponse(response.getValue0(), response.getValue1());
+                if (responses != null && !responses.isEmpty()) {
+                    for (var response : responses) {
+                        apiResponses.addApiResponse(response.getValue0(), response.getValue1());
+                    }
+                }
             }
         }
 
@@ -104,12 +109,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     /**
+     * todo update jd
      * Creates the ApiResponse starting from the build() call of a jakarta Response object.
      *
      * @param inv
      * @return
      */
-    private Pair<String, ApiResponse> analyzeResponseInvocation(CtInvocation<?> inv) {
+    private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv) {
         CtExecutableReference<?> executable = inv.getExecutable();
         String methodName = executable.getSimpleName();
 
@@ -128,6 +134,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     /**
+     * TODO update JD
      * Backtracking method chains, e.g.,
      * Response
      * .status(Response.Status.UNAUTHORIZED)
@@ -137,9 +144,9 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param buildCallTarget starting before the build call, in the example from ::entity
      * @return the response code and response type pair
      */
-    private Pair<String, ApiResponse> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
-        Integer responseStatus = null;
-        ApiResponse response = new ApiResponse();
+    private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
+        List<Integer> responseStatus = new ArrayList<>();
+        ApiResponse baseResponse = new ApiResponse();
 
         CtExpression<?> curMethodInChain = buildCallTarget;
         while (curMethodInChain instanceof CtInvocation<?> method) {
@@ -150,22 +157,29 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 List<CtExpression<?>> args = method.getArguments();
                 if (!args.isEmpty()) {
                     CtExpression<?> arg = args.getFirst();
-                    response = extractPayloadTypeInfo(arg);
+                    baseResponse = extractPayloadTypeInfo(arg);
                 }
             }
 
-            responseStatus = getResponseCodesFromResponseBuilderMethod(method);
+            List<Integer> methodResponseStatus = getResponseCodesFromResponseBuilderMethod(method);
+            if (methodResponseStatus != null && !methodResponseStatus.isEmpty()) {
+                responseStatus.addAll(methodResponseStatus);
+            }
 
             curMethodInChain = method.getTarget();
         }
 
-        if (responseStatus == null) {
-            // fallback!
-            responseStatus = FALLBACK_STATUS_CODE;
+        if (responseStatus.isEmpty()) {
+            responseStatus = List.of(FALLBACK_STATUS_CODE); // fallback!
         }
 
-        setResponseDescription(response, responseStatus);
-        return new Pair<String, ApiResponse>(String.valueOf(responseStatus), response);
+        List<Pair<String, ApiResponse>> responses = new ArrayList<>();
+        for (Integer status : responseStatus) {
+            setResponseDescription(baseResponse, status);
+            responses.add(new Pair<>(String.valueOf(status), baseResponse));
+        }
+
+        return responses;
     }
 
     abstract protected void setResponseDescription(ApiResponse response, Integer responseStatus);
