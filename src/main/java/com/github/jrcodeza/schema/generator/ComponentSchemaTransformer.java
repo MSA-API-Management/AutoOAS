@@ -21,7 +21,6 @@ import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeParameterReference;
 import spoon.reflect.reference.CtTypeReference;
 
-import javax.sound.midi.Soundbank;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
