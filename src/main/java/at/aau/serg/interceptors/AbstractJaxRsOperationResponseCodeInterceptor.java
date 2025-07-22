@@ -133,7 +133,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     /**
-     * TODO update JD
      * Backtracking method chains, e.g.,
      * Response
      * .status(Response.Status.UNAUTHORIZED)
@@ -141,7 +140,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * .build();
      *
      * @param buildCallTarget starting before the build call, in the example from ::entity
-     * @return the response code and response type pair
+     * @return a list of response codes and response type pairs
      */
     private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
         List<Integer> responseStatus = new ArrayList<>();
@@ -174,11 +173,29 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         List<Pair<String, ApiResponse>> responses = new ArrayList<>();
         for (Integer status : responseStatus) {
-            setResponseDescription(baseResponse, status);
-            responses.add(new Pair<>(String.valueOf(status), baseResponse));
+            ApiResponse clonedResponse = cloneApiResponse(baseResponse);
+            setResponseDescription(clonedResponse, status);
+            responses.add(new Pair<>(String.valueOf(status), clonedResponse));
         }
 
         return responses;
+    }
+
+
+    private ApiResponse cloneApiResponse(ApiResponse original) {
+        if (original == null) {
+            return new ApiResponse();
+        }
+
+        ApiResponse clone = new ApiResponse();
+
+        clone.setDescription(original.getDescription());
+        clone.setContent(original.getContent());
+        clone.setHeaders(original.getHeaders());
+        clone.setLinks(original.getLinks());
+        clone.setExtensions(original.getExtensions());
+
+        return clone;
     }
 
     private void setResponseDescription(ApiResponse response, Integer responseStatus) {
