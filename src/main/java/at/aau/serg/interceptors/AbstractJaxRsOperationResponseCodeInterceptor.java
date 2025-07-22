@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
+import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
@@ -18,6 +19,7 @@ import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,13 +54,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     public void intercept(CtMethod<?> method, Operation transformedOperation) {
 
         //// Response detection ////
-        var responses = tryDetectJakartaResponsesInMethod(method);
+        var responses = tryDetectJaxRSResponsesInMethod(method);
 
         if (!responses.isEmpty()) {
-            // found some Jakarta Response obj, overwrite og responses
+            // found some Jax-RS Response obj, overwrite og responses
             transformedOperation.setResponses(responses);
         }
-        // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response
+        // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response or javax.ws.rs.core.Response
 
         //// Exception Detection ////
         var exceptionResponses = tryDetectExceptionsInMethod(method);
@@ -80,12 +82,12 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // region Response obj detection
 
     /**
-     * Detects returned jakarta.ws.rs.core.Response objects in Jakarta handler methods.
+     * Detects returned jakarta.ws.rs.core.Response and javax.ws.rs.core.Response objects in Jax-RS handler methods.
      *
      * @param method
      * @return
      */
-    private ApiResponses tryDetectJakartaResponsesInMethod(CtMethod<?> method) {
+    private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
         // fixme limitation: only handle direct invocation at return statement
@@ -93,10 +95,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtExpression<?> returned = returnStatement.getReturnedExpression();
             if (returned instanceof CtInvocation<?> inv) {
 
-                var response = analyzeResponseInvocation(inv);
+                var responses = analyzeResponseInvocation(inv);
 
-                if (response != null)
-                    apiResponses.addApiResponse(response.getValue0(), response.getValue1());
+                if (responses != null && !responses.isEmpty()) {
+                    for (var response : responses) {
+                        apiResponses.addApiResponse(response.getValue0(), response.getValue1());
+                    }
+                }
             }
         }
 
@@ -104,12 +109,12 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     /**
-     * Creates the ApiResponse starting from the build() call of a jakarta Response object.
+     * Creates the ApiResponse starting from the build() call of a Jax-RS Response object.
      *
      * @param inv
      * @return
      */
-    private Pair<String, ApiResponse> analyzeResponseInvocation(CtInvocation<?> inv) {
+    private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv) {
         CtExecutableReference<?> executable = inv.getExecutable();
         String methodName = executable.getSimpleName();
 
@@ -135,11 +140,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * .build();
      *
      * @param buildCallTarget starting before the build call, in the example from ::entity
-     * @return the response code and response type pair
+     * @return a list of response codes and response type pairs
      */
-    private Pair<String, ApiResponse> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
-        Integer responseStatus = null;
-        ApiResponse response = new ApiResponse();
+    private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
+        List<Integer> responseStatus = new ArrayList<>();
+        ApiResponse baseResponse = new ApiResponse();
 
         CtExpression<?> curMethodInChain = buildCallTarget;
         while (curMethodInChain instanceof CtInvocation<?> method) {
@@ -150,28 +155,90 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 List<CtExpression<?>> args = method.getArguments();
                 if (!args.isEmpty()) {
                     CtExpression<?> arg = args.getFirst();
-                    response = extractPayloadTypeInfo(arg);
+                    baseResponse = extractPayloadTypeInfo(arg);
                 }
             }
 
-            responseStatus = getResponseCodeFromResponseBuilderMethod(method);
+            List<Integer> methodResponseStatus = getResponseCodesFromResponseBuilderMethod(method);
+            if (methodResponseStatus != null && !methodResponseStatus.isEmpty()) {
+                responseStatus.addAll(methodResponseStatus);
+            }
 
             curMethodInChain = method.getTarget();
         }
 
-        if (responseStatus == null) {
-            // fallback!
-            responseStatus = FALLBACK_STATUS_CODE;
+        if (responseStatus.isEmpty()) {
+            responseStatus = List.of(FALLBACK_STATUS_CODE); // fallback!
         }
 
-        setResponseDescription(response, responseStatus);
-        return new Pair<String, ApiResponse>(String.valueOf(responseStatus), response);
+        List<Pair<String, ApiResponse>> responses = new ArrayList<>();
+        for (Integer status : responseStatus) {
+            ApiResponse clonedResponse = cloneApiResponse(baseResponse);
+            setResponseDescription(clonedResponse, status);
+            responses.add(new Pair<>(String.valueOf(status), clonedResponse));
+        }
+
+        return responses;
     }
 
-    abstract protected void setResponseDescription(ApiResponse response, Integer responseStatus);
 
-    abstract protected Integer getResponseCodeFromResponseBuilderMethod(CtInvocation<?> method);
+    private ApiResponse cloneApiResponse(ApiResponse original) {
+        if (original == null) {
+            return new ApiResponse();
+        }
 
+        ApiResponse clone = new ApiResponse();
+
+        clone.setDescription(original.getDescription());
+        clone.setContent(original.getContent());
+        clone.setHeaders(original.getHeaders());
+        clone.setLinks(original.getLinks());
+        clone.setExtensions(original.getExtensions());
+
+        return clone;
+    }
+
+    private void setResponseDescription(ApiResponse response, Integer responseStatus) {
+        response.setDescription(HttpStatus.valueOf(responseStatus).getReasonPhrase());
+    }
+
+    abstract protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
+
+    protected List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+        List<Integer> responseCodes = new ArrayList<>();
+        if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getThenExpression()));
+            responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getElseExpression()));
+        } else {
+            Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
+            if (singleCode != null) {
+                responseCodes.add(singleCode);
+            }
+        }
+
+        return responseCodes;
+    }
+
+    protected Integer extractSingleResponseCode(CtExpression<?> expression) {
+        Map<String, HttpStatus> statusMap = Map.of(
+                "BAD_REQUEST", HttpStatus.BAD_REQUEST,
+                "NOT_FOUND", HttpStatus.NOT_FOUND,
+                "NO_CONTENT", HttpStatus.NO_CONTENT,
+                "ACCEPTED", HttpStatus.ACCEPTED,
+                "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
+                "CREATED", HttpStatus.CREATED,
+                "FAILURE", HttpStatus.METHOD_FAILURE
+        );
+
+        return statusMap.entrySet().stream()
+                .filter(entry -> expression.toString().contains(entry.getKey()))
+                .map(entry -> entry.getValue().value())
+                .findFirst()
+                .orElseGet(() -> {
+                    System.out.println("Could not parse custom response code creation in builder::status: " + expression);
+                    return null;
+                });
+    }
 
     private ApiResponse extractPayloadTypeInfo(CtExpression<?> expr) {
         ApiResponse response = null;
@@ -246,7 +313,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         boolean globalExceptionHandlerFound = false;
 
         for (CtType<?> globalExceptionHandler : globalExceptionHandlerClasses) {
-            // Jakarta requires annotation and interface impl, just confirming we extracted correctly
+            // Jax-RS requires annotation and interface impl, just confirming we extracted correctly
             assert schemaHelper.isTypeEquivalent(globalExceptionHandler.getReference(), getExceptionMapperClass());
 
             var exceptionHandlerMethod = globalExceptionHandler.getMethod("toResponse", thrownType.getReference());
@@ -254,8 +321,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
                 var exceptionHandlerResponseType = exceptionHandlerMethod.getType();
                 if (schemaHelper.isTypeEquivalent(exceptionHandlerResponseType, getResponseClass())) {
-                    // returning Jakarta Response -> extract actual response info
-                    apiResponses = tryDetectJakartaResponsesInMethod(exceptionHandlerMethod);
+                    // returning Jax-RS Response -> extract actual response info
+                    apiResponses = tryDetectJaxRSResponsesInMethod(exceptionHandlerMethod);
                 } else {
                     // returning pojo
                     apiResponses = methodResponseExtractor.createApiResponses(exceptionHandlerMethod, null);

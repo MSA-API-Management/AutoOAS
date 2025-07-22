@@ -3,7 +3,6 @@ package at.aau.serg.interceptors;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import spoon.reflect.code.CtInvocation;
@@ -23,36 +22,36 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
     }
 
     @Override
-    protected Integer getResponseCodeFromResponseBuilderMethod(CtInvocation<?> method) {
+    protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method) {
         String methodName = method.getExecutable().getSimpleName();
-        Integer responseStatus = null;
+        List<Integer> responseStatus = null;
 
         // handle response code
         switch (methodName) {
-            case "ok" -> responseStatus = Response.Status.OK.getStatusCode();
-            case "noContent" -> responseStatus = Response.Status.NO_CONTENT.getStatusCode();
-            case "accepted" -> responseStatus = Response.Status.ACCEPTED.getStatusCode();
-            case "notModified" -> responseStatus = Response.Status.NOT_MODIFIED.getStatusCode();
-            case "created" -> responseStatus = Response.Status.CREATED.getStatusCode();
+            case "ok" -> responseStatus = List.of(Response.Status.OK.getStatusCode());
+            case "noContent" -> responseStatus = List.of(Response.Status.NO_CONTENT.getStatusCode());
+            case "accepted" -> responseStatus = List.of(Response.Status.ACCEPTED.getStatusCode());
+            case "notModified" -> responseStatus = List.of(Response.Status.NOT_MODIFIED.getStatusCode());
+            case "created" -> responseStatus = List.of(Response.Status.CREATED.getStatusCode());
             case "status" -> {
                 // custom statusCode with either Response.StatusType or int (::status overload)
                 var statusCodeMethodArg = method.getArguments().getFirst();
                 if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
-                    responseStatus = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
+                    int statusCode = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
+                    responseStatus = List.of(statusCode);
 
                 } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
-                        || statusCodeMethodArg.getType().getSimpleName().equals("int"))
+                        || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))
                         && statusCodeMethodArg instanceof CtLiteral<?> literal) {
-                    responseStatus = (int) literal.getValue();
+                    responseStatus = List.of((int) literal.getValue());
+
+                } else {
+                    responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
                 }
             }
         }
-        return responseStatus;
-    }
 
-    @Override
-    protected void setResponseDescription(ApiResponse response, Integer responseStatus) {
-        response.setDescription(Response.Status.fromStatusCode(responseStatus) != null ? Response.Status.fromStatusCode(responseStatus).getReasonPhrase() : "");
+        return responseStatus;
     }
 
     @Override
