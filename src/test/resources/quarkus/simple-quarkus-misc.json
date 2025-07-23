@@ -423,6 +423,54 @@
           }
         }
       }
+    },
+    "/" : {
+      "get" : {
+        "tags" : [ "slash-path-controller" ],
+        "summary" : "handleSlashClassPathAndNoSpecifiedMethodPath",
+        "operationId" : "handleSlashClassPathAndNoSpecifiedMethodPathUsingGET__",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "slash-path-controller" ],
+        "summary" : "handleSlashClassPathAndSlashMethodPath",
+        "operationId" : "handleSlashClassPathAndSlashMethodPathUsingPUT__",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "slash-path-controller" ],
+        "summary" : "handleSlashClassPathAndEmptyMethodPath",
+        "operationId" : "handleSlashClassPathAndEmptyMethodPathUsingPOST__",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/value" : {
+      "get" : {
+        "tags" : [ "slash-path-controller" ],
+        "summary" : "handleSlashClassPathAndSpecifiedMethodPath",
+        "operationId" : "handleSlashClassPathAndSpecifiedMethodPathUsingGET__value",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
     }
   },
   "components" : {
