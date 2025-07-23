@@ -144,7 +144,7 @@ public class OperationsTransformer {
 		if (preparedUrl.charAt(preparedUrl.length() - 1) == '/') {
 			preparedUrl = preparedUrl.substring(0, preparedUrl.length() - 1);
 		}
-		preparedUrl = preparedUrl.replaceAll("//", "/");
+		preparedUrl = preparedUrl.replaceAll("//+", "/");
 		if (!preparedUrl.startsWith("/")) {
 			preparedUrl = "/" + preparedUrl;
 		}
