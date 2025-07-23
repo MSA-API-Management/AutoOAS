@@ -22,7 +22,7 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
     }
 
     @Override
-    protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method) {
+    protected List<Integer> tryGetResponseCodesFromResponseBuilderMethod(CtInvocation<?> method) {
         String methodName = method.getExecutable().getSimpleName();
         List<Integer> responseStatus = null;
 
@@ -33,7 +33,18 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
             case "accepted" -> responseStatus = List.of(Response.Status.ACCEPTED.getStatusCode());
             case "notModified" -> responseStatus = List.of(Response.Status.NOT_MODIFIED.getStatusCode());
             case "created" -> responseStatus = List.of(Response.Status.CREATED.getStatusCode());
-            case "serverError" -> responseStatus = List.of(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            case "serverError" -> responseStatus = List.of(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            case "temporaryRedirect" -> responseStatus = List.of(Response.Status.TEMPORARY_REDIRECT.getStatusCode());
+
+            // chatgpt recommended, not all exist in javax but lets keep them for sync with jakarta impl
+            case "badRequest" -> responseStatus = List.of(Response.Status.BAD_REQUEST.getStatusCode());
+            case "notFound" -> responseStatus = List.of(Response.Status.NOT_FOUND.getStatusCode());
+            case "unauthorized" -> responseStatus = List.of(Response.Status.UNAUTHORIZED.getStatusCode());
+            case "forbidden" -> responseStatus = List.of(Response.Status.FORBIDDEN.getStatusCode());
+            case "conflict" -> responseStatus = List.of(Response.Status.CONFLICT.getStatusCode());
+            case "notAcceptable" -> responseStatus = List.of(Response.Status.NOT_ACCEPTABLE.getStatusCode());
+
+            // manual status detection
             case "status" -> {
                 // custom statusCode with either Response.StatusType or int (::status overload)
                 var statusCodeMethodArg = method.getArguments().getFirst();
@@ -50,7 +61,12 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
                     responseStatus = tryExtractCommonResponseCodes(statusCodeMethodArg);
                 }
             }
-            default -> System.out.println("Unrecognized response builder status code method: " + methodName);
+
+            // ignore or log others
+            default -> {
+                if (!KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS.contains(methodName))
+                    System.out.println("Unrecognized response builder status code method: " + methodName);
+            }
         }
 
         return responseStatus;

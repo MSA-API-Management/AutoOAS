@@ -102,22 +102,22 @@ public class ComponentSchemaTransformer {
 
         if (type.getPackage() != null)
             // regular class in package
-            return new Pair(type.getPackage().getSimpleName(), genericExternalPackageString);
+            return new Pair<>(type.getPackage().getSimpleName(), genericExternalPackageString);
 
         else if (type.getDeclaringType() != null)
             // inner class
-            return new Pair(type.getDeclaringType().getPackage(), "Inner class: " + type.getDeclaringType().getSimpleName());
+            return new Pair<>(type.getDeclaringType().getPackage().toString(), "Inner class: " + type.getDeclaringType().getSimpleName());
 
         else {
             var declaration = tryGetGenericTypeDeclaration(type);
 
             if (declaration != null)
                 // generic parameter
-                return new Pair(tryGetClassDeclaringGenericType(type), "Generic parameter: " + (declaration != null ? declaration : type.getQualifiedName()));
+                return new Pair<>(tryGetClassDeclaringGenericType(type), "Generic parameter: " + declaration);
 
             else {
                 System.out.println("Encountered unknown, unparsable type: " + type.toStringDebug());
-                return new Pair("unknown", type.toString());
+                return new Pair<>("unknown", type.toString());
             }
         }
 

@@ -26,6 +26,8 @@ import java.util.Map;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
 
+    protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
+
     protected static final int FALLBACK_STATUS_CODE = 200;
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
@@ -144,22 +146,23 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      */
     private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
         List<Integer> responseStatus = new ArrayList<>();
-        ApiResponse baseResponse = new ApiResponse();
+        ApiResponse baseResponseSchema = new ApiResponse();
 
         CtExpression<?> curMethodInChain = buildCallTarget;
         while (curMethodInChain instanceof CtInvocation<?> method) {
             String methodName = method.getExecutable().getSimpleName();
 
-            // handle response type
+            // handle response schema
             if (methodName.equals("ok") || methodName.equals("entity")) {
                 List<CtExpression<?>> args = method.getArguments();
                 if (!args.isEmpty()) {
                     CtExpression<?> arg = args.getFirst();
-                    baseResponse = extractPayloadTypeInfo(arg);
+                    baseResponseSchema = extractPayloadTypeInfo(arg);
                 }
             }
 
-            List<Integer> methodResponseStatus = getResponseCodesFromResponseBuilderMethod(method);
+            // handle response code
+            List<Integer> methodResponseStatus = tryGetResponseCodesFromResponseBuilderMethod(method);
             if (methodResponseStatus != null && !methodResponseStatus.isEmpty()) {
                 responseStatus.addAll(methodResponseStatus);
             }
@@ -173,7 +176,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         List<Pair<String, ApiResponse>> responses = new ArrayList<>();
         for (Integer status : responseStatus) {
-            ApiResponse clonedResponse = cloneApiResponse(baseResponse);
+            ApiResponse clonedResponse = cloneApiResponse(baseResponseSchema);
             setResponseDescription(clonedResponse, status);
             responses.add(new Pair<>(String.valueOf(status), clonedResponse));
         }
@@ -202,7 +205,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         response.setDescription(HttpStatus.valueOf(responseStatus).getReasonPhrase());
     }
 
-    abstract protected List<Integer> getResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
+    /**
+     * Detects common methods of the Response builder pattern that set a response code, e.g., {@code ok(.)}, {@code noContent()},
+     * and returns the corresponding response code if detected.
+     *
+     * @param method
+     * @return
+     */
+    abstract protected List<Integer> tryGetResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
 
     protected List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
         List<Integer> responseCodes = new ArrayList<>();
