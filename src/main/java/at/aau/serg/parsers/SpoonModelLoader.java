@@ -76,7 +76,7 @@ public class SpoonModelLoader {
         // run: ./gradlew -q pom > generated-pom.xml
         ProcessBuilder builder = new ProcessBuilder()
                 .directory(new File(projectDir))
-                .command(getGradleCommand(projectDir), "pom", "-q");
+                .command(getGradleCommand(), "pom", "-q");
 
         if (JAVA_11_PATH != null)
             builder.environment().put("JAVA_HOME", JAVA_11_PATH); // for legacy support
@@ -87,11 +87,9 @@ public class SpoonModelLoader {
 
         return exitCode == 0;
     }
-    private String getGradleCommand(String projectDir) {
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            return new File(projectDir, "gradlew.bat").getAbsolutePath();
-        } else {
-            return new File(projectDir, "gradlew").getAbsolutePath();
-        }
+
+    private String getGradleCommand() {
+        return System.getProperty("os.name").toLowerCase().contains("win") ? "gradlew.bat" : "./gradlew";
     }
+
 }
