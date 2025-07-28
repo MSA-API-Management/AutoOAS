@@ -12,7 +12,7 @@ if [ ! -d "$DATASET_DIR" ]; then
 fi
 
 RUN_SPRING=false
-RUN_JERSEY=true
+RUN_JERSEY=false
 
 # Parse flags indicating which frameworks to evaluate on
 for arg in "$@"; do
