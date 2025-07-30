@@ -245,6 +245,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                 annotationName.equals("javax.ws.rs.CookieParam") ||
                 annotationName.equals("javax.ws.rs.MatrixParam") ||
                 annotationName.equals("javax.ws.rs.BeanParam") ||
+                annotationName.equals("javax.ws.rs.container.Suspended") ||
                 annotationName.equals("javax.ws.rs.core.Context");
     }
 }

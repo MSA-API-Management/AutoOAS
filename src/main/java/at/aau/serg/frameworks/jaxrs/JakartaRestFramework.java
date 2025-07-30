@@ -241,6 +241,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                 annotationName.equals("jakarta.ws.rs.CookieParam") ||
                 annotationName.equals("jakarta.ws.rs.MatrixParam") ||
                 annotationName.equals("jakarta.ws.rs.BeanParam") ||
+                annotationName.equals("jakarta.ws.rs.container.Suspended") ||
                 annotationName.equals("jakarta.ws.rs.core.Context");
     }
 }
