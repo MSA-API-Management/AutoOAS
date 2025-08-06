@@ -35,6 +35,7 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
             case "created" -> responseStatus = List.of(Response.Status.CREATED.getStatusCode());
             case "serverError" -> responseStatus = List.of(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
             case "temporaryRedirect" -> responseStatus = List.of(Response.Status.TEMPORARY_REDIRECT.getStatusCode());
+            case "seeOther" -> responseStatus = List.of(Response.Status.SEE_OTHER.getStatusCode());
 
             // chatgpt recommended, not all exist in javax but lets keep them for sync with jakarta impl
             case "badRequest" -> responseStatus = List.of(Response.Status.BAD_REQUEST.getStatusCode());
