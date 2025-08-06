@@ -1,10 +1,12 @@
 package at.aau.serg.specgenerationsimple.controllers;
 
+import at.aau.serg.specgenerationsimple.models.LocalTimeOrInstant;
 import at.aau.serg.specgenerationsimple.models.SimpleObject;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 @Path("/requests")
 public class RequestsController {
@@ -32,7 +34,11 @@ public class RequestsController {
         return new SimpleObject("Test", 1);
     }
 
-
+    @GET
+    @Path("/local-time-or-instant")
+    public Response queryParamLocalTimeOrInstantObject(@QueryParam("session_time") LocalTimeOrInstant localTime) {
+        return Response.ok().build();
+    }
 
     @GET
     @Path("/regex-url/{lastname:^[a-zA-Z0-9]*$}/{firstname:^[A-Za-z]*$}")

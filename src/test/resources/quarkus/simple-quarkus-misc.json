@@ -245,6 +245,26 @@
         }
       }
     },
+    "/requests/local-time-or-instant" : {
+      "get" : {
+        "tags" : [ "requests-controller" ],
+        "summary" : "queryParamLocalTimeOrInstantObject",
+        "operationId" : "queryParamLocalTimeOrInstantObjectUsingGET__requests_local-time-or-instant",
+        "parameters" : [ {
+          "name" : "session_time",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/LocalTimeOrInstant"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
     "/requests/query-param-required-not-null" : {
       "get" : {
         "tags" : [ "requests-controller" ],
@@ -492,6 +512,25 @@
             "type" : "integer",
             "format" : "int32"
           }
+        }
+      },
+      "LocalTimeOrInstant" : {
+        "type" : "object",
+        "properties" : {
+          "local" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "instant" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "Instant" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
         }
       }
     }
