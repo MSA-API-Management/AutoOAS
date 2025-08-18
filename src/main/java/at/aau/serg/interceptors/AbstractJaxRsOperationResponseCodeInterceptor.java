@@ -252,7 +252,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return responseCodes;
     }
 
-    // TODO example
+    /**
+     * Extracts HTTP status code e.g. from Apache HttpStatus constant expressions.
+     * Maps e.g. Apache constants (e.g., {@code SC_BAD_REQUEST}) to Spring HttpStatus values.
+     *
+     * @param expression code expression containing HttpStatus constant
+     * @return HTTP status code (e.g., 400, 404) or {@code null} if not found
+     *
+     * @example {@code "org.apache.http.HttpStatus.SC_BAD_REQUEST" → 400}
+     */
     protected Integer extractSingleResponseCode(CtExpression<?> expression) {
         return extractStatusCode(expression.toString(), HTTP_STATUS_CONSTANTS, "response code creation in builder::status");
     }
