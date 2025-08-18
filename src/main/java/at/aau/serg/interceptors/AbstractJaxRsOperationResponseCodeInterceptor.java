@@ -36,6 +36,29 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     protected SchemaGeneratorHelper schemaHelper;
     protected MethodResponseExtractor methodResponseExtractor;
 
+    private static final Map<String, HttpStatus> EXCEPTION_STATUS_MAP = Map.of(
+            "BadRequestException", HttpStatus.BAD_REQUEST,
+            "ForbiddenException", HttpStatus.FORBIDDEN,
+            "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
+            "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
+            "NotAuthorizedException", HttpStatus.UNAUTHORIZED,
+            "NotFoundException", HttpStatus.NOT_FOUND,
+            "NotSupportedException", HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+            "InternalServerErrorException", HttpStatus.INTERNAL_SERVER_ERROR,
+            "ServiceUnavailableException", HttpStatus.SERVICE_UNAVAILABLE
+    );
+
+    private static final Map<String, HttpStatus> HTTP_STATUS_CONSTANTS = Map.of(
+            "BAD_REQUEST", HttpStatus.BAD_REQUEST,
+            "NOT_FOUND", HttpStatus.NOT_FOUND,
+            "NO_CONTENT", HttpStatus.NO_CONTENT,
+            "ACCEPTED", HttpStatus.ACCEPTED,
+            "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
+            "CREATED", HttpStatus.CREATED,
+            "FAILURE", HttpStatus.METHOD_FAILURE
+            // TODO extend if necessary
+    );
+
 
     public AbstractJaxRsOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                          DataTypeTransformer dataTypeTransformer,
@@ -231,25 +254,20 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     // TODO example
     protected Integer extractSingleResponseCode(CtExpression<?> expression) {
-        Map<String, HttpStatus> statusMap = Map.of(
-                "BAD_REQUEST", HttpStatus.BAD_REQUEST,
-                "NOT_FOUND", HttpStatus.NOT_FOUND,
-                "NO_CONTENT", HttpStatus.NO_CONTENT,
-                "ACCEPTED", HttpStatus.ACCEPTED,
-                "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
-                "CREATED", HttpStatus.CREATED,
-                "FAILURE", HttpStatus.METHOD_FAILURE
-        );
+        return extractStatusCode(expression.toString(), HTTP_STATUS_CONSTANTS, "response code creation in builder::status");
+    }
 
+    private Integer extractStatusCode(String input, Map<String, HttpStatus> statusMap, String context) {
         return statusMap.entrySet().stream()
-                .filter(entry -> expression.toString().contains(entry.getKey()))
+                .filter(entry -> input.contains(entry.getKey()))
                 .map(entry -> entry.getValue().value())
                 .findFirst()
                 .orElseGet(() -> {
-                    System.out.println("Could not parse custom response code creation in builder::status: " + expression);
+                    System.out.println("Could not parse status code for " + context + ": " + input);
                     return null;
                 });
     }
+
 
     private ApiResponse extractPayloadTypeInfo(CtExpression<?> expr) {
         ApiResponse response = null;
@@ -291,64 +309,26 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
-            ApiResponses apiResponsesForCurrentThrows = null;
 
-            // todo david check for local exception handling
-
-            // global exception handling
-            if (apiResponsesForCurrentThrows == null) {
-                apiResponsesForCurrentThrows = tryResolveStatusCodeFromGlobalExceptionHandlers(thrownType);
-            }
-
-            if (apiResponsesForCurrentThrows == null) {
-                apiResponsesForCurrentThrows = tryResolveStatusCodeFromThrownException(thrownType);
-            }
-
-            // 500 fallback, because no handler was found
-            if (apiResponsesForCurrentThrows == null) {
-                apiResponsesForCurrentThrows = new ApiResponses();
-                apiResponsesForCurrentThrows.addApiResponse("500", new ApiResponse().description("Internal Server Error"));
-            }
-
-            apiResponses.putAll(apiResponsesForCurrentThrows);
+            ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
+            apiResponses.putAll(resolvedResponse);
         }
 
         return apiResponses;
     }
-    private static final Map<String, HttpStatus> EXCEPTION_STATUS_MAP = Map.of(
-            "BadRequestException", HttpStatus.BAD_REQUEST,
-            "ForbiddenException", HttpStatus.FORBIDDEN,
-            "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
-            "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
-            "NotAuthorizedException", HttpStatus.UNAUTHORIZED,
-            "NotFoundException", HttpStatus.NOT_FOUND,
-            "NotSupportedException", HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-            "InternalServerErrorException", HttpStatus.INTERNAL_SERVER_ERROR,
-            "ServiceUnavailableException", HttpStatus.SERVICE_UNAVAILABLE
-    );
 
-    private ApiResponses tryResolveStatusCodeFromThrownException(CtType<?> thrownType) {
-        HttpStatus status = resolveHttpStatus(thrownType.getSimpleName());
-        return status != null ? createApiResponse(status) : null;
-    }
+    private ApiResponses resolveExceptionResponse(CtType<?> thrownType) {
+        // todo david check for local exception handling
+        // Global Exception Handles
+        ApiResponses response = tryResolveStatusCodeFromGlobalExceptionHandlers(thrownType);
+        if (response != null) return response;
 
-    private HttpStatus resolveHttpStatus(String exceptionName) {
-        return EXCEPTION_STATUS_MAP.entrySet().stream()
-                .filter(entry -> exceptionName.contains(entry.getKey()))
-                .map(Map.Entry::getValue)
-                .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("Unknown exception thrown for exception: " + exceptionName);
-                    return null;
-                });
-    }
+        // Direct exception mapping (throws)
+        response = tryResolveStatusCodeFromThrownException(thrownType);
+        if (response != null) return response;
 
-    private ApiResponses createApiResponse(HttpStatus status) {
-        ApiResponses apiResponses = new ApiResponses();
-        return apiResponses.addApiResponse(
-                String.valueOf(status.value()),
-                new ApiResponse().description(status.getReasonPhrase())
-        );
+        // 500 Fallback
+        return createInternalServerErrorResponse();
     }
 
 
@@ -385,6 +365,27 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             }
         }
 
+        return apiResponses;
+    }
+
+    private ApiResponses tryResolveStatusCodeFromThrownException(CtType<?> thrownType) {
+        String exceptionName = thrownType.getSimpleName();
+        Integer statusCode = extractStatusCode(exceptionName, EXCEPTION_STATUS_MAP, "throw exception");
+        return statusCode != null ? createApiResponse(statusCode) : null;
+    }
+
+    private ApiResponses createApiResponse(Integer statusCode) {
+        HttpStatus status = HttpStatus.valueOf(statusCode);
+        ApiResponses apiResponses = new ApiResponses();
+        return apiResponses.addApiResponse(
+                String.valueOf(status.value()),
+                new ApiResponse().description(status.getReasonPhrase())
+        );
+    }
+
+    private ApiResponses createInternalServerErrorResponse() {
+        ApiResponses apiResponses = new ApiResponses();
+        apiResponses.addApiResponse("500", new ApiResponse().description("Internal Server Error"));
         return apiResponses;
     }
 
