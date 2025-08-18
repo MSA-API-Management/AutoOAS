@@ -95,6 +95,98 @@
           }
         }
       }
+    },
+    "/simple/always-error" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500",
+        "operationId" : "should_alwaysThrowCustomRuntimeException_and_returnHttpStatus500UsingGET__simple_always-error",
+        "parameters" : [ ],
+        "responses" : {
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/simple/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_throwCustomRuntimeException_when_idIsZeroOrNegative_else_returnResource",
+        "operationId" : "should_throwCustomRuntimeException_when_idIsZeroOrNegative_else_returnResourceUsingGET__simple_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple/validation/{id}" : {
+      "get" : {
+        "tags" : [ "simple-controller" ],
+        "summary" : "should_throwIllegalArgumentOrUnsupportedOperation_when_idIsNegativeOrZero_else_returnResource",
+        "operationId" : "should_throwIllegalArgumentOrUnsupportedOperation_when_idIsNegativeOrZero_else_returnResourceUsingGET__simple_validation_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleObject"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -104,6 +196,29 @@
         "externalDocs" : {
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
+        }
+      },
+      "SimpleObject" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
         }
       }
     }
