@@ -92,7 +92,7 @@ public class RestApiParser {
         operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer, methodResponseExtractor,
                 new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
-        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, annotationProvider);
+        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), schemaHelper, annotationProvider);
 
         Map<String, List<CtType<?>>> controllerClassesPerProfile = restFramework.splitClassesOnProfiles(controllerClasses);
         System.out.println("Detected profiles: " + controllerClassesPerProfile.keySet());
