@@ -226,6 +226,30 @@
         }
       }
     },
+    "/dto-with-getters/dto" : {
+      "put" : {
+        "tags" : [ "request-body-getter-methods-resource" ],
+        "summary" : "put",
+        "operationId" : "putUsingPUT__dto-with-getters_dto",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DtoWithGetters"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
     "/body/formparam-body" : {
       "post" : {
         "tags" : [ "request-body-resource" ],
@@ -578,6 +602,17 @@
   },
   "components" : {
     "schemas" : {
+      "DtoWithGetters" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "string"
+          }
+        }
+      },
       "UNSPECIFIED_TYPE" : {
         "type" : "object",
         "externalDocs" : {
