@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Response;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/exceptions")
-public class AnotherSimpleController {
+public class JakartaExceptionsController {
     @POST
     @Path("/throw")
     public Response handleJakartaBadRequestAndJavaGeneralException(String body) {

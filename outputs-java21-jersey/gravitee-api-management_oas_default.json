@@ -75,8 +75,8 @@
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       },
@@ -533,8 +533,11 @@
           "404" : {
             "description" : "Not Found"
           },
-          "200" : {
-            "description" : "OK"
+          "307" : {
+            "description" : "Temporary Redirect"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1363,8 +1366,8 @@
       "State" : {
         "type" : "object",
         "externalDocs" : {
-          "description" : "external package",
-          "url" : "Lifecycle"
+          "description" : "Inner class: Lifecycle",
+          "url" : "io.gravitee.common.component"
         }
       },
       "ListenerType" : {

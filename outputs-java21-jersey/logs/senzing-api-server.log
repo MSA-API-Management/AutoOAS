@@ -1318,3 +1318,104 @@ Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
 real	0m8.805s
 user	0m21.445s
 sys	0m3.464s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/senzing-api-server
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: IllegalStateException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: IllegalStateException
+Could not parse status code for throw exception: IllegalStateException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Could not parse status code for throw exception: IllegalStateException
+Could not parse status code for throw exception: ServerErrorException
+Could not parse status code for throw exception: WebApplicationException
+Wrote OpenAPI to outputs-java21-jersey/senzing-api-server_oas_default.json
+
+real	0m5.581s
+user	0m11.107s
+sys	0m0.573s

@@ -156,7 +156,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/ConsumerOffsetCommitRequest"
               }
             }
           },
@@ -566,7 +566,7 @@
           "content" : {
             "application/vnd.kafka.protobuf.v2+json; qs=0.1" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/ProduceRequest"
               }
             }
           },
@@ -635,7 +635,7 @@
           "content" : {
             "application/vnd.kafka.protobuf.v2+json; qs=0.1" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/ProduceRequest"
               }
             }
           },
@@ -782,8 +782,8 @@
           }
         } ],
         "responses" : {
-          "500" : {
-            "description" : "Internal Server Error"
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       },
@@ -804,15 +804,15 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/CreateAclRequest"
               }
             }
           },
           "required" : true
         },
         "responses" : {
-          "500" : {
-            "description" : "Internal Server Error"
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       },
@@ -878,8 +878,8 @@
           }
         } ],
         "responses" : {
-          "500" : {
-            "description" : "Internal Server Error"
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       }
@@ -910,7 +910,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/AlterBrokerConfigBatchRequest"
               }
             }
           },
@@ -948,7 +948,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/AlterClusterConfigBatchRequest"
               }
             }
           },
@@ -986,7 +986,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/AlterTopicConfigBatchRequest"
               }
             }
           },
@@ -1065,7 +1065,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/UpdateBrokerConfigRequest"
               }
             }
           },
@@ -1251,7 +1251,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/UpdateClusterConfigRequest"
               }
             }
           },
@@ -1579,8 +1579,8 @@
           "204" : {
             "description" : "No Content"
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -1828,7 +1828,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/JsonStream"
               }
             }
           },
@@ -2038,7 +2038,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/UpdateTopicConfigRequest"
               }
             }
           },
@@ -2153,7 +2153,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AsyncResponse"
+                "$ref" : "#/components/schemas/CreateTopicRequest"
               }
             }
           },
@@ -2239,9 +2239,9 @@
           }
         }
       },
-      "PatternType" : {
-        "type" : "string",
-        "enum" : [ "UNKNOWN", "ANY", "MATCH", "LITERAL", "PREFIXED" ]
+      "AlterBrokerConfigBatchRequest" : {
+        "type" : "object",
+        "properties" : { }
       },
       "ConsumerCommittedResponse" : {
         "type" : "object",
@@ -2258,7 +2258,11 @@
         "type" : "string",
         "enum" : [ "BINARY", "JSON", "AVRO", "JSONSCHEMA", "PROTOBUF" ]
       },
-      "ConsumerSeekRequest" : {
+      "CreateAclRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ProduceRequest" : {
         "type" : "object",
         "properties" : { }
       },
@@ -2291,6 +2295,67 @@
           }
         }
       },
+      "Operation" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "ALL", "READ", "WRITE", "CREATE", "DELETE", "ALTER", "DESCRIBE", "CLUSTER_ACTION", "DESCRIBE_CONFIGS", "ALTER_CONFIGS", "IDEMPOTENT_WRITE" ]
+      },
+      "ConsumerAssignmentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "partitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TopicPartition"
+            }
+          }
+        }
+      },
+      "UpdateClusterConfigRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "AlterTopicConfigBatchRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Permission" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "DENY", "ALLOW" ]
+      },
+      "Supplier" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util.function"
+        }
+      },
+      "UpdateTopicConfigRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ConsumerSubscriptionResponse" : {
+        "type" : "object",
+        "properties" : {
+          "topics" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "PatternType" : {
+        "type" : "string",
+        "enum" : [ "UNKNOWN", "ANY", "MATCH", "LITERAL", "PREFIXED" ]
+      },
+      "UpdateBrokerConfigRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ConsumerSeekRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
       "ConsumerSeekToRequest" : {
         "type" : "object",
         "properties" : {
@@ -2306,9 +2371,17 @@
         "type" : "string",
         "enum" : [ "UNKNOWN", "ANY", "TOPIC", "GROUP", "CLUSTER", "TRANSACTIONAL_ID", "DELEGATION_TOKEN" ]
       },
-      "Operation" : {
-        "type" : "string",
-        "enum" : [ "UNKNOWN", "ANY", "ALL", "READ", "WRITE", "CREATE", "DELETE", "ALTER", "DESCRIBE", "CLUSTER_ACTION", "DESCRIBE_CONFIGS", "ALTER_CONFIGS", "IDEMPOTENT_WRITE" ]
+      "JsonStream" : {
+        "type" : "object",
+        "properties" : {
+          "delegate" : {
+            "$ref" : "#/components/schemas/Supplier"
+          }
+        }
+      },
+      "CreateTopicRequest" : {
+        "type" : "object",
+        "properties" : { }
       },
       "TopicPartitionOffsetMetadata" : {
         "required" : [ "topic" ],
@@ -2330,13 +2403,17 @@
           }
         }
       },
-      "ConsumerAssignmentRequest" : {
+      "AlterClusterConfigBatchRequest" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "ConsumerOffsetCommitRequest" : {
         "type" : "object",
         "properties" : {
-          "partitions" : {
+          "offsets" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/TopicPartition"
+              "$ref" : "#/components/schemas/TopicPartitionOffsetMetadata"
             }
           }
         }
@@ -2372,10 +2449,6 @@
           }
         }
       },
-      "Permission" : {
-        "type" : "string",
-        "enum" : [ "UNKNOWN", "ANY", "DENY", "ALLOW" ]
-      },
       "CreateConsumerInstanceResponse" : {
         "type" : "object",
         "properties" : {
@@ -2385,24 +2458,6 @@
           "baseUri" : {
             "type" : "string"
           }
-        }
-      },
-      "ConsumerSubscriptionResponse" : {
-        "type" : "object",
-        "properties" : {
-          "topics" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }
-      },
-      "AsyncResponse" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "javax.ws.rs.container"
         }
       }
     }

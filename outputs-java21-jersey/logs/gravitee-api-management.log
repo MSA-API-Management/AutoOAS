@@ -1009,3 +1009,12 @@ Wrote OpenAPI to outputs-java21-jersey/gravitee-api-management_oas_default.json
 real	0m32.479s
 user	0m46.385s
 sys	0m6.163s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse status code for throw exception: ForbiddenAccessException
+Wrote OpenAPI to outputs-java21-jersey/gravitee-api-management_oas_default.json
+
+real	0m12.722s
+user	0m31.235s
+sys	0m1.813s

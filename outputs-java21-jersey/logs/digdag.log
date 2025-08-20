@@ -2201,3 +2201,23 @@ Wrote OpenAPI to outputs-java21-jersey/digdag_oas_default.json
 real	1m3.039s
 user	0m36.566s
 sys	0m6.313s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/digdag
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse status code for throw exception: ResourceConflictException
+Could not parse status code for throw exception: IllegalArgumentException
+Unrecognized response builder status code method: secrets
+Unrecognized response builder status code method: builder
+Could not parse status code for throw exception: IllegalArgumentException
+Could not parse status code for throw exception: IllegalArgumentException
+Could not parse status code for throw exception: IllegalArgumentException
+Could not parse status code for throw exception: IllegalArgumentException
+Unrecognized response builder status code method: apiCompatible
+Unrecognized response builder status code method: upgradeRecommended
+Unrecognized response builder status code method: serverVersion
+Unrecognized response builder status code method: builder
+Wrote OpenAPI to outputs-java21-jersey/digdag_oas_default.json
+
+real	0m10.977s
+user	0m18.947s
+sys	0m1.351s
