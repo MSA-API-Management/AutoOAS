@@ -8,7 +8,7 @@
   "paths" : {
     "/exceptions/complex-throw" : {
       "post" : {
-        "tags" : [ "another-simple-controller" ],
+        "tags" : [ "jakarta-exceptions-controller" ],
         "summary" : "handleComplexJakartaThrowInSubMethod",
         "operationId" : "handleComplexJakartaThrowInSubMethodUsingPOST__exceptions_complex-throw",
         "parameters" : [ ],
@@ -38,7 +38,7 @@
     },
     "/exceptions/another-throw" : {
       "post" : {
-        "tags" : [ "another-simple-controller" ],
+        "tags" : [ "jakarta-exceptions-controller" ],
         "summary" : "handleDifferentJakartaExceptions",
         "operationId" : "handleDifferentJakartaExceptionsUsingPOST__exceptions_another-throw",
         "parameters" : [ ],
@@ -68,7 +68,7 @@
     },
     "/exceptions/throw" : {
       "post" : {
-        "tags" : [ "another-simple-controller" ],
+        "tags" : [ "jakarta-exceptions-controller" ],
         "summary" : "handleJakartaBadRequestAndJavaGeneralException",
         "operationId" : "handleJakartaBadRequestAndJavaGeneralExceptionUsingPOST__exceptions_throw",
         "parameters" : [ ],
