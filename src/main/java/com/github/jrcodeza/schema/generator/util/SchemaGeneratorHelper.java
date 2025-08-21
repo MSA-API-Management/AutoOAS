@@ -6,6 +6,7 @@ import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.lang3.StringUtils;
+import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spoon.reflect.declaration.CtAnnotation;
@@ -44,24 +45,40 @@ public class SchemaGeneratorHelper {
     }
 
     public MediaType createMediaType(CtTypeReference<?> requestBodyType,
-                                     String parameterName,
-                                     List<CtTypeReference<?>> genericParams) {
+                                     String parameterName) {
 
-        // todo merge DeferredResult, ResponseEntity handling logic
-        if (requestBodyType.isSubtypeOf(new TypeFactory().get(restFramework.getAsyncResultWrapper()).getReference())) {
-            // handle DeferredResult Spring wrapper, potentially containing everything
-            System.out.println("Stripping DeferredResult, this should not be needed");
-            if (!Utils.isEmpty(genericParams)) {
-                // strip DeferredResult and get ResponseEntity
-                requestBodyType = genericParams.get(0);
-                genericParams = getGenericParams(genericParams.get(0));
-            } else {
-                System.out.println("Unknown return type wrapped by DeferredResult");
+        List<CtTypeReference<?>> genericParams = this.getGenericParams(requestBodyType);
+
+        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getAsyncResultWrapper())) {
+            // strip DeferredResult Spring wrapper, potentially containing everything
+            var resultPair = this.unwrapGenericWrapper(requestBodyType, genericParams);
+            requestBodyType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (requestBodyType == null) {
                 return null;
             }
         }
 
-        requestBodyType = unwrapFrameworkWrapper(requestBodyType, genericParams);
+        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getResponseWrapper())) {
+            var resultPair = unwrapGenericWrapper(requestBodyType, genericParams);
+            requestBodyType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (requestBodyType == null) {
+                return null;
+            }
+        }
+
+//        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getOptionalWrapper())) {
+//            requestBodyType = this.unwrapGenericWrapper(requestBodyType, genericParams);
+//        }
+//        if (requestBodyType == null) {
+//            return null;
+//        } else {
+//            genericParams = getGenericParams(genericParams.get(0));
+//        }
+
         Schema<?> rootMediaSchema = new Schema<>();
 
         if (isFile(requestBodyType)) {
@@ -89,6 +106,7 @@ public class SchemaGeneratorHelper {
 
         } else if (!StringUtils.equalsIgnoreCase(requestBodyType.getSimpleName(), "void")) {
             rootMediaSchema = parseClassRefTypeSignature(requestBodyType, new Annotation[]{});
+
         } else {
             // void
             return null;
@@ -120,25 +138,40 @@ public class SchemaGeneratorHelper {
     }
 
     private boolean isCollection(CtTypeReference<?> requestBodyParameter, List<CtTypeReference<?>> genericTypes) {
-        var potentialListType = unwrapFrameworkWrapper(requestBodyParameter, genericTypes);
+        var potentialListType = tryUnwrapFrameworkWrapper(requestBodyParameter, genericTypes);
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
     /**
-     * TODO update naming and check if it is equivalent to old impl. Return null instead of type?
-     *   Previously, you could assume that the wrapper was always gone.
-     *   Now, the method returns the original wrapper if it does not define the generic type T
+     * Strips the framework's response wrapper if it exists,
+     * otherwise returns the {@code type}.
      *
      * @param type
      * @param genericTypes
      * @return
      */
-    private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
-        if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference())
-                && !Utils.isEmpty(genericTypes)) {
-            return genericTypes.get(genericTypes.size() - 1);
+    private CtTypeReference<?> tryUnwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+        if (this.isTypeEquivalent(type, this.restFramework.getResponseWrapper())) {
+            return unwrapGenericWrapper(type, genericTypes).getValue0();
         }
-        return type; // If no known wrapper is found, return the original type // todo <- this assumption is now wrong
+        return type; // If no known wrapper is found, return the original type
+    }
+
+    /**
+     * Strips the outermost type and returns the first generic type, or null if the outermost type was not parameterized.
+     * @param type
+     * @param genericTypes
+     * @return
+     */
+    private Pair<CtTypeReference<?>, List<CtTypeReference<?>>> unwrapGenericWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+        if (!Utils.isEmpty(genericTypes)) {
+            return new Pair<>(
+                    genericTypes.get(genericTypes.size() - 1),
+                    getGenericParams(genericTypes.get(genericTypes.size() - 1))
+            );
+        } else {
+            return new Pair<>(null, null);
+        }
     }
 
     public boolean isFile(CtTypeReference<?> type) {

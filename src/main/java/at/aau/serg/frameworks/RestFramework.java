@@ -120,11 +120,22 @@ public interface RestFramework {
     }
 
     /**
-     * Returns the class that wraps HTTP responses in the current framework.
+     * Returns the class used for handling asynchronous results in the current framework, e.g., CompletionStage or DeferredResult.
+     *
+     * @return The class type used for asynchronous result handling
+     */
+    Class<?> getAsyncResultWrapper();
+
+    /**
+     * Returns the class that wraps HTTP responses in the current framework, e.g., Response or ResponseEntity.
      *
      * @return The class type used for wrapping HTTP responses
      */
     Class<?> getResponseWrapper();
+
+    default Class<?> getOptionalWrapper() {
+        return Optional.class;
+    }
 
     /**
      * Returns the class used to represent uploaded files in the current framework.
@@ -132,13 +143,6 @@ public interface RestFramework {
      * @return The class type used for handling uploaded files
      */
     Class<?> getSupportedFileType();
-
-    /**
-     * Returns the class used for handling asynchronous results in the current framework.
-     *
-     * @return The class type used for asynchronous result handling
-     */
-    Class<?> getAsyncResultWrapper();
 
     /**
      * Returns the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.

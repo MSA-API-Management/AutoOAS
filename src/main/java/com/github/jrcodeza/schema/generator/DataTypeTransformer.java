@@ -55,6 +55,10 @@ public class DataTypeTransformer {
             responseType = stripReturnValueWrapper(responseType);
         }
 
+        if (schemaGeneratorHelper.isTypeEquivalent(responseType, restFramework.getOptionalWrapper())) {
+            responseType = stripReturnValueWrapper(responseType);
+        }
+
         if ("void".equals(responseType.getSimpleName())) {
             // dont add a content
 
@@ -80,7 +84,7 @@ public class DataTypeTransformer {
                 responseType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
             }
 
-            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, getGenericParams(responseType));
+            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null);
             if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
                 Content content = new Content();
                 content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, mediaType);

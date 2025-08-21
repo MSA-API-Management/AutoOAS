@@ -517,8 +517,7 @@ public class OperationsTransformer {
 		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
 				schemaGeneratorHelper.createMediaType(
 						requestBodyParameter.getParameter().getType(),
-						requestBodyParameter.getName(),
-						singletonList(getGenericParam(requestBodyParameter.getParameter().getType()))
+						requestBodyParameter.getName()
 				)
 		);
 
