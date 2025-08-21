@@ -134,8 +134,10 @@ public interface RestFramework {
     Class<?> getResponseWrapper();
 
     default Class<?> getOptionalWrapper() {
+        // com.google.common.base.Optional.class
         return Optional.class;
     }
+
 
     /**
      * Returns the class used to represent uploaded files in the current framework.

@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
+import annotations.Out;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
@@ -20,6 +21,7 @@ import spoon.reflect.reference.CtTypeReference;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -44,44 +46,55 @@ public class SchemaGeneratorHelper {
         this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
-    public MediaType createMediaType(CtTypeReference<?> requestBodyType,
-                                     String parameterName) {
+    /**
+     * Creates the media type for request bodies and responses.
+     * @param parameterType the type of the request body or response
+     * @param parameterName its name
+     * @return
+     */
+    public MediaType createMediaType(CtTypeReference<?> parameterType,
+                                     String parameterName,
+                                     @Out AtomicBoolean isOptionalParameter) {
 
-        List<CtTypeReference<?>> genericParams = this.getGenericParams(requestBodyType);
+        List<CtTypeReference<?>> genericParams = this.getGenericParams(parameterType);
 
-        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getAsyncResultWrapper())) {
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getAsyncResultWrapper())) {
             // strip DeferredResult Spring wrapper, potentially containing everything
-            var resultPair = this.unwrapGenericWrapper(requestBodyType, genericParams);
-            requestBodyType = resultPair.getValue0();
+            var resultPair = this.unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
             genericParams = resultPair.getValue1();
 
-            if (requestBodyType == null) {
+            if (parameterType == null) {
                 return null;
             }
         }
 
-        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getResponseWrapper())) {
-            var resultPair = unwrapGenericWrapper(requestBodyType, genericParams);
-            requestBodyType = resultPair.getValue0();
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getResponseWrapper())) {
+            var resultPair = unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
             genericParams = resultPair.getValue1();
 
-            if (requestBodyType == null) {
+            if (parameterType == null) {
                 return null;
             }
         }
 
-//        if (this.isTypeEquivalent(requestBodyType, this.restFramework.getOptionalWrapper())) {
-//            requestBodyType = this.unwrapGenericWrapper(requestBodyType, genericParams);
-//        }
-//        if (requestBodyType == null) {
-//            return null;
-//        } else {
-//            genericParams = getGenericParams(genericParams.get(0));
-//        }
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getOptionalWrapper())) {
+            var resultPair = unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (isOptionalParameter != null)
+                isOptionalParameter.set(true);
+
+            if (parameterType == null) {
+                return null;
+            }
+        }
 
         Schema<?> rootMediaSchema = new Schema<>();
 
-        if (isFile(requestBodyType)) {
+        if (isFile(parameterType)) {
             Schema<?> fileSchema = new Schema<>();
             fileSchema.setType("string");
             fileSchema.setFormat("binary");
@@ -95,17 +108,17 @@ public class SchemaGeneratorHelper {
                 rootMediaSchema.setProperties(properties);
             }
 
-        } else if (isCollection(requestBodyType, genericParams)) {
+        } else if (isCollection(parameterType, genericParams)) {
             rootMediaSchema = parseArraySignature(getFirstOrNull(genericParams), null, new Annotation[]{});
 
-        } else if (requestBodyType instanceof CtArrayTypeReference<?>) {
-            rootMediaSchema = parseArraySignature(((CtArrayTypeReference<?>) requestBodyType).getComponentType(), null, new Annotation[]{});
+        } else if (parameterType instanceof CtArrayTypeReference<?>) {
+            rootMediaSchema = parseArraySignature(((CtArrayTypeReference<?>) parameterType).getComponentType(), null, new Annotation[]{});
 
-        } else if (isTypeEquivalent(requestBodyType, Map.class)) {
-            rootMediaSchema = parseDictSignature(getGenericParamAt(requestBodyType, 1), new Annotation[]{});
+        } else if (isTypeEquivalent(parameterType, Map.class)) {
+            rootMediaSchema = parseDictSignature(getGenericParamAt(parameterType, 1), new Annotation[]{});
 
-        } else if (!StringUtils.equalsIgnoreCase(requestBodyType.getSimpleName(), "void")) {
-            rootMediaSchema = parseClassRefTypeSignature(requestBodyType, new Annotation[]{});
+        } else if (!StringUtils.equalsIgnoreCase(parameterType.getSimpleName(), "void")) {
+            rootMediaSchema = parseClassRefTypeSignature(parameterType, new Annotation[]{});
 
         } else {
             // void
@@ -210,27 +223,37 @@ public class SchemaGeneratorHelper {
     public Schema parseClassRefTypeSignature(CtTypeReference<?> typeClass,
                                              Annotation[] annotations,
                                              List<String> modelPackages) {
+        // unwrap Optional first
+        if (this.isTypeEquivalent(typeClass, this.restFramework.getOptionalWrapper())) {
+            typeClass = unwrapGenericWrapper(typeClass, getGenericParams(typeClass)).getValue0();;
+        }
+
+        Schema resultSchema = null;
+
         String typeName = typeClass.getSimpleName();
         if (typeName.equals("Byte") || typeName.equals("Short") || typeName.equals("Integer")) {
-            return createNumberSchema("integer", "int32", annotations);
+            resultSchema = createNumberSchema("integer", "int32", annotations);
         } else if (typeName.equals("Long") || typeName.equals("BigInteger")) {
-            return createNumberSchema("integer", "int64", annotations);
+            resultSchema = createNumberSchema("integer", "int64", annotations);
         } else if (typeName.equals("Float")) {
-            return createNumberSchema("number", "float", annotations);
+            resultSchema = createNumberSchema("number", "float", annotations);
         } else if (typeName.equals("Double") || typeName.equals("BigDecimal")) {
-            return createNumberSchema("number", "double", annotations);
+            resultSchema = createNumberSchema("number", "double", annotations);
         } else if (typeName.equals("Character") || typeName.equals("String")) {
-            return createStringSchema(null, annotations);
+            resultSchema = createStringSchema(null, annotations);
         } else if (typeName.equals("Boolean")) {
-            return createBooleanSchema();
+            resultSchema = createBooleanSchema();
         } else if (typeName.equals("List")) {
-            return createListSchema(typeClass, modelPackages, annotations);
+            resultSchema = createListSchema(typeClass, modelPackages, annotations);
         } else if (typeName.equals("LocalDate") || typeName.equals("Date")) {
-            return createStringSchema("date", annotations);
+            resultSchema = createStringSchema("date", annotations);
         } else if (typeName.equals("LocalDateTime") || typeName.equals("LocalTime")) {
-            return createStringSchema("date-time", annotations);
+            resultSchema = createStringSchema("date-time", annotations);
+        } else {
+            resultSchema = createRefSchema(typeClass, modelPackages);
         }
-        return createRefSchema(typeClass, modelPackages);
+
+        return resultSchema;
     }
 
     public Schema parseArraySignature(CtTypeReference<?> elementTypeSignature,

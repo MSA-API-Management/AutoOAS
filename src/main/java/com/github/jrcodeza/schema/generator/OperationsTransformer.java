@@ -30,6 +30,7 @@ import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -508,21 +509,19 @@ public class OperationsTransformer {
 		if (requestBodyParameter == null) {
 			return null;
 		}
-		if (shouldBeIgnored(requestBodyParameter.getParameter())) {
-			logger.info("Ignoring parameter {}", requestBodyParameter.getName());
-			return null;
-		}
 
 		Content content = new Content();
+		AtomicBoolean isOptionalParameter = new AtomicBoolean(false);
 		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
 				schemaGeneratorHelper.createMediaType(
 						requestBodyParameter.getParameter().getType(),
-						requestBodyParameter.getName()
+						requestBodyParameter.getName(),
+						isOptionalParameter
 				)
 		);
 
 		RequestBody requestBody = new RequestBody();
-		requestBody.setRequired(true);
+		requestBody.setRequired(!isOptionalParameter.get());
 		requestBody.setContent(content);
 		requestBody.setDescription("requestBody");
 

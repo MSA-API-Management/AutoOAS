@@ -1,0 +1,213 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "cwa-verification-server",
+    "description" : "Spring Profile: external",
+    "version" : ""
+  },
+  "paths" : {
+    "/version/v1/tan" : {
+      "post" : {
+        "tags" : [ "external-tan-controller" ],
+        "summary" : "generateTan",
+        "operationId" : "generateTanUsingPOST__version_v1_tan",
+        "parameters" : [ {
+          "name" : "cwa-fake",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegistrationToken"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Tan"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    },
+    "/version/v1/testresult" : {
+      "post" : {
+        "tags" : [ "external-test-state-controller" ],
+        "summary" : "getTestState",
+        "operationId" : "getTestStateUsingPOST__version_v1_testresult",
+        "parameters" : [ {
+          "name" : "cwa-fake",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegistrationToken"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TestResult"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        }
+      }
+    },
+    "/version/v1/registrationToken" : {
+      "post" : {
+        "tags" : [ "external-token-controller" ],
+        "summary" : "generateRegistrationToken",
+        "operationId" : "generateRegistrationTokenUsingPOST__version_v1_registrationToken",
+        "parameters" : [ {
+          "name" : "cwa-fake",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegistrationTokenRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RegistrationToken"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Tan" : {
+        "required" : [ "tan" ],
+        "type" : "object",
+        "properties" : {
+          "tan" : {
+            "pattern" : "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$",
+            "type" : "string"
+          },
+          "responsePadding" : {
+            "type" : "string"
+          }
+        },
+        "description" : "The transaction number model.",
+        "deprecated" : false
+      },
+      "RegistrationTokenKeyType" : {
+        "type" : "string",
+        "enum" : [ "GUID", "TELETAN" ]
+      },
+      "RegistrationToken" : {
+        "required" : [ "registrationToken" ],
+        "type" : "object",
+        "properties" : {
+          "registrationToken" : {
+            "pattern" : "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$",
+            "type" : "string"
+          },
+          "responsePadding" : {
+            "type" : "string"
+          }
+        },
+        "description" : "The registration token model.",
+        "deprecated" : false
+      },
+      "TestResult" : {
+        "type" : "object",
+        "properties" : {
+          "sc" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "labId" : {
+            "type" : "string"
+          },
+          "testResult" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "responsePadding" : {
+            "type" : "string"
+          }
+        },
+        "description" : "The test result model.",
+        "deprecated" : false
+      },
+      "RegistrationTokenRequest" : {
+        "required" : [ "key", "keyType" ],
+        "type" : "object",
+        "properties" : {
+          "keyDob" : {
+            "pattern" : "^[XxA-Fa-f0-9]([A-Fa-f0-9]{63})$",
+            "type" : "string"
+          },
+          "keyType" : {
+            "$ref" : "#/components/schemas/RegistrationTokenKeyType"
+          },
+          "key" : {
+            "type" : "string"
+          }
+        },
+        "description" : "The registration token request model.",
+        "deprecated" : false
+      }
+    }
+  }
+}

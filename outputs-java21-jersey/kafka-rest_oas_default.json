@@ -2297,7 +2297,7 @@
         "type" : "object",
         "properties" : {
           "key_schema" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           },
           "records" : {
             "type" : "array",
@@ -2306,13 +2306,15 @@
             }
           },
           "value_schema" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           },
           "value_schema_id" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "integer",
+            "format" : "int32"
           },
           "key_schema_id" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "integer",
+            "format" : "int32"
           }
         }
       },
@@ -2345,6 +2347,13 @@
           }
         }
       },
+      "JsonNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      },
       "Operation" : {
         "type" : "string",
         "enum" : [ "UNKNOWN", "ANY", "ALL", "READ", "WRITE", "CREATE", "DELETE", "ALTER", "DESCRIBE", "CLUSTER_ACTION", "DESCRIBE_CONFIGS", "ALTER_CONFIGS", "IDEMPOTENT_WRITE" ]
@@ -2364,7 +2373,7 @@
         "type" : "object",
         "properties" : {
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           }
         }
       },
@@ -2380,7 +2389,7 @@
         "type" : "object",
         "properties" : {
           "metadata" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           },
           "partition" : {
             "type" : "integer",
@@ -2409,7 +2418,7 @@
         "type" : "object",
         "properties" : {
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           }
         }
       },
@@ -2432,15 +2441,8 @@
         "type" : "object",
         "properties" : {
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           }
-        }
-      },
-      "Optional" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.util"
         }
       },
       "ConsumerSeekRequest" : {
@@ -2500,7 +2502,8 @@
             }
           },
           "replication_factor" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "integer",
+            "format" : "int32"
           },
           "topic_name" : {
             "type" : "string"
@@ -2512,7 +2515,8 @@
             }
           },
           "partitions_count" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "integer",
+            "format" : "int32"
           }
         }
       },
@@ -2563,13 +2567,14 @@
         "type" : "object",
         "properties" : {
           "partition" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "integer",
+            "format" : "int32"
           },
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "$ref" : "#/components/schemas/JsonNode"
           },
           "key" : {
-            "$ref" : "#/components/schemas/Optional"
+            "$ref" : "#/components/schemas/JsonNode"
           }
         }
       },
@@ -2580,7 +2585,7 @@
             "type" : "string"
           },
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           }
         }
       },
@@ -2621,7 +2626,7 @@
             "$ref" : "#/components/schemas/AlterOperation"
           },
           "value" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           }
         }
       },
@@ -2629,7 +2634,7 @@
         "type" : "object",
         "properties" : {
           "metadata" : {
-            "$ref" : "#/components/schemas/Optional"
+            "type" : "string"
           },
           "partition" : {
             "type" : "integer",

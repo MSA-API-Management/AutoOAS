@@ -84,7 +84,7 @@ public class DataTypeTransformer {
                 responseType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
             }
 
-            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null);
+            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, null);
             if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
                 Content content = new Content();
                 content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, mediaType);
