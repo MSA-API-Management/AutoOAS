@@ -1345,3 +1345,33 @@ Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
 real	0m7.040s
 user	0m20.227s
 sys	0m0.994s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestConstraintViolationException
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m8.403s
+user	0m14.415s
+sys	0m0.951s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/kafka-rest
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestException
+Could not parse status code for throw exception: RestConstraintViolationException
+Wrote OpenAPI to outputs-java21-jersey/kafka-rest_oas_default.json
+
+real	0m8.222s
+user	0m16.080s
+sys	0m1.022s

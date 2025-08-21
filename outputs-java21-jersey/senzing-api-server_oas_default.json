@@ -1991,48 +1991,286 @@
   },
   "components" : {
     "schemas" : {
-      "SzServerInfoResponse" : {
+      "SzWhyPerspective" : {
         "type" : "object",
-        "properties" : { }
-      },
-      "Set" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.util"
+        "properties" : {
+          "internalId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "entityId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "focusRecords" : {
+            "$ref" : "#/components/schemas/Set"
+          }
         }
       },
-      "SzEntityResponse" : {
+      "SzServerInfoResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzServerInfo"
+          }
+        }
+      },
+      "SzResolutionInfo" : {
+        "type" : "object",
+        "properties" : {
+          "recordId" : {
+            "type" : "string"
+          },
+          "flaggedEntities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzFlaggedEntity"
+            }
+          },
+          "affectedEntities" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "dataSource" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzVersionInfo" : {
+        "type" : "object",
+        "properties" : {
+          "restApiVersion" : {
+            "type" : "string"
+          },
+          "nativeApiBuildVersion" : {
+            "type" : "string"
+          },
+          "nativeApiBuildNumber" : {
+            "type" : "string"
+          },
+          "nativeApiBuildDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "apiServerVersion" : {
+            "type" : "string"
+          },
+          "configCompatibilityVersion" : {
+            "type" : "string"
+          },
+          "nativeApiVersion" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzAttributeTypeResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "attributeType" : {
+            "$ref" : "#/components/schemas/SzAttributeType"
+          }
+        }
+      },
+      "SzAttributeClass" : {
+        "type" : "string",
+        "enum" : [ "ADDRESS", "CHARACTERISTIC", "IDENTIFIER", "NAME", "OBSERVATION", "PHONE", "RELATIONSHIP", "OTHER" ]
+      },
+      "SzDataSourceRecordAnalysis" : {
+        "type" : "object",
+        "properties" : {
+          "recordsWithRecordIdCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "recordCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dataSource" : {
+            "type" : "string"
+          }
+        }
       },
       "SzDataSourcesResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzDataSourcesResponseData"
+          }
+        }
       },
-      "SzBulkDataAnalysisResponse" : {
+      "SzDataSource" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dataSourceId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dataSourceCode" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzWhyMatchInfo" : {
+        "type" : "object",
+        "properties" : {
+          "disclosedRelations" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzDisclosedRelation"
+            }
+          },
+          "featureScores" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "matchLevel" : {
+            "$ref" : "#/components/schemas/SzMatchLevel"
+          },
+          "whyKey" : {
+            "type" : "string"
+          },
+          "resolutionRule" : {
+            "type" : "string"
+          },
+          "candidateKeys" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          }
+        }
+      },
+      "SzScoredFeature" : {
+        "type" : "object",
+        "properties" : {
+          "featureValue" : {
+            "type" : "string"
+          },
+          "featureType" : {
+            "type" : "string"
+          },
+          "featureId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "usageType" : {
+            "type" : "string"
+          }
+        }
       },
       "SzReevaluateResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzReevaluateResponseData"
+          }
+        }
+      },
+      "SzBulkDataStatus" : {
+        "type" : "string",
+        "enum" : [ "NOT_STARTED", "IN_PROGRESS", "ABORTED", "COMPLETED" ]
+      },
+      "SzEntityPath" : {
+        "type" : "object",
+        "properties" : {
+          "startEntityId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endEntityId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "entityIds" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        }
       },
       "SzDataSourceResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzDataSourceResponseData"
+          }
+        }
+      },
+      "SzWhyRecordsResult" : {
+        "type" : "object",
+        "properties" : {
+          "perspective2" : {
+            "$ref" : "#/components/schemas/SzWhyPerspective"
+          },
+          "matchInfo" : {
+            "$ref" : "#/components/schemas/SzWhyMatchInfo"
+          },
+          "perspective1" : {
+            "$ref" : "#/components/schemas/SzWhyPerspective"
+          }
+        }
       },
       "SzWhyEntitiesResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzWhyEntitiesResponseData"
+          }
+        }
       },
-      "SzRelationshipMode" : {
-        "type" : "string",
-        "enum" : [ "NONE", "PARTIAL", "FULL" ]
+      "SzRecordResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "record" : {
+            "$ref" : "#/components/schemas/SzEntityRecord"
+          }
+        }
+      },
+      "SzVirtualEntity" : {
+        "type" : "object",
+        "properties" : {
+          "virtualEntityId" : {
+            "type" : "string"
+          },
+          "records" : {
+            "$ref" : "#/components/schemas/Set"
+          }
+        }
       },
       "SzBasicResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "meta" : {
+            "$ref" : "#/components/schemas/SzMeta"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/SzLinks"
+          }
+        }
+      },
+      "SzResolutionStep" : {
+        "type" : "object",
+        "properties" : {
+          "inboundVirtualEntity" : {
+            "$ref" : "#/components/schemas/SzVirtualEntity"
+          },
+          "matchInfo" : {
+            "$ref" : "#/components/schemas/SzHowMatchInfo"
+          },
+          "resolvedVirtualEntityId" : {
+            "type" : "string"
+          },
+          "candidateVirtualEntity" : {
+            "$ref" : "#/components/schemas/SzVirtualEntity"
+          },
+          "stepNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       },
       "MediaType" : {
         "type" : "object",
@@ -2041,17 +2279,34 @@
           "url" : "javax.ws.rs.core"
         }
       },
-      "SzAttributeTypesResponse" : {
+      "SzMatchedRecord" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "matchLevel" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "matchKey" : {
+            "type" : "string"
+          },
+          "resolutionRuleCode" : {
+            "type" : "string"
+          }
+        }
       },
-      "SzLicenseResponse" : {
+      "SzEntityPathData" : {
         "type" : "object",
-        "properties" : { }
-      },
-      "SzBulkLoadResponse" : {
-        "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "entityPath" : {
+            "$ref" : "#/components/schemas/SzEntityPath"
+          },
+          "entities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityData"
+            }
+          }
+        }
       },
       "SzFeatureMode" : {
         "type" : "string",
@@ -2059,54 +2314,179 @@
       },
       "SzEntityPathResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzEntityPathData"
+          }
+        }
       },
-      "SzWhyEntityResponse" : {
+      "SzHowEntityResult" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "finalStates" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzVirtualEntity"
+            }
+          },
+          "resolutionSteps" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/SzResolutionStep"
+            }
+          }
+        }
       },
       "SzVersionResponse" : {
         "type" : "object",
-        "properties" : { }
-      },
-      "SzDetailLevel" : {
-        "type" : "string",
-        "enum" : [ "MINIMAL", "BRIEF", "SUMMARY", "VERBOSE" ]
-      },
-      "InputStream" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.io"
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzVersionInfo"
+          }
         }
+      },
+      "SzMatchLevel" : {
+        "type" : "string",
+        "enum" : [ "NO_MATCH", "RESOLVED", "POSSIBLY_SAME", "POSSIBLY_RELATED", "NAME_ONLY", "DISCLOSED" ]
       },
       "SzWhyRecordsResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzWhyRecordsResponseData"
+          }
+        }
+      },
+      "SzDataSourceBulkLoadResult" : {
+        "type" : "object",
+        "properties" : {
+          "dataSource" : {
+            "type" : "string"
+          }
+        }
       },
       "SzAttributeTypeResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzAttributeTypeResponseData"
+          }
+        }
+      },
+      "SzAttributeSearchResultType" : {
+        "type" : "string",
+        "enum" : [ "MATCH", "POSSIBLE_MATCH", "POSSIBLE_RELATION", "NAME_ONLY_MATCH" ]
       },
       "SzLoadRecordResponse" : {
         "type" : "object",
-        "properties" : { }
-      },
-      "SzRecordResponse" : {
-        "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzLoadRecordResponseData"
+          }
+        }
       },
       "SzDeleteRecordResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzDeleteRecordResponseData"
+          }
+        }
       },
-      "SzConfigResponse" : {
+      "SzDataSourceResponseData" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dataSource" : {
+            "$ref" : "#/components/schemas/SzDataSource"
+          }
+        }
+      },
+      "SzWhyEntitiesResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "entities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityData"
+            }
+          },
+          "whyResult" : {
+            "$ref" : "#/components/schemas/SzWhyEntitiesResult"
+          }
+        }
+      },
+      "SzBulkDataAnalysis" : {
+        "type" : "object",
+        "properties" : {
+          "recordsWithRecordIdCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "analysisByDataSource" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzDataSourceRecordAnalysis"
+            }
+          },
+          "recordCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "recordsWithDataSourceCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "mediaType" : {
+            "type" : "string"
+          },
+          "characterEncoding" : {
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/SzBulkDataStatus"
+          }
+        }
       },
       "SzHowEntityResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzHowEntityResult"
+          }
+        }
+      },
+      "SzAttributeTypesResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "attributeTypes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzAttributeType"
+            }
+          }
+        }
+      },
+      "SzFlaggedEntity" : {
+        "type" : "object",
+        "properties" : {
+          "flags" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "entityId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sampleRecords" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzFlaggedRecord"
+            }
+          },
+          "degrees" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       },
       "Object" : {
         "type" : "object",
@@ -2117,15 +2497,705 @@
       },
       "SzEntityNetworkResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzEntityNetworkData"
+          }
+        }
+      },
+      "SzAttributeType" : {
+        "type" : "object",
+        "properties" : {
+          "attributeCode" : {
+            "type" : "string"
+          },
+          "attributeClass" : {
+            "$ref" : "#/components/schemas/SzAttributeClass"
+          },
+          "defaultValue" : {
+            "type" : "string"
+          },
+          "featureType" : {
+            "type" : "string"
+          },
+          "necessity" : {
+            "$ref" : "#/components/schemas/SzAttributeNecessity"
+          }
+        }
       },
       "SzAttributeSearchResponse" : {
         "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzAttributeSearchResponseData"
+          }
+        }
+      },
+      "SzResolvedEntity" : {
+        "type" : "object",
+        "properties" : {
+          "bestName" : {
+            "type" : "string"
+          },
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzMatchedRecord"
+            }
+          },
+          "otherData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "entityId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "relationshipData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "recordSummaries" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzDataSourceRecordSummary"
+            }
+          },
+          "characteristicData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "features" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "lastSeenTimestamp" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "identifierData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "entityName" : {
+            "type" : "string"
+          },
+          "nameData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "phoneData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "addressData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "SzLoadRecordResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "recordId" : {
+            "type" : "string"
+          },
+          "info" : {
+            "$ref" : "#/components/schemas/SzResolutionInfo"
+          }
+        }
+      },
+      "SzVirtualEntityData" : {
+        "type" : "object",
+        "properties" : {
+          "resolvedEntity" : {
+            "$ref" : "#/components/schemas/SzResolvedEntity"
+          }
+        }
+      },
+      "SzDataSourceRecordSummary" : {
+        "type" : "object",
+        "properties" : {
+          "topRecordIds" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "recordCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dataSource" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzDeleteRecordResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "info" : {
+            "$ref" : "#/components/schemas/SzResolutionInfo"
+          }
+        }
+      },
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "SzRelationshipType" : {
+        "type" : "string",
+        "enum" : [ "POSSIBLE_MATCH", "POSSIBLE_RELATION", "DISCLOSED_RELATION" ]
+      },
+      "SzAttributeNecessity" : {
+        "type" : "string",
+        "enum" : [ "REQUIRED", "SUFFICIENT", "PREFERRED", "OPTIONAL" ]
+      },
+      "SzRelationDirection" : {
+        "type" : "string",
+        "enum" : [ "OUTBOUND", "INBOUND", "BIDIRECTIONAL" ]
+      },
+      "SzEntityResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzEntityData"
+          }
+        }
+      },
+      "SzLinks" : {
+        "type" : "object",
+        "properties" : {
+          "openApiSpecification" : {
+            "type" : "string"
+          },
+          "self" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzAttributeSearchResult" : {
+        "type" : "object",
+        "properties" : {
+          "featureScores" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "bestNameScore" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "relatedEntities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzRelatedEntity"
+            }
+          },
+          "resultType" : {
+            "$ref" : "#/components/schemas/SzAttributeSearchResultType"
+          }
+        }
+      },
+      "SzBulkDataAnalysisResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzBulkDataAnalysis"
+          }
+        }
+      },
+      "SzFlaggedRecord" : {
+        "type" : "object",
+        "properties" : {
+          "recordId" : {
+            "type" : "string"
+          },
+          "flags" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "dataSource" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzMeta" : {
+        "type" : "object",
+        "properties" : {
+          "restApiVersion" : {
+            "type" : "string"
+          },
+          "server" : {
+            "type" : "string"
+          },
+          "nativeApiBuildVersion" : {
+            "type" : "string"
+          },
+          "nativeApiBuildNumber" : {
+            "type" : "string"
+          },
+          "nativeApiBuildDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "timings" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "integer"
+            }
+          },
+          "configCompatibilityVersion" : {
+            "type" : "string"
+          },
+          "httpMethod" : {
+            "$ref" : "#/components/schemas/SzHttpMethod"
+          },
+          "nativeApiVersion" : {
+            "type" : "string"
+          },
+          "version" : {
+            "type" : "string"
+          },
+          "httpStatusCode" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "SzRelatedFeatures" : {
+        "type" : "object",
+        "properties" : {
+          "feature2" : {
+            "$ref" : "#/components/schemas/SzScoredFeature"
+          },
+          "feature1" : {
+            "$ref" : "#/components/schemas/SzScoredFeature"
+          }
+        }
+      },
+      "SzRelationshipMode" : {
+        "type" : "string",
+        "enum" : [ "NONE", "PARTIAL", "FULL" ]
+      },
+      "SzDisclosedRelation" : {
+        "type" : "object",
+        "properties" : {
+          "relatedFeatures" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzRelatedFeatures"
+            }
+          },
+          "roles2" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "roles1" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "domain" : {
+            "type" : "string"
+          },
+          "direction" : {
+            "$ref" : "#/components/schemas/SzRelationDirection"
+          }
+        }
+      },
+      "SzAttributeTypesResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzAttributeTypesResponseData"
+          }
+        }
+      },
+      "SzRelatedEntity" : {
+        "type" : "object",
+        "properties" : {
+          "relationType" : {
+            "$ref" : "#/components/schemas/SzRelationshipType"
+          }
+        }
+      },
+      "SzLicenseInfo" : {
+        "type" : "object",
+        "properties" : {
+          "licenseType" : {
+            "type" : "string"
+          },
+          "issuanceDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "contract" : {
+            "type" : "string"
+          },
+          "licenseLevel" : {
+            "type" : "string"
+          },
+          "billing" : {
+            "type" : "string"
+          },
+          "customer" : {
+            "type" : "string"
+          },
+          "expirationDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "recordLimit" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "SzLicenseResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzLicenseResponseData"
+          }
+        }
+      },
+      "SzWhyEntityResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "entities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityData"
+            }
+          },
+          "whyResults" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzWhyEntityResult"
+            }
+          }
+        }
+      },
+      "SzHttpMethod" : {
+        "type" : "string",
+        "enum" : [ "GET", "PUT", "PATCH", "DELETE", "POST" ]
+      },
+      "SzBulkLoadResult" : {
+        "type" : "object",
+        "properties" : {
+          "resultsByDataSource" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzDataSourceBulkLoadResult"
+            }
+          },
+          "mediaType" : {
+            "type" : "string"
+          },
+          "missingDataSourceCount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "characterEncoding" : {
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/SzBulkDataStatus"
+          }
+        }
+      },
+      "SzBulkLoadResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzBulkLoadResult"
+          }
+        }
+      },
+      "SzLicenseResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "license" : {
+            "$ref" : "#/components/schemas/SzLicenseInfo"
+          }
+        }
+      },
+      "SzWhyEntityResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzWhyEntityResponseData"
+          }
+        }
+      },
+      "SzEntityNetworkData" : {
+        "type" : "object",
+        "properties" : {
+          "entityPaths" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityPath"
+            }
+          },
+          "entities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityData"
+            }
+          }
+        }
+      },
+      "SzDetailLevel" : {
+        "type" : "string",
+        "enum" : [ "MINIMAL", "BRIEF", "SUMMARY", "VERBOSE" ]
+      },
+      "SzEntityRecord" : {
+        "type" : "object",
+        "properties" : {
+          "characteristicData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "recordId" : {
+            "type" : "string"
+          },
+          "lastSeenTimestamp" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "identifierData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "otherData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "nameData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "featureReferences" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzFeatureReference"
+            }
+          },
+          "originalSourceData" : {
+            "type" : "object"
+          },
+          "phoneData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "relationshipData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "dataSource" : {
+            "type" : "string"
+          },
+          "addressData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
+        }
+      },
+      "SzWhyRecordsResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "entities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzEntityData"
+            }
+          },
+          "whyResult" : {
+            "$ref" : "#/components/schemas/SzWhyRecordsResult"
+          }
+        }
+      },
+      "SzDataSourcesResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "dataSourceDetails" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/SzDataSource"
+            }
+          },
+          "dataSources" : {
+            "$ref" : "#/components/schemas/Set"
+          }
+        }
+      },
+      "SzHowMatchInfo" : {
+        "type" : "object",
+        "properties" : {
+          "featureScores" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "matchKey" : {
+            "type" : "string"
+          },
+          "resolutionRule" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzRecordResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzRecordResponseData"
+          }
+        }
+      },
+      "SzConfigResponse" : {
+        "type" : "object",
         "properties" : { }
+      },
+      "SzEntityData" : {
+        "type" : "object",
+        "properties" : {
+          "resolvedEntity" : {
+            "$ref" : "#/components/schemas/SzResolvedEntity"
+          },
+          "relatedEntities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzRelatedEntity"
+            }
+          }
+        }
+      },
+      "SzReevaluateResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "info" : {
+            "$ref" : "#/components/schemas/SzResolutionInfo"
+          }
+        }
+      },
+      "SzServerInfo" : {
+        "type" : "object",
+        "properties" : {
+          "activeConfigId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "webSocketsMessageMaxSize" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "concurrency" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "SzAttributeSearchResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "searchResults" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SzAttributeSearchResult"
+            }
+          }
+        }
+      },
+      "SzFeatureReference" : {
+        "type" : "object",
+        "properties" : {
+          "internalId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "usageType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SzWhyEntitiesResult" : {
+        "type" : "object",
+        "properties" : {
+          "matchInfo" : {
+            "$ref" : "#/components/schemas/SzWhyMatchInfo"
+          },
+          "entityId1" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "entityId2" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "SzWhyEntityResult" : {
+        "type" : "object",
+        "properties" : {
+          "matchInfo" : {
+            "$ref" : "#/components/schemas/SzWhyMatchInfo"
+          },
+          "perspective" : {
+            "$ref" : "#/components/schemas/SzWhyPerspective"
+          }
+        }
       },
       "SzVirtualEntityResponse" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/SzVirtualEntityData"
+          }
+        }
       }
     }
   }

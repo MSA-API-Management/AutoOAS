@@ -2239,9 +2239,17 @@
           }
         }
       },
+      "AlterOperation" : {
+        "type" : "string",
+        "enum" : [ "SET", "DELETE" ]
+      },
       "AlterBrokerConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
       },
       "ConsumerCommittedResponse" : {
         "type" : "object",
@@ -2260,11 +2268,53 @@
       },
       "CreateAclRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "principal" : {
+            "type" : "string"
+          },
+          "pattern_type" : {
+            "$ref" : "#/components/schemas/PatternType"
+          },
+          "host" : {
+            "type" : "string"
+          },
+          "resource_type" : {
+            "$ref" : "#/components/schemas/ResourceType"
+          },
+          "permission" : {
+            "$ref" : "#/components/schemas/Permission"
+          },
+          "resource_name" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "$ref" : "#/components/schemas/Operation"
+          }
+        }
       },
       "ProduceRequest" : {
+        "required" : [ "records" ],
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "key_schema" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ProduceRecord"
+            }
+          },
+          "value_schema" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "value_schema_id" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "key_schema_id" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "CreateConsumerInstanceRequest" : {
         "required" : [ "format" ],
@@ -2312,11 +2362,37 @@
       },
       "UpdateClusterConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "AlterTopicConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
+      },
+      "PartitionTimestamp" : {
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "topic" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
       },
       "Permission" : {
         "type" : "string",
@@ -2331,7 +2407,11 @@
       },
       "UpdateTopicConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "ConsumerSubscriptionResponse" : {
         "type" : "object",
@@ -2350,11 +2430,35 @@
       },
       "UpdateBrokerConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
+      "Optional" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
       },
       "ConsumerSeekRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "offsets" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PartitionOffset"
+            }
+          },
+          "timestamps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PartitionTimestamp"
+            }
+          }
+        }
       },
       "ConsumerSeekToRequest" : {
         "type" : "object",
@@ -2365,6 +2469,13 @@
               "$ref" : "#/components/schemas/TopicPartition"
             }
           }
+        }
+      },
+      "Instant" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
         }
       },
       "ResourceType" : {
@@ -2381,7 +2492,29 @@
       },
       "CreateTopicRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "configs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConfigEntry"
+            }
+          },
+          "replication_factor" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "topic_name" : {
+            "type" : "string"
+          },
+          "replicas_assignments" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "partitions_count" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "TopicPartitionOffsetMetadata" : {
         "required" : [ "topic" ],
@@ -2405,7 +2538,11 @@
       },
       "AlterClusterConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
       },
       "ConsumerOffsetCommitRequest" : {
         "type" : "object",
@@ -2421,6 +2558,31 @@
       "Type" : {
         "type" : "string",
         "enum" : [ "BROKER" ]
+      },
+      "ProduceRecord" : {
+        "type" : "object",
+        "properties" : {
+          "partition" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "key" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
+      "ConfigEntry" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "ConsumerSubscriptionRecord" : {
         "type" : "object",
@@ -2449,6 +2611,39 @@
           }
         }
       },
+      "AlterEntry" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "$ref" : "#/components/schemas/AlterOperation"
+          },
+          "value" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
+      "PartitionOffset" : {
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "topic" : {
+            "type" : "string"
+          }
+        }
+      },
       "CreateConsumerInstanceResponse" : {
         "type" : "object",
         "properties" : {
@@ -2457,6 +2652,17 @@
           },
           "baseUri" : {
             "type" : "string"
+          }
+        }
+      },
+      "AlterConfigBatchRequestData" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AlterEntry"
+            }
           }
         }
       }

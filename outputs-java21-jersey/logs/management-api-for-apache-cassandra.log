@@ -498,3 +498,35 @@ Wrote OpenAPI to outputs-java21-jersey/management-api-for-apache-cassandra_oas_d
 real	0m4.184s
 user	0m8.298s
 sys	0m0.372s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Unrecognized response builder status code method: type
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Wrote OpenAPI to outputs-java21-jersey/management-api-for-apache-cassandra_oas_default.json
+
+real	0m4.585s
+user	0m8.280s
+sys	0m0.447s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/management-api-for-apache-cassandra/management-api-server
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static final Map<K,V> emptyMap()  is wrongly tagged as containing missing types
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Unrecognized response builder status code method: type
+Could not parse status code for throw exception: RuntimeException
+Could not parse status code for throw exception: RuntimeException
+Wrote OpenAPI to outputs-java21-jersey/management-api-for-apache-cassandra_oas_default.json
+
+real	0m4.668s
+user	0m8.572s
+sys	0m0.439s

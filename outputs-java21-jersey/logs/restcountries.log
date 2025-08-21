@@ -311,3 +311,19 @@ Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
 real	0m2.648s
 user	0m4.819s
 sys	0m0.251s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m5.410s
+user	0m6.713s
+sys	0m0.517s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/restcountries
+Detected Framework via Type Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/restcountries_oas_default.json
+
+real	0m3.066s
+user	0m5.423s
+sys	0m0.325s

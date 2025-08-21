@@ -326,3 +326,45 @@ Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
 real	0m4.875s
 user	0m9.972s
 sys	0m0.637s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/enviroCar-server
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static LinkedListMultimap<K,V> create()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static HashSet<E> newHashSet()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public abstract R collect(Collector<? super java.lang.String,A,R>)  is wrongly tagged as containing missing types
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
+
+real	0m7.566s
+user	0m14.495s
+sys	0m0.935s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/enviroCar-server
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static LinkedListMultimap<K,V> create()  is wrongly tagged as containing missing types
+The method public static Optional<T> empty()  is wrongly tagged as containing missing types
+The method public static HashSet<E> newHashSet()  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static List<T> singletonList(T)  is wrongly tagged as containing missing types
+The method public static final List<T> emptyList()  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public static transient List<T> asList(T[])  is wrongly tagged as containing missing types
+The method public abstract R collect(Collector<? super java.lang.String,A,R>)  is wrongly tagged as containing missing types
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/enviroCar-server_oas_default.json
+
+real	0m4.595s
+user	0m9.789s
+sys	0m0.602s

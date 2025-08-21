@@ -1528,15 +1528,60 @@
       },
       "RestSession" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflow" : {
+            "$ref" : "#/components/schemas/NameOptionalId"
+          },
+          "sessionUuid" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "lastAttempt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       },
       "RestScheduleEnableRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "skipSchedule" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "nextTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "RestSchedule" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextScheduleTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "disabledAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "StreamingOutput" : {
         "type" : "object",
@@ -1547,19 +1592,103 @@
       },
       "RestProject" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "archiveType" : {
+            "type" : "string"
+          },
+          "deletedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "archiveMd5" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "revision" : {
+            "type" : "string"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "RestLogFileHandle" : {
+        "type" : "object",
+        "properties" : {
+          "fileTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "agentId" : {
+            "type" : "string"
+          },
+          "fileName" : {
+            "type" : "string"
+          },
+          "fileSize" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "direct" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "taskName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "IdAndName" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       },
       "RestProjectCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "projects" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestProject"
+            }
+          }
+        }
       },
       "RestVersionCheckResult" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "upgradeRecommended" : {
+            "type" : "boolean"
+          },
+          "serverVersion" : {
+            "type" : "string"
+          },
+          "apiCompatible" : {
+            "type" : "boolean"
+          }
+        }
       },
       "RestWorkflowDefinitionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflows" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestWorkflowDefinition"
+            }
+          }
+        }
       },
       "UNSPECIFIED_TYPE" : {
         "type" : "object",
@@ -1570,15 +1699,67 @@
       },
       "RestWorkflowDefinition" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "config" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestWorkflowSessionTime" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestScheduleBackfillRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dryRun" : {
+            "type" : "boolean"
+          },
+          "count" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "fromTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "attemptName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UUID" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
       },
       "ObjectMapper" : {
         "type" : "object",
@@ -1589,11 +1770,45 @@
       },
       "RestTaskCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "tasks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestTask"
+            }
+          }
+        }
       },
       "RestSessionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "sessions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSession"
+            }
+          }
+        }
+      },
+      "RestRevision" : {
+        "type" : "object",
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "userInfo" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "archiveType" : {
+            "type" : "string"
+          },
+          "archiveMd5" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestSetSecretRequest" : {
         "type" : "object",
@@ -1603,6 +1818,63 @@
         "type" : "object",
         "properties" : { }
       },
+      "Optional" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.google.common.base"
+        }
+      },
+      "RestTask" : {
+        "type" : "object",
+        "properties" : {
+          "retryAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "upstreams" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Id"
+            }
+          },
+          "stateParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "fullName" : {
+            "type" : "string"
+          },
+          "startedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "error" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "parentId" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "exportParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "cancelRequested" : {
+            "type" : "boolean"
+          },
+          "config" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "storeParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
       "ObjectNode" : {
         "type" : "object",
         "externalDocs" : {
@@ -1610,9 +1882,41 @@
           "url" : "com.fasterxml.jackson.databind.node"
         }
       },
+      "ZoneId" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
       "RestScheduleSummary" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextScheduleTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "disabledAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
       },
       "InputStream" : {
         "type" : "object",
@@ -1630,19 +1934,100 @@
       },
       "RestScheduleSkipRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dryRun" : {
+            "type" : "boolean"
+          },
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "nextTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "count" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "fromTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "SessionTimeTruncate" : {
         "type" : "string",
         "enum" : [ "SECOND", "MINUTE", "HOUR", "DAY", "SCHEDULE", "NEXT_SCHEDULE" ]
       },
+      "NameOptionalId" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
       "RestRevisionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "revisions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestRevision"
+            }
+          }
+        }
       },
       "RestSessionAttempt" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "retryAttemptName" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/NameOptionalId"
+          },
+          "index" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "sessionId" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "done" : {
+            "type" : "boolean"
+          },
+          "finishedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "success" : {
+            "type" : "boolean"
+          },
+          "sessionUuid" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "cancelRequested" : {
+            "type" : "boolean"
+          },
+          "status" : {
+            "type" : "string"
+          }
+        }
       },
       "LocalTimeOrInstant" : {
         "type" : "object",
@@ -1656,9 +2041,23 @@
           }
         }
       },
+      "OffsetDateTime" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
       "RestScheduleCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "schedules" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSchedule"
+            }
+          }
+        }
       },
       "RestSecretList" : {
         "type" : "object",
@@ -1666,11 +2065,34 @@
       },
       "RestScheduleAttemptCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "attempts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSessionAttempt"
+            }
+          }
+        }
       },
       "RestSessionAttemptCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "attempts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSessionAttempt"
+            }
+          }
+        }
       },
       "Object" : {
         "type" : "object",
@@ -1681,11 +2103,42 @@
       },
       "RestLogFileHandleCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "files" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestLogFileHandle"
+            }
+          }
+        }
+      },
+      "Id" : {
+        "type" : "object",
+        "properties" : {
+          "unknown-param-name" : {
+            "type" : "string"
+          }
+        }
       },
       "RestSessionAttemptRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "resume" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "retryAttemptName" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "workflowId" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       }
     }
   }

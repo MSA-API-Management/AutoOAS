@@ -112,3 +112,19 @@ Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
 real	0m2.956s
 user	0m5.211s
 sys	0m0.348s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m3.380s
+user	0m6.062s
+sys	0m0.435s
+Loading model: /Users/alelercher/IdeaProjects/Respector/dataset/features-service
+Detected Framework via Method Annotations: JAX-RS (Java EE)
+Detected profiles: [default]
+Wrote OpenAPI to outputs-java21-jersey/features-service_oas_default.json
+
+real	0m3.129s
+user	0m6.256s
+sys	0m0.417s
