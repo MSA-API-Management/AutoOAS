@@ -41,6 +41,14 @@ public class JaxRSParserIntegrationTest {
         assertOpenApiGeneration(projectFolder, docsPath);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "quarkus-resource-chaining,quarkus-resource-chaining.json"
+    })
+    public void integrationTest_OpenApiGeneration_ResourceChaining(String projectFolder, String docsPath) throws IOException {
+        assertOpenApiGeneration(projectFolder, docsPath);
+    }
+
     private void assertOpenApiGeneration(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";
 
