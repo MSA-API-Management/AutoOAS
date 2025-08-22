@@ -2239,9 +2239,17 @@
           }
         }
       },
+      "AlterOperation" : {
+        "type" : "string",
+        "enum" : [ "SET", "DELETE" ]
+      },
       "AlterBrokerConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
       },
       "ConsumerCommittedResponse" : {
         "type" : "object",
@@ -2260,11 +2268,55 @@
       },
       "CreateAclRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "principal" : {
+            "type" : "string"
+          },
+          "pattern_type" : {
+            "$ref" : "#/components/schemas/PatternType"
+          },
+          "host" : {
+            "type" : "string"
+          },
+          "resource_type" : {
+            "$ref" : "#/components/schemas/ResourceType"
+          },
+          "permission" : {
+            "$ref" : "#/components/schemas/Permission"
+          },
+          "resource_name" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "$ref" : "#/components/schemas/Operation"
+          }
+        }
       },
       "ProduceRequest" : {
+        "required" : [ "records" ],
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "key_schema" : {
+            "type" : "string"
+          },
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ProduceRecord"
+            }
+          },
+          "value_schema" : {
+            "type" : "string"
+          },
+          "value_schema_id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "key_schema_id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       },
       "CreateConsumerInstanceRequest" : {
         "required" : [ "format" ],
@@ -2295,6 +2347,13 @@
           }
         }
       },
+      "JsonNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      },
       "Operation" : {
         "type" : "string",
         "enum" : [ "UNKNOWN", "ANY", "ALL", "READ", "WRITE", "CREATE", "DELETE", "ALTER", "DESCRIBE", "CLUSTER_ACTION", "DESCRIBE_CONFIGS", "ALTER_CONFIGS", "IDEMPOTENT_WRITE" ]
@@ -2312,11 +2371,37 @@
       },
       "UpdateClusterConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "type" : "string"
+          }
+        }
       },
       "AlterTopicConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
+      },
+      "PartitionTimestamp" : {
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "type" : "string"
+          },
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "topic" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
       },
       "Permission" : {
         "type" : "string",
@@ -2331,7 +2416,11 @@
       },
       "UpdateTopicConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "type" : "string"
+          }
+        }
       },
       "ConsumerSubscriptionResponse" : {
         "type" : "object",
@@ -2350,11 +2439,28 @@
       },
       "UpdateBrokerConfigRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "type" : "string"
+          }
+        }
       },
       "ConsumerSeekRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "offsets" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PartitionOffset"
+            }
+          },
+          "timestamps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PartitionTimestamp"
+            }
+          }
+        }
       },
       "ConsumerSeekToRequest" : {
         "type" : "object",
@@ -2365,6 +2471,13 @@
               "$ref" : "#/components/schemas/TopicPartition"
             }
           }
+        }
+      },
+      "Instant" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
         }
       },
       "ResourceType" : {
@@ -2381,7 +2494,31 @@
       },
       "CreateTopicRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "configs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConfigEntry"
+            }
+          },
+          "replication_factor" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "topic_name" : {
+            "type" : "string"
+          },
+          "replicas_assignments" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "list"
+            }
+          },
+          "partitions_count" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       },
       "TopicPartitionOffsetMetadata" : {
         "required" : [ "topic" ],
@@ -2405,7 +2542,11 @@
       },
       "AlterClusterConfigBatchRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "value" : {
+            "$ref" : "#/components/schemas/AlterConfigBatchRequestData"
+          }
+        }
       },
       "ConsumerOffsetCommitRequest" : {
         "type" : "object",
@@ -2421,6 +2562,32 @@
       "Type" : {
         "type" : "string",
         "enum" : [ "BROKER" ]
+      },
+      "ProduceRecord" : {
+        "type" : "object",
+        "properties" : {
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "value" : {
+            "$ref" : "#/components/schemas/JsonNode"
+          },
+          "key" : {
+            "$ref" : "#/components/schemas/JsonNode"
+          }
+        }
+      },
+      "ConfigEntry" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
       },
       "ConsumerSubscriptionRecord" : {
         "type" : "object",
@@ -2449,6 +2616,39 @@
           }
         }
       },
+      "AlterEntry" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "$ref" : "#/components/schemas/AlterOperation"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PartitionOffset" : {
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "type" : "string"
+          },
+          "partition" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "topic" : {
+            "type" : "string"
+          }
+        }
+      },
       "CreateConsumerInstanceResponse" : {
         "type" : "object",
         "properties" : {
@@ -2457,6 +2657,17 @@
           },
           "baseUri" : {
             "type" : "string"
+          }
+        }
+      },
+      "AlterConfigBatchRequestData" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AlterEntry"
+            }
           }
         }
       }
