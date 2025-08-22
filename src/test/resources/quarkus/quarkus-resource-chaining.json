@@ -69,6 +69,57 @@
           }
         }
       }
+    },
+    "/api/teachers/courses/" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__api_teachers_courses_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Course"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teachers/courses/{id}" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__api_teachers_courses_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -99,6 +150,18 @@
             "type" : "string"
           },
           "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "Course" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
             "type" : "integer",
             "format" : "int32"
           }

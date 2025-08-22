@@ -12,4 +12,9 @@ public class TeacherResource {
         return Response.ok(new Teacher("Doe", id)).build();
     }
 
+    @Path("/courses")
+    public CourseResource getCourseResource(@PathParam("id") int id) {
+        return new CourseResource();
+    }
+
 }
