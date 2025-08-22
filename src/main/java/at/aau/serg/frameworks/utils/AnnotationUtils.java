@@ -6,7 +6,7 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 public class AnnotationUtils {
-    public static Optional<Annotation> getAnnotation(CtMethod<?> method, Class<? extends Annotation> annotationClass) {
+    public static <T extends Annotation> Optional<T> getAnnotation(CtMethod<?> method, Class<T> annotationClass) {
         return Optional.ofNullable(method.getAnnotation(annotationClass));
     }
 }

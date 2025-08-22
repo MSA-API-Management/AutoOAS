@@ -1,0 +1,109 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-resource-chaining",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/api/alive" : {
+      "get" : {
+        "tags" : [ "base-resource" ],
+        "summary" : "getAlive",
+        "operationId" : "getAliveUsingGET__api_alive",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted"
+          }
+        }
+      }
+    },
+    "/api/students/" : {
+      "get" : {
+        "tags" : [ "student-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_students_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teachers/{id}" : {
+      "get" : {
+        "tags" : [ "teacher-resource" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__api_teachers_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Teacher"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "Teacher" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "Student" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

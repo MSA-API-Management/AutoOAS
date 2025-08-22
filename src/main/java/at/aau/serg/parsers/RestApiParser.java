@@ -15,9 +15,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
-import org.javatuples.Pair;
-import spoon.MavenLauncher;
-import spoon.OutputType;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
@@ -25,7 +22,6 @@ import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
-import java.io.File;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -150,26 +146,34 @@ public class RestApiParser {
         Paths operationsMap = new Paths();
 
         // contains the concreteType (most concrete implementation class) and currentType (iteratively towards super).
-        List<Pair<CtType, CtType>> notProcessedControllerClasses =
-                controllerClasses.stream().map(t -> Pair.with((CtType) t, (CtType) t)).collect(Collectors.toList());
+        List<ControllerClassProcessingInformation> notProcessedControllerClasses =
+                controllerClasses.stream().map(t -> new ControllerClassProcessingInformation(t, t)).collect(Collectors.toList());
 
         while (notProcessedControllerClasses.size() > 0) {
             var curControllerClasses = new ArrayList<>(notProcessedControllerClasses);
 
-            for (Pair<CtType, CtType> typePair : curControllerClasses) {
+            for (ControllerClassProcessingInformation typeInfo : curControllerClasses) {
 
-                CtType<?> concreteType = typePair.getValue0();
-                CtType<?> currentType = typePair.getValue1();
+                CtType<?> concreteType = typeInfo.getConcreteControllerType();
+                CtType<?> currentType = typeInfo.getCurrentSuperclassType();
+
+                String controllerBasePath = typeInfo.getBasePath() + '/' + operationsTransformer.getBaseControllerPath(concreteType);
 
                 for (CtMethod<?> method : currentType.getMethods()) {
                     // Adds the operation for the method to the operationsMap
                     operationsTransformer.createOperation(
-                            method, operationsTransformer.getBaseControllerPath(concreteType),
+                            method, controllerBasePath,
                             operationsMap, concreteType.getSimpleName());
                 }
 
+                // traversing down the controller's sub-resources
+                var subResources = findSubResourcesInController(currentType, controllerBasePath);
+                if (subResources != null)
+                    notProcessedControllerClasses.addAll(subResources);
+
+                // traversing up the controller class's inheritance
                 if (currentType.getSuperclass() != null)
-                    notProcessedControllerClasses.add(Pair.with(concreteType, currentType.getSuperclass().getTypeDeclaration()));
+                    notProcessedControllerClasses.add(new ControllerClassProcessingInformation(concreteType, currentType.getSuperclass().getTypeDeclaration()));
             }
 
             notProcessedControllerClasses.removeAll(curControllerClasses);
@@ -178,6 +182,19 @@ public class RestApiParser {
         operationsTransformer.fixDuplicateOperationIds(operationsMap);
 
         return operationsMap;
+    }
+
+    private List<ControllerClassProcessingInformation> findSubResourcesInController(CtType<?> controllerType, String basePath) {
+        return restFramework.getSubResourcesInController(controllerType)
+                .stream()
+                .map(subResource ->
+                        new ControllerClassProcessingInformation(
+                                subResource.getType(),
+                                subResource.getType(),
+                                basePath + '/' + subResource.getPath()
+                        )
+                )
+                .collect(Collectors.toList());
     }
 
     /**

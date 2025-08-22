@@ -21,7 +21,9 @@ import spoon.reflect.reference.CtTypeReference;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
+
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -91,6 +93,24 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
         return BeanParam.class;
     }
 
+    @Override
+    public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
+        var resultList = new ArrayList<SubResource>();
+
+        for (CtMethod<?> method : controllerType.getMethods()) {
+            CtType<?> methodReturnType = method.getType().getTypeDeclaration();
+            Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
+
+            if (pathAnnotation.isEmpty() || !containsHandlerMethod(methodReturnType))
+                continue;
+
+            // found a method with Path annotation providing a sub-resource
+            String subResourcePath = pathAnnotation.get().value();
+            resultList.add(new SubResource(methodReturnType, subResourcePath));
+        }
+
+        return resultList;
+    }
 
     @Override
     public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
@@ -101,27 +121,27 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
 
     @Override
-    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PUT.class);
     }
 
     @Override
-    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PATCH.class);
     }
 
     @Override
-    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GET.class);
     }
 
     @Override
-    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DELETE.class);
     }
 
@@ -217,7 +237,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
      * In Quarkus, framework-injected types can have @Context but can also be used without this annotation
      */
     private boolean hasAnyAnnotationDisqualifyingParameterAsRequestBody(CtParameter<?> parameter) {
-        return isJakartaMethodAnnotationParameter(parameter) || isJakartaConfigurationAnnotation(parameter);
+        return isRestMethodAnnotatedParameter(parameter) || isJakartaConfigurationAnnotation(parameter);
     }
 
     private boolean isJakartaConfigurationAnnotation(CtParameter<?> parameter) {
@@ -227,14 +247,8 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                 typeName.equals("jakarta.ws.rs.core.HttpHeaders");
     }
 
-    private boolean isJakartaMethodAnnotationParameter(CtParameter<?> parameter) {
-        return parameter.getAnnotations().stream()
-                .map(CtAnnotation::getAnnotationType)
-                .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isJakartaParameterAnnotation);
-    }
-
-    private boolean isJakartaParameterAnnotation(String annotationName) {
+    @Override
+    protected boolean isRestParameterAnnotation(String annotationName) {
         return annotationName.equals("jakarta.ws.rs.PathParam") ||
                 annotationName.equals("jakarta.ws.rs.QueryParam") ||
                 annotationName.equals("jakarta.ws.rs.HeaderParam") ||
@@ -243,5 +257,14 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                 annotationName.equals("jakarta.ws.rs.BeanParam") ||
                 annotationName.equals("jakarta.ws.rs.container.Suspended") ||
                 annotationName.equals("jakarta.ws.rs.core.Context");
+    }
+
+    @Override
+    protected boolean isRestMethodHandlerAnnotation(String annotationName) {
+        return annotationName.equals("jakarta.ws.rs.POST") ||
+                annotationName.equals("jakarta.ws.rs.PUT") ||
+                annotationName.equals("jakarta.ws.rs.PATCH") ||
+                annotationName.equals("jakarta.ws.rs.GET") ||
+                annotationName.equals("jakarta.ws.rs.DELETE");
     }
 }

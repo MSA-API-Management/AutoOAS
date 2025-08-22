@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import annotations.Out;
 import at.aau.serg.frameworks.*;
 import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
@@ -81,7 +82,7 @@ public class OperationsTransformer {
 	 * @param operationsMap
 	 * @param controllerClassName Used as tag in OpenAPI spec.
 	 */
-	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
+	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.info("Transforming {} controller method", method.getSimpleName());
 		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
