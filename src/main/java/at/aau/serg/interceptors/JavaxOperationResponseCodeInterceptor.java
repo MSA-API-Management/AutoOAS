@@ -1,19 +1,22 @@
 package at.aau.serg.interceptors;
 
-import ch.qos.logback.classic.boolex.MarkerList;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import spoon.reflect.code.CtFieldRead;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtType;
-import spoon.support.reflect.code.CtFieldReadImpl;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.util.List;
 
 public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperationResponseCodeInterceptor {
+
+    private static final Logger logger = LoggerFactory.getLogger(JavaxOperationResponseCodeInterceptor.class);
 
     public JavaxOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                  DataTypeTransformer dataTypeTransformer,
@@ -51,8 +54,13 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
                 // custom statusCode with either Response.StatusType or int (::status overload)
                 var statusCodeMethodArg = method.getArguments().getFirst();
                 if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Response.StatusType.class)) {
-                    int statusCode = Response.Status.valueOf(((CtFieldReadImpl<?>) statusCodeMethodArg).getVariable().getSimpleName()).getStatusCode();
-                    responseStatus = List.of(statusCode);
+                    if (statusCodeMethodArg instanceof CtFieldRead<?> fieldReadArg) {
+                        int statusCode = Response.Status.valueOf(fieldReadArg.getVariable().getSimpleName()).getStatusCode();
+                        responseStatus = List.of(statusCode);
+                    } else {
+                        // todo handle method calls in status method, e.g., `Response.status(response.getStatusInfo())`
+                        logger.error("Unrecognized response builder status method argument: {}", method.toStringDebug());
+                    }
 
                 } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
                         || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))

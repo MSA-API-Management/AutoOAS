@@ -9,6 +9,8 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
@@ -29,6 +31,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
     protected static final int FALLBACK_STATUS_CODE = 200;
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -258,7 +262,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      *
      * @param expression code expression containing HttpStatus constant
      * @return HTTP status code (e.g., 400, 404) or {@code null} if not found
-     *
      * @example {@code "org.apache.http.HttpStatus.SC_BAD_REQUEST" → 400}
      */
     protected Integer extractSingleResponseCode(CtExpression<?> expression) {
@@ -318,8 +321,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
 
-            ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
-            apiResponses.putAll(resolvedResponse);
+            if (thrownType == null) {
+                // todo resolve or refactor to TypeReference
+                logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
+            } else {
+                ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
+                apiResponses.putAll(resolvedResponse);
+            }
         }
 
         return apiResponses;

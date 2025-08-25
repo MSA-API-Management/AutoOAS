@@ -4,6 +4,7 @@ import annotations.Out;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;
+import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,7 @@ public class SchemaGeneratorHelper {
 
     /**
      * Creates the media type for request bodies and responses.
+     *
      * @param parameterType the type of the request body or response
      * @param parameterName its name
      * @return
@@ -172,6 +174,7 @@ public class SchemaGeneratorHelper {
 
     /**
      * Strips the outermost type and returns the first generic type, or null if the outermost type was not parameterized.
+     *
      * @param type
      * @param genericTypes
      * @return
@@ -225,7 +228,11 @@ public class SchemaGeneratorHelper {
                                              List<String> modelPackages) {
         // unwrap Optional first
         if (this.isTypeEquivalent(typeClass, this.restFramework.getOptionalWrapper())) {
-            typeClass = unwrapGenericWrapper(typeClass, getGenericParams(typeClass)).getValue0();;
+            typeClass = unwrapGenericWrapper(typeClass, getGenericParams(typeClass)).getValue0();
+        }
+
+        if (typeClass == null) {
+            return createUnspecifiedSchema();
         }
 
         Schema resultSchema = null;
@@ -334,6 +341,22 @@ public class SchemaGeneratorHelper {
             dictSchema.setAdditionalProperties(addPropSchema);
             return dictSchema;
         }
+    }
+
+    /**
+     * Creates a special schema for unspecified types, eg ResponseEntity or ResponseEntity<\?>.
+     *
+     * @return
+     */
+    public Schema<?> createUnspecifiedSchema() {
+        Schema<?> schema = new Schema<>();
+        schema.setType("object");
+        schema.setExternalDocs(new ExternalDocumentation()
+                .url("unspecified") // mandatory OpenAPI property
+                .description("Unspecified return type, e.g., ResponseEntity<?>") //, Response
+        );
+
+        return schema;
     }
 
     private Schema<?> createObjectSchema() {
@@ -532,11 +555,17 @@ public class SchemaGeneratorHelper {
                 CtTypeReference<?> typeArgument = typeArguments.get(0);
                 if (typeArgument.isClass()) {
                     return singletonList(typeArgument);
+
                 } else if (typeArgument.isParameterized()) {
+                    // e.g., List<SomeClass>
                     var innerTypes = typeArgument.getActualTypeArguments();
                     return innerTypes.size() > 0
                             ? asList(innerTypes.get(0), typeArgument)
                             : null;
+
+                } else if (typeArgument.isInterface()) {
+                    // e.g., DtoInterface [without generic type]
+                    return singletonList(typeArgument);
                 }
             }
         }

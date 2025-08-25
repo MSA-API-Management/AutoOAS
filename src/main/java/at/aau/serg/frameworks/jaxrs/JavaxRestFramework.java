@@ -22,6 +22,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +39,6 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
         return super.getIdentifier() + " (Java EE)";
     }
 
-    // TODO add Javax Interceptor
     @Override
     public OperationInterceptor getOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                                     DataTypeTransformer dataTypeTransformer,
@@ -94,6 +94,24 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
         return BeanParam.class;
     }
 
+    @Override
+    public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
+        var resultList = new ArrayList<SubResource>();
+
+        for (CtMethod<?> method : controllerType.getMethods()) {
+            CtType<?> methodReturnType = method.getType().getTypeDeclaration();
+            Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
+
+            if (pathAnnotation.isEmpty() || !containsHandlerMethodOrSubResource(methodReturnType))
+                continue;
+
+            // found a method with Path annotation providing a sub-resource
+            String subResourcePath = pathAnnotation.get().value();
+            resultList.add(new SubResource(methodReturnType, subResourcePath));
+        }
+
+        return resultList;
+    }
 
     @Override
     public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
@@ -104,27 +122,27 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
 
     @Override
-    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PUT.class);
     }
 
     @Override
-    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PATCH.class);
     }
 
     @Override
-    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GET.class);
     }
 
     @Override
-    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DELETE.class);
     }
 
@@ -220,7 +238,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
      * In Quarkus, framework-injected types can have @Context but can also be used without this annotation
      */
     private boolean hasAnyAnnotationDisqualifyingParameterAsRequestBody(CtParameter<?> parameter) {
-        return isJavaxMethodAnnotationParameter(parameter) || isJavaxConfigurationAnnotation(parameter);
+        return isRestMethodAnnotatedParameter(parameter) || isJavaxConfigurationAnnotation(parameter);
     }
 
     private boolean isJavaxConfigurationAnnotation(CtParameter<?> parameter) {
@@ -230,15 +248,8 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                 typeName.equals("javax.ws.rs.core.HttpHeaders");
     }
 
-    private boolean isJavaxMethodAnnotationParameter(CtParameter<?> parameter) {
-        return parameter.getAnnotations().stream()
-                .map(CtAnnotation::getAnnotationType)
-                .map(CtTypeReference::getQualifiedName)
-                .anyMatch(this::isJavaxParameterAnnotation);
-    }
-
-    // Javax was used previously before it was replaced by Jakarta
-    private boolean isJavaxParameterAnnotation(String annotationName) {
+    @Override
+    protected boolean isRestParameterAnnotation(String annotationName) {
         return annotationName.equals("javax.ws.rs.PathParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
@@ -247,5 +258,17 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                 annotationName.equals("javax.ws.rs.BeanParam") ||
                 annotationName.equals("javax.ws.rs.container.Suspended") ||
                 annotationName.equals("javax.ws.rs.core.Context");
+    }
+
+    @Override
+    protected boolean isRestHandlerMethodOrSubResourceAnnotation(String annotationName) {
+        return annotationName.equals("javax.ws.rs.POST") ||
+                annotationName.equals("javax.ws.rs.PUT") ||
+                annotationName.equals("javax.ws.rs.PATCH") ||
+                annotationName.equals("javax.ws.rs.GET") ||
+                annotationName.equals("javax.ws.rs.DELETE") ||
+                annotationName.equals("javax.ws.rs.HEAD") ||
+                annotationName.equals("javax.ws.rs.OPTIONS") ||
+                annotationName.equals("javax.ws.rs.Path");
     }
 }

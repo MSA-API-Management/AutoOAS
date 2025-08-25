@@ -146,6 +146,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
+        return List.of();
+    }
+
+    @Override
     public CtParameter<?> findRequestBody(List<CtParameter<?>> parameters) {
         return parameters.stream()
                 .filter(param -> param.getAnnotation(getRequestBodyAnnotation()) != null)
@@ -154,32 +159,32 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }
 
     @Override
-    public Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPutMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PutMapping.class);
     }
 
     @Override
-    public Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findPatchMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PatchMapping.class);
     }
 
     @Override
-    public Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findGetMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, GetMapping.class);
     }
 
     @Override
-    public Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findDeleteMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, DeleteMapping.class);
     }
 
     @Override
-    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, RequestMapping.class);
     }
 

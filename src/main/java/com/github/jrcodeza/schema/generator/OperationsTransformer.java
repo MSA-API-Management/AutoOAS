@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import annotations.Out;
 import at.aau.serg.frameworks.*;
 import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
@@ -10,22 +11,17 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.TypeFactory;
-import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
@@ -81,7 +77,7 @@ public class OperationsTransformer {
 	 * @param operationsMap
 	 * @param controllerClassName Used as tag in OpenAPI spec.
 	 */
-	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
+	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName) {
 		logger.info("Transforming {} controller method", method.getSimpleName());
 		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));

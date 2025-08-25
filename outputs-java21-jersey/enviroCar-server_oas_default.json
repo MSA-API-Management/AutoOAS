@@ -25,15 +25,1471 @@
           }
         }
       }
+    },
+    "/announcements/" : {
+      "get" : {
+        "tags" : [ "announcements-resource" ],
+        "summary" : "announcements",
+        "operationId" : "announcementsUsingGET__announcements_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Announcements"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api-docs/" : {
+      "get" : {
+        "tags" : [ "api-docs-resource" ],
+        "summary" : "ui",
+        "operationId" : "uiUsingGET__api-docs_",
+        "parameters" : [ ],
+        "responses" : {
+          "307" : {
+            "description" : "Temporary Redirect"
+          }
+        }
+      }
+    },
+    "/api-docs/{file}" : {
+      "get" : {
+        "tags" : [ "api-docs-resource" ],
+        "summary" : "ui",
+        "operationId" : "uiUsingGET__api-docs_file",
+        "parameters" : [ {
+          "name" : "file",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "303" : {
+            "description" : "See Other"
+          },
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/badges/" : {
+      "get" : {
+        "tags" : [ "badges-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__badges_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Badges"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/confirm/{code}" : {
+      "get" : {
+        "tags" : [ "confirm-resource" ],
+        "summary" : "confirm",
+        "operationId" : "confirmUsingGET__confirm_code",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "303" : {
+            "description" : "See Other"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/groups/" : {
+      "get" : {
+        "tags" : [ "groups-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__groups_",
+        "parameters" : [ {
+          "name" : "q",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Groups"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "groups-resource" ],
+        "summary" : "createGroup",
+        "operationId" : "createGroupUsingPOST__groups_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Group"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/measurements/" : {
+      "get" : {
+        "tags" : [ "measurements-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__measurements_",
+        "parameters" : [ {
+          "name" : "bbox",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/BoundingBox"
+          }
+        }, {
+          "name" : "nearPoint",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/NearPoint"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Measurements"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "measurements-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__measurements_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Measurement"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/phenomenons/" : {
+      "get" : {
+        "tags" : [ "phenomenons-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__phenomenons_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Phenomenons"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "phenomenons-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__phenomenons_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Phenomenon"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/privacyStatements/" : {
+      "get" : {
+        "tags" : [ "privacy-statements-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__privacyStatements_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PrivacyStatements"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resetPassword/" : {
+      "put" : {
+        "tags" : [ "reset-password-resource" ],
+        "summary" : "resetPassword",
+        "operationId" : "resetPasswordUsingPUT__resetPassword_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "reset-password-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingPOST__resetPassword_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/schemas/" : {
+      "get" : {
+        "tags" : [ "json-schema-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__schemas_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonNode"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemas/{schema}" : {
+      "get" : {
+        "tags" : [ "json-schema-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__schemas_schema",
+        "parameters" : [ {
+          "name" : "schema",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonNode"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    },
+    "/sensors/" : {
+      "get" : {
+        "tags" : [ "sensors-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__sensors_",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sensors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "sensors-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__sensors_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Sensor"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/statistics/" : {
+      "get" : {
+        "tags" : [ "statistics-resource" ],
+        "summary" : "statistics",
+        "operationId" : "statisticsUsingGET__statistics_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/termsOfUse/" : {
+      "get" : {
+        "tags" : [ "terms-of-use-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__termsOfUse_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TermsOfUse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/" : {
+      "get" : {
+        "tags" : [ "tracks-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_",
+        "parameters" : [ {
+          "name" : "bbox",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/BoundingBox"
+          }
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/TrackStatus"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Tracks"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "tracks-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__tracks_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Track"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/announcements/{id}/" : {
+      "get" : {
+        "tags" : [ "announcement-resource" ],
+        "summary" : "announcement",
+        "operationId" : "announcementUsingGET__announcements_id_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Announcement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{group}/" : {
+      "get" : {
+        "tags" : [ "group-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__groups_group_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Group"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "group-resource" ],
+        "summary" : "modify",
+        "operationId" : "modifyUsingPUT__groups_group_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Group"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "303" : {
+            "description" : "See Other"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "group-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__groups_group_",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/measurements/{measurement}/" : {
+      "get" : {
+        "tags" : [ "measurement-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__measurements_measurement_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Measurement"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "measurement-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__measurements_measurement_",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/phenomenons/{phenomenon}/" : {
+      "get" : {
+        "tags" : [ "phenomenon-resource" ],
+        "summary" : "getPhenomenon",
+        "operationId" : "getPhenomenonUsingGET__phenomenons_phenomenon_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Phenomenon"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/privacyStatements/{id}/" : {
+      "get" : {
+        "tags" : [ "privacy-statement-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__privacyStatements_id_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PrivacyStatement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sensors/{sensor}/" : {
+      "get" : {
+        "tags" : [ "sensor-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__sensors_sensor_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sensor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/statistics/{phen}/" : {
+      "get" : {
+        "tags" : [ "statistic-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__statistics_phen_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistic"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/termsOfUse/{id}/" : {
+      "get" : {
+        "tags" : [ "terms-of-use-instance-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__termsOfUse_id_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TermsOfUseInstance"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/" : {
+      "get" : {
+        "tags" : [ "track-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Track"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "track-resource" ],
+        "summary" : "modify",
+        "operationId" : "modifyUsingPUT__tracks_track_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Track"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "track-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__tracks_track_",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/groups/{group}/members/" : {
+      "get" : {
+        "tags" : [ "group-members-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__groups_group_members_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "group-members-resource" ],
+        "summary" : "add",
+        "operationId" : "addUsingPOST__groups_group_members_",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserReference"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/tracks/{track}/preview/" : {
+      "get" : {
+        "tags" : [ "preview-resource" ],
+        "summary" : "getMapImage",
+        "operationId" : "getMapImageUsingGET__tracks_track_preview_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tracks/{track}/share/{locale}" : {
+      "get" : {
+        "tags" : [ "share-resource" ],
+        "summary" : "getLocalizedShareImage",
+        "operationId" : "getLocalizedShareImageUsingGET__tracks_track_share_locale",
+        "parameters" : [ {
+          "name" : "locale",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tracks/{track}/share/" : {
+      "get" : {
+        "tags" : [ "share-resource" ],
+        "summary" : "getShareImage",
+        "operationId" : "getShareImageUsingGET__tracks_track_share_",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "image/png" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{group}/members/{member}/" : {
+      "delete" : {
+        "tags" : [ "group-member-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__groups_group_members_member_",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
+      "Measurement" : {
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "type" : "string"
+          },
+          "values" : {
+            "$ref" : "#/components/schemas/MeasurementValues"
+          },
+          "geometry" : {
+            "$ref" : "#/components/schemas/Geometry"
+          },
+          "sensor" : {
+            "$ref" : "#/components/schemas/Sensor"
+          },
+          "time" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "track" : {
+            "$ref" : "#/components/schemas/Track"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          }
+        }
+      },
+      "Group" : {
+        "type" : "object",
+        "properties" : {
+          "owner" : {
+            "$ref" : "#/components/schemas/User"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "confirmationCode" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "gender" : {
+            "$ref" : "#/components/schemas/Gender"
+          },
+          "mail" : {
+            "type" : "string"
+          },
+          "language" : {
+            "type" : "string"
+          },
+          "termsOfUseHistory" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TermsHistoryItem"
+            }
+          },
+          "url" : {
+            "$ref" : "#/components/schemas/URL"
+          },
+          "aboutMe" : {
+            "type" : "string"
+          },
+          "token" : {
+            "type" : "string"
+          },
+          "badges" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "termsOfUseVersion" : {
+            "type" : "string"
+          },
+          "dayOfBirth" : {
+            "type" : "string"
+          },
+          "privacyStatementVersion" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "location" : {
+            "$ref" : "#/components/schemas/Geometry"
+          },
+          "privacyStatementHistory" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TermsHistoryItem"
+            }
+          },
+          "expirationDate" : {
+            "$ref" : "#/components/schemas/DateTime"
+          }
+        }
+      },
+      "Set" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      },
+      "TermsOfUseInstance" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Announcement" : {
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "type" : "string"
+          },
+          "contents" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "versions" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "priority" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Iterable" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "TermsHistoryItem" : {
+        "type" : "object",
+        "properties" : {
+          "date" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "version" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Phenomenons" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
       "JsonNode" : {
         "type" : "object",
         "externalDocs" : {
           "description" : "external package",
           "url" : "com.fasterxml.jackson.databind"
+        }
+      },
+      "Users" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Gender" : {
+        "type" : "string",
+        "enum" : [ "MALE", "FEMALE" ]
+      },
+      "DateTime" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.joda.time"
+        }
+      },
+      "URL" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.net"
+        }
+      },
+      "Pagination" : {
+        "type" : "object",
+        "properties" : {
+          "limit" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "end" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "page" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "begin" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "Paginated" : {
+        "type" : "object",
+        "properties" : {
+          "next" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "current" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "last" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "prev" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "elements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "first" : {
+            "$ref" : "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "ResetPasswordRequest" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          }
+        }
+      },
+      "TrackStatus" : {
+        "type" : "string",
+        "enum" : [ "FINISHED", "ONGOING" ]
+      },
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "Statistic" : {
+        "type" : "object",
+        "properties" : {
+          "min" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "sensors" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "max" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "mean" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "phenomenon" : {
+            "$ref" : "#/components/schemas/Phenomenon"
+          },
+          "tracks" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "users" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "measurements" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "T" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Generic parameter: T"
+        }
+      },
+      "Groups" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "BoundingBox" : {
+        "type" : "object",
+        "properties" : {
+          "lowerleft" : {
+            "$ref" : "#/components/schemas/Coordinate"
+          },
+          "upperLeft" : {
+            "$ref" : "#/components/schemas/Coordinate"
+          },
+          "lowerRight" : {
+            "$ref" : "#/components/schemas/Coordinate"
+          },
+          "upperRight" : {
+            "$ref" : "#/components/schemas/Coordinate"
+          }
+        }
+      },
+      "PrivacyStatements" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "UpCastingIterable" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Paginated"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "delegate" : {
+              "$ref" : "#/components/schemas/Iterable"
+            },
+            "items" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/T"
+              }
+            }
+          }
+        } ]
+      },
+      "MeasurementValues" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Sensors" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "PrivacyStatement" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Tracks" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Measurements" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "TermsOfUse" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "UserReference" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Point" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.locationtech.jts.geom"
+        }
+      },
+      "Statistics" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Geometry" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.locationtech.jts.geom"
+        }
+      },
+      "Badges" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Coordinate" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.locationtech.jts.geom"
+        }
+      },
+      "NearPoint" : {
+        "type" : "object",
+        "properties" : {
+          "distance" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "point" : {
+            "$ref" : "#/components/schemas/Point"
+          }
+        }
+      },
+      "Phenomenon" : {
+        "type" : "object",
+        "properties" : {
+          "unit" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Announcements" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Track" : {
+        "type" : "object",
+        "properties" : {
+          "boundingBox" : {
+            "$ref" : "#/components/schemas/Geometry"
+          },
+          "identifier" : {
+            "type" : "string"
+          },
+          "appVersion" : {
+            "type" : "string"
+          },
+          "length" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "touVersion" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "measurementProfile" : {
+            "type" : "string"
+          },
+          "obdDevice" : {
+            "type" : "string"
+          },
+          "end" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "sensor" : {
+            "$ref" : "#/components/schemas/Sensor"
+          },
+          "begin" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/TrackStatus"
+          }
+        }
+      },
+      "Sensor" : {
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Object"
+            }
+          }
         }
       }
     }
