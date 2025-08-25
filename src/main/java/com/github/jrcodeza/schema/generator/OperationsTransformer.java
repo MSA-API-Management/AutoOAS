@@ -138,10 +138,15 @@ public class OperationsTransformer {
 
 	private String prepareUrl(String... url) {
 		String preparedUrl = Stream.of(url).filter(Objects::nonNull).collect(Collectors.joining());
+
+		preparedUrl = preparedUrl.replaceAll("//+", "/");
+
+		// potentially remove trailing /
 		if (preparedUrl.charAt(preparedUrl.length() - 1) == '/') {
 			preparedUrl = preparedUrl.substring(0, preparedUrl.length() - 1);
 		}
-		preparedUrl = preparedUrl.replaceAll("//+", "/");
+
+		// potentially add starting /
 		if (!preparedUrl.startsWith("/")) {
 			preparedUrl = "/" + preparedUrl;
 		}

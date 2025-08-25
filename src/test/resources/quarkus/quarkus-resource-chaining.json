@@ -19,11 +19,11 @@
         }
       }
     },
-    "/api/students/" : {
+    "/api/students" : {
       "get" : {
         "tags" : [ "student-resource" ],
         "summary" : "getAll",
-        "operationId" : "getAllUsingGET__api_students_",
+        "operationId" : "getAllUsingGET__api_students",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -70,11 +70,11 @@
         }
       }
     },
-    "/api/teachers/courses/" : {
+    "/api/teachers/courses" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__api_teachers_courses_",
+        "operationId" : "getUsingGET__api_teachers_courses",
         "parameters" : [ ],
         "responses" : {
           "200" : {
