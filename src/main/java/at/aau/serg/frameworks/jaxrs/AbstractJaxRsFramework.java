@@ -91,20 +91,21 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
     protected abstract boolean isRestParameterAnnotation(String annotationName);
 
     /**
-     * Returns true if the controller contains any handler method, e.g., annotated with {@code @GET}.
+     * Returns true if the controller contains any handler method, e.g., annotated with {@code @GET},
+     * or sub-resource, e.g., annotated with {@code @Path}.
      *
      * @param controllerType
      * @return
      */
-    protected boolean containsHandlerMethod(CtType<?> controllerType) {
+    protected boolean containsHandlerMethodOrSubResource(CtType<?> controllerType) {
         return controllerType.getMethods().stream()
                 .anyMatch(method ->
                         method.getAnnotations().stream()
                                 .map(CtAnnotation::getAnnotationType)
                                 .map(CtTypeReference::getQualifiedName)
-                                .anyMatch(this::isRestMethodHandlerAnnotation)
+                                .anyMatch(this::isRestHandlerMethodOrSubResourceAnnotation)
                 );
     }
 
-    protected abstract boolean isRestMethodHandlerAnnotation(String annotationName);
+    protected abstract boolean isRestHandlerMethodOrSubResourceAnnotation(String annotationName);
 }

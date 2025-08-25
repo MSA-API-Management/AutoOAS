@@ -101,7 +101,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
             CtType<?> methodReturnType = method.getType().getTypeDeclaration();
             Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
 
-            if (pathAnnotation.isEmpty() || !containsHandlerMethod(methodReturnType))
+            if (pathAnnotation.isEmpty() || !containsHandlerMethodOrSubResource(methodReturnType))
                 continue;
 
             // found a method with Path annotation providing a sub-resource
@@ -260,11 +260,14 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    protected boolean isRestMethodHandlerAnnotation(String annotationName) {
+    protected boolean isRestHandlerMethodOrSubResourceAnnotation(String annotationName) {
         return annotationName.equals("jakarta.ws.rs.POST") ||
                 annotationName.equals("jakarta.ws.rs.PUT") ||
                 annotationName.equals("jakarta.ws.rs.PATCH") ||
                 annotationName.equals("jakarta.ws.rs.GET") ||
-                annotationName.equals("jakarta.ws.rs.DELETE");
+                annotationName.equals("jakarta.ws.rs.DELETE") ||
+                annotationName.equals("jakarta.ws.rs.HEAD") ||
+                annotationName.equals("jakarta.ws.rs.OPTIONS") ||
+                annotationName.equals("jakarta.ws.rs.Path");
     }
 }

@@ -102,7 +102,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
             CtType<?> methodReturnType = method.getType().getTypeDeclaration();
             Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
 
-            if (pathAnnotation.isEmpty() || !containsHandlerMethod(methodReturnType))
+            if (pathAnnotation.isEmpty() || !containsHandlerMethodOrSubResource(methodReturnType))
                 continue;
 
             // found a method with Path annotation providing a sub-resource
@@ -261,11 +261,14 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    protected boolean isRestMethodHandlerAnnotation(String annotationName) {
+    protected boolean isRestHandlerMethodOrSubResourceAnnotation(String annotationName) {
         return annotationName.equals("javax.ws.rs.POST") ||
                 annotationName.equals("javax.ws.rs.PUT") ||
                 annotationName.equals("javax.ws.rs.PATCH") ||
                 annotationName.equals("javax.ws.rs.GET") ||
-                annotationName.equals("javax.ws.rs.DELETE");
+                annotationName.equals("javax.ws.rs.DELETE") ||
+                annotationName.equals("javax.ws.rs.HEAD") ||
+                annotationName.equals("javax.ws.rs.OPTIONS") ||
+                annotationName.equals("javax.ws.rs.Path");
     }
 }

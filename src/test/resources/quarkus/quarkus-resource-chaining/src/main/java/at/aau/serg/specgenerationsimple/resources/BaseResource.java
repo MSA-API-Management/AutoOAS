@@ -23,4 +23,11 @@ public class BaseResource {
         return new StudentResource();
     }
 
+    // this effectively allows the pattern /api/(base)*/endpoint
+    //  AutoOAS must not endless-loop when generating the paths
+    @Path("/base")
+    public BaseResource redirect(){
+        return this;
+    }
+
 }

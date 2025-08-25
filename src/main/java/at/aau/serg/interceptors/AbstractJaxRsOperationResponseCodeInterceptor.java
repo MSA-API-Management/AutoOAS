@@ -258,7 +258,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      *
      * @param expression code expression containing HttpStatus constant
      * @return HTTP status code (e.g., 400, 404) or {@code null} if not found
-     *
      * @example {@code "org.apache.http.HttpStatus.SC_BAD_REQUEST" → 400}
      */
     protected Integer extractSingleResponseCode(CtExpression<?> expression) {
@@ -318,8 +317,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
 
-            ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
-            apiResponses.putAll(resolvedResponse);
+            if (thrownType == null) {
+                // todo resolve or refactor to TypeReference
+                System.out.println("Cannot resolve CtTypeReference: " + throwsStatement.getThrownExpression().getType().toString());
+            } else {
+                ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
+                apiResponses.putAll(resolvedResponse);
+            }
         }
 
         return apiResponses;
