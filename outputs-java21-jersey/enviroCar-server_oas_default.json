@@ -26,11 +26,11 @@
         }
       }
     },
-    "/announcements/" : {
+    "/announcements" : {
       "get" : {
         "tags" : [ "announcements-resource" ],
         "summary" : "announcements",
-        "operationId" : "announcementsUsingGET__announcements_",
+        "operationId" : "announcementsUsingGET__announcements",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -46,11 +46,11 @@
         }
       }
     },
-    "/api-docs/" : {
+    "/api-docs" : {
       "get" : {
         "tags" : [ "api-docs-resource" ],
         "summary" : "ui",
-        "operationId" : "uiUsingGET__api-docs_",
+        "operationId" : "uiUsingGET__api-docs",
         "parameters" : [ ],
         "responses" : {
           "307" : {
@@ -82,11 +82,11 @@
         }
       }
     },
-    "/badges/" : {
+    "/badges" : {
       "get" : {
         "tags" : [ "badges-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__badges_",
+        "operationId" : "getUsingGET__badges",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -128,11 +128,11 @@
         }
       }
     },
-    "/groups/" : {
+    "/groups" : {
       "get" : {
         "tags" : [ "groups-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__groups_",
+        "operationId" : "getUsingGET__groups",
         "parameters" : [ {
           "name" : "q",
           "in" : "query",
@@ -157,7 +157,7 @@
       "post" : {
         "tags" : [ "groups-resource" ],
         "summary" : "createGroup",
-        "operationId" : "createGroupUsingPOST__groups_",
+        "operationId" : "createGroupUsingPOST__groups",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -177,11 +177,11 @@
         }
       }
     },
-    "/measurements/" : {
+    "/measurements" : {
       "get" : {
         "tags" : [ "measurements-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__measurements_",
+        "operationId" : "getUsingGET__measurements",
         "parameters" : [ {
           "name" : "bbox",
           "in" : "query",
@@ -216,7 +216,7 @@
       "post" : {
         "tags" : [ "measurements-resource" ],
         "summary" : "create",
-        "operationId" : "createUsingPOST__measurements_",
+        "operationId" : "createUsingPOST__measurements",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -236,11 +236,11 @@
         }
       }
     },
-    "/phenomenons/" : {
+    "/phenomenons" : {
       "get" : {
         "tags" : [ "phenomenons-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__phenomenons_",
+        "operationId" : "getUsingGET__phenomenons",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -258,7 +258,7 @@
       "post" : {
         "tags" : [ "phenomenons-resource" ],
         "summary" : "create",
-        "operationId" : "createUsingPOST__phenomenons_",
+        "operationId" : "createUsingPOST__phenomenons",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -278,11 +278,11 @@
         }
       }
     },
-    "/privacyStatements/" : {
+    "/privacyStatements" : {
       "get" : {
         "tags" : [ "privacy-statements-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__privacyStatements_",
+        "operationId" : "getUsingGET__privacyStatements",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -298,11 +298,11 @@
         }
       }
     },
-    "/resetPassword/" : {
+    "/resetPassword" : {
       "put" : {
         "tags" : [ "reset-password-resource" ],
         "summary" : "resetPassword",
-        "operationId" : "resetPasswordUsingPUT__resetPassword_",
+        "operationId" : "resetPasswordUsingPUT__resetPassword",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -324,7 +324,7 @@
       "post" : {
         "tags" : [ "reset-password-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingPOST__resetPassword_",
+        "operationId" : "getUsingPOST__resetPassword",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -344,11 +344,11 @@
         }
       }
     },
-    "/schemas/" : {
+    "/schemas" : {
       "get" : {
         "tags" : [ "json-schema-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__schemas_",
+        "operationId" : "getUsingGET__schemas",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -397,11 +397,11 @@
         }
       }
     },
-    "/sensors/" : {
+    "/sensors" : {
       "get" : {
         "tags" : [ "sensors-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__sensors_",
+        "operationId" : "getUsingGET__sensors",
         "parameters" : [ {
           "name" : "type",
           "in" : "query",
@@ -426,7 +426,7 @@
       "post" : {
         "tags" : [ "sensors-resource" ],
         "summary" : "create",
-        "operationId" : "createUsingPOST__sensors_",
+        "operationId" : "createUsingPOST__sensors",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -446,11 +446,11 @@
         }
       }
     },
-    "/statistics/" : {
+    "/statistics" : {
       "get" : {
         "tags" : [ "statistics-resource" ],
         "summary" : "statistics",
-        "operationId" : "statisticsUsingGET__statistics_",
+        "operationId" : "statisticsUsingGET__statistics",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -466,11 +466,11 @@
         }
       }
     },
-    "/termsOfUse/" : {
+    "/termsOfUse" : {
       "get" : {
         "tags" : [ "terms-of-use-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__termsOfUse_",
+        "operationId" : "getUsingGET__termsOfUse",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -486,11 +486,11 @@
         }
       }
     },
-    "/tracks/" : {
+    "/tracks" : {
       "get" : {
         "tags" : [ "tracks-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__tracks_",
+        "operationId" : "getUsingGET__tracks",
         "parameters" : [ {
           "name" : "bbox",
           "in" : "query",
@@ -522,7 +522,7 @@
       "post" : {
         "tags" : [ "tracks-resource" ],
         "summary" : "create",
-        "operationId" : "createUsingPOST__tracks_",
+        "operationId" : "createUsingPOST__tracks",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -542,11 +542,11 @@
         }
       }
     },
-    "/announcements/{id}/" : {
+    "/announcements/{id}" : {
       "get" : {
         "tags" : [ "announcement-resource" ],
         "summary" : "announcement",
-        "operationId" : "announcementUsingGET__announcements_id_",
+        "operationId" : "announcementUsingGET__announcements_id",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -562,11 +562,11 @@
         }
       }
     },
-    "/groups/{group}/" : {
+    "/groups/{group}" : {
       "get" : {
         "tags" : [ "group-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__groups_group_",
+        "operationId" : "getUsingGET__groups_group",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -584,7 +584,7 @@
       "put" : {
         "tags" : [ "group-resource" ],
         "summary" : "modify",
-        "operationId" : "modifyUsingPUT__groups_group_",
+        "operationId" : "modifyUsingPUT__groups_group",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -609,7 +609,7 @@
       "delete" : {
         "tags" : [ "group-resource" ],
         "summary" : "delete",
-        "operationId" : "deleteUsingDELETE__groups_group_",
+        "operationId" : "deleteUsingDELETE__groups_group",
         "parameters" : [ ],
         "responses" : {
           "204" : {
@@ -618,11 +618,11 @@
         }
       }
     },
-    "/measurements/{measurement}/" : {
+    "/measurements/{measurement}" : {
       "get" : {
         "tags" : [ "measurement-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__measurements_measurement_",
+        "operationId" : "getUsingGET__measurements_measurement",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -640,7 +640,7 @@
       "delete" : {
         "tags" : [ "measurement-resource" ],
         "summary" : "delete",
-        "operationId" : "deleteUsingDELETE__measurements_measurement_",
+        "operationId" : "deleteUsingDELETE__measurements_measurement",
         "parameters" : [ ],
         "responses" : {
           "204" : {
@@ -649,11 +649,11 @@
         }
       }
     },
-    "/phenomenons/{phenomenon}/" : {
+    "/phenomenons/{phenomenon}" : {
       "get" : {
         "tags" : [ "phenomenon-resource" ],
         "summary" : "getPhenomenon",
-        "operationId" : "getPhenomenonUsingGET__phenomenons_phenomenon_",
+        "operationId" : "getPhenomenonUsingGET__phenomenons_phenomenon",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -669,11 +669,11 @@
         }
       }
     },
-    "/privacyStatements/{id}/" : {
+    "/privacyStatements/{id}" : {
       "get" : {
         "tags" : [ "privacy-statement-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__privacyStatements_id_",
+        "operationId" : "getUsingGET__privacyStatements_id",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -689,11 +689,11 @@
         }
       }
     },
-    "/sensors/{sensor}/" : {
+    "/sensors/{sensor}" : {
       "get" : {
         "tags" : [ "sensor-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__sensors_sensor_",
+        "operationId" : "getUsingGET__sensors_sensor",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -709,11 +709,11 @@
         }
       }
     },
-    "/statistics/{phen}/" : {
+    "/statistics/{phen}" : {
       "get" : {
         "tags" : [ "statistic-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__statistics_phen_",
+        "operationId" : "getUsingGET__statistics_phen",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -729,11 +729,11 @@
         }
       }
     },
-    "/termsOfUse/{id}/" : {
+    "/termsOfUse/{id}" : {
       "get" : {
         "tags" : [ "terms-of-use-instance-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__termsOfUse_id_",
+        "operationId" : "getUsingGET__termsOfUse_id",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -749,11 +749,11 @@
         }
       }
     },
-    "/tracks/{track}/" : {
+    "/tracks/{track}" : {
       "get" : {
         "tags" : [ "track-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__tracks_track_",
+        "operationId" : "getUsingGET__tracks_track",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -771,7 +771,7 @@
       "put" : {
         "tags" : [ "track-resource" ],
         "summary" : "modify",
-        "operationId" : "modifyUsingPUT__tracks_track_",
+        "operationId" : "modifyUsingPUT__tracks_track",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -793,7 +793,7 @@
       "delete" : {
         "tags" : [ "track-resource" ],
         "summary" : "delete",
-        "operationId" : "deleteUsingDELETE__tracks_track_",
+        "operationId" : "deleteUsingDELETE__tracks_track",
         "parameters" : [ ],
         "responses" : {
           "204" : {
@@ -802,11 +802,11 @@
         }
       }
     },
-    "/groups/{group}/members/" : {
+    "/groups/{group}/members" : {
       "get" : {
         "tags" : [ "group-members-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__groups_group_members_",
+        "operationId" : "getUsingGET__groups_group_members",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -824,7 +824,7 @@
       "post" : {
         "tags" : [ "group-members-resource" ],
         "summary" : "add",
-        "operationId" : "addUsingPOST__groups_group_members_",
+        "operationId" : "addUsingPOST__groups_group_members",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -844,11 +844,11 @@
         }
       }
     },
-    "/tracks/{track}/preview/" : {
+    "/tracks/{track}/preview" : {
       "get" : {
         "tags" : [ "preview-resource" ],
         "summary" : "getMapImage",
-        "operationId" : "getMapImageUsingGET__tracks_track_preview_",
+        "operationId" : "getMapImageUsingGET__tracks_track_preview",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -903,11 +903,11 @@
         }
       }
     },
-    "/tracks/{track}/share/" : {
+    "/tracks/{track}/share" : {
       "get" : {
         "tags" : [ "share-resource" ],
         "summary" : "getShareImage",
-        "operationId" : "getShareImageUsingGET__tracks_track_share_",
+        "operationId" : "getShareImageUsingGET__tracks_track_share",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -923,11 +923,11 @@
         }
       }
     },
-    "/groups/{group}/members/{member}/" : {
+    "/groups/{group}/members/{member}" : {
       "delete" : {
         "tags" : [ "group-member-resource" ],
         "summary" : "delete",
-        "operationId" : "deleteUsingDELETE__groups_group_members_member_",
+        "operationId" : "deleteUsingDELETE__groups_group_members_member",
         "parameters" : [ ],
         "responses" : {
           "204" : {

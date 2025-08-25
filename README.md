@@ -26,10 +26,12 @@ Execute the runtime evaluation script with the following commands. The script al
 # dataset_dir="/home/alex/Respector-fork/dataset"
 dataset_dir="/Users/alelercher/IdeaProjects/Respector/dataset"
 output_dir="outputs-java21-jersey"
+rm -r $output_dir
 for _ in {1..1}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jersey ; done
 
 dataset_dir="/Users/alelercher/IdeaProjects/Respector/dataset"
 output_dir="outputs-java21-spring"
+rm -r $output_dir
 for _ in {1..1}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -spring ; done
 
 python3 scripts/calc_runtime_avg.py $output_dir/logs

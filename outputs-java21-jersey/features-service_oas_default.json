@@ -176,11 +176,11 @@
         }
       }
     },
-    "/products/{productName}/configurations/" : {
+    "/products/{productName}/configurations" : {
       "get" : {
         "tags" : [ "products-configuration-resource" ],
         "summary" : "getConfigurationsForProduct",
-        "operationId" : "getConfigurationsForProductUsingGET__products_productName_configurations_",
+        "operationId" : "getConfigurationsForProductUsingGET__products_productName_configurations",
         "parameters" : [ {
           "name" : "productName",
           "in" : "path",
@@ -402,11 +402,11 @@
         }
       }
     },
-    "/products/{productName}/features/" : {
+    "/products/{productName}/features" : {
       "get" : {
         "tags" : [ "products-features-resource" ],
         "summary" : "getFeaturesForProduct",
-        "operationId" : "getFeaturesForProductUsingGET__products_productName_features_",
+        "operationId" : "getFeaturesForProductUsingGET__products_productName_features",
         "parameters" : [ {
           "name" : "productName",
           "in" : "path",
@@ -504,11 +504,11 @@
         }
       }
     },
-    "/products/{productName}/configurations/{configurationName}/features/" : {
+    "/products/{productName}/configurations/{configurationName}/features" : {
       "get" : {
         "tags" : [ "products-configuration-features-resource" ],
         "summary" : "getConfigurationActivedFeatures",
-        "operationId" : "getConfigurationActivedFeaturesUsingGET__products_productName_configurations_configurationName_features_",
+        "operationId" : "getConfigurationActivedFeaturesUsingGET__products_productName_configurations_configurationName_features",
         "parameters" : [ {
           "name" : "productName",
           "in" : "path",
