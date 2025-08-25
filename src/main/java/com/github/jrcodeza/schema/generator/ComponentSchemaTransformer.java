@@ -156,18 +156,10 @@ public class ComponentSchemaTransformer {
     /**
      * Creates a special schema for unspecified types, eg ResponseEntity or ResponseEntity<\?>.
      *
-     * @param type
      * @return
      */
-    public Schema transformUnspecifiedSchema(CtTypeReference<?> type) {
-        Schema<?> schema = new Schema<>();
-        schema.setType("object");
-        schema.setExternalDocs(new ExternalDocumentation()
-                .url("unspecified") // mandatory OpenAPI property
-                .description("Unspecified return type, e.g., ResponseEntity<?>")
-        );
-
-        return schema;
+    public Schema<?> transformUnspecifiedSchema() {
+        return schemaGeneratorHelper.createUnspecifiedSchema();
     }
 
     private Discriminator createDiscriminator(InheritanceInfo inheritanceInfo) {

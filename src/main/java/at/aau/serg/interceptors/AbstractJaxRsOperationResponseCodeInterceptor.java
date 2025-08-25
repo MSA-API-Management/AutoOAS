@@ -9,6 +9,8 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
@@ -29,6 +31,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
     protected static final int FALLBACK_STATUS_CODE = 200;
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -319,7 +323,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
             if (thrownType == null) {
                 // todo resolve or refactor to TypeReference
-                System.out.println("Cannot resolve CtTypeReference: " + throwsStatement.getThrownExpression().getType().toString());
+                logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
             } else {
                 ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
                 apiResponses.putAll(resolvedResponse);

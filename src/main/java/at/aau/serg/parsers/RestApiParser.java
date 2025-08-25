@@ -228,7 +228,7 @@ public class RestApiParser {
                     transformedComponentSchema = schemaTransformer.transformSimpleSchema(modelClass, inheritanceMap);
                 else if (modelClassRef.getSimpleName().equals(DataTypeTransformer.UNSPECIFIED_SIMPLE_NAME)) {
                     // ignored on purpose during path generation
-                    transformedComponentSchema = schemaTransformer.transformUnspecifiedSchema(modelClassRef);
+                    transformedComponentSchema = schemaTransformer.transformUnspecifiedSchema();
                 } else {
                     // happens if the type is not defined inside the project, e.g., org.springframework.web.servlet.ModelAndView
                     transformedComponentSchema = schemaTransformer.transformExternalSchema(modelClassRef);
