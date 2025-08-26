@@ -16233,6 +16233,9 @@
           }
         } ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -20217,6 +20220,9 @@
           }
         } ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -32635,6 +32641,9 @@
         "operationId" : "deleteApiPageUsingDELETE__organizations_orgId_environments_envId_apis_api_pages_page",
         "parameters" : [ ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -33381,6 +33390,9 @@
         "operationId" : "deleteApiPageUsingDELETE__organizations_orgId_environments_envId_v4_apis_api_pages_page",
         "parameters" : [ ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -33829,6 +33841,9 @@
         "operationId" : "deleteApiPageUsingDELETE__v3_organizations_orgId_environments_envId_apis_api_pages_page",
         "parameters" : [ ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -34575,6 +34590,9 @@
         "operationId" : "deleteApiPageUsingDELETE__v3_organizations_orgId_environments_envId_v4_apis_api_pages_page",
         "parameters" : [ ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }

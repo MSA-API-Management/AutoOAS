@@ -83,6 +83,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -309,6 +312,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -347,6 +353,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -385,6 +394,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -455,6 +467,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -782,6 +797,9 @@
           }
         } ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "400" : {
             "description" : "Bad Request"
           }
@@ -811,6 +829,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "400" : {
             "description" : "Bad Request"
           }
@@ -878,6 +899,9 @@
           }
         } ],
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "400" : {
             "description" : "Bad Request"
           }
@@ -1835,6 +1859,9 @@
           "required" : true
         },
         "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }

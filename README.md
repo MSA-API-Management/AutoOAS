@@ -23,7 +23,8 @@ The scripts for the evaluation are located in [scripts](./scripts).
 Execute the runtime evaluation script with the following commands. The script also generates the OpenAPI descriptions in the *<output_dir>*.
 
 ```shell
-# dataset_dir="/home/alex/Respector-fork/dataset"
+mvn clean package
+
 dataset_dir="/Users/alelercher/IdeaProjects/Respector/dataset"
 output_dir="outputs-java21-jersey"
 rm -r $output_dir
@@ -34,8 +35,9 @@ output_dir="outputs-java21-spring"
 rm -r $output_dir
 for _ in {1..1}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -spring ; done
 
+
+# calculate the runtime average with the provided script or manually
 python3 scripts/calc_runtime_avg.py $output_dir/logs
-# or calculate manually
 ```
 
 

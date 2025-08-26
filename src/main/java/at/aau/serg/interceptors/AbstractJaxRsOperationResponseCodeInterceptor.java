@@ -1,5 +1,6 @@
 package at.aau.serg.interceptors;
 
+import at.aau.serg.codeanalysis.MethodBodyAnalyser;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -33,6 +34,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     protected static final int FALLBACK_STATUS_CODE = 200;
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
+    private static final MethodBodyAnalyser methodBodyAnalyser = new MethodBodyAnalyser();
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -95,9 +97,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         var exceptionResponses = tryDetectExceptionsInMethod(method);
 
         if (!exceptionResponses.isEmpty()) {
-            boolean hasRegularReturnStatements = !method.getBody().getElements(new TypeFilter<>(CtReturn.class)).isEmpty();
-
-            if (hasRegularReturnStatements) {
+            if (hasRegularReturns(method)) {
                 // append exceptions to regular responses
                 transformedOperation.getResponses().putAll(exceptionResponses);
             } else {
@@ -106,6 +106,20 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             }
         }
 
+    }
+
+    private boolean hasRegularReturns(CtMethod<?> method) {
+        // todo check
+        boolean hasExplicitReturns = !method.getBody().getElements((CtReturn<?> r) -> r.getParent(CtLambda.class) == null).isEmpty();
+        if (hasExplicitReturns)
+            return true;
+
+        if (method.getType().equals(method.getFactory().Type().voidPrimitiveType())) {
+            // void method might have implicit returns
+            return methodBodyAnalyser.mayCompleteNormallyWithoutEarlyCompletion(method);
+        }
+
+        return false;
     }
 
 // region Response obj detection
