@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import annotations.Out;
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.*;
 import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;

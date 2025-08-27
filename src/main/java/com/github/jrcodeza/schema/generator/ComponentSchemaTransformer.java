@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
-import annotations.Out;
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
@@ -25,8 +25,6 @@ import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-
 
 public class ComponentSchemaTransformer {
 

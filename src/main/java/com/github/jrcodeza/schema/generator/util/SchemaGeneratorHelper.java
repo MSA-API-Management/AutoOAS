@@ -1,6 +1,6 @@
 package com.github.jrcodeza.schema.generator.util;
 
-import annotations.Out;
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.Utils;

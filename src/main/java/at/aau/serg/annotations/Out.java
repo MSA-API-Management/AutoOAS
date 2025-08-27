@@ -1,4 +1,4 @@
-package annotations;
+package at.aau.serg.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
