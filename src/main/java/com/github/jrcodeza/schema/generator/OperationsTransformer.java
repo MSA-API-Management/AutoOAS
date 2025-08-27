@@ -196,7 +196,11 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getDelete() != null)
+                logger.error("Found duplicate DELETE mapping for path: {} /// {}", pathItem.getDelete().getOperationId(), operation.getOperationId());
+            pathItem.setDelete(operation);
+        });
 	}
 
 	private ApiResponses createApiResponses(CtMethod<?> method, String firstFromArray) {
@@ -221,7 +225,11 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getGet() != null)
+                logger.error("Found duplicate GET mapping for path: {} /// {}", pathItem.getGet().getOperationId(), operation.getOperationId());
+            pathItem.setGet(operation);
+        });
 	}
 
 	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -240,7 +248,11 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPatch(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPatch() != null)
+                logger.error("Found duplicate PATCH mapping for path: {} /// {}", pathItem.getPatch().getOperationId(), operation.getOperationId());
+            pathItem.setPatch(operation);
+        });
 	}
 
 	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -259,7 +271,11 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPut(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPut() != null)
+                logger.error("Found duplicate PUT mapping for path: {} /// {}", pathItem.getPut().getOperationId(), operation.getOperationId());
+            pathItem.setPut(operation);
+        });
 	}
 
 	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -278,10 +294,14 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPost(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPost() != null)
+                logger.error("Found duplicate POST mapping for path: {} /// {}", pathItem.getPost().getOperationId(), operation.getOperationId());
+            pathItem.setPost(operation);
+        });
 	}
 
-	private void updateOperationsMap(String url, Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
+	private void updateOperationsMap(String url, @Out Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
 		if (existingMap.containsKey(url)) {
 			pathItemUpdater.accept(existingMap.get(url));
 		} else {
