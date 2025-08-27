@@ -6,6 +6,86 @@
     "version" : ""
   },
   "paths" : {
+    "/custom-response-builder/echo" : {
+      "get" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getEchoResponse",
+        "operationId" : "getEchoResponseUsingGET__custom-response-builder_echo",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-response-builder/random" : {
+      "get" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getRandomResponse",
+        "operationId" : "getRandomResponseUsingGET__custom-response-builder_random",
+        "parameters" : [ ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-response-builder/accept" : {
+      "get" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getResponse",
+        "operationId" : "getResponseUsingGET__custom-response-builder_accept",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/simple-responses/array-multiple-lines" : {
       "get" : {
         "tags" : [ "obj-responses-controller" ],
@@ -617,6 +697,13 @@
           "someBaseProperty" : {
             "type" : "string"
           }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
         }
       },
       "Simple" : {
