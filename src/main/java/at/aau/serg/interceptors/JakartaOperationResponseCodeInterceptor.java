@@ -93,4 +93,9 @@ public class JakartaOperationResponseCodeInterceptor extends AbstractJaxRsOperat
         return Response.class;
     }
 
+    @Override
+    protected Class<?> getResponseStatusClass() {
+        return Response.Status.class;
+    }
+
 }

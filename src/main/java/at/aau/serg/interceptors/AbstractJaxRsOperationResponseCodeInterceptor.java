@@ -1,6 +1,7 @@
 package at.aau.serg.interceptors;
 
 import at.aau.serg.codeanalysis.MethodBodyAnalyser;
+import at.aau.serg.util.SpoonUtils;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -137,7 +138,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         for (var returnStatement : method.getElements(new TypeFilter<>(CtReturn.class))) {
             CtExpression<?> returned = returnStatement.getReturnedExpression();
             if (returned instanceof CtInvocation<?> inv) {
-
                 var responses = analyzeResponseInvocation(inv);
 
                 if (responses != null && !responses.isEmpty()) {
@@ -158,11 +158,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @return
      */
     private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv) {
-        CtExecutableReference<?> executable = inv.getExecutable();
-        String methodName = executable.getSimpleName();
+        if (!SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+            return null;
+        }
 
+        CtExecutableReference<?> executable = inv.getExecutable();
+
+        String methodName = executable.getSimpleName();
         if (methodName.equals("build")) {
-            // detect builder call
+            // detect Response builder call
             if (inv.getTarget() instanceof CtInvocation<?> baseInvocation) {
                 return traceResponseCreationBackFromBuildCall(baseInvocation);
 
@@ -170,10 +174,28 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 // eg., builder.build()
                 // todo support this ^
             }
+
+        } else if (executable.getParameters().stream().anyMatch(p -> SpoonUtils.isTypeEquivalent(p, getResponseStatusClass()))) {
+            // greedy match for a method call parameter indicating a Response Status
+            return tryExtractResponseStatusParameterFromMethodCall(inv);
         }
 
         return null;
     }
+
+    /**
+     * Extracts a Response.Status parameter provided to a method call, e.g., createCustomResponse(Response.Status.OK) -> 200.
+     *
+     * @param inv
+     * @return
+     */
+    private List<Pair<String, ApiResponse>> tryExtractResponseStatusParameterFromMethodCall(CtInvocation<?> inv) {
+        int statusCode = extractSingleResponseCode(inv);
+        ApiResponse response = extractPayloadTypeInfo(inv);
+
+        return List.of(new Pair<>(String.valueOf(statusCode), response));
+    }
+
 
     /**
      * Backtracking method chains, e.g.,
@@ -423,6 +445,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     abstract protected Class<?> getResponseClass();
 
+    abstract protected Class<?> getResponseStatusClass();
 
 // endregion Exception detection
 

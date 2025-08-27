@@ -92,4 +92,9 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
         return Response.class;
     }
 
+    @Override
+    protected Class<?> getResponseStatusClass() {
+        return Response.Status.class;
+    }
+
 }
