@@ -2745,6 +2745,14 @@
           }
         }
       },
+      "SzOpenApiSpecResponse" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object"
+          }
+        }
+      },
       "SzMeta" : {
         "type" : "object",
         "properties" : {
