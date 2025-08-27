@@ -1,6 +1,7 @@
 package at.aau.serg.interceptors;
 
 import at.aau.serg.codeanalysis.MethodBodyAnalyser;
+import at.aau.serg.util.SpoonUtils;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -31,7 +32,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
-    protected static final int FALLBACK_STATUS_CODE = 200;
+    protected static final HttpStatus FALLBACK_STATUS_CODE = HttpStatus.OK;
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
     private static final MethodBodyAnalyser methodBodyAnalyser = new MethodBodyAnalyser();
@@ -44,24 +45,35 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     private static final Map<String, HttpStatus> EXCEPTION_STATUS_MAP = Map.of(
             "BadRequestException", HttpStatus.BAD_REQUEST,
-            "ForbiddenException", HttpStatus.FORBIDDEN,
-            "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
-            "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
             "NotAuthorizedException", HttpStatus.UNAUTHORIZED,
+            "ForbiddenException", HttpStatus.FORBIDDEN,
             "NotFoundException", HttpStatus.NOT_FOUND,
+            "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
+            "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
             "NotSupportedException", HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+
             "InternalServerErrorException", HttpStatus.INTERNAL_SERVER_ERROR,
             "ServiceUnavailableException", HttpStatus.SERVICE_UNAVAILABLE
     );
 
-    private static final Map<String, HttpStatus> HTTP_STATUS_CONSTANTS = Map.of(
-            "BAD_REQUEST", HttpStatus.BAD_REQUEST,
-            "NOT_FOUND", HttpStatus.NOT_FOUND,
-            "NO_CONTENT", HttpStatus.NO_CONTENT,
-            "ACCEPTED", HttpStatus.ACCEPTED,
-            "PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT,
-            "CREATED", HttpStatus.CREATED,
-            "FAILURE", HttpStatus.METHOD_FAILURE
+    private static final Map<String, HttpStatus> HTTP_STATUS_CONSTANTS = Map.ofEntries(
+            Map.entry("OK", HttpStatus.OK),
+            Map.entry("CREATED", HttpStatus.CREATED),
+            Map.entry("ACCEPTED", HttpStatus.ACCEPTED),
+            Map.entry("NO_CONTENT", HttpStatus.NO_CONTENT),
+            Map.entry("PARTIAL_CONTENT", HttpStatus.PARTIAL_CONTENT),
+
+            Map.entry("BAD_REQUEST", HttpStatus.BAD_REQUEST),
+            Map.entry("UNAUTHORIZED", HttpStatus.UNAUTHORIZED),
+            Map.entry("FORBIDDEN", HttpStatus.FORBIDDEN),
+            Map.entry("NOT_FOUND", HttpStatus.NOT_FOUND),
+            Map.entry("METHOD_NOT_ALLOWED", HttpStatus.METHOD_NOT_ALLOWED),
+            Map.entry("NOT_ACCEPTABLE", HttpStatus.NOT_ACCEPTABLE),
+            Map.entry("UNSUPPORTED_MEDIA_TYPE", HttpStatus.UNSUPPORTED_MEDIA_TYPE),
+            Map.entry("FAILURE", HttpStatus.METHOD_FAILURE),
+
+            Map.entry("INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR),
+            Map.entry("SERVICE_UNAVAILABLE", HttpStatus.SERVICE_UNAVAILABLE)
             // TODO extend if necessary
     );
 
@@ -132,12 +144,17 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      */
     private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
+        ApiResponses otherObjectApiResponses = new ApiResponses();
+
+        boolean methodHasObjectReturnType = SpoonUtils.isObjectType(method.getType());
 
         // fixme limitation: only handle direct invocation at return statement
         for (var returnStatement : method.getElements(new TypeFilter<>(CtReturn.class))) {
             CtExpression<?> returned = returnStatement.getReturnedExpression();
-            if (returned instanceof CtInvocation<?> inv) {
 
+            if (returned instanceof CtInvocation<?> inv
+                    && SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+                // analyzing JAX-RS responses
                 var responses = analyzeResponseInvocation(inv);
 
                 if (responses != null && !responses.isEmpty()) {
@@ -145,7 +162,19 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                         apiResponses.addApiResponse(response.getValue0(), response.getValue1());
                     }
                 }
+            } else if (methodHasObjectReturnType &&
+                    (returned instanceof CtVariableAccess<?> || returned instanceof CtInvocation<?>)) {
+                // handling other returned types in methods returning generic Objects
+                var apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(returned.getType());
+                var status = FALLBACK_STATUS_CODE;
+                apiResponse.setDescription(status.getReasonPhrase());
+                otherObjectApiResponses.addApiResponse(String.valueOf(status.value()), apiResponse);
             }
+        }
+
+        if (!apiResponses.isEmpty()) {
+            // found some returned Responses, consider also other returned objects
+            apiResponses.putAll(otherObjectApiResponses);
         }
 
         return apiResponses;
@@ -158,11 +187,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @return
      */
     private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv) {
-        CtExecutableReference<?> executable = inv.getExecutable();
-        String methodName = executable.getSimpleName();
+        if (!SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+            return null;
+        }
 
+        CtExecutableReference<?> executable = inv.getExecutable();
+
+        String methodName = executable.getSimpleName();
         if (methodName.equals("build")) {
-            // detect builder call
+            // detect Response builder call
             if (inv.getTarget() instanceof CtInvocation<?> baseInvocation) {
                 return traceResponseCreationBackFromBuildCall(baseInvocation);
 
@@ -170,10 +203,33 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 // eg., builder.build()
                 // todo support this ^
             }
+
+        } else if (executable.getParameters().stream().anyMatch(p -> SpoonUtils.isTypeEquivalent(p, getResponseStatusClass()))) {
+            // greedy match for a method call parameter indicating a Response Status
+            return tryExtractResponseStatusParameterFromMethodCall(inv);
         }
 
         return null;
     }
+
+    /**
+     * Extracts a Response.Status parameter provided to a method call, e.g., createCustomResponse(Response.Status.OK) -> 200.
+     *
+     * @param inv
+     * @return
+     */
+    private List<Pair<String, ApiResponse>> tryExtractResponseStatusParameterFromMethodCall(CtInvocation<?> inv) {
+        HttpStatus status = extractSingleResponseCode(inv);
+        ApiResponse response = extractPayloadTypeInfo(inv);
+
+        if (status != null && response != null) {
+            response.setDescription(status.getReasonPhrase());
+            return List.of(new Pair<>(String.valueOf(status.value()), response));
+
+        } else
+            return null;
+    }
+
 
     /**
      * Backtracking method chains, e.g.,
@@ -186,7 +242,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @return a list of response codes and response type pairs
      */
     private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
-        List<Integer> responseStatus = new ArrayList<>();
+        List<HttpStatus> responseStatuses = new ArrayList<>();
         ApiResponse baseResponseSchema = new ApiResponse();
 
         CtExpression<?> curMethodInChain = buildCallTarget;
@@ -202,24 +258,24 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 }
             }
 
-            // handle response code
-            List<Integer> methodResponseStatus = tryGetResponseCodesFromResponseBuilderMethod(method);
-            if (methodResponseStatus != null && !methodResponseStatus.isEmpty()) {
-                responseStatus.addAll(methodResponseStatus);
+            // handle response codes
+            List<HttpStatus> methodResponseStatuses = tryGetResponseCodesFromResponseBuilderMethod(method);
+            if (methodResponseStatuses != null && !methodResponseStatuses.isEmpty()) {
+                responseStatuses.addAll(methodResponseStatuses);
             }
 
             curMethodInChain = method.getTarget();
         }
 
-        if (responseStatus.isEmpty()) {
-            responseStatus = List.of(FALLBACK_STATUS_CODE); // fallback!
+        if (responseStatuses.isEmpty()) {
+            responseStatuses = List.of(FALLBACK_STATUS_CODE); // fallback!
         }
 
         List<Pair<String, ApiResponse>> responses = new ArrayList<>();
-        for (Integer status : responseStatus) {
+        for (HttpStatus status : responseStatuses) {
             ApiResponse clonedResponse = cloneApiResponse(baseResponseSchema);
-            setResponseDescription(clonedResponse, status);
-            responses.add(new Pair<>(String.valueOf(status), clonedResponse));
+            clonedResponse.setDescription(status.getReasonPhrase());
+            responses.add(new Pair<>(String.valueOf(status.value()), clonedResponse));
         }
 
         return responses;
@@ -242,10 +298,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return clone;
     }
 
-    private void setResponseDescription(ApiResponse response, Integer responseStatus) {
-        response.setDescription(HttpStatus.valueOf(responseStatus).getReasonPhrase());
-    }
-
     /**
      * Detects common methods of the Response builder pattern that set a response code, e.g., {@code ok(.)}, {@code noContent()},
      * and returns the corresponding response code if detected.
@@ -253,15 +305,69 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param method
      * @return
      */
-    abstract protected List<Integer> tryGetResponseCodesFromResponseBuilderMethod(CtInvocation<?> method);
+    protected List<HttpStatus> tryGetResponseCodesFromResponseBuilderMethod(CtInvocation<?> method) {
+        String methodName = method.getExecutable().getSimpleName();
+        List<HttpStatus> responseStatuses = null;
 
-    protected List<Integer> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
-        List<Integer> responseCodes = new ArrayList<>();
+        // handle response code
+        switch (methodName) {
+            case "ok" -> responseStatuses = List.of(HttpStatus.OK);
+            case "noContent" -> responseStatuses = List.of(HttpStatus.NO_CONTENT);
+            case "accepted" -> responseStatuses = List.of(HttpStatus.ACCEPTED);
+            case "notModified" -> responseStatuses = List.of(HttpStatus.NOT_MODIFIED);
+            case "created" -> responseStatuses = List.of(HttpStatus.CREATED);
+            case "serverError" -> responseStatuses = List.of(HttpStatus.INTERNAL_SERVER_ERROR);
+            case "temporaryRedirect" -> responseStatuses = List.of(HttpStatus.TEMPORARY_REDIRECT);
+            case "seeOther" -> responseStatuses = List.of(HttpStatus.SEE_OTHER);
+
+            // chatgpt recommended, not all exist in javax but lets keep them for sync with jakarta impl
+            case "badRequest" -> responseStatuses = List.of(HttpStatus.BAD_REQUEST);
+            case "notFound" -> responseStatuses = List.of(HttpStatus.NOT_FOUND);
+            case "unauthorized" -> responseStatuses = List.of(HttpStatus.UNAUTHORIZED);
+            case "forbidden" -> responseStatuses = List.of(HttpStatus.FORBIDDEN);
+            case "conflict" -> responseStatuses = List.of(HttpStatus.CONFLICT);
+            case "notAcceptable" -> responseStatuses = List.of(HttpStatus.NOT_ACCEPTABLE);
+
+            // manual status detection
+            case "status" -> {
+                // custom statusCode with either Response.StatusType or int (::status overload)
+                var statusCodeMethodArg = method.getArguments().getFirst();
+                if (schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), getResponseStatusClass())) {
+                    if (statusCodeMethodArg instanceof CtFieldRead<?> fieldReadArg) {
+                        HttpStatus statusCode = HttpStatus.valueOf(fieldReadArg.getVariable().getSimpleName());
+                        responseStatuses = List.of(statusCode);
+                    } else {
+                        // todo handle method calls in status method, e.g., `Response.status(response.getStatusInfo())`
+                        logger.error("Unrecognized response builder status method argument: {}", method.toStringDebug());
+                    }
+
+                } else if ((schemaHelper.isTypeEquivalent(statusCodeMethodArg.getType(), Integer.class)
+                        || (statusCodeMethodArg.getType() != null && statusCodeMethodArg.getType().getSimpleName().equals("int")))
+                        && statusCodeMethodArg instanceof CtLiteral<?> literal) {
+                    responseStatuses = List.of(HttpStatus.valueOf((int) literal.getValue()));
+
+                } else {
+                    responseStatuses = tryExtractCommonResponseCodes(statusCodeMethodArg);
+                }
+            }
+
+            // ignore or log others
+            default -> {
+                if (!KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS.contains(methodName))
+                    System.out.println("Unrecognized response builder status code method: " + methodName);
+            }
+        }
+
+        return responseStatuses;
+    }
+
+    protected List<HttpStatus> tryExtractCommonResponseCodes(CtExpression<?> statusCodeMethodArg) {
+        List<HttpStatus> responseCodes = new ArrayList<>();
         if (statusCodeMethodArg instanceof CtConditional<?> ctConditional) {
             responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getThenExpression()));
             responseCodes.addAll(tryExtractCommonResponseCodes(ctConditional.getElseExpression()));
         } else {
-            Integer singleCode = extractSingleResponseCode(statusCodeMethodArg);
+            HttpStatus singleCode = extractSingleResponseCode(statusCodeMethodArg);
             if (singleCode != null) {
                 responseCodes.add(singleCode);
             }
@@ -278,14 +384,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @return HTTP status code (e.g., 400, 404) or {@code null} if not found
      * @example {@code "org.apache.http.HttpStatus.SC_BAD_REQUEST" → 400}
      */
-    protected Integer extractSingleResponseCode(CtExpression<?> expression) {
-        return extractStatusCode(expression.toString(), HTTP_STATUS_CONSTANTS, "response code creation in builder::status");
+    protected HttpStatus extractSingleResponseCode(CtExpression<?> expression) {
+        return extractStatusCode(expression.toString(), HTTP_STATUS_CONSTANTS, "response code creation");
     }
 
-    private Integer extractStatusCode(String input, Map<String, HttpStatus> statusMap, String context) {
+    private HttpStatus extractStatusCode(String input, Map<String, HttpStatus> statusMap, String context) {
         return statusMap.entrySet().stream()
                 .filter(entry -> input.contains(entry.getKey()))
-                .map(entry -> entry.getValue().value())
+                .map(entry -> entry.getValue())
                 .findFirst()
                 .orElseGet(() -> {
                     System.out.println("Could not parse status code for " + context + ": " + input);
@@ -400,12 +506,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     private ApiResponses tryResolveStatusCodeFromThrownException(CtType<?> thrownType) {
         String exceptionName = thrownType.getSimpleName();
-        Integer statusCode = extractStatusCode(exceptionName, EXCEPTION_STATUS_MAP, "throw exception");
-        return statusCode != null ? createApiResponse(statusCode) : null;
+        HttpStatus status = extractStatusCode(exceptionName, EXCEPTION_STATUS_MAP, "throw exception");
+        return status != null ? createApiResponse(status) : null;
     }
 
-    private ApiResponses createApiResponse(Integer statusCode) {
-        HttpStatus status = HttpStatus.valueOf(statusCode);
+    private ApiResponses createApiResponse(HttpStatus status) {
         ApiResponses apiResponses = new ApiResponses();
         return apiResponses.addApiResponse(
                 String.valueOf(status.value()),
@@ -423,6 +528,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     abstract protected Class<?> getResponseClass();
 
+    abstract protected Class<?> getResponseStatusClass();
 
 // endregion Exception detection
 

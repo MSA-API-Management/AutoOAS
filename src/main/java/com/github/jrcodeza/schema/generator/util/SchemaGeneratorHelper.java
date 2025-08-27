@@ -3,6 +3,7 @@ package com.github.jrcodeza.schema.generator.util;
 import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import at.aau.serg.util.SpoonUtils;
 import at.aau.serg.util.Utils;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.media.*;
@@ -604,7 +605,8 @@ public class SchemaGeneratorHelper {
      * @return
      */
     public boolean isTypeEquivalent(CtTypeReference<?> ctType, Class type) {
-        return ctType != null && ctType.isSubtypeOf(new TypeFactory().get(type).getReference());
+        // todo extract from here
+        return SpoonUtils.isTypeEquivalent(ctType, type);
     }
 
     /**

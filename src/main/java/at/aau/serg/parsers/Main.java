@@ -13,7 +13,9 @@ public class Main {
 //            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/enviroCar-server";
 //            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/management-api-for-apache-cassandra/management-api-server";
 //            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api";
-            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/kafka-rest";
+//            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/kafka-rest";
+//            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/senzing-api-server";
+            projectPath = "/Users/alelercher/IdeaProjects/Respector/dataset/restcountries";
             outputPath = "target/openapi/swagger.json";
         }
 

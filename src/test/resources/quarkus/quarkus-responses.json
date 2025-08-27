@@ -6,6 +6,118 @@
     "version" : ""
   },
   "paths" : {
+    "/custom-response-builder/echo" : {
+      "post" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getEchoResponse",
+        "operationId" : "getEchoResponseUsingPOST__custom-response-builder_echo",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-response-builder/random" : {
+      "post" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getRandomResponse",
+        "operationId" : "getRandomResponseUsingPOST__custom-response-builder_random",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-response-builder/accept" : {
+      "get" : {
+        "tags" : [ "custom-response-builder-resource" ],
+        "summary" : "getResponse",
+        "operationId" : "getResponseUsingGET__custom-response-builder_accept",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/simple-responses/array-multiple-lines" : {
       "get" : {
         "tags" : [ "obj-responses-controller" ],
@@ -617,6 +729,13 @@
           "someBaseProperty" : {
             "type" : "string"
           }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
         }
       },
       "Simple" : {
