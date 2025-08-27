@@ -144,11 +144,17 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      */
     private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
+        ApiResponses otherObjectApiResponses = new ApiResponses();
+
+        boolean methodHasObjectReturnType = SpoonUtils.isObjectType(method.getType());
 
         // fixme limitation: only handle direct invocation at return statement
         for (var returnStatement : method.getElements(new TypeFilter<>(CtReturn.class))) {
             CtExpression<?> returned = returnStatement.getReturnedExpression();
-            if (returned instanceof CtInvocation<?> inv) {
+
+            if (returned instanceof CtInvocation<?> inv
+                    && SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+                // analyzing JAX-RS responses
                 var responses = analyzeResponseInvocation(inv);
 
                 if (responses != null && !responses.isEmpty()) {
@@ -156,7 +162,19 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                         apiResponses.addApiResponse(response.getValue0(), response.getValue1());
                     }
                 }
+            } else if (methodHasObjectReturnType &&
+                    (returned instanceof CtVariableAccess<?> || returned instanceof CtInvocation<?>)) {
+                // handling other returned types in methods returning generic Objects
+                var apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(returned.getType());
+                var status = FALLBACK_STATUS_CODE;
+                apiResponse.setDescription(status.getReasonPhrase());
+                otherObjectApiResponses.addApiResponse(String.valueOf(status.value()), apiResponse);
             }
+        }
+
+        if (!apiResponses.isEmpty()) {
+            // found some returned Responses, consider also other returned objects
+            apiResponses.putAll(otherObjectApiResponses);
         }
 
         return apiResponses;

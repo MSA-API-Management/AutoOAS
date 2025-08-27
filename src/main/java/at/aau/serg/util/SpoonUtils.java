@@ -16,4 +16,13 @@ public class SpoonUtils {
         return ctType != null && ctType.isSubtypeOf(new TypeFactory().get(type).getReference());
     }
 
+    /**
+     * Returns true, if the ctType is of exact type Object (not a subtype).
+     *
+     * @param ctType
+     * @return
+     */
+    public static boolean isObjectType(CtTypeReference<?> ctType) {
+        return ctType != null && ctType.equals(new TypeFactory().objectType());
+    }
 }

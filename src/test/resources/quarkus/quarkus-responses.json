@@ -7,11 +7,22 @@
   },
   "paths" : {
     "/custom-response-builder/echo" : {
-      "get" : {
+      "post" : {
         "tags" : [ "custom-response-builder-resource" ],
         "summary" : "getEchoResponse",
-        "operationId" : "getEchoResponseUsingGET__custom-response-builder_echo",
+        "operationId" : "getEchoResponseUsingPOST__custom-response-builder_echo",
         "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -27,11 +38,22 @@
       }
     },
     "/custom-response-builder/random" : {
-      "get" : {
+      "post" : {
         "tags" : [ "custom-response-builder-resource" ],
         "summary" : "getRandomResponse",
-        "operationId" : "getRandomResponseUsingGET__custom-response-builder_random",
+        "operationId" : "getRandomResponseUsingPOST__custom-response-builder_random",
         "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "400" : {
             "description" : "Bad Request",
@@ -53,12 +75,22 @@
               }
             }
           },
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                  "type" : "string"
                 }
               }
             }

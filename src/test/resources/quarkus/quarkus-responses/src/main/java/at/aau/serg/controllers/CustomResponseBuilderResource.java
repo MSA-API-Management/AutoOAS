@@ -1,6 +1,7 @@
 package at.aau.serg.controllers;
 
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
@@ -13,21 +14,23 @@ public class CustomResponseBuilderResource {
         return buildResponse(Response.Status.ACCEPTED);
     }
 
-    @GET
+    @POST
     @Path("/echo")
-    public Response getEchoResponse(Object request) {
+    public Response getEchoResponse(String request) {
         return buildResponse(Response.Status.OK, request);
     }
 
-    @GET
+    @POST
     @Path("/random")
-    public Response getRandomResponse(Object request) {
+    public Object getRandomResponse(String request) {
         if (Math.random() < 0.5) {
             return buildResponse(Response.Status.BAD_REQUEST);
         } else if (Math.random() < 0.5) {
             return buildResponse(Response.Status.FORBIDDEN);
+        } else if (Math.random() < 0.5) {
+            return buildResponse(Response.Status.CREATED, request);
         } else {
-            return buildResponse(Response.Status.OK, request);
+            return request;
         }
     }
 
