@@ -1,0 +1,908 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "gravitee-apim-rest-api-management-v4",
+    "description" : "JAX-RS (Java EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/openapi.yaml" : {
+      "get" : {
+        "tags" : [ "open-api-resource" ],
+        "summary" : "getOpenApi",
+        "operationId" : "getOpenApiUsingGET__openapi.yaml",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InputStream"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}" : {
+      "get" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "getApiById",
+        "operationId" : "getApiByIdUsingGET__apis_apiId",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "updateApi",
+        "operationId" : "updateApiUsingPUT__apis_apiId",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateApiEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "deleteApi",
+        "operationId" : "deleteApiUsingDELETE__apis_apiId",
+        "parameters" : [ {
+          "name" : "closePlans",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/deployments" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "deployApi",
+        "operationId" : "deployApiUsingPOST__apis_apiId_deployments",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiDeploymentEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/_start" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "startAPI",
+        "operationId" : "startAPIUsingPOST__apis_apiId__start",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/_stop" : {
+      "post" : {
+        "tags" : [ "api-resource" ],
+        "summary" : "stopAPI",
+        "operationId" : "stopAPIUsingPOST__apis_apiId__stop",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/endpoints" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEndpoints",
+        "operationId" : "getEndpointsUsingGET__endpoints",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypoint",
+        "operationId" : "getEntrypointUsingGET__endpoints_endpointId",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}/documentation" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypointDoc",
+        "operationId" : "getEntrypointDocUsingGET__endpoints_endpointId_documentation",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/endpoints/{endpointId}/schema" : {
+      "get" : {
+        "tags" : [ "endpoints-resource" ],
+        "summary" : "getEntrypointSchema",
+        "operationId" : "getEntrypointSchemaUsingGET__endpoints_endpointId_schema",
+        "parameters" : [ {
+          "name" : "endpointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypoint",
+        "operationId" : "getEntrypointUsingGET__entrypoints_entrypointId",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/documentation" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointDoc",
+        "operationId" : "getEntrypointDocUsingGET__entrypoints_entrypointId_documentation",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/schema" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointSchema",
+        "operationId" : "getEntrypointSchemaUsingGET__entrypoints_entrypointId_schema",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints/{entrypointId}/subscriptionSchema" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypointSubscriptionSchema",
+        "operationId" : "getEntrypointSubscriptionSchemaUsingGET__entrypoints_entrypointId_subscriptionSchema",
+        "parameters" : [ {
+          "name" : "entrypointId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entrypoints" : {
+      "get" : {
+        "tags" : [ "entrypoints-resource" ],
+        "summary" : "getEntrypoints",
+        "operationId" : "getEntrypointsUsingGET__entrypoints",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorPluginEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/{envId}/apis" : {
+      "post" : {
+        "tags" : [ "environment-resource" ],
+        "summary" : "createApi",
+        "operationId" : "createApiUsingPOST__environments_envId_apis",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/NewApiEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/{envId}" : {
+      "get" : {
+        "tags" : [ "environment-resource" ],
+        "summary" : "getEnvironment",
+        "operationId" : "getEnvironmentUsingGET__environments_envId",
+        "parameters" : [ {
+          "name" : "envId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnvironmentEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{orgId}" : {
+      "get" : {
+        "tags" : [ "organization-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__organizations_orgId",
+        "parameters" : [ {
+          "name" : "orgId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{orgId}/environments" : {
+      "get" : {
+        "tags" : [ "organization-resource" ],
+        "summary" : "getEnvironments",
+        "operationId" : "getEnvironmentsUsingGET__organizations_orgId_environments",
+        "parameters" : [ {
+          "name" : "orgId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EnvironmentEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/plans/{plan}/_close" : {
+      "post" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "closeApiPlan",
+        "operationId" : "closeApiPlanUsingPOST__apis_apiId_plans_plan__close",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/plans" : {
+      "get" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "getApiPlans",
+        "operationId" : "getApiPlansUsingGET__apis_apiId_plans",
+        "parameters" : [ {
+          "name" : "status",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object"
+            }
+          }
+        }, {
+          "name" : "security",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PlanEntity"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "createApiPlan",
+        "operationId" : "createApiPlanUsingPOST__apis_apiId_plans",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/NewPlanEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/plans/{plan}" : {
+      "get" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "getApiPlan",
+        "operationId" : "getApiPlanUsingGET__apis_apiId_plans_plan",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "updateApiPlan",
+        "operationId" : "updateApiPlanUsingPUT__apis_apiId_plans_plan",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdatePlanEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "deleteApiPlan",
+        "operationId" : "deleteApiPlanUsingDELETE__apis_apiId_plans_plan",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/plans/{plan}/_deprecate" : {
+      "post" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "deprecateApiPlan",
+        "operationId" : "deprecateApiPlanUsingPOST__apis_apiId_plans_plan__deprecate",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/{apiId}/plans/{plan}/_publish" : {
+      "post" : {
+        "tags" : [ "api-plans-resource" ],
+        "summary" : "publishApiPlan",
+        "operationId" : "publishApiPlanUsingPOST__apis_apiId_plans_plan__publish",
+        "parameters" : [ {
+          "name" : "plan",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlanEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "UpdateApiEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.api"
+        }
+      },
+      "OrganizationEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model"
+        }
+      },
+      "UpdatePlanEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.plan"
+        }
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
+        }
+      },
+      "EnvironmentEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model"
+        }
+      },
+      "PlanEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.plan"
+        }
+      },
+      "ApiDeploymentEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.api"
+        }
+      },
+      "NewPlanEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.plan"
+        }
+      },
+      "ApiEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.api"
+        }
+      },
+      "ConnectorPluginEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.connector"
+        }
+      },
+      "NewApiEntity" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "io.gravitee.rest.api.model.v4.api"
+        }
+      }
+    }
+  }
+}

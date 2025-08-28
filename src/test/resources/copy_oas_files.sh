@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# > ./src/test/resources/copy_oas_files.sh
+
 # Quarkus
 mv target/openapi/quarkus-behavioral-exception-tests_default.json src/test/resources/quarkus/quarkus-behavioral-exception-tests.json
 
