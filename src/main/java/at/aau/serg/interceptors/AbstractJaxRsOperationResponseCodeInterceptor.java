@@ -47,6 +47,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             "BadRequestException", HttpStatus.BAD_REQUEST,
             "NotAuthorizedException", HttpStatus.UNAUTHORIZED,
             "ForbiddenException", HttpStatus.FORBIDDEN,
+            "ForbiddenAccessException", HttpStatus.FORBIDDEN,
             "NotFoundException", HttpStatus.NOT_FOUND,
             "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
             "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
