@@ -75,6 +75,26 @@
         }
       }
     },
+    "/nested-exception/deep-nested-error-concrete-class/{id}" : {
+      "get" : {
+        "tags" : [ "nested-exceptions-resource" ],
+        "summary" : "handleDeepNestedNotFoundExceptionInConcreteClassMethodCall",
+        "operationId" : "handleDeepNestedNotFoundExceptionInConcreteClassMethodCallUsingGET__nested-exception_deep-nested-error-concrete-class_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
     "/nested-exception/nested-error-concrete-class/{id}" : {
       "get" : {
         "tags" : [ "nested-exceptions-resource" ],
