@@ -12,14 +12,12 @@ public class MethodResponseExtractor {
     private RestFramework restFramework;
     private DataTypeTransformer dataTypeTransformer;
 
-    public MethodResponseExtractor(RestFramework restFramework,
-                                   DataTypeTransformer dataTypeTransformer) {
+    public MethodResponseExtractor(RestFramework restFramework, DataTypeTransformer dataTypeTransformer) {
         this.restFramework = restFramework;
         this.dataTypeTransformer = dataTypeTransformer;
     }
 
-    public ApiResponses createApiResponses(CtMethod<?> method,
-                                           String produces) {
+    public ApiResponses createApiResponses(CtMethod<?> method, String produces) {
         // todo merge logic for DeferredResult, ResponseEntity stripping
 
         // method.getType uses the method's return value's type, quite naive response type identification
@@ -76,13 +74,11 @@ public class MethodResponseExtractor {
 
                 if (hasAnnotation(parameter, "Suspended") &&
                         parameterType.endsWith("AsyncResponse")) {
-                    System.out.println("works");
                     return restFramework.getDefaultResponseCode();
                 }
 
                 if (hasAnnotation(parameter, "Context") &&
                         parameterType.endsWith("SseEventSink")) {
-                    System.out.println("works");
                     return restFramework.getDefaultResponseCode();
                 }
             }
@@ -92,8 +88,7 @@ public class MethodResponseExtractor {
         return null;
     }
 
-    private boolean hasAnnotation(CtParameter<?> parameter,
-                                  String annotationName) {
+    private boolean hasAnnotation(CtParameter<?> parameter, String annotationName) {
         return parameter.getAnnotations().stream()
                 .anyMatch(annotation -> annotation.getAnnotationType().getSimpleName().equals(annotationName));
     }
@@ -110,8 +105,7 @@ public class MethodResponseExtractor {
     }
 
     // todo HttpStatus is Spring-specific
-    private HttpStatus defaultIfUnexpectedServerError(HttpStatus code,
-                                                      HttpStatus value) {
+    private HttpStatus defaultIfUnexpectedServerError(HttpStatus code, HttpStatus value) {
         // code default value is internal server error
         return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;
     }
