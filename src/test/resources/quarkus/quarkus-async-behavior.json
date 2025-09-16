@@ -1,0 +1,127 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-async-behavior",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/async-response/completed-future" : {
+      "get" : {
+        "tags" : [ "async-response-resource" ],
+        "summary" : "completedFutureResponse",
+        "operationId" : "completedFutureResponseUsingGET__async-response_completed-future",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/async-response/delayed" : {
+      "get" : {
+        "tags" : [ "async-response-resource" ],
+        "summary" : "delayedResponse",
+        "operationId" : "delayedResponseUsingGET__async-response_delayed",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/async-response/delayed-with-code" : {
+      "get" : {
+        "tags" : [ "async-response-resource" ],
+        "summary" : "delayedResponseWithStatusCode",
+        "operationId" : "delayedResponseWithStatusCodeUsingGET__async-response_delayed-with-code",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/async-response/error" : {
+      "get" : {
+        "tags" : [ "async-response-resource" ],
+        "summary" : "errorResponse",
+        "operationId" : "errorResponseUsingGET__async-response_error",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/async-response/immediate" : {
+      "get" : {
+        "tags" : [ "async-response-resource" ],
+        "summary" : "immediateResponse",
+        "operationId" : "immediateResponseUsingGET__async-response_immediate",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/infinite" : {
+      "get" : {
+        "tags" : [ "server-sent-event-response-resource" ],
+        "summary" : "infiniteStream",
+        "operationId" : "infiniteStreamUsingGET__sse_infinite",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/sse/multi" : {
+      "get" : {
+        "tags" : [ "server-sent-event-response-resource" ],
+        "summary" : "multiEvents",
+        "operationId" : "multiEventsUsingGET__sse_multi",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/sse/single" : {
+      "get" : {
+        "tags" : [ "server-sent-event-response-resource" ],
+        "summary" : "singleEvent",
+        "operationId" : "singleEventUsingGET__sse_single",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : { }
+  }
+}

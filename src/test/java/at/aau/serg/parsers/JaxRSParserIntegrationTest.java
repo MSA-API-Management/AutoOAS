@@ -33,11 +33,20 @@ public class JaxRSParserIntegrationTest {
         assertOpenApiGeneration(projectFolder, docsPath);
     }
 
+
     @ParameterizedTest
     @CsvSource({
             "quarkus-behavioral-exception-tests,quarkus-behavioral-exception-tests.json"
     })
     public void integrationTest_OpenApiGeneration_ExceptionalBehavior(String projectFolder, String docsPath) throws IOException {
+        assertOpenApiGeneration(projectFolder, docsPath);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "quarkus-async-behavior,quarkus-async-behavior.json"
+    })
+    public void integrationTest_OpenApiGeneration_AsyncBehavior(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);
     }
 
