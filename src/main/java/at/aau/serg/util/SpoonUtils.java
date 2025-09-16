@@ -26,6 +26,16 @@ public class SpoonUtils {
         return ctType != null && ctType.equals(new TypeFactory().objectType());
     }
 
+    /**
+     * Compares two CtTypeReference objects for equivalence.
+     *
+     * <p>Two type references are considered equivalent if they are both null,
+     * equal according to their equals() method, or have the same qualified name.
+     *
+     * @param type1 the first type reference to compare
+     * @param type2 the second type reference to compare
+     * @return true if the type references are equivalent, false otherwise
+     */
     public static boolean areTypeReferencesEquivalent(CtTypeReference<?> type1, CtTypeReference<?> type2) {
         if (type1 == null && type2 == null) {
             return true;

@@ -434,6 +434,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // endregion Response obj detection
 
 // region Exception detection
+    /**
+     * Detects and analyzes all exceptions that can be thrown by the given method,
+     * resolving them into corresponding API response definitions.
+     *
+     * @param method the method to analyze for thrown exceptions
+     * @return an ApiResponses object containing all resolved exception responses
+     */
     private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
         Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>());
@@ -446,6 +453,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return apiResponses;
     }
 
+    /**
+     * Recursively collects all exceptions that can be thrown by a method, including
+     * direct throws, exceptions from method calls, and declared checked exceptions.
+     *
+     * @param method the method to analyze for thrown exceptions
+     * @param visitedMethods set of methods already visited to prevent infinite recursion
+     * @return a set of all exception types that can be thrown by the method
+     */
     private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods) {
         if (methodExceptionCache.containsKey(method)) {
             return methodExceptionCache.get(method);
@@ -489,6 +504,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return thrownExceptions;
     }
 
+    /**
+     * Analyzes a method invocation to collect all exceptions that can be thrown
+     * by the called method, recursively following the call chain.
+     *
+     * @param invocation the method invocation to analyze
+     * @param visitedMethods set of methods already visited to prevent infinite recursion
+     * @return a set of exception types that can be thrown by the invoked method
+     */
     private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods) {
         Set<CtType<?>> exceptions = new HashSet<>();
 
@@ -516,6 +539,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return exceptions;
     }
 
+    /**
+     * Resolves a method declaration from an executable reference by first attempting
+     * direct resolution, then searching through the declaring type's methods.
+     *
+     * @param executableRef the executable reference to resolve
+     * @return the corresponding method declaration, or null if not found
+     */
     private CtMethod<?> getMethodDeclaration(CtExecutableReference<?> executableRef) {
         try {
             // try get declaration directly
@@ -544,6 +574,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return null;
     }
 
+    /**
+     * Checks if a method's signature matches an executable reference by comparing
+     * method name, parameter count, and parameter types.
+     *
+     * @param method the method to check
+     * @param executableRef the executable reference to match against
+     * @return true if the signatures match, false otherwise
+     */
     private boolean isMethodSignatureMatch(CtMethod<?> method, CtExecutableReference<?> executableRef) {
         if (!method.getSimpleName().equals(executableRef.getSimpleName())) {
             return false;
