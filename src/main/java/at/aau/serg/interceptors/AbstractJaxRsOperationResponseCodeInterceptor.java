@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtExecutableReference;
@@ -23,10 +24,7 @@ import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
 
@@ -36,6 +34,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
     private static final MethodBodyAnalyser methodBodyAnalyser = new MethodBodyAnalyser();
+    private final Map<CtMethod<?>, Set<CtType<?>>> methodExceptionCache = new HashMap<>();
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -435,27 +434,139 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // endregion Response obj detection
 
 // region Exception detection
-
     private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
+        Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>());
 
-        for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
-            CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
-
-            if (thrownType == null) {
-                // todo resolve or refactor to TypeReference
-                logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
-            } else {
-                ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
-                apiResponses.putAll(resolvedResponse);
-            }
+        for (CtType<?> thrownType : allThrownExceptions) {
+            ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
+            apiResponses.putAll(resolvedResponse);
         }
 
         return apiResponses;
     }
 
+    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods) {
+        if (methodExceptionCache.containsKey(method)) {
+            return methodExceptionCache.get(method);
+        }
+
+        if (visitedMethods.contains(method)) {
+            return new HashSet<>();
+        }
+        visitedMethods.add(method);
+
+        Set<CtType<?>> thrownExceptions = new HashSet<>();
+
+        // direct throw statements
+        for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
+            CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
+            if (thrownType != null) {
+                thrownExceptions.add(thrownType);
+            } else {
+                logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
+            }
+        }
+
+        // exceptions from method calls
+        for (var invocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
+            Set<CtType<?>> calledMethodExceptions = analyzeMethodCallExceptions(invocation, visitedMethods);
+            thrownExceptions.addAll(calledMethodExceptions);
+        }
+
+        // declared checked exceptions from method signature
+        for (CtTypeReference<?> declaredThrowsType : method.getThrownTypes()) {
+            CtType<?> exceptionType = declaredThrowsType.getTypeDeclaration();
+            if (exceptionType != null) {
+                thrownExceptions.add(exceptionType);
+            }
+        }
+
+        // Cache the result
+        methodExceptionCache.put(method, thrownExceptions);
+        visitedMethods.remove(method);
+
+        return thrownExceptions;
+    }
+
+    private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods) {
+        Set<CtType<?>> exceptions = new HashSet<>();
+
+        try {
+            CtExecutableReference<?> executableRef = invocation.getExecutable();
+
+            // skip unresolvable methods or constructor
+            if (executableRef == null || executableRef.getSimpleName().equals("<init>")) {
+                return exceptions;
+            }
+
+            CtMethod<?> calledMethod = getMethodDeclaration(executableRef);
+
+            if (calledMethod != null) {
+                Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods));
+                exceptions.addAll(calledMethodExceptions);
+            } else {
+                logger.info("Cannot resolve method declaration for {}", executableRef);
+            }
+
+        } catch (Exception e) {
+            logger.warn("Could not analyze exceptions for method call: {} - {}", invocation.toString(), e.getMessage());
+        }
+
+        return exceptions;
+    }
+
+    private CtMethod<?> getMethodDeclaration(CtExecutableReference<?> executableRef) {
+        try {
+            // try get declaration directly
+            var declaration = executableRef.getExecutableDeclaration();
+            if (declaration instanceof CtMethod<?>) {
+                return (CtMethod<?>) declaration;
+            }
+
+            // search for declaring type
+            CtTypeReference<?> declaringType = executableRef.getDeclaringType();
+            if (declaringType != null) {
+                CtType<?> typeDeclaration = declaringType.getTypeDeclaration();
+                if (typeDeclaration != null) {
+                    for (CtMethod<?> method : typeDeclaration.getMethods()) {
+                        if (isMethodSignatureMatch(method, executableRef)) {
+                            return method;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            logger.debug("Could not resolve method declaration for: {} - {}", executableRef.getSignature(), e.getMessage());
+        }
+
+        return null;
+    }
+
+    private boolean isMethodSignatureMatch(CtMethod<?> method, CtExecutableReference<?> executableRef) {
+        if (!method.getSimpleName().equals(executableRef.getSimpleName())) {
+            return false;
+        }
+
+        List<CtTypeReference<?>> refParams = executableRef.getParameters();
+        List<CtParameter<?>> methodParams = method.getParameters();
+
+        if (refParams.size() != methodParams.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < refParams.size(); i++) {
+            if (!SpoonUtils.areTypeReferencesEquivalent(refParams.get(i), methodParams.get(i).getType())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     private ApiResponses resolveExceptionResponse(CtType<?> thrownType) {
-        // todo david check for local exception handling
         // Global Exception Handles
         ApiResponses response = tryResolveStatusCodeFromGlobalExceptionHandlers(thrownType);
         if (response != null) return response;
