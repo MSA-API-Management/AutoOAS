@@ -42,4 +42,14 @@ public class NestedExceptionsResource {
         return Response.ok().build();
     }
 
+    @GET
+    @Path("/deep-nested-error-concrete-class/{id}")
+    public Response handleDeepNestedNotFoundExceptionInConcreteClassMethodCall(@PathParam("id") String id) {
+        if (id.equals("error")) {
+            this.simpleService.handleAnotherError();
+        }
+
+        return Response.ok().build();
+    }
+
 }
