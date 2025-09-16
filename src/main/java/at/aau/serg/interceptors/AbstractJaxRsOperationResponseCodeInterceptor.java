@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
+    private int maxCrossClassDepth = 1; // Analyze current class + 1 level of other classes (0 for unlimited analysis)
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
@@ -434,16 +435,17 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 // endregion Response obj detection
 
 // region Exception detection
+
     /**
      * Detects and analyzes all exceptions that can be thrown by the given method,
-     * resolving them into corresponding API response definitions.
+     * resolving them into corresponding API response definitions with depth limitation.
      *
      * @param method the method to analyze for thrown exceptions
      * @return an ApiResponses object containing all resolved exception responses
      */
     private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
-        Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>());
+        Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>(), method.getDeclaringType(), 0);
 
         for (CtType<?> thrownType : allThrownExceptions) {
             ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
@@ -459,9 +461,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      *
      * @param method the method to analyze for thrown exceptions
      * @param visitedMethods set of methods already visited to prevent infinite recursion
+     * @param rootClass the original class where analysis started
+     * @param currentDepth the current depth level (0 = root class)
      * @return a set of all exception types that can be thrown by the method
      */
-    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods) {
+    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods, CtType<?> rootClass, int currentDepth) {
         if (methodExceptionCache.containsKey(method)) {
             return methodExceptionCache.get(method);
         }
@@ -485,7 +489,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         // exceptions from method calls
         for (var invocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
-            Set<CtType<?>> calledMethodExceptions = analyzeMethodCallExceptions(invocation, visitedMethods);
+            Set<CtType<?>> calledMethodExceptions = analyzeMethodCallExceptions(invocation, visitedMethods, rootClass, currentDepth);
             thrownExceptions.addAll(calledMethodExceptions);
         }
 
@@ -506,13 +510,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     /**
      * Analyzes a method invocation to collect all exceptions that can be thrown
-     * by the called method, recursively following the call chain.
+     * by the called method, recursively following the call chain within depth limits.
      *
      * @param invocation the method invocation to analyze
      * @param visitedMethods set of methods already visited to prevent infinite recursion
+     * @param rootClass the original class where analysis started
+     * @param currentDepth the current depth level
      * @return a set of exception types that can be thrown by the invoked method
      */
-    private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods) {
+    private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods, CtType<?> rootClass, int currentDepth) {
         Set<CtType<?>> exceptions = new HashSet<>();
 
         try {
@@ -526,8 +532,24 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtMethod<?> calledMethod = getMethodDeclaration(executableRef);
 
             if (calledMethod != null) {
-                Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods));
-                exceptions.addAll(calledMethodExceptions);
+                CtType<?> methodClass = calledMethod.getDeclaringType();
+
+                int targetDepth = methodClass.equals(rootClass) ? currentDepth : currentDepth + 1;
+
+                if (maxCrossClassDepth == 0 || targetDepth <= maxCrossClassDepth) {
+                    Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods), rootClass, targetDepth);
+                    exceptions.addAll(calledMethodExceptions);
+                } else {
+                    logger.debug("Skipping method {} in class {} due to depth limitation (depth: {} > max: {})", calledMethod.getSimpleName(), methodClass.getSimpleName(), targetDepth, maxCrossClassDepth);
+
+                    // still collect declared exceptions from method signature even if we don't analyze the body
+                    for (CtTypeReference<?> declaredThrowsType : calledMethod.getThrownTypes()) {
+                        CtType<?> exceptionType = declaredThrowsType.getTypeDeclaration();
+                        if (exceptionType != null) {
+                            exceptions.add(exceptionType);
+                        }
+                    }
+                }
             } else {
                 logger.info("Cannot resolve method declaration for {}", executableRef);
             }
@@ -688,6 +710,10 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         String methodName = inv.getExecutable().getSimpleName();
         String declaringType = inv.getExecutable().getDeclaringType().getQualifiedName();
         return (declaringType.equals("java.util.List") || declaringType.equals("java.util.Arrays")) && (methodName.equals("of") || methodName.equals("asList"));
+    }
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxCrossClassDepth = maxDepth;
     }
 
 // endregion helpers
