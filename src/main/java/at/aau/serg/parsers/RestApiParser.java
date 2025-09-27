@@ -16,12 +16,15 @@ import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
 import spoon.reflect.CtModel;
+import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -36,24 +39,66 @@ public class RestApiParser {
 
     protected CtModel model;
     protected String projectName;
+    protected String restApiModulePath;
+    private String restApiModulePathWithTrailingSeparator;
     protected String outputFileName;
     private RestFramework restFramework;
 
-    protected RestApiParser(String outputFileName) {
-        this.outputFileName = outputFileName;
-    }
-
+    /**
+     * Automatically creates a Spoon model for the project in {@code projectPath} to detect REST APIs implemented in {@code restFramework}.
+     *
+     * @param projectPath    The path to the project under analysis
+     * @param outputFileName
+     * @param restFramework
+     */
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework) {
-        this(outputFileName);
-        this.restFramework = restFramework;
-        this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
-        this.model = new SpoonModelLoader().loadModel(projectPath);
+        this(projectPath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
     }
 
+    /**
+     * Automatically creates a Spoon model for the project in {@code projectPath}
+     * to detect REST APIs implemented in {@code restFramework} inside the {@code restApiModulePath}.
+     *
+     * @param projectPath       The path to the project under analysis
+     * @param restApiModulePath The path to the API module in the multi-module project in {@code projectPath}
+     * @param outputFileName
+     * @param restFramework
+     */
+    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework) {
+        this(projectPath, restApiModulePath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
+    }
+
+    /**
+     * Uses the Spoon model {@code model} for the project in {@code projectPath}} to detect REST APIs implemented in {@code restFramework}.
+     *
+     * @param projectPath    The path to the project under analysis
+     * @param outputFileName
+     * @param restFramework
+     * @param model          The model of the project in {@code projectPath}
+     */
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, CtModel model) {
-        this(outputFileName);
-        this.restFramework = restFramework;
+        this(projectPath, projectPath, outputFileName, restFramework, model);
+    }
+
+    /**
+     * Uses the Spoon model {@code model} for the project in {@code projectPath}
+     * to detect REST APIs implemented in {@code restFramework} inside the {@code restApiModulePath}.
+     *
+     * @param projectPath       The path to the project under analysis
+     * @param restApiModulePath The path to the API module in the multi-module project in {@code projectPath}
+     * @param outputFileName
+     * @param restFramework
+     * @param model             The model of the project in {@code projectPath}
+     */
+    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework, CtModel model) {
         this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
+        this.restApiModulePath = restApiModulePath;
+        this.restApiModulePathWithTrailingSeparator = restApiModulePath.endsWith(File.separator)
+                ? restApiModulePath
+                : restApiModulePath + File.separator;
+        this.outputFileName = outputFileName;
+        this.restFramework = restFramework;
+
         this.model = model;
     }
 
@@ -260,7 +305,9 @@ public class RestApiParser {
             for (CtType<?> type : pkg.getTypes()) {
                 for (CtAnnotation<?> annotation : type.getAnnotations()) {
                     String annotationName = annotation.getAnnotationType().toString();
-                    if (annotationName != null && this.restFramework.getControllerAnnotations().contains(annotationName)) {
+                    if (annotationName != null
+                            && this.restFramework.getControllerAnnotations().contains(annotationName)
+                            && isTypeInRestApiModule(type.getPosition())) {
                         controllerClasses.add(type);
                         break; // annotations
                     }
@@ -279,5 +326,14 @@ public class RestApiParser {
         }
 
         return new RelevantClasses(controllerClasses, globalExceptionHandlerClasses, explicitModelClasses);
+    }
+
+    // fixme performance intensive operation
+    private boolean isTypeInRestApiModule(SourcePosition typePosition) {
+        if (!typePosition.isValidPosition())
+            return false;
+
+        Path file = typePosition.getFile().toPath().toAbsolutePath().normalize();
+        return file.toString().contains(restApiModulePathWithTrailingSeparator);
     }
 }

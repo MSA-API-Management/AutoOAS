@@ -1,0 +1,79 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-multi-module",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/rest-api-module" : {
+      "post" : {
+        "tags" : [ "request-body-resource" ],
+        "summary" : "handleRequestBodyObject",
+        "operationId" : "handleRequestBodyObjectUsingPOST__rest-api-module",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnotherSimple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnotherSimple"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "AnotherSimple" : {
+        "required" : [ "notNullField" ],
+        "type" : "object",
+        "properties" : {
+          "notNullField" : {
+            "type" : "string"
+          },
+          "avgGrade" : {
+            "maximum" : 0.0,
+            "minimum" : 0.0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "id" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "someDeprecatedField" : {
+            "type" : "string",
+            "deprecated" : true
+          },
+          "ssn" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

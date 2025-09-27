@@ -7,6 +7,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -58,6 +61,31 @@ public class JaxRSParserIntegrationTest {
     public void integrationTest_OpenApiGeneration_ResourceChaining(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "quarkus-multi-module,rest-api,quarkus-multi-module-rest-api.json",
+            "quarkus-multi-module,ignored-rest-api,quarkus-multi-module-ignored-rest-api.json"
+    })
+    public void integrationTest_OpenApiGeneration_MultiModuleProject_IgnoreApiEndpoints(String projectFolder, String apiModule, String docsPath) throws IOException {
+        var genOutputPath = "target/openapi/" + projectFolder + ".json";
+
+        var parser = new RestApiParser(testResourcesPath + projectFolder,
+                testResourcesPath + projectFolder + '/' + apiModule,
+                genOutputPath,
+                new JakartaRestFramework());
+        parser.run();
+
+        genOutputPath = "target/openapi/" + projectFolder + "_default.json";
+        var moveTargetGetOutputPath = "target/openapi/" + projectFolder + '-' + apiModule + "_default.json";
+        Files.move(Paths.get(genOutputPath), Paths.get(moveTargetGetOutputPath), StandardCopyOption.REPLACE_EXISTING);
+
+        assertTrue(FileUtils.contentEquals(
+                new File(testResourcesPath + docsPath),
+                new File(moveTargetGetOutputPath))
+        );
+    }
+
 
     private void assertOpenApiGeneration(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";
