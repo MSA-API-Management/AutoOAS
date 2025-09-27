@@ -493,14 +493,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             thrownExceptions.addAll(calledMethodExceptions);
         }
 
-        // declared checked exceptions from method signature
-        for (CtTypeReference<?> declaredThrowsType : method.getThrownTypes()) {
-            CtType<?> exceptionType = declaredThrowsType.getTypeDeclaration();
-            if (exceptionType != null) {
-                thrownExceptions.add(exceptionType);
-            }
-        }
-
         // Cache the result
         methodExceptionCache.put(method, thrownExceptions);
         visitedMethods.remove(method);
@@ -541,14 +533,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                     exceptions.addAll(calledMethodExceptions);
                 } else {
                     logger.debug("Skipping method {} in class {} due to depth limitation (depth: {} > max: {})", calledMethod.getSimpleName(), methodClass.getSimpleName(), targetDepth, maxCrossClassDepth);
-
-                    // still collect declared exceptions from method signature even if we don't analyze the body
-                    for (CtTypeReference<?> declaredThrowsType : calledMethod.getThrownTypes()) {
-                        CtType<?> exceptionType = declaredThrowsType.getTypeDeclaration();
-                        if (exceptionType != null) {
-                            exceptions.add(exceptionType);
-                        }
-                    }
                 }
             } else {
                 logger.info("Cannot resolve method declaration for {}", executableRef);
