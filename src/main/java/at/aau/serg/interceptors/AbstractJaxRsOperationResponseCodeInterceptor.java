@@ -500,9 +500,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             thrownExceptions.addAll(calledMethodExceptions);
         }
 
-        // Cache the result
         methodExceptionCache.put(method, thrownExceptions);
-        visitedMethods.remove(method);
 
         return thrownExceptions;
     }
