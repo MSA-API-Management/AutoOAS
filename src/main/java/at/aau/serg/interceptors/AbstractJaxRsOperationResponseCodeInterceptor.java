@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
-    private int maxCrossClassDepth = 1; // Analyze current class + 1 level of other classes (0 for unlimited analysis)
+    private int maxCrossClassDepth = 1; // Analyze current class + X level hierarchically deeper classes (-1 for unlimited analysis)
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
@@ -536,7 +536,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
                 int targetDepth = methodClass.equals(rootClass) ? currentDepth : currentDepth + 1;
 
-                if (maxCrossClassDepth == 0 || targetDepth <= maxCrossClassDepth) {
+                if (maxCrossClassDepth == -1 || targetDepth <= maxCrossClassDepth) {
                     Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods), rootClass, targetDepth);
                     exceptions.addAll(calledMethodExceptions);
                 } else {
