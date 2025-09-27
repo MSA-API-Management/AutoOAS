@@ -9,6 +9,7 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import lombok.Setter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.javatuples.Pair;
 import org.slf4j.Logger;
@@ -27,7 +28,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
-    private int maxCrossClassDepth = 2; // Analyze current class + X level hierarchically deeper classes (-1 for unlimited analysis)
+    @Setter
+    private int maxCrossClassDepth = 1; // Analyze current class + X level hierarchically deeper classes (-1 for unlimited analysis)
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
@@ -509,9 +511,9 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * Analyzes a method invocation to collect all exceptions that can be thrown
      * by the called method, recursively following the call chain within depth limits.
      *
-     * @param invocation the method invocation to analyze
-     * @param visitedMethods set of methods already visited to prevent infinite recursion
-     * @param classDepthMap map tracking the depth assigned to each class
+     * @param invocation        the method invocation to analyze
+     * @param visitedMethods    set of methods already visited to prevent infinite recursion
+     * @param classDepthMap     map tracking the depth assigned to each class
      * @param currentClassDepth the current class depth level
      * @return a set of exception types that can be thrown by the invoked method
      */
@@ -553,13 +555,14 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     /**
      * Gets the depth for a class, handling both new classes and calls back to already-visited classes.
      * When calling back to an already-visited class, it prunes the depth map to maintain the correct call path.
-     * @param targetClass the class to get/assign depth for
-     * @param classDepthMap map tracking assigned depths for each class
+     *
+     * @param targetClass       the class to get/assign depth for
+     * @param classDepthMap     map tracking assigned depths for each class
      * @param currentClassDepth the depth of the class making the call
      * @return the depth assigned to the target class
      */
     private int getOrAssignClassDepth(CtType<?> targetClass, Map<CtType<?>, Integer> classDepthMap, int currentClassDepth) {
-        if(classDepthMap.containsKey(targetClass)) {
+        if (classDepthMap.containsKey(targetClass)) {
             int existingDepth = classDepthMap.get(targetClass);
 
             classDepthMap.entrySet().removeIf(entry -> entry.getValue() > existingDepth);
@@ -613,7 +616,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * Checks if a method's signature matches an executable reference by comparing
      * method name, parameter count, and parameter types.
      *
-     * @param method the method to check
+     * @param method        the method to check
      * @param executableRef the executable reference to match against
      * @return true if the signatures match, false otherwise
      */
@@ -725,10 +728,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return (declaringType.equals("java.util.List") || declaringType.equals("java.util.Arrays")) && (methodName.equals("of") || methodName.equals("asList"));
     }
 
-    public void setMaxDepth(int maxDepth) {
-        this.maxCrossClassDepth = maxDepth;
-    }
-
-// endregion helpers
+    // endregion helpers
 
 }
