@@ -27,6 +27,8 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import static at.aau.serg.util.SpoonUtils.getMethodDeclaration;
+
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
     @Setter
     private int maxCrossClassDepth = 1; // Analyze current class + X level hierarchically deeper classes (-1 for unlimited analysis)
@@ -573,70 +575,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
 
         return newDepth;
-    }
-
-    /**
-     * Resolves a method declaration from an executable reference by first attempting
-     * direct resolution, then searching through the declaring type's methods.
-     *
-     * @param executableRef the executable reference to resolve
-     * @return the corresponding method declaration, or null if not found
-     */
-    private CtMethod<?> getMethodDeclaration(CtExecutableReference<?> executableRef) {
-        try {
-            // try get declaration directly
-            var declaration = executableRef.getExecutableDeclaration();
-            if (declaration instanceof CtMethod<?>) {
-                return (CtMethod<?>) declaration;
-            }
-
-            // search for declaring type
-            CtTypeReference<?> declaringType = executableRef.getDeclaringType();
-            if (declaringType != null) {
-                CtType<?> typeDeclaration = declaringType.getTypeDeclaration();
-                if (typeDeclaration != null) {
-                    for (CtMethod<?> method : typeDeclaration.getMethods()) {
-                        if (isMethodSignatureMatch(method, executableRef)) {
-                            return method;
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            logger.debug("Could not resolve method declaration for: {} - {}", executableRef.getSignature(), e.getMessage());
-        }
-
-        return null;
-    }
-
-    /**
-     * Checks if a method's signature matches an executable reference by comparing
-     * method name, parameter count, and parameter types.
-     *
-     * @param method        the method to check
-     * @param executableRef the executable reference to match against
-     * @return true if the signatures match, false otherwise
-     */
-    private boolean isMethodSignatureMatch(CtMethod<?> method, CtExecutableReference<?> executableRef) {
-        if (!method.getSimpleName().equals(executableRef.getSimpleName())) {
-            return false;
-        }
-
-        List<CtTypeReference<?>> refParams = executableRef.getParameters();
-        List<CtParameter<?>> methodParams = method.getParameters();
-
-        if (refParams.size() != methodParams.size()) {
-            return false;
-        }
-
-        for (int i = 0; i < refParams.size(); i++) {
-            if (!SpoonUtils.areTypeReferencesEquivalent(refParams.get(i), methodParams.get(i).getType())) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
 
