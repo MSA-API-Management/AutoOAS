@@ -334,6 +334,8 @@ public class RestApiParser {
             return false;
 
         Path file = typePosition.getFile().toPath().toAbsolutePath().normalize();
-        return file.toString().contains(restApiModulePathWithTrailingSeparator);
+        Path restApiModule = Path.of(restApiModulePath).toAbsolutePath().normalize();
+
+        return file.startsWith(restApiModule);
     }
 }
