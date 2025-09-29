@@ -3,7 +3,7 @@
 DATASET_DIR=$1
 OUTPUT_DIR=$2
 LOG_DIR=$OUTPUT_DIR/logs
-JAR_DIRECTORY="C:\\Users\\davidj\\Desktop\\Repos\\MSA-API-Management\\AutoOAS\\target\\auto-oas-1.2.0-jar-with-dependencies.jar"
+JAR_DIRECTORY=target/auto-oas-1.2.0-jar-with-dependencies.jar
 
 # Ensure dataset folder exists
 if [ ! -d "$DATASET_DIR" ]; then
@@ -12,7 +12,7 @@ if [ ! -d "$DATASET_DIR" ]; then
 fi
 
 RUN_SPRING=false
-RUN_JERSEY=true
+RUN_JERSEY=false
 
 # Parse flags indicating which frameworks to evaluate on
 for arg in "$@"; do
