@@ -127,6 +127,7 @@ public class OperationsTransformer {
 			}
 			operation.setParameters(transformParameters(fullPath, method));
 			operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
+			operation.addExtension("x-path", cleanedPath);
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 
@@ -194,6 +195,7 @@ public class OperationsTransformer {
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
+		operation.addExtension("x-path", cleanedPath);
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
@@ -223,6 +225,7 @@ public class OperationsTransformer {
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
+		operation.addExtension("x-path", cleanedPath);
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
@@ -246,6 +249,7 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
+		operation.addExtension("x-path", cleanedPath);
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
@@ -269,6 +273,7 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
+		operation.addExtension("x-path", cleanedPath);
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
@@ -292,6 +297,7 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
+		operation.addExtension("x-path", cleanedPath);
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {

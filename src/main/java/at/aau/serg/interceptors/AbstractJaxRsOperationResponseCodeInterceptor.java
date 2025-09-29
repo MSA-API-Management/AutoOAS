@@ -40,6 +40,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     private static final Logger logger = LoggerFactory.getLogger(AbstractJaxRsOperationResponseCodeInterceptor.class);
     private static final MethodBodyAnalyser methodBodyAnalyser = new MethodBodyAnalyser();
     private final Map<CtMethod<?>, Set<CtType<?>>> methodExceptionCache = new HashMap<>();
+    private String operationPath = "";
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -100,6 +101,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
     @Override
     public void intercept(CtMethod<?> method, Operation transformedOperation) {
+        this.operationPath = (String) transformedOperation.getExtensions().get("x-path");
 
         //// Response detection ////
         var responses = tryDetectJaxRSResponsesInMethod(method);
@@ -496,7 +498,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
             if (thrownType != null) {
                 thrownExceptions.add(thrownType);
-                logger.info("Exception path: {} -> throw {}", callPath, thrownType.getSimpleName());
+                logger.info("Exception Path {}: {} -> throw {}", this.operationPath, callPath, thrownType.getSimpleName());
             } else {
                 logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
             }
