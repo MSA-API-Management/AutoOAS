@@ -10,7 +10,7 @@ public interface OperationInterceptor {
 
     void intercept(Method method, Operation transformedOperation);
 
-    default void intercept(CtMethod<?> method, Operation transformedOperation) {
+    default void intercept(CtMethod<?> method, Operation transformedOperation, String operationPath) {
         throw new NotImplementedException();
     }
 

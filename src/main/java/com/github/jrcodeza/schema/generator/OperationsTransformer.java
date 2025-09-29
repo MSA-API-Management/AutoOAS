@@ -127,9 +127,8 @@ public class OperationsTransformer {
 			}
 			operation.setParameters(transformParameters(fullPath, method));
 			operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
-			operation.addExtension("x-path", cleanedPath);
 
-			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 
 			updateOperationsMap(cleanedPath, operationsMap,
 					pathItem -> setContentBasedOnHttpMethod(pathItem, httpMethod, operation)
@@ -195,9 +194,8 @@ public class OperationsTransformer {
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
-		operation.addExtension("x-path", cleanedPath);
 
-		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getDelete() != null)
                 logger.error("Found duplicate DELETE mapping for path: {} /// {}", pathItem.getDelete().getOperationId(), operation.getOperationId());
@@ -225,9 +223,8 @@ public class OperationsTransformer {
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
-		operation.addExtension("x-path", cleanedPath);
 
-		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getGet() != null)
                 logger.error("Found duplicate GET mapping for path: {} /// {}", pathItem.getGet().getOperationId(), operation.getOperationId());
@@ -249,9 +246,8 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.addExtension("x-path", cleanedPath);
 
-		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPatch() != null)
                 logger.error("Found duplicate PATCH mapping for path: {} /// {}", pathItem.getPatch().getOperationId(), operation.getOperationId());
@@ -273,9 +269,8 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.addExtension("x-path", cleanedPath);
 
-		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPut() != null)
                 logger.error("Found duplicate PUT mapping for path: {} /// {}", pathItem.getPut().getOperationId(), operation.getOperationId());
@@ -297,9 +292,8 @@ public class OperationsTransformer {
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 		operation.setParameters(transformParameters(fullPath, method));
-		operation.addExtension("x-path", cleanedPath);
 
-		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
+		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPost() != null)
                 logger.error("Found duplicate POST mapping for path: {} /// {}", pathItem.getPost().getOperationId(), operation.getOperationId());

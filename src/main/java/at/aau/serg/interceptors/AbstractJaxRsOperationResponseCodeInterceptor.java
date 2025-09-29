@@ -100,8 +100,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     @Override
-    public void intercept(CtMethod<?> method, Operation transformedOperation) {
-        this.operationPath = (String) transformedOperation.getExtensions().get("x-path");
+    public void intercept(CtMethod<?> method, Operation transformedOperation, String operationPath) {
+        this.operationPath = operationPath;
 
         //// Response detection ////
         var responses = tryDetectJaxRSResponsesInMethod(method);
