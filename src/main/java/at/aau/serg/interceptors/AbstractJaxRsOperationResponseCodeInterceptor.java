@@ -454,7 +454,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         Map<CtType<?>, Integer> classDepthMap = new HashMap<>();
         classDepthMap.put(rootClass, 0);
 
-        Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>(), classDepthMap, 0);
+        Set<CtType<?>> allThrownExceptions = collectAllThrownExceptions(method, new HashSet<>(), classDepthMap, 0, new StringBuilder());
 
         for (CtType<?> thrownType : allThrownExceptions) {
             ApiResponses resolvedResponse = resolveExceptionResponse(thrownType);
@@ -472,9 +472,10 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param visitedMethods    set of methods already visited to prevent infinite recursion
      * @param classDepthMap     map tracking the depth assigned to each class
      * @param currentClassDepth the depth of the current class being analyzed
+     * @param callPath          the current call path as a StringBuilder
      * @return a set of all exception types that can be thrown by the method
      */
-    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods, Map<CtType<?>,Integer> classDepthMap, int currentClassDepth) {
+    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods, Map<CtType<?>,Integer> classDepthMap, int currentClassDepth, StringBuilder callPath) {
         if (methodExceptionCache.containsKey(method)) {
             return methodExceptionCache.get(method);
         }
@@ -486,11 +487,16 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         Set<CtType<?>> thrownExceptions = new HashSet<>();
 
+        int originalLength = callPath.length();
+        if (originalLength > 0)  callPath.append(" -> ");
+        callPath.append(method.getSimpleName()).append("()");
+
         // direct throw statements
         for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
             if (thrownType != null) {
                 thrownExceptions.add(thrownType);
+                logger.info("Exception path: {} -> throw {}", callPath, thrownType.getSimpleName());
             } else {
                 logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
             }
@@ -498,11 +504,12 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         // exceptions from method calls
         for (var invocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
-            Set<CtType<?>> calledMethodExceptions = analyzeMethodCallExceptions(invocation, visitedMethods, classDepthMap, currentClassDepth);
+            Set<CtType<?>> calledMethodExceptions = analyzeMethodCallExceptions(invocation, visitedMethods, classDepthMap, currentClassDepth, callPath);
             thrownExceptions.addAll(calledMethodExceptions);
         }
 
         methodExceptionCache.put(method, thrownExceptions);
+        callPath.setLength(originalLength);
 
         return thrownExceptions;
     }
@@ -515,9 +522,10 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param visitedMethods    set of methods already visited to prevent infinite recursion
      * @param classDepthMap     map tracking the depth assigned to each class
      * @param currentClassDepth the current class depth level
+     * @param callPath          the current call path as a StringBuilder
      * @return a set of exception types that can be thrown by the invoked method
      */
-    private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods, Map<CtType<?>, Integer> classDepthMap, int currentClassDepth) {
+    private Set<CtType<?>> analyzeMethodCallExceptions(CtInvocation<?> invocation, Set<CtMethod<?>> visitedMethods, Map<CtType<?>, Integer> classDepthMap, int currentClassDepth, StringBuilder callPath) {
         Set<CtType<?>> exceptions = new HashSet<>();
 
         try {
@@ -536,7 +544,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 int targetDepth = getOrAssignClassDepth(methodClass, classDepthMap, currentClassDepth);
 
                 if (maxCrossClassDepth == -1 || targetDepth <= maxCrossClassDepth) {
-                    Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods), classDepthMap, targetDepth);
+                    Set<CtType<?>> calledMethodExceptions = collectAllThrownExceptions(calledMethod, new HashSet<>(visitedMethods), classDepthMap, targetDepth, callPath);
                     exceptions.addAll(calledMethodExceptions);
                 } else {
                     logger.debug("Skipping method {} in class {} due to depth limitation (depth: {} > max: {})", calledMethod.getSimpleName(), methodClass.getSimpleName(), targetDepth, maxCrossClassDepth);

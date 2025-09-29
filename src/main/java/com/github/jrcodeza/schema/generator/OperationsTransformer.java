@@ -78,7 +78,7 @@ public class OperationsTransformer {
 	 * @param controllerClassName Used as tag in OpenAPI spec.
 	 */
 	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName) {
-		logger.info("Transforming {} controller method", method.getSimpleName());
+		logger.debug("Transforming {} controller method", method.getSimpleName());
 		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
