@@ -452,6 +452,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
+        methodExceptionCache.clear(); // clear after every endpoint, otherwise logging is incomplete
+
         CtType<?> rootClass = method.getDeclaringType();
         Map<CtType<?>, Integer> classDepthMap = new HashMap<>();
         classDepthMap.put(rootClass, 0);
