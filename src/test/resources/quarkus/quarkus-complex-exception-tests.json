@@ -1,0 +1,176 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "quarkus-complex-exception-tests",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/exception/method-error-specific-response-code/{id}" : {
+      "get" : {
+        "tags" : [ "exceptions-resource" ],
+        "summary" : "handleNotFoundEceptionInMethodCall",
+        "operationId" : "handleNotFoundEceptionInMethodCallUsingGET__exception_method-error-specific-response-code_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    },
+    "/exception/method-error/{id}" : {
+      "get" : {
+        "tags" : [ "exceptions-resource" ],
+        "summary" : "handleRuntimeExceptionInCalledMethod",
+        "operationId" : "handleRuntimeExceptionInCalledMethodUsingGET__exception_method-error_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/exception/simple-error/{id}" : {
+      "get" : {
+        "tags" : [ "exceptions-resource" ],
+        "summary" : "handleRuntimeExceptionInMethod",
+        "operationId" : "handleRuntimeExceptionInMethodUsingGET__exception_simple-error_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/nested-exception/deep-nested-error-concrete-class/{id}" : {
+      "get" : {
+        "tags" : [ "nested-exceptions-resource" ],
+        "summary" : "handleDeepNestedNotFoundExceptionInConcreteClassMethodCall",
+        "operationId" : "handleDeepNestedNotFoundExceptionInConcreteClassMethodCallUsingGET__nested-exception_deep-nested-error-concrete-class_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/nested-exception/nested-error-concrete-class/{id}" : {
+      "get" : {
+        "tags" : [ "nested-exceptions-resource" ],
+        "summary" : "handleForbiddenExceptionInConcreteClassMethodCall",
+        "operationId" : "handleForbiddenExceptionInConcreteClassMethodCallUsingGET__nested-exception_nested-error-concrete-class_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        }
+      }
+    },
+    "/nested-exception/nested-error-interface/{id}" : {
+      "get" : {
+        "tags" : [ "nested-exceptions-resource" ],
+        "summary" : "handleInternalServerExceptionInInterfaceImplementation",
+        "operationId" : "handleInternalServerExceptionInInterfaceImplementationUsingGET__nested-exception_nested-error-interface_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/nested-exception/nested-error-concrete-class-static-call/{id}" : {
+      "get" : {
+        "tags" : [ "nested-exceptions-resource" ],
+        "summary" : "handleNotFoundExceptionInConcreteClassStaticMethodCall",
+        "operationId" : "handleNotFoundExceptionInConcreteClassStaticMethodCallUsingGET__nested-exception_nested-error-concrete-class-static-call_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      }
+    }
+  }
+}
