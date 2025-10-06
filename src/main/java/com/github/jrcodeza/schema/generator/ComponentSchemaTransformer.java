@@ -1,8 +1,8 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jrcodeza.schema.generator.filters.SchemaFieldFilter;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
 import com.github.jrcodeza.schema.generator.model.InheritanceInfo;
@@ -14,27 +14,21 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spoon.reflect.declaration.CtEnum;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.*;
+import spoon.reflect.reference.CtTypeParameterReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static com.github.jrcodeza.schema.generator.util.GeneratorUtils.shouldBeIgnored;
-
 
 public class ComponentSchemaTransformer {
 
     private final List<SchemaFieldInterceptor> schemaFieldInterceptors;
-    private AtomicReference<SchemaFieldFilter> schemaFieldFilter;
     private final SchemaGeneratorHelper schemaGeneratorHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(ComponentSchemaTransformer.class);
@@ -42,12 +36,10 @@ public class ComponentSchemaTransformer {
     private final ValidationAnnotationProvider validationAnnotationProvider;
 
     public ComponentSchemaTransformer(List<SchemaFieldInterceptor> schemaFieldInterceptors,
-                                      AtomicReference<SchemaFieldFilter> schemaFieldFilter,
                                       SchemaGeneratorHelper schemaGeneratorHelper,
                                       ValidationAnnotationProvider validationAnnotationProvider
     ) {
         this.schemaFieldInterceptors = schemaFieldInterceptors;
-        this.schemaFieldFilter = schemaFieldFilter;
         this.schemaGeneratorHelper = schemaGeneratorHelper;
         this.validationAnnotationProvider = validationAnnotationProvider;
     }
@@ -66,9 +58,11 @@ public class ComponentSchemaTransformer {
 
         Schema<?> schema = new Schema<>();
         schema.setType("object");
-        schema.setProperties(getClassProperties(clazz, requiredFields));
         schemaGeneratorHelper.enrichWithTypeAnnotations(schema,
                 schemaGeneratorHelper.getActualAnnotations(clazz.getAnnotations()));
+
+        // Schema Properties
+        schema.setProperties(getClassProperties(clazz, requiredFields));
 
         updateRequiredFields(schema, requiredFields);
 
@@ -85,35 +79,85 @@ public class ComponentSchemaTransformer {
     }
 
     public Schema transformExternalSchema(CtTypeReference<?> type) {
-        var externalUrl = type.getPackage() != null
-                ? type.getPackage().getSimpleName() // regular class in package
-                : type.getDeclaringType().getSimpleName(); // inner class
+        var urlAndDescription = getTypeInformationForExternalSchema(type);
 
         Schema<?> schema = new Schema<>();
         schema.setType("object");
         schema.setExternalDocs(new ExternalDocumentation()
-                .url(externalUrl)
-                .description("external package")
+                .url(urlAndDescription.getValue0())
+                .description(urlAndDescription.getValue1())
         );
 
         return schema;
     }
 
+    private Pair<String, String> getTypeInformationForExternalSchema(CtTypeReference<?> type) {
+        var genericExternalPackageString = "external package";
+
+        if (type.getPackage() != null)
+            // regular class in package
+            return new Pair<>(type.getPackage().getSimpleName(), genericExternalPackageString);
+
+        else if (type.getDeclaringType() != null)
+            // inner class
+            return new Pair<>(type.getDeclaringType().getPackage().toString(), "Inner class: " + type.getDeclaringType().getSimpleName());
+
+        else {
+            var declaration = tryGetGenericTypeDeclaration(type);
+
+            if (declaration != null)
+                // generic parameter
+                return new Pair<>(tryGetClassDeclaringGenericType(type), "Generic parameter: " + declaration);
+
+            else {
+                System.out.println("Encountered unknown, unparsable type: " + type.toStringDebug());
+                return new Pair<>("unknown", type.toString());
+            }
+        }
+
+    }
+
     /**
-     * Creates a special schema for unspecified types, eg ResponseEntity or ResponseEntity<\?>.
+     * Returns the declaration string of a generic type parameter, e.g., T extends Serializable,
+     * or null if the type is not a generic type.
      *
      * @param type
      * @return
      */
-    public Schema transformUnspecifiedSchema(CtTypeReference<?> type) {
-        Schema<?> schema = new Schema<>();
-        schema.setType("object");
-        schema.setExternalDocs(new ExternalDocumentation()
-                .url("unspecified") // mandatory OpenAPI property
-                .description("Unspecified return type, e.g., ResponseEntity<?>")
-        );
+    private String tryGetGenericTypeDeclaration(CtTypeReference<?> type) {
+        if (type instanceof CtTypeParameterReference typeParamRef) {
+            CtTypeParameter declaration = typeParamRef.getDeclaration();
+            if (declaration != null) {
+                return declaration.toString();
+            }
+        }
+        return null;
+    }
 
-        return schema;
+    /**
+     * Returns the fully qualified name of the class declaring the generic type parameter, e.g., {@code XX} for {@code X<T>},
+     * or null if the type is not a generic type.
+     *
+     * @param type
+     * @return
+     */
+    private String tryGetClassDeclaringGenericType(CtTypeReference<?> type) {
+        return Optional.ofNullable(type)
+                .map(CtElement::getParent)
+                .map(CtElement::getParent)
+                .filter(CtClass.class::isInstance)
+                .map(CtClass.class::cast)
+                .map(CtClass::getQualifiedName)
+                .orElse(null);
+    }
+
+    /**
+     * Creates a special schema for unspecified types, eg ResponseEntity or ResponseEntity<\?>.
+     *
+     * @return
+     */
+    public Schema<?> transformUnspecifiedSchema() {
+        return schemaGeneratorHelper.createUnspecifiedSchema();
     }
 
     private Discriminator createDiscriminator(InheritanceInfo inheritanceInfo) {
@@ -197,6 +241,12 @@ public class ComponentSchemaTransformer {
         }
     }
 
+    /**
+     * Returns the properties for the schema component, either based on fields or getter methods.
+     * @param clazz
+     * @param requiredFields
+     * @return
+     */
     private Map<String, Schema> getClassProperties(CtType<?> clazz, List<String> requiredFields) {
         Map<String, Schema> classPropertyMap = new HashMap<>();
 
@@ -205,75 +255,130 @@ public class ComponentSchemaTransformer {
             if (field.isStatic())
                 continue;
 
-            getFieldSchema(clazz, field, requiredFields).ifPresent(schema -> {
+            getFieldSchema(field, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
-                classPropertyMap.put(field.getSimpleName(), schema);
+                classPropertyMap.put(schema.getName(), schema);
             });
+        }
+
+        // if no regular fields were found,
+        // consider getter methods, e.g., for interfaces with elaborate deserialization
+        if (classPropertyMap.isEmpty()) {
+            for (CtMethod<?> method : clazz.getMethods()) {
+                // dont consider static methods
+                if (method.isStatic())
+                    continue;
+
+                // dont consider non-getter methods
+                if (!method.getSimpleName().startsWith("get"))
+                    continue;
+
+                getMethodSchema(method, requiredFields).ifPresent(schema -> {
+                    schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
+                    classPropertyMap.put(schema.getName(), schema);
+                });
+            }
         }
 
         return classPropertyMap;
     }
 
-    private Optional<Schema> getFieldSchema(CtType<?> clazz, CtField<?> field, List<String> requiredFields) {
-        if (shouldIgnoreField(clazz, field)) {
-            return Optional.empty();
+    private Optional<Schema> getFieldSchema(CtField<?> field, @Out List<String> requiredFields) {
+        String simpleName = field.getSimpleName();
+        CtTypeReference<?> typeSignature = field.getType();
+        List<CtAnnotation<?>> ctAnnotations = field.getAnnotations();
+
+        return getFieldOrMethodSchema(simpleName, typeSignature, ctAnnotations, requiredFields);
+    }
+
+    private Optional<Schema> getMethodSchema(CtMethod<?> method, @Out List<String> requiredFields) {
+        String simpleName = convertGetterMethodToPropertyName(method.getSimpleName());
+        CtTypeReference<?> typeSignature = method.getType();
+        List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
+
+        return getFieldOrMethodSchema(simpleName, typeSignature, ctAnnotations, requiredFields);
+    }
+
+    /**
+     * Converts getSomeParam() -> "someParam".
+     * This method does not handle JsonProperty annotations. This happens during schema generation.
+     *
+     * @param getterMethodName
+     * @return
+     */
+    private String convertGetterMethodToPropertyName(String getterMethodName) {
+        if (getterMethodName == null || !getterMethodName.startsWith("get") || getterMethodName.length() == 3) {
+            return "unknown-param-name";
         }
 
-        CtTypeReference<?> typeSignature = field.getType();
-        Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
+        // remove "get"
+        String base = getterMethodName.substring(3);
+        // Lowercase first character of the property name
+        return Character.toLowerCase(base.charAt(0)) + base.substring(1);
+    }
 
-        // Translate variable names if @JsonProperty annotation exists
+    private Optional<Schema> getFieldOrMethodSchema(String simpleName, CtTypeReference<?> typeSignature, List<CtAnnotation<?>> ctAnnotations, @Out List<String> requiredFields) {
+        Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+
+        simpleName = tryGetNameFromJsonPropertyAnnotations(simpleName, annotations);
+
+        if (isRequired(annotations)) {
+            requiredFields.add(simpleName);
+        }
+
+        Optional<Schema> resultSchema;
+
+        if (typeSignature.isPrimitive()) {
+            resultSchema = createBaseTypeSchema(typeSignature, requiredFields, annotations);
+        } else if (typeSignature.isArray()) {
+            resultSchema = createArrayTypeSchema(typeSignature, annotations);
+        } else if (StringUtils.equalsIgnoreCase(typeSignature.getQualifiedName(), "java.lang.Object")) {
+            ObjectSchema objectSchema = new ObjectSchema();
+            objectSchema.setName(simpleName);
+            resultSchema = Optional.of(objectSchema);
+        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, List.class)) {
+            // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
+            CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParam(typeSignature);
+            resultSchema = Optional.of(schemaGeneratorHelper.parseArraySignature(listGenericParameter, annotations));
+        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, Map.class)) {
+            // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
+            CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParamAt(typeSignature, 1); // 0th is always object
+            resultSchema = Optional.of(schemaGeneratorHelper.parseDictSignature(listGenericParameter, annotations));
+        } else {
+            resultSchema = createClassRefSchema(typeSignature, annotations);
+        }
+
+        // update the schema name based on the actual name used during de/serialization
+        if (resultSchema.isPresent())
+            resultSchema.get().setName(simpleName);
+
+        return resultSchema;
+    }
+
+    /**
+     * Translate variable names if @JsonProperty annotation exists
+     *
+     * @param originalSimpleName
+     * @param annotations
+     * @return
+     */
+    private String tryGetNameFromJsonPropertyAnnotations(String originalSimpleName, Annotation[] annotations) {
+        String newSimpleName = originalSimpleName;
+
         for (Annotation annotation : annotations) {
             if (annotation instanceof JsonProperty jsonProperty) {
                 String jsonPropertyValue = jsonProperty.value();
 
                 if (jsonPropertyValue != null) {
-                    logger.info("Found @JsonProperty with value: {}, replacing original field name: {}", jsonPropertyValue, field.getSimpleName());
-                    field.setSimpleName(jsonPropertyValue);
+                    logger.info("Found @JsonProperty with value: {}, replacing original field name: {}", jsonPropertyValue, originalSimpleName);
+                    newSimpleName = jsonPropertyValue;
                 }
             }
         }
 
-        if (isRequired(annotations)) {
-            requiredFields.add(field.getSimpleName());
-        }
-
-        if (typeSignature.isPrimitive()) {
-            return createBaseTypeSchema(field, requiredFields, annotations);
-        } else if (typeSignature.isArray()) {
-            return createArrayTypeSchema(typeSignature, annotations);
-        } else if (StringUtils.equalsIgnoreCase(typeSignature.getQualifiedName(), "java.lang.Object")) {
-            ObjectSchema objectSchema = new ObjectSchema();
-            objectSchema.setName(field.getSimpleName());
-            return Optional.of(objectSchema);
-        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, List.class)) {
-            // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
-            CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParam(typeSignature);
-            return Optional.of(schemaGeneratorHelper.parseArraySignature(listGenericParameter, annotations));
-        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, Map.class)) {
-            // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
-            CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParamAt(typeSignature, 1); // 0th is always object
-            return Optional.of(schemaGeneratorHelper.parseDictSignature(listGenericParameter, annotations));
-        } else {
-            return createClassRefSchema(typeSignature, annotations);
-        }
+        return newSimpleName;
     }
 
-    private boolean shouldIgnoreField(Class<?> clazz, Field field) {
-        if (shouldBeIgnored(field)) {
-            return true;
-        }
-
-        return schemaFieldFilter.get() != null && schemaFieldFilter.get().shouldIgnore(clazz, field);
-    }
-
-    private boolean shouldIgnoreField(CtType<?> clazz, CtField<?> field) {
-        if (shouldBeIgnored(field)) {
-            return true;
-        }
-
-        return schemaFieldFilter.get() != null && schemaFieldFilter.get().shouldIgnore(clazz, field);
-    }
 
     private Optional<Schema> createClassRefSchema(CtTypeReference<?> typeClass, Annotation[] annotations) {
         Schema<?> schema = schemaGeneratorHelper.parseClassRefTypeSignature(typeClass, annotations);
@@ -288,13 +393,13 @@ public class ComponentSchemaTransformer {
         return Optional.ofNullable(schema);
     }
 
-    private Optional<Schema> createBaseTypeSchema(CtField<?> field, List<String> requiredFields, Annotation[] annotations) {
+    private Optional<Schema> createBaseTypeSchema(CtTypeReference<?> fieldOrMethodType, @Out List<String> requiredFields, Annotation[] annotations) {
         // TODO iterate through primitive datatypes and remove it from required fields (as they have default values)
         // TODO check - primitive types such as int or boolean have a default value and are not required, also when adding @NotNull
 //        if (!requiredFields.contains(field.getSimpleName())) {
 //            requiredFields.add(field.getSimpleName());
 //         }
-        Schema<?> schema = schemaGeneratorHelper.parseBaseTypeSignature(field.getType(), annotations);
+        Schema<?> schema = schemaGeneratorHelper.parseBaseTypeSignature(fieldOrMethodType, annotations);
         schemaGeneratorHelper.enrichWithTypeAnnotations(schema, annotations);
         return Optional.ofNullable(schema);
     }

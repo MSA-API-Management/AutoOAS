@@ -1,14 +1,19 @@
 package com.github.jrcodeza.schema.generator.util;
 
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import at.aau.serg.util.SpoonUtils;
 import at.aau.serg.util.Utils;
+import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.lang3.StringUtils;
+import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.TypeFactory;
@@ -18,6 +23,7 @@ import spoon.reflect.reference.CtTypeReference;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,28 +48,56 @@ public class SchemaGeneratorHelper {
         this.validationAnnotationProvider = validationAnnotationProvider;
     }
 
-    public MediaType createMediaType(CtTypeReference<?> requestBodyType,
+    /**
+     * Creates the media type for request bodies and responses.
+     *
+     * @param parameterType the type of the request body or response
+     * @param parameterName its name
+     * @return
+     */
+    public MediaType createMediaType(CtTypeReference<?> parameterType,
                                      String parameterName,
-                                     List<CtTypeReference<?>> genericParams) {
+                                     @Out AtomicBoolean isOptionalParameter) {
 
-        // todo merge DeferredResult, ResponseEntity handling logic
-        if (requestBodyType.isSubtypeOf(new TypeFactory().get(restFramework.getAsyncResultWrapper()).getReference())) {
-            // handle DeferredResult Spring wrapper, potentially containing everything
-            System.out.println("Stripping DeferredResult, this should not be needed");
-            if (!Utils.isEmpty(genericParams)) {
-                // strip DeferredResult and get ResponseEntity
-                requestBodyType = genericParams.get(0);
-                genericParams = getGenericParams(genericParams.get(0));
-            } else {
-                System.out.println("Unknown return type wrapped by DeferredResult");
+        List<CtTypeReference<?>> genericParams = this.getGenericParams(parameterType);
+
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getAsyncResultWrapper())) {
+            // strip DeferredResult Spring wrapper, potentially containing everything
+            var resultPair = this.unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (parameterType == null) {
                 return null;
             }
         }
 
-        requestBodyType = unwrapFrameworkWrapper(requestBodyType, genericParams);
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getResponseWrapper())) {
+            var resultPair = unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (parameterType == null) {
+                return null;
+            }
+        }
+
+        if (this.isTypeEquivalent(parameterType, this.restFramework.getOptionalWrapper())) {
+            var resultPair = unwrapGenericWrapper(parameterType, genericParams);
+            parameterType = resultPair.getValue0();
+            genericParams = resultPair.getValue1();
+
+            if (isOptionalParameter != null)
+                isOptionalParameter.set(true);
+
+            if (parameterType == null) {
+                return null;
+            }
+        }
+
         Schema<?> rootMediaSchema = new Schema<>();
 
-        if (isFile(requestBodyType)) {
+        if (isFile(parameterType)) {
             Schema<?> fileSchema = new Schema<>();
             fileSchema.setType("string");
             fileSchema.setFormat("binary");
@@ -77,17 +111,18 @@ public class SchemaGeneratorHelper {
                 rootMediaSchema.setProperties(properties);
             }
 
-        } else if (isCollection(requestBodyType, genericParams)) {
+        } else if (isCollection(parameterType, genericParams)) {
             rootMediaSchema = parseArraySignature(getFirstOrNull(genericParams), null, new Annotation[]{});
 
-        } else if (requestBodyType instanceof CtArrayTypeReference<?>) {
-            rootMediaSchema = parseArraySignature(((CtArrayTypeReference<?>) requestBodyType).getComponentType(), null, new Annotation[]{});
+        } else if (parameterType instanceof CtArrayTypeReference<?>) {
+            rootMediaSchema = parseArraySignature(((CtArrayTypeReference<?>) parameterType).getComponentType(), null, new Annotation[]{});
 
-        } else if (isTypeEquivalent(requestBodyType, Map.class)) {
-            rootMediaSchema = parseDictSignature(getGenericParamAt(requestBodyType, 1), new Annotation[]{});
+        } else if (isTypeEquivalent(parameterType, Map.class)) {
+            rootMediaSchema = parseDictSignature(getGenericParamAt(parameterType, 1), new Annotation[]{});
 
-        } else if (!StringUtils.equalsIgnoreCase(requestBodyType.getSimpleName(), "void")) {
-            rootMediaSchema = parseClassRefTypeSignature(requestBodyType, new Annotation[]{});
+        } else if (!StringUtils.equalsIgnoreCase(parameterType.getSimpleName(), "void")) {
+            rootMediaSchema = parseClassRefTypeSignature(parameterType, new Annotation[]{});
+
         } else {
             // void
             return null;
@@ -119,25 +154,41 @@ public class SchemaGeneratorHelper {
     }
 
     private boolean isCollection(CtTypeReference<?> requestBodyParameter, List<CtTypeReference<?>> genericTypes) {
-        var potentialListType = unwrapFrameworkWrapper(requestBodyParameter, genericTypes);
+        var potentialListType = tryUnwrapFrameworkWrapper(requestBodyParameter, genericTypes);
         return isTypeEquivalent(potentialListType, Collection.class);
     }
 
     /**
-     * TODO update naming and check if it is equivalent to old impl. Return null instead of type?
-     *   Previously, you could assume that the wrapper was always gone.
-     *   Now, the method returns the original wrapper if it does not define the generic type T
+     * Strips the framework's response wrapper if it exists,
+     * otherwise returns the {@code type}.
      *
      * @param type
      * @param genericTypes
      * @return
      */
-    private CtTypeReference<?> unwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
-        if (type.isSubtypeOf(new TypeFactory().get(this.restFramework.getResponseWrapper()).getReference())
-                && !Utils.isEmpty(genericTypes)) {
-            return genericTypes.get(genericTypes.size() - 1);
+    private CtTypeReference<?> tryUnwrapFrameworkWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+        if (this.isTypeEquivalent(type, this.restFramework.getResponseWrapper())) {
+            return unwrapGenericWrapper(type, genericTypes).getValue0();
         }
-        return type; // If no known wrapper is found, return the original type // todo <- this assumption is now wrong
+        return type; // If no known wrapper is found, return the original type
+    }
+
+    /**
+     * Strips the outermost type and returns the first generic type, or null if the outermost type was not parameterized.
+     *
+     * @param type
+     * @param genericTypes
+     * @return
+     */
+    private Pair<CtTypeReference<?>, List<CtTypeReference<?>>> unwrapGenericWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+        if (!Utils.isEmpty(genericTypes)) {
+            return new Pair<>(
+                    genericTypes.get(genericTypes.size() - 1),
+                    getGenericParams(genericTypes.get(genericTypes.size() - 1))
+            );
+        } else {
+            return new Pair<>(null, null);
+        }
     }
 
     public boolean isFile(CtTypeReference<?> type) {
@@ -176,27 +227,41 @@ public class SchemaGeneratorHelper {
     public Schema parseClassRefTypeSignature(CtTypeReference<?> typeClass,
                                              Annotation[] annotations,
                                              List<String> modelPackages) {
+        // unwrap Optional first
+        if (this.isTypeEquivalent(typeClass, this.restFramework.getOptionalWrapper())) {
+            typeClass = unwrapGenericWrapper(typeClass, getGenericParams(typeClass)).getValue0();
+        }
+
+        if (typeClass == null) {
+            return createUnspecifiedSchema();
+        }
+
+        Schema resultSchema = null;
+
         String typeName = typeClass.getSimpleName();
         if (typeName.equals("Byte") || typeName.equals("Short") || typeName.equals("Integer")) {
-            return createNumberSchema("integer", "int32", annotations);
+            resultSchema = createNumberSchema("integer", "int32", annotations);
         } else if (typeName.equals("Long") || typeName.equals("BigInteger")) {
-            return createNumberSchema("integer", "int64", annotations);
+            resultSchema = createNumberSchema("integer", "int64", annotations);
         } else if (typeName.equals("Float")) {
-            return createNumberSchema("number", "float", annotations);
+            resultSchema = createNumberSchema("number", "float", annotations);
         } else if (typeName.equals("Double") || typeName.equals("BigDecimal")) {
-            return createNumberSchema("number", "double", annotations);
+            resultSchema = createNumberSchema("number", "double", annotations);
         } else if (typeName.equals("Character") || typeName.equals("String")) {
-            return createStringSchema(null, annotations);
+            resultSchema = createStringSchema(null, annotations);
         } else if (typeName.equals("Boolean")) {
-            return createBooleanSchema();
+            resultSchema = createBooleanSchema();
         } else if (typeName.equals("List")) {
-            return createListSchema(typeClass, modelPackages, annotations);
+            resultSchema = createListSchema(typeClass, modelPackages, annotations);
         } else if (typeName.equals("LocalDate") || typeName.equals("Date")) {
-            return createStringSchema("date", annotations);
+            resultSchema = createStringSchema("date", annotations);
         } else if (typeName.equals("LocalDateTime") || typeName.equals("LocalTime")) {
-            return createStringSchema("date-time", annotations);
+            resultSchema = createStringSchema("date-time", annotations);
+        } else {
+            resultSchema = createRefSchema(typeClass, modelPackages);
         }
-        return createRefSchema(typeClass, modelPackages);
+
+        return resultSchema;
     }
 
     public Schema parseArraySignature(CtTypeReference<?> elementTypeSignature,
@@ -279,6 +344,22 @@ public class SchemaGeneratorHelper {
         }
     }
 
+    /**
+     * Creates a special schema for unspecified types, eg ResponseEntity or ResponseEntity<\?>.
+     *
+     * @return
+     */
+    public Schema<?> createUnspecifiedSchema() {
+        Schema<?> schema = new Schema<>();
+        schema.setType("object");
+        schema.setExternalDocs(new ExternalDocumentation()
+                .url("unspecified") // mandatory OpenAPI property
+                .description("Unspecified return type, e.g., ResponseEntity<?>") //, Response
+        );
+
+        return schema;
+    }
+
     private Schema<?> createObjectSchema() {
         Schema<?> schema = new Schema<>();
         schema.setType("object");
@@ -332,7 +413,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getPatternRegexpIfPresent(annotation)
                     .ifPresent(schema::pattern);
 
@@ -345,7 +426,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyNumberAnnotation(Schema<?> schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getDecimalMinValueIfPresent(annotation)
                     .ifPresent(value -> schema.setMinimum(new BigDecimal(value)));
 
@@ -361,7 +442,7 @@ public class SchemaGeneratorHelper {
     }
 
     protected void applyArrayAnnotations(ArraySchema schema, Annotation annotation) {
-        if(annotation.annotationType() != null) {
+        if (annotation.annotationType() != null) {
             validationAnnotationProvider.getSizeMinIfPresent(annotation)
                     .ifPresent(schema::minItems);
 
@@ -422,7 +503,14 @@ public class SchemaGeneratorHelper {
 
     public boolean isInPackagesToBeScanned(CtType<?> clazz, List<String> modelPackages) {
         return modelPackages == null
-                || modelPackages.stream().anyMatch(pkg -> clazz.getPackage().getQualifiedName().equals(pkg));
+                || modelPackages.stream().anyMatch(pkg -> {
+                    CtPackage clazzPackage = clazz.getPackage();
+                    if (clazzPackage != null) {
+                        return clazzPackage.getQualifiedName().equals(pkg);
+                    }
+                    return false;
+                }
+        );
     }
 
     public void enrichWithTypeAnnotations(Schema<?> schema, Annotation[] annotations) {
@@ -468,11 +556,17 @@ public class SchemaGeneratorHelper {
                 CtTypeReference<?> typeArgument = typeArguments.get(0);
                 if (typeArgument.isClass()) {
                     return singletonList(typeArgument);
+
                 } else if (typeArgument.isParameterized()) {
+                    // e.g., List<SomeClass>
                     var innerTypes = typeArgument.getActualTypeArguments();
                     return innerTypes.size() > 0
                             ? asList(innerTypes.get(0), typeArgument)
                             : null;
+
+                } else if (typeArgument.isInterface()) {
+                    // e.g., DtoInterface [without generic type]
+                    return singletonList(typeArgument);
                 }
             }
         }
@@ -511,7 +605,8 @@ public class SchemaGeneratorHelper {
      * @return
      */
     public boolean isTypeEquivalent(CtTypeReference<?> ctType, Class type) {
-        return ctType != null && ctType.isSubtypeOf(new TypeFactory().get(type).getReference());
+        // todo extract from here
+        return SpoonUtils.isTypeEquivalent(ctType, type);
     }
 
     /**

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 
 public class MethodResponseExtractor {
     private RestFramework restFramework;
@@ -25,7 +26,7 @@ public class MethodResponseExtractor {
 
         // create the API response
         HttpStatus responseStatusCode = tryResolveResponseStatus(method);
-        if (responseStatusCode == null){
+        if (responseStatusCode == null) {
 //			if (apiResponse.getContent() != null)
             responseStatusCode = restFramework.getDefaultResponseCode();
 //			else
@@ -41,7 +42,7 @@ public class MethodResponseExtractor {
 
     /**
      * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
-     *
+     * <p>
      * // todo HttpStatus / ResponseStatus is spring-specific
      *
      * @param method
@@ -66,18 +67,36 @@ public class MethodResponseExtractor {
             }
         }
 
-        if (method.getType().getSimpleName().equals("void"))
-        {
+        // TODO proper asyncResponse and server sent event handling
+        if (method.getType().getSimpleName().equals("void")) {
+            for (CtParameter<?> parameter : method.getParameters()) {
+                String parameterType = parameter.getType().toString();
+
+                if (hasAnnotation(parameter, "Suspended") &&
+                        parameterType.endsWith("AsyncResponse")) {
+                    return restFramework.getDefaultResponseCode();
+                }
+
+                if (hasAnnotation(parameter, "Context") &&
+                        parameterType.endsWith("SseEventSink")) {
+                    return restFramework.getDefaultResponseCode();
+                }
+            }
             return restFramework.getVoidMethodStatusCode();
         }
 
         return null;
     }
 
-    private String getStatusCodeFromApiResponseAnnotation(io.swagger.v3.oas.annotations.responses.ApiResponse response){
+    private boolean hasAnnotation(CtParameter<?> parameter, String annotationName) {
+        return parameter.getAnnotations().stream()
+                .anyMatch(annotation -> annotation.getAnnotationType().getSimpleName().equals(annotationName));
+    }
+
+    private String getStatusCodeFromApiResponseAnnotation(io.swagger.v3.oas.annotations.responses.ApiResponse response) {
         String defaultVal;
         try {
-            defaultVal = (String)io.swagger.v3.oas.annotations.responses.ApiResponse.class.getDeclaredMethod("responseCode").getDefaultValue();
+            defaultVal = (String) io.swagger.v3.oas.annotations.responses.ApiResponse.class.getDeclaredMethod("responseCode").getDefaultValue();
         } catch (NoSuchMethodException e) {
             defaultVal = "default";
         }

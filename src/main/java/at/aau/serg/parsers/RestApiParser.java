@@ -15,10 +15,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
-import org.javatuples.Pair;
-import spoon.MavenLauncher;
-import spoon.OutputType;
 import spoon.reflect.CtModel;
+import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtPackage;
@@ -26,6 +24,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -40,24 +39,66 @@ public class RestApiParser {
 
     protected CtModel model;
     protected String projectName;
+    protected String restApiModulePath;
+    private String restApiModulePathWithTrailingSeparator;
     protected String outputFileName;
     private RestFramework restFramework;
 
-    protected RestApiParser(String outputFileName) {
-        this.outputFileName = outputFileName;
-    }
-
+    /**
+     * Automatically creates a Spoon model for the project in {@code projectPath} to detect REST APIs implemented in {@code restFramework}.
+     *
+     * @param projectPath    The path to the project under analysis
+     * @param outputFileName
+     * @param restFramework
+     */
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework) {
-        this(outputFileName);
-        this.restFramework = restFramework;
-        this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
-        this.model = new SpoonModelLoader().loadModel(projectPath);
+        this(projectPath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
     }
 
+    /**
+     * Automatically creates a Spoon model for the project in {@code projectPath}
+     * to detect REST APIs implemented in {@code restFramework} inside the {@code restApiModulePath}.
+     *
+     * @param projectPath       The path to the project under analysis
+     * @param restApiModulePath The path to the API module in the multi-module project in {@code projectPath}
+     * @param outputFileName
+     * @param restFramework
+     */
+    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework) {
+        this(projectPath, restApiModulePath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
+    }
+
+    /**
+     * Uses the Spoon model {@code model} for the project in {@code projectPath}} to detect REST APIs implemented in {@code restFramework}.
+     *
+     * @param projectPath    The path to the project under analysis
+     * @param outputFileName
+     * @param restFramework
+     * @param model          The model of the project in {@code projectPath}
+     */
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, CtModel model) {
-        this(outputFileName);
-        this.restFramework = restFramework;
+        this(projectPath, projectPath, outputFileName, restFramework, model);
+    }
+
+    /**
+     * Uses the Spoon model {@code model} for the project in {@code projectPath}
+     * to detect REST APIs implemented in {@code restFramework} inside the {@code restApiModulePath}.
+     *
+     * @param projectPath       The path to the project under analysis
+     * @param restApiModulePath The path to the API module in the multi-module project in {@code projectPath}
+     * @param outputFileName
+     * @param restFramework
+     * @param model             The model of the project in {@code projectPath}
+     */
+    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework, CtModel model) {
         this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
+        this.restApiModulePath = restApiModulePath;
+        this.restApiModulePathWithTrailingSeparator = restApiModulePath.endsWith(File.separator)
+                ? restApiModulePath
+                : restApiModulePath + File.separator;
+        this.outputFileName = outputFileName;
+        this.restFramework = restFramework;
+
         this.model = model;
     }
 
@@ -92,7 +133,7 @@ public class RestApiParser {
         operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer, methodResponseExtractor,
                 new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor)),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
-        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), new AtomicReference<>(), schemaHelper, annotationProvider);
+        schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), schemaHelper, annotationProvider);
 
         Map<String, List<CtType<?>>> controllerClassesPerProfile = restFramework.splitClassesOnProfiles(controllerClasses);
         System.out.println("Detected profiles: " + controllerClassesPerProfile.keySet());
@@ -150,34 +191,60 @@ public class RestApiParser {
         Paths operationsMap = new Paths();
 
         // contains the concreteType (most concrete implementation class) and currentType (iteratively towards super).
-        List<Pair<CtType, CtType>> notProcessedControllerClasses =
-                controllerClasses.stream().map(t -> Pair.with((CtType) t, (CtType) t)).collect(Collectors.toList());
+        List<ControllerClassProcessingInformation> notProcessedControllerClasses =
+                controllerClasses.stream().map(t -> new ControllerClassProcessingInformation(t, t)).collect(Collectors.toList());
+
+        List<ControllerClassProcessingInformation> alreadyProcessedControllerClasses = new LinkedList<>();
 
         while (notProcessedControllerClasses.size() > 0) {
             var curControllerClasses = new ArrayList<>(notProcessedControllerClasses);
 
-            for (Pair<CtType, CtType> typePair : curControllerClasses) {
+            for (ControllerClassProcessingInformation typeInfo : curControllerClasses) {
 
-                CtType<?> concreteType = typePair.getValue0();
-                CtType<?> currentType = typePair.getValue1();
+                CtType<?> concreteType = typeInfo.getConcreteControllerType();
+                CtType<?> currentType = typeInfo.getCurrentSuperclassType();
+
+                String controllerBasePath = typeInfo.getBasePath() + '/' + operationsTransformer.getBaseControllerPath(concreteType);
 
                 for (CtMethod<?> method : currentType.getMethods()) {
                     // Adds the operation for the method to the operationsMap
                     operationsTransformer.createOperation(
-                            method, operationsTransformer.getBaseControllerPath(concreteType),
+                            method, controllerBasePath,
                             operationsMap, concreteType.getSimpleName());
                 }
 
+                // traversing down the controller's sub-resources
+                var subResources = findSubResourcesInController(currentType, controllerBasePath);
+                if (subResources != null)
+                    notProcessedControllerClasses.addAll(subResources);
+
+                // traversing up the controller class's inheritance
                 if (currentType.getSuperclass() != null)
-                    notProcessedControllerClasses.add(Pair.with(concreteType, currentType.getSuperclass().getTypeDeclaration()));
+                    notProcessedControllerClasses.add(new ControllerClassProcessingInformation(concreteType, currentType.getSuperclass().getTypeDeclaration()));
             }
 
-            notProcessedControllerClasses.removeAll(curControllerClasses);
+            // store all processed controller classes if they are referenced again (e.g., some loop or redirect)
+            // fixme with this impl we effectively ignore all paths to a controller, other than the first encountered
+            alreadyProcessedControllerClasses.addAll(curControllerClasses);
+            notProcessedControllerClasses.removeAll(alreadyProcessedControllerClasses);
         }
 
         operationsTransformer.fixDuplicateOperationIds(operationsMap);
 
         return operationsMap;
+    }
+
+    private List<ControllerClassProcessingInformation> findSubResourcesInController(CtType<?> controllerType, String basePath) {
+        return restFramework.getSubResourcesInController(controllerType)
+                .stream()
+                .map(subResource ->
+                        new ControllerClassProcessingInformation(
+                                subResource.getType(),
+                                subResource.getType(),
+                                basePath + '/' + subResource.getPath()
+                        )
+                )
+                .collect(Collectors.toList());
     }
 
     /**
@@ -206,7 +273,7 @@ public class RestApiParser {
                     transformedComponentSchema = schemaTransformer.transformSimpleSchema(modelClass, inheritanceMap);
                 else if (modelClassRef.getSimpleName().equals(DataTypeTransformer.UNSPECIFIED_SIMPLE_NAME)) {
                     // ignored on purpose during path generation
-                    transformedComponentSchema = schemaTransformer.transformUnspecifiedSchema(modelClassRef);
+                    transformedComponentSchema = schemaTransformer.transformUnspecifiedSchema();
                 } else {
                     // happens if the type is not defined inside the project, e.g., org.springframework.web.servlet.ModelAndView
                     transformedComponentSchema = schemaTransformer.transformExternalSchema(modelClassRef);
@@ -238,7 +305,9 @@ public class RestApiParser {
             for (CtType<?> type : pkg.getTypes()) {
                 for (CtAnnotation<?> annotation : type.getAnnotations()) {
                     String annotationName = annotation.getAnnotationType().toString();
-                    if (annotationName != null && this.restFramework.getControllerAnnotations().contains(annotationName)) {
+                    if (annotationName != null
+                            && this.restFramework.getControllerAnnotations().contains(annotationName)
+                            && isTypeInRestApiModule(type.getPosition())) {
                         controllerClasses.add(type);
                         break; // annotations
                     }
@@ -257,5 +326,16 @@ public class RestApiParser {
         }
 
         return new RelevantClasses(controllerClasses, globalExceptionHandlerClasses, explicitModelClasses);
+    }
+
+    // fixme performance intensive operation
+    private boolean isTypeInRestApiModule(SourcePosition typePosition) {
+        if (!typePosition.isValidPosition())
+            return false;
+
+        Path file = typePosition.getFile().toPath().toAbsolutePath().normalize();
+        Path restApiModule = Path.of(restApiModulePath).toAbsolutePath().normalize();
+
+        return file.startsWith(restApiModule);
     }
 }

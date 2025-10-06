@@ -8,19 +8,18 @@ import java.lang.reflect.Modifier;
 
 public final class GeneratorUtils {
 
-	private GeneratorUtils() {
-		throw new AssertionError();
-	}
+    private GeneratorUtils() {
+        throw new AssertionError();
+    }
 
-	public static boolean shouldBeIgnored(AnnotatedElement annotatedElement) {
-		return false; // annotatedElement.getAnnotation(OpenApiIgnore.class) != null;
-	}
-
-	public static boolean shouldBeIgnored(Field field) {
-		return Modifier.isStatic(field.getModifiers()) || shouldBeIgnored((AnnotatedElement) field);
-	}
-
-	public static boolean shouldBeIgnored(CtElement annotatedElement) {
-		return false; // annotatedElement.getAnnotation(OpenApiIgnore.class) != null;
-	}
+    /**
+     * ALWAYS FALSE
+     *
+     * @param annotatedElement
+     * @return false
+     */
+    @Deprecated
+    public static boolean shouldBeIgnored(CtElement annotatedElement) {
+        return false; // annotatedElement.getAnnotation(OpenApiIgnore.class) != null;
+    }
 }

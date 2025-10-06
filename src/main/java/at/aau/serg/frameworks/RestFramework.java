@@ -120,11 +120,23 @@ public interface RestFramework {
     }
 
     /**
-     * Returns the class that wraps HTTP responses in the current framework.
+     * Returns the class used for handling asynchronous results in the current framework, e.g., CompletionStage or DeferredResult.
+     *
+     * @return The class type used for asynchronous result handling
+     */
+    Class<?> getAsyncResultWrapper();
+
+    /**
+     * Returns the class that wraps HTTP responses in the current framework, e.g., Response or ResponseEntity.
      *
      * @return The class type used for wrapping HTTP responses
      */
     Class<?> getResponseWrapper();
+
+    default Class<?> getOptionalWrapper() {
+        // com.google.common.base.Optional.class
+        return Optional.class;
+    }
 
     /**
      * Returns the class used to represent uploaded files in the current framework.
@@ -132,13 +144,6 @@ public interface RestFramework {
      * @return The class type used for handling uploaded files
      */
     Class<?> getSupportedFileType();
-
-    /**
-     * Returns the class used for handling asynchronous results in the current framework.
-     *
-     * @return The class type used for asynchronous result handling
-     */
-    Class<?> getAsyncResultWrapper();
 
     /**
      * Returns the annotation class that represents a parameter object as multiple parameters (ie, group) in the framework.
@@ -153,6 +158,14 @@ public interface RestFramework {
      * @return The annotation class that marks request body parameters in the framework
      */
     Class<? extends Annotation> getRequestBodyAnnotation();
+
+    /**
+     * If not-null, this framework marks sub-resources returned by controllers with this annotation,
+     * e.g., JAX RS's sub-resource locators with {@code @Path}.
+     *
+     * @return
+     */
+    List<SubResource> getSubResourcesInController(CtType<?> controllerType);
 
     /**
      * Returns the first parameter of a parameter list that is the RequestBody
@@ -174,7 +187,7 @@ public interface RestFramework {
      * @param method The method to search for POST mapping annotations
      * @return An Optional containing the POST mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findPostMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PUT mapping annotation from a method if present.
@@ -182,7 +195,7 @@ public interface RestFramework {
      * @param method The method to search for PUT mapping annotations
      * @return An Optional containing the PUT mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findPutMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findPutMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the PATCH mapping annotation from a method if present.
@@ -190,7 +203,7 @@ public interface RestFramework {
      * @param method The method to search for PATCH mapping annotations
      * @return An Optional containing the PATCH mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findPatchMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findPatchMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the GET mapping annotation from a method if present.
@@ -198,7 +211,7 @@ public interface RestFramework {
      * @param method The method to search for GET mapping annotations
      * @return An Optional containing the GET mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findGetMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findGetMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves the DELETE mapping annotation from a method if present.
@@ -206,7 +219,7 @@ public interface RestFramework {
      * @param method The method to search for DELETE mapping annotations
      * @return An Optional containing the DELETE mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findDeleteMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findDeleteMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves a generic request mapping annotation from a method if present.
@@ -214,7 +227,7 @@ public interface RestFramework {
      * @param method The method to search for request mapping annotations
      * @return An Optional containing the request mapping annotation if found, or an empty Optional otherwise
      */
-    Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method);
+    Optional<? extends Annotation> findRequestMappingAnnotation(CtMethod<?> method);
 
     /**
      * Retrieves and converts a generic request mapping annotation from a class to a standardized form if present.
@@ -287,4 +300,5 @@ public interface RestFramework {
      * @return
      */
     HttpStatus getVoidMethodStatusCode();
+
 }

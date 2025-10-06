@@ -226,6 +226,167 @@
         }
       }
     },
+    "/optionals/in-response/obj" : {
+      "get" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "getOptionalSimple",
+        "operationId" : "getOptionalSimpleUsingGET__optionals_in-response_obj",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/optionals/in-response/response-with-obj" : {
+      "get" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "getResponseWithOptionalSimple",
+        "operationId" : "getResponseWithOptionalSimpleUsingGET__optionals_in-response_response-with-obj",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/optionals/in-request/primitive" : {
+      "post" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "postInt",
+        "operationId" : "postIntUsingPOST__optionals_in-request_primitive",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/optionals/in-request/obj-with-optional-field" : {
+      "post" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "postObj",
+        "operationId" : "postObjUsingPOST__optionals_in-request_obj-with-optional-field",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OptionalSimple"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/optionals/in-request/obj" : {
+      "post" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "postObj",
+        "operationId" : "postObjUsingPOST__optionals_in-request_obj",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Simple"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/optionals/in-request/string" : {
+      "post" : {
+        "tags" : [ "optional-requests-resource" ],
+        "summary" : "postString",
+        "operationId" : "postStringUsingPOST__optionals_in-request_string",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/dto-with-getters/dto" : {
+      "put" : {
+        "tags" : [ "request-body-getter-methods-resource" ],
+        "summary" : "put",
+        "operationId" : "putUsingPUT__dto-with-getters_dto",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DtoWithGetters"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
     "/body/formparam-body" : {
       "post" : {
         "tags" : [ "request-body-resource" ],
@@ -578,6 +739,29 @@
   },
   "components" : {
     "schemas" : {
+      "OptionalSimple" : {
+        "type" : "object",
+        "properties" : {
+          "simple" : {
+            "$ref" : "#/components/schemas/Simple"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "DtoWithGetters" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "string"
+          }
+        }
+      },
       "UNSPECIFIED_TYPE" : {
         "type" : "object",
         "externalDocs" : {
@@ -591,6 +775,13 @@
           "name" : {
             "type" : "string"
           }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
         }
       },
       "ComplexJsonProperty" : {

@@ -6,11 +6,11 @@
     "version" : ""
   },
   "paths" : {
-    "//api/admin/attempts/{id}/userinfo" : {
+    "/api/admin/attempts/{id}/userinfo" : {
       "get" : {
         "tags" : [ "admin-resource" ],
         "summary" : "getUserInfo",
-        "operationId" : "getUserInfoUsingGET___api_admin_attempts_id_userinfo",
+        "operationId" : "getUserInfoUsingGET__api_admin_attempts_id_userinfo",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -31,17 +31,17 @@
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
     },
-    "//api/attempts/{id}" : {
+    "/api/attempts/{id}" : {
       "get" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "getAttempt",
-        "operationId" : "getAttemptUsingGET___api_attempts_id",
+        "operationId" : "getAttemptUsingGET__api_attempts_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -65,11 +65,11 @@
         }
       }
     },
-    "//api/attempts/{id}/retries" : {
+    "/api/attempts/{id}/retries" : {
       "get" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "getAttemptRetries",
-        "operationId" : "getAttemptRetriesUsingGET___api_attempts_id_retries",
+        "operationId" : "getAttemptRetriesUsingGET__api_attempts_id_retries",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -93,11 +93,11 @@
         }
       }
     },
-    "//api/attempts" : {
+    "/api/attempts" : {
       "get" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "getAttempts",
-        "operationId" : "getAttemptsUsingGET___api_attempts",
+        "operationId" : "getAttemptsUsingGET__api_attempts",
         "parameters" : [ {
           "name" : "project",
           "in" : "query",
@@ -152,7 +152,7 @@
       "put" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "startAttempt",
-        "operationId" : "startAttemptUsingPUT___api_attempts",
+        "operationId" : "startAttemptUsingPUT__api_attempts",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "requestBody",
@@ -189,11 +189,11 @@
         }
       }
     },
-    "//api/attempts/{id}/tasks" : {
+    "/api/attempts/{id}/tasks" : {
       "get" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "getTasks",
-        "operationId" : "getTasksUsingGET___api_attempts_id_tasks",
+        "operationId" : "getTasksUsingGET__api_attempts_id_tasks",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -217,11 +217,11 @@
         }
       }
     },
-    "//api/attempts/{id}/kill" : {
+    "/api/attempts/{id}/kill" : {
       "post" : {
         "tags" : [ "attempt-resource" ],
         "summary" : "killAttempt",
-        "operationId" : "killAttemptUsingPOST___api_attempts_id_kill",
+        "operationId" : "killAttemptUsingPOST__api_attempts_id_kill",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -248,11 +248,11 @@
         }
       }
     },
-    "//api/logs/{attempt_id}/files/{file_name}" : {
+    "/api/logs/{attempt_id}/files/{file_name}" : {
       "get" : {
         "tags" : [ "log-resource" ],
         "summary" : "getFile",
-        "operationId" : "getFileUsingGET___api_logs_attempt_id_files_file_name",
+        "operationId" : "getFileUsingGET__api_logs_attempt_id_files_file_name",
         "parameters" : [ {
           "name" : "attempt_id",
           "in" : "path",
@@ -286,11 +286,11 @@
         }
       }
     },
-    "//api/logs/{attempt_id}/files" : {
+    "/api/logs/{attempt_id}/files" : {
       "get" : {
         "tags" : [ "log-resource" ],
         "summary" : "getFileHandles",
-        "operationId" : "getFileHandlesUsingGET___api_logs_attempt_id_files",
+        "operationId" : "getFileHandlesUsingGET__api_logs_attempt_id_files",
         "parameters" : [ {
           "name" : "attempt_id",
           "in" : "path",
@@ -328,11 +328,11 @@
         }
       }
     },
-    "//api/projects/{id}" : {
+    "/api/projects/{id}" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getProject",
-        "operationId" : "getProjectUsingGET___api_projects_id",
+        "operationId" : "getProjectUsingGET__api_projects_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -358,7 +358,7 @@
       "delete" : {
         "tags" : [ "project-resource" ],
         "summary" : "deleteProject",
-        "operationId" : "deleteProjectUsingDELETE___api_projects_id",
+        "operationId" : "deleteProjectUsingDELETE__api_projects_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -382,11 +382,11 @@
         }
       }
     },
-    "//api/projects/{id}/secrets/{key}" : {
+    "/api/projects/{id}/secrets/{key}" : {
       "put" : {
         "tags" : [ "project-resource" ],
         "summary" : "putProjectSecret",
-        "operationId" : "putProjectSecretUsingPUT___api_projects_id_secrets_key",
+        "operationId" : "putProjectSecretUsingPUT__api_projects_id_secrets_key",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -433,7 +433,7 @@
       "delete" : {
         "tags" : [ "project-resource" ],
         "summary" : "deleteProjectSecret",
-        "operationId" : "deleteProjectSecretUsingDELETE___api_projects_id_secrets_key",
+        "operationId" : "deleteProjectSecretUsingDELETE__api_projects_id_secrets_key",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -467,11 +467,11 @@
         }
       }
     },
-    "//api/projects/{id}/archive" : {
+    "/api/projects/{id}/archive" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getArchive",
-        "operationId" : "getArchiveUsingGET___api_projects_id_archive",
+        "operationId" : "getArchiveUsingGET__api_projects_id_archive",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -496,6 +496,9 @@
           }
         } ],
         "responses" : {
+          "303" : {
+            "description" : "See Other"
+          },
           "200" : {
             "description" : "OK",
             "content" : {
@@ -506,17 +509,17 @@
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
     },
-    "//api/project" : {
+    "/api/project" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getProject",
-        "operationId" : "getProjectUsingGET___api_project",
+        "operationId" : "getProjectUsingGET__api_project",
         "parameters" : [ {
           "name" : "name",
           "in" : "query",
@@ -539,11 +542,11 @@
         }
       }
     },
-    "//api/projects/{id}/secrets" : {
+    "/api/projects/{id}/secrets" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getProjectSecrets",
-        "operationId" : "getProjectSecretsUsingGET___api_projects_id_secrets",
+        "operationId" : "getProjectSecretsUsingGET__api_projects_id_secrets",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -555,16 +558,23 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestSecretList"
+                }
+              }
+            }
           }
         }
       }
     },
-    "//api/projects" : {
+    "/api/projects" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getProjects",
-        "operationId" : "getProjectsUsingGET___api_projects",
+        "operationId" : "getProjectsUsingGET__api_projects",
         "parameters" : [ {
           "name" : "name",
           "in" : "query",
@@ -612,7 +622,7 @@
       "put" : {
         "tags" : [ "project-resource" ],
         "summary" : "putProject",
-        "operationId" : "putProjectUsingPUT___api_projects",
+        "operationId" : "putProjectUsingPUT__api_projects",
         "parameters" : [ {
           "name" : "project",
           "in" : "query",
@@ -671,11 +681,11 @@
         }
       }
     },
-    "//api/projects/{id}/revisions" : {
+    "/api/projects/{id}/revisions" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getRevisions",
-        "operationId" : "getRevisionsUsingGET___api_projects_id_revisions",
+        "operationId" : "getRevisionsUsingGET__api_projects_id_revisions",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -714,11 +724,11 @@
         }
       }
     },
-    "//api/projects/{id}/schedules" : {
+    "/api/projects/{id}/schedules" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getSchedules",
-        "operationId" : "getSchedulesUsingGET___api_projects_id_schedules",
+        "operationId" : "getSchedulesUsingGET__api_projects_id_schedules",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -757,11 +767,11 @@
         }
       }
     },
-    "//api/projects/{id}/sessions" : {
+    "/api/projects/{id}/sessions" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getSessions",
-        "operationId" : "getSessionsUsingGET___api_projects_id_sessions",
+        "operationId" : "getSessionsUsingGET__api_projects_id_sessions",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -808,11 +818,11 @@
         }
       }
     },
-    "//api/projects/{id}/workflow" : {
+    "/api/projects/{id}/workflow" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getWorkflow",
-        "operationId" : "getWorkflowUsingGET___api_projects_id_workflow",
+        "operationId" : "getWorkflowUsingGET__api_projects_id_workflow",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -850,11 +860,11 @@
         }
       }
     },
-    "//api/projects/{id}/workflows/{name}" : {
+    "/api/projects/{id}/workflows/{name}" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getWorkflowByName",
-        "operationId" : "getWorkflowByNameUsingGET___api_projects_id_workflows_name",
+        "operationId" : "getWorkflowByNameUsingGET__api_projects_id_workflows_name",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -892,11 +902,11 @@
         }
       }
     },
-    "//api/projects/{id}/workflows" : {
+    "/api/projects/{id}/workflows" : {
       "get" : {
         "tags" : [ "project-resource" ],
         "summary" : "getWorkflows",
-        "operationId" : "getWorkflowsUsingGET___api_projects_id_workflows",
+        "operationId" : "getWorkflowsUsingGET__api_projects_id_workflows",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -934,11 +944,11 @@
         }
       }
     },
-    "//api/schedules/{id}/backfill" : {
+    "/api/schedules/{id}/backfill" : {
       "post" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "backfillSchedule",
-        "operationId" : "backfillScheduleUsingPOST___api_schedules_id_backfill",
+        "operationId" : "backfillScheduleUsingPOST__api_schedules_id_backfill",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -973,11 +983,11 @@
         }
       }
     },
-    "//api/schedules/{id}/disable" : {
+    "/api/schedules/{id}/disable" : {
       "post" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "disableSchedule",
-        "operationId" : "disableScheduleUsingPOST___api_schedules_id_disable",
+        "operationId" : "disableScheduleUsingPOST__api_schedules_id_disable",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1001,11 +1011,11 @@
         }
       }
     },
-    "//api/schedules/{id}/enable" : {
+    "/api/schedules/{id}/enable" : {
       "post" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "enableSchedule",
-        "operationId" : "enableScheduleUsingPOST___api_schedules_id_enable",
+        "operationId" : "enableScheduleUsingPOST__api_schedules_id_enable",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1040,11 +1050,11 @@
         }
       }
     },
-    "//api/schedules/{id}" : {
+    "/api/schedules/{id}" : {
       "get" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "getSchedules",
-        "operationId" : "getSchedulesUsingGET___api_schedules_id",
+        "operationId" : "getSchedulesUsingGET__api_schedules_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1068,11 +1078,11 @@
         }
       }
     },
-    "//api/schedules" : {
+    "/api/schedules" : {
       "get" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "getSchedules",
-        "operationId" : "getSchedulesUsingGET___api_schedules",
+        "operationId" : "getSchedulesUsingGET__api_schedules",
         "parameters" : [ {
           "name" : "last_id",
           "in" : "query",
@@ -1096,11 +1106,11 @@
         }
       }
     },
-    "//api/schedules/{id}/skip" : {
+    "/api/schedules/{id}/skip" : {
       "post" : {
         "tags" : [ "schedule-resource" ],
         "summary" : "skipSchedule",
-        "operationId" : "skipScheduleUsingPOST___api_schedules_id_skip",
+        "operationId" : "skipScheduleUsingPOST__api_schedules_id_skip",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1135,11 +1145,11 @@
         }
       }
     },
-    "//api/sessions/{id}" : {
+    "/api/sessions/{id}" : {
       "get" : {
         "tags" : [ "session-resource" ],
         "summary" : "getSession",
-        "operationId" : "getSessionUsingGET___api_sessions_id",
+        "operationId" : "getSessionUsingGET__api_sessions_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1163,11 +1173,11 @@
         }
       }
     },
-    "//api/sessions/{id}/attempts" : {
+    "/api/sessions/{id}/attempts" : {
       "get" : {
         "tags" : [ "session-resource" ],
         "summary" : "getSessionAttempts",
-        "operationId" : "getSessionAttemptsUsingGET___api_sessions_id_attempts",
+        "operationId" : "getSessionAttemptsUsingGET__api_sessions_id_attempts",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1207,11 +1217,11 @@
         }
       }
     },
-    "//api/sessions" : {
+    "/api/sessions" : {
       "get" : {
         "tags" : [ "session-resource" ],
         "summary" : "getSessions",
-        "operationId" : "getSessionsUsingGET___api_sessions",
+        "operationId" : "getSessionsUsingGET__api_sessions",
         "parameters" : [ {
           "name" : "last_id",
           "in" : "query",
@@ -1243,11 +1253,11 @@
         }
       }
     },
-    "//{path}" : {
+    "/{path}" : {
       "get" : {
         "tags" : [ "ui-resource" ],
         "summary" : "getApplication",
-        "operationId" : "getApplicationUsingGET___path",
+        "operationId" : "getApplicationUsingGET__path",
         "parameters" : [ {
           "name" : "path",
           "in" : "path",
@@ -1271,11 +1281,11 @@
         }
       }
     },
-    "//assets/{path}" : {
+    "/assets/{path}" : {
       "get" : {
         "tags" : [ "ui-resource" ],
         "summary" : "getAssets",
-        "operationId" : "getAssetsUsingGET___assets_path",
+        "operationId" : "getAssetsUsingGET__assets_path",
         "parameters" : [ {
           "name" : "path",
           "in" : "path",
@@ -1298,11 +1308,11 @@
         }
       }
     },
-    "//api/version/check" : {
+    "/api/version/check" : {
       "get" : {
         "tags" : [ "version-resource" ],
         "summary" : "checkClientVersion",
-        "operationId" : "checkClientVersionUsingGET___api_version_check",
+        "operationId" : "checkClientVersionUsingGET__api_version_check",
         "parameters" : [ {
           "name" : "client",
           "in" : "query",
@@ -1313,16 +1323,23 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RestVersionCheckResult"
+                }
+              }
+            }
           }
         }
       }
     },
-    "//api/version" : {
+    "/api/version" : {
       "get" : {
         "tags" : [ "version-resource" ],
         "summary" : "getVersion",
-        "operationId" : "getVersionUsingGET___api_version",
+        "operationId" : "getVersionUsingGET__api_version",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -1341,11 +1358,11 @@
         }
       }
     },
-    "//api/workflow" : {
+    "/api/workflow" : {
       "get" : {
         "tags" : [ "workflow-resource" ],
         "summary" : "getWorkflowDefinition",
-        "operationId" : "getWorkflowDefinitionUsingGET___api_workflow",
+        "operationId" : "getWorkflowDefinitionUsingGET__api_workflow",
         "parameters" : [ {
           "name" : "project",
           "in" : "query",
@@ -1382,11 +1399,11 @@
         }
       }
     },
-    "//api/workflows/{id}" : {
+    "/api/workflows/{id}" : {
       "get" : {
         "tags" : [ "workflow-resource" ],
         "summary" : "getWorkflowDefinition",
-        "operationId" : "getWorkflowDefinitionUsingGET___api_workflows_id",
+        "operationId" : "getWorkflowDefinitionUsingGET__api_workflows_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1410,11 +1427,11 @@
         }
       }
     },
-    "//api/workflows/{id}/truncated_session_time" : {
+    "/api/workflows/{id}/truncated_session_time" : {
       "get" : {
         "tags" : [ "workflow-resource" ],
         "summary" : "getWorkflowDefinition",
-        "operationId" : "getWorkflowDefinitionUsingGET___api_workflows_id_truncated_session_time",
+        "operationId" : "getWorkflowDefinitionUsingGET__api_workflows_id_truncated_session_time",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1452,11 +1469,11 @@
         }
       }
     },
-    "//api/workflows" : {
+    "/api/workflows" : {
       "get" : {
         "tags" : [ "workflow-resource" ],
         "summary" : "getWorkflowDefinitions",
-        "operationId" : "getWorkflowDefinitionsUsingGET___api_workflows",
+        "operationId" : "getWorkflowDefinitionsUsingGET__api_workflows",
         "parameters" : [ {
           "name" : "last_id",
           "in" : "query",
@@ -1525,15 +1542,60 @@
       },
       "RestSession" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflow" : {
+            "$ref" : "#/components/schemas/NameOptionalId"
+          },
+          "sessionUuid" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "lastAttempt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       },
       "RestScheduleEnableRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "skipSchedule" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "nextTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "RestSchedule" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextScheduleTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "disabledAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "StreamingOutput" : {
         "type" : "object",
@@ -1544,19 +1606,103 @@
       },
       "RestProject" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "archiveType" : {
+            "type" : "string"
+          },
+          "deletedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "archiveMd5" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "revision" : {
+            "type" : "string"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "RestLogFileHandle" : {
+        "type" : "object",
+        "properties" : {
+          "fileTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "agentId" : {
+            "type" : "string"
+          },
+          "fileName" : {
+            "type" : "string"
+          },
+          "fileSize" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "direct" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "taskName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "IdAndName" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       },
       "RestProjectCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "projects" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestProject"
+            }
+          }
+        }
       },
       "RestVersionCheckResult" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "upgradeRecommended" : {
+            "type" : "boolean"
+          },
+          "serverVersion" : {
+            "type" : "string"
+          },
+          "apiCompatible" : {
+            "type" : "boolean"
+          }
+        }
       },
       "RestWorkflowDefinitionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflows" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestWorkflowDefinition"
+            }
+          }
+        }
       },
       "UNSPECIFIED_TYPE" : {
         "type" : "object",
@@ -1567,15 +1713,67 @@
       },
       "RestWorkflowDefinition" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "config" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestWorkflowSessionTime" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestScheduleBackfillRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dryRun" : {
+            "type" : "boolean"
+          },
+          "count" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "fromTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "attemptName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UUID" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
       },
       "ObjectMapper" : {
         "type" : "object",
@@ -1586,11 +1784,45 @@
       },
       "RestTaskCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "tasks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestTask"
+            }
+          }
+        }
       },
       "RestSessionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "sessions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSession"
+            }
+          }
+        }
+      },
+      "RestRevision" : {
+        "type" : "object",
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "userInfo" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "archiveType" : {
+            "type" : "string"
+          },
+          "archiveMd5" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
       },
       "RestSetSecretRequest" : {
         "type" : "object",
@@ -1600,6 +1832,63 @@
         "type" : "object",
         "properties" : { }
       },
+      "Optional" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.google.common.base"
+        }
+      },
+      "RestTask" : {
+        "type" : "object",
+        "properties" : {
+          "retryAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "upstreams" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Id"
+            }
+          },
+          "stateParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "fullName" : {
+            "type" : "string"
+          },
+          "startedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "error" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "parentId" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "exportParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "cancelRequested" : {
+            "type" : "boolean"
+          },
+          "config" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "storeParams" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
       "ObjectNode" : {
         "type" : "object",
         "externalDocs" : {
@@ -1607,9 +1896,41 @@
           "url" : "com.fasterxml.jackson.databind.node"
         }
       },
+      "ZoneId" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
       "RestScheduleSummary" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextScheduleTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "disabledAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
       },
       "InputStream" : {
         "type" : "object",
@@ -1627,19 +1948,100 @@
       },
       "RestScheduleSkipRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "dryRun" : {
+            "type" : "boolean"
+          },
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "nextTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "count" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "fromTime" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "SessionTimeTruncate" : {
         "type" : "string",
         "enum" : [ "SECOND", "MINUTE", "HOUR", "DAY", "SCHEDULE", "NEXT_SCHEDULE" ]
       },
+      "NameOptionalId" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
       "RestRevisionCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "revisions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestRevision"
+            }
+          }
+        }
       },
       "RestSessionAttempt" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "retryAttemptName" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/NameOptionalId"
+          },
+          "index" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "sessionId" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "done" : {
+            "type" : "boolean"
+          },
+          "finishedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "success" : {
+            "type" : "boolean"
+          },
+          "sessionUuid" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "cancelRequested" : {
+            "type" : "boolean"
+          },
+          "status" : {
+            "type" : "string"
+          }
+        }
       },
       "LocalTimeOrInstant" : {
         "type" : "object",
@@ -1653,9 +2055,23 @@
           }
         }
       },
+      "OffsetDateTime" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
       "RestScheduleCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "schedules" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSchedule"
+            }
+          }
+        }
       },
       "RestSecretList" : {
         "type" : "object",
@@ -1663,11 +2079,34 @@
       },
       "RestScheduleAttemptCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "attempts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSessionAttempt"
+            }
+          }
+        }
       },
       "RestSessionAttemptCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "attempts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestSessionAttempt"
+            }
+          }
+        }
       },
       "Object" : {
         "type" : "object",
@@ -1678,11 +2117,42 @@
       },
       "RestLogFileHandleCollection" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "files" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestLogFileHandle"
+            }
+          }
+        }
+      },
+      "Id" : {
+        "type" : "object",
+        "properties" : {
+          "unknown-param-name" : {
+            "type" : "string"
+          }
+        }
       },
       "RestSessionAttemptRequest" : {
         "type" : "object",
-        "properties" : { }
+        "properties" : {
+          "resume" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "retryAttemptName" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "workflowId" : {
+            "$ref" : "#/components/schemas/Id"
+          }
+        }
       }
     }
   }

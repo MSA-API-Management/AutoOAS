@@ -3,9 +3,11 @@ package at.aau.serg.frameworks.jaxrs;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.parsers.HttpMethod;
 import org.springframework.http.HttpStatus;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.EnumSet;
@@ -49,7 +51,7 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
     }
 
     @Override
-    public Optional<Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
+    public Optional<? extends Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return Optional.empty(); // no generic request mapping exists
     }
 
@@ -72,4 +74,38 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
         String parameterType = parameter.getType().getQualifiedName();
         return parameterType.equals("java.lang.String");
     }
+
+    /**
+     * Returns true if the parameter is one of the JAX-RS parameters defined via annotation, e.g., {@code @PathParam}.
+     *
+     * @param parameter
+     * @return
+     */
+    protected boolean isRestMethodAnnotatedParameter(CtParameter<?> parameter) {
+        return parameter.getAnnotations().stream()
+                .map(CtAnnotation::getAnnotationType)
+                .map(CtTypeReference::getQualifiedName)
+                .anyMatch(this::isRestParameterAnnotation);
+    }
+
+    protected abstract boolean isRestParameterAnnotation(String annotationName);
+
+    /**
+     * Returns true if the controller contains any handler method, e.g., annotated with {@code @GET},
+     * or sub-resource, e.g., annotated with {@code @Path}.
+     *
+     * @param controllerType
+     * @return
+     */
+    protected boolean containsHandlerMethodOrSubResource(CtType<?> controllerType) {
+        return controllerType.getMethods().stream()
+                .anyMatch(method ->
+                        method.getAnnotations().stream()
+                                .map(CtAnnotation::getAnnotationType)
+                                .map(CtTypeReference::getQualifiedName)
+                                .anyMatch(this::isRestHandlerMethodOrSubResourceAnnotation)
+                );
+    }
+
+    protected abstract boolean isRestHandlerMethodOrSubResourceAnnotation(String annotationName);
 }

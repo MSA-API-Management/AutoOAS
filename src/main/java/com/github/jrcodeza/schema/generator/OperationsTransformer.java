@@ -1,5 +1,6 @@
 package com.github.jrcodeza.schema.generator;
 
+import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.*;
 import at.aau.serg.parsers.*;
 import com.github.jrcodeza.schema.generator.filters.OperationParameterFilter;
@@ -10,26 +11,22 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.TypeFactory;
-import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -80,8 +77,8 @@ public class OperationsTransformer {
 	 * @param operationsMap
 	 * @param controllerClassName Used as tag in OpenAPI spec.
 	 */
-	public void createOperation(CtMethod<?> method, String baseControllerPath, Map<String, PathItem> operationsMap, String controllerClassName) {
-		logger.info("Transforming {} controller method", method.getSimpleName());
+	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName) {
+		logger.debug("Transforming {} controller method", method.getSimpleName());
 		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
 		restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
@@ -141,10 +138,15 @@ public class OperationsTransformer {
 
 	private String prepareUrl(String... url) {
 		String preparedUrl = Stream.of(url).filter(Objects::nonNull).collect(Collectors.joining());
+
+		preparedUrl = preparedUrl.replaceAll("//+", "/");
+
+		// potentially remove trailing /
 		if (preparedUrl.charAt(preparedUrl.length() - 1) == '/') {
 			preparedUrl = preparedUrl.substring(0, preparedUrl.length() - 1);
 		}
-		preparedUrl = preparedUrl.replaceAll("//", "/");
+
+		// potentially add starting /
 		if (!preparedUrl.startsWith("/")) {
 			preparedUrl = "/" + preparedUrl;
 		}
@@ -194,7 +196,11 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setDelete(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getDelete() != null)
+                logger.error("Found duplicate DELETE mapping for path: {} /// {}", pathItem.getDelete().getOperationId(), operation.getOperationId());
+            pathItem.setDelete(operation);
+        });
 	}
 
 	private ApiResponses createApiResponses(CtMethod<?> method, String firstFromArray) {
@@ -219,7 +225,11 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setGet(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getGet() != null)
+                logger.error("Found duplicate GET mapping for path: {} /// {}", pathItem.getGet().getOperationId(), operation.getOperationId());
+            pathItem.setGet(operation);
+        });
 	}
 
 	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -238,7 +248,11 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPatch(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPatch() != null)
+                logger.error("Found duplicate PATCH mapping for path: {} /// {}", pathItem.getPatch().getOperationId(), operation.getOperationId());
+            pathItem.setPatch(operation);
+        });
 	}
 
 	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -257,7 +271,11 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPut(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPut() != null)
+                logger.error("Found duplicate PUT mapping for path: {} /// {}", pathItem.getPut().getOperationId(), operation.getOperationId());
+            pathItem.setPut(operation);
+        });
 	}
 
 	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
@@ -276,10 +294,14 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation));
-		updateOperationsMap(cleanedPath, operationsMap, pathItem -> pathItem.setPost(operation));
+		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
+            if (pathItem.getPost() != null)
+                logger.error("Found duplicate POST mapping for path: {} /// {}", pathItem.getPost().getOperationId(), operation.getOperationId());
+            pathItem.setPost(operation);
+        });
 	}
 
-	private void updateOperationsMap(String url, Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
+	private void updateOperationsMap(String url, @Out Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
 		if (existingMap.containsKey(url)) {
 			pathItemUpdater.accept(existingMap.get(url));
 		} else {
@@ -508,22 +530,19 @@ public class OperationsTransformer {
 		if (requestBodyParameter == null) {
 			return null;
 		}
-		if (shouldBeIgnored(requestBodyParameter.getParameter())) {
-			logger.info("Ignoring parameter {}", requestBodyParameter.getName());
-			return null;
-		}
 
 		Content content = new Content();
+		AtomicBoolean isOptionalParameter = new AtomicBoolean(false);
 		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
 				schemaGeneratorHelper.createMediaType(
 						requestBodyParameter.getParameter().getType(),
 						requestBodyParameter.getName(),
-						singletonList(getGenericParam(requestBodyParameter.getParameter().getType()))
+						isOptionalParameter
 				)
 		);
 
 		RequestBody requestBody = new RequestBody();
-		requestBody.setRequired(true);
+		requestBody.setRequired(!isOptionalParameter.get());
 		requestBody.setContent(content);
 		requestBody.setDescription("requestBody");
 

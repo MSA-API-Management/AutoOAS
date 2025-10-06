@@ -8,7 +8,6 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.TypeFactory;
 import spoon.reflect.reference.CtArrayTypeReference;
@@ -20,6 +19,12 @@ import java.util.List;
 public class DataTypeTransformer {
 
     public static final String UNSPECIFIED_SIMPLE_NAME = "UNSPECIFIED_TYPE";
+
+    public static CtTypeReference<?> CREATE_UNSPECIFIED_RESPONSE_TYPE() {
+        var responseType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
+        responseType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
+        return responseType;
+    }
 
     private static final String DEFAULT_CONTENT_TYPE = "application/json";
     private static final String DEFAULT_FILE_RETURN_CONTENT_TYPE = "application/octet-stream";
@@ -55,6 +60,10 @@ public class DataTypeTransformer {
             responseType = stripReturnValueWrapper(responseType);
         }
 
+        if (schemaGeneratorHelper.isTypeEquivalent(responseType, restFramework.getOptionalWrapper())) {
+            responseType = stripReturnValueWrapper(responseType);
+        }
+
         if ("void".equals(responseType.getSimpleName())) {
             // dont add a content
 
@@ -76,11 +85,10 @@ public class DataTypeTransformer {
                     && !(responseType instanceof CtArrayTypeReference<?>)) {
                 // e.g. for ? generic capture
                 logger.info("Ignoring responseType {}", responseType.getSimpleName());
-                responseType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
-                responseType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
+                responseType = CREATE_UNSPECIFIED_RESPONSE_TYPE();
             }
 
-            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, getGenericParams(responseType));
+            MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, null);
             if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
                 Content content = new Content();
                 content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, mediaType);
@@ -104,8 +112,7 @@ public class DataTypeTransformer {
             methodReturnType = methodReturnType.getActualTypeArguments().get(0);
         else {
             // ignoring empty ResponseEntity capture
-            methodReturnType = new TypeFactory().OMITTED_TYPE_ARG_TYPE;
-            methodReturnType.setSimpleName(UNSPECIFIED_SIMPLE_NAME);
+            methodReturnType = CREATE_UNSPECIFIED_RESPONSE_TYPE();
         }
         return methodReturnType;
     }
