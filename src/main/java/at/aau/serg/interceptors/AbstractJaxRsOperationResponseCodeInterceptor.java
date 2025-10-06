@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtExecutableReference;
@@ -26,8 +25,6 @@ import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.lang.reflect.Method;
 import java.util.*;
-
-import static at.aau.serg.util.SpoonUtils.getMethodDeclaration;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
     @Setter
@@ -536,7 +533,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                 return exceptions;
             }
 
-            CtMethod<?> calledMethod = getMethodDeclaration(executableRef);
+            CtMethod<?> calledMethod = SpoonUtils.getMethodDeclaration(executableRef);
 
             if (calledMethod != null) {
                 CtType<?> methodClass = calledMethod.getDeclaringType();
