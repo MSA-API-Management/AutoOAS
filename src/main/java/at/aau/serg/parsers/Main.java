@@ -3,8 +3,14 @@ package at.aau.serg.parsers;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2 || args.length > 4) {
-            System.err.println("Usage: java -jar parser.jar <projectPath> [restApiModulePath] [enableExceptionLogging] <outputPath>");
-            System.exit(1);
+//            System.err.println("Usage: java -jar parser.jar <projectPath> [restApiModulePath] [enableExceptionLogging] <outputPath>");
+//            System.exit(1);
+
+            // todo remove before production
+            args = new String[]{
+                    "/Users/alelercher/IdeaProjects/Respector/dataset/ohsome-api",
+                    "target/openapi/swagger.json"
+            };
         }
 
         String projectPath;
