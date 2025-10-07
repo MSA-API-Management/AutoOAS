@@ -43,20 +43,18 @@ public class MethodResponseExtractor {
     /**
      * Trys to extract the response from the ResponseStatus or ApiResponse annotations.
      * <p>
-     * // todo HttpStatus / ResponseStatus is spring-specific
      *
      * @param method
      * @return Optional.empty if no annotation was found
      */
     private HttpStatus tryResolveResponseStatus(CtMethod<?> method) {
-        // TODO ApiResponses annotation
-        //  pretty sure that the ApiResponses are only documentation, not functional
-
         ResponseStatus responseStatusSpringAnnotation = method.getAnnotation(ResponseStatus.class);
         if (responseStatusSpringAnnotation != null) {
             return HttpStatus.valueOf(defaultIfUnexpectedServerError(responseStatusSpringAnnotation.code(), responseStatusSpringAnnotation.value()).value());
         }
 
+        // FIXME ApiResponses annotation
+        //  pretty sure that the ApiResponses are only documentation, not functional
         io.swagger.v3.oas.annotations.responses.ApiResponse responseStatusSwaggerAnnotation = method.getAnnotation(io.swagger.v3.oas.annotations.responses.ApiResponse.class);
         if (responseStatusSwaggerAnnotation != null) {
             try {
@@ -104,7 +102,6 @@ public class MethodResponseExtractor {
         return response.responseCode().equals(defaultVal) ? response.description() : response.responseCode();
     }
 
-    // todo HttpStatus is Spring-specific
     private HttpStatus defaultIfUnexpectedServerError(HttpStatus code, HttpStatus value) {
         // code default value is internal server error
         return code == HttpStatus.INTERNAL_SERVER_ERROR ? value : code;

@@ -34,8 +34,6 @@ public class MainController {
 //    }
 
 
-    // todo support signature: throws *Exception
-
 
     // todo test this behaviors with annotation
     //  throws has precedence, how about returning a response entity

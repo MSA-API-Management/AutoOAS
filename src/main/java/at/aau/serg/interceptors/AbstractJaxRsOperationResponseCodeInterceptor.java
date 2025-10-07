@@ -128,7 +128,6 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     }
 
     private boolean hasRegularReturns(CtMethod<?> method) {
-        // todo check
         boolean hasExplicitReturns = !method.getBody().getElements((CtReturn<?> r) -> r.getParent(CtLambda.class) == null).isEmpty();
         if (hasExplicitReturns)
             return true;

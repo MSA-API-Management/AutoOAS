@@ -1,5 +1,6 @@
 package at.aau.serg.interceptors;
 
+import at.aau.serg.annotations.Out;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -271,10 +272,10 @@ public class SpringOperationResponseCodeInterceptor implements OperationIntercep
      * @param statement
      */
     private void recordRelevantStatements(CtStatement statement,
-                                          @NotNull List<CtThrow> ctThrows,
-                                          @NotNull List<HttpStatus> responseEntityDefinedStatusCodes,
-                                          AtomicInteger numStatements) {
-        // todo throws in signature
+                                          @Out @NotNull List<CtThrow> ctThrows,
+                                          @Out @NotNull List<HttpStatus> responseEntityDefinedStatusCodes,
+                                          @Out AtomicInteger numStatements) {
+        
         if (statement instanceof CtBlock) {
             for (CtStatement innerStatement : ((CtBlock<?>) statement).getStatements()) {
                 recordRelevantStatements(innerStatement, ctThrows, responseEntityDefinedStatusCodes, numStatements);

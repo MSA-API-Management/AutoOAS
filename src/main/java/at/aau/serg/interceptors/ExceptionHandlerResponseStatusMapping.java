@@ -3,7 +3,6 @@ package at.aau.serg.interceptors;
 import org.springframework.http.HttpStatus;
 import spoon.reflect.declaration.CtType;
 
-// TODO HttpStatus is from spring
 public class ExceptionHandlerResponseStatusMapping {
 
     public final CtType<?> exceptionType;

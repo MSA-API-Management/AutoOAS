@@ -605,7 +605,6 @@ public class SchemaGeneratorHelper {
      * @return
      */
     public boolean isTypeEquivalent(CtTypeReference<?> ctType, Class type) {
-        // todo extract from here
         return SpoonUtils.isTypeEquivalent(ctType, type);
     }
 
