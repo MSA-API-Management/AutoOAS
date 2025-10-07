@@ -466,6 +466,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -491,14 +494,7 @@
             "description" : "No Content"
           },
           "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -534,14 +530,7 @@
             "description" : "Partial Content"
           },
           "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Entity"
-                }
-              }
-            }
+            "description" : "Internal Server Error"
           },
           "201" : {
             "description" : "Created",
@@ -584,14 +573,7 @@
             }
           },
           "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Entity"
-                }
-              }
-            }
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1223,6 +1205,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }

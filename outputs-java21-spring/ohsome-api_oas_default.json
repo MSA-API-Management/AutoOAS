@@ -1,0 +1,2959 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "ohsome-api",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/contributions/count" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCount",
+        "operationId" : "contributionsCountUsingGET__contributions_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCount",
+        "operationId" : "contributionsCountUsingPOST__contributions_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/count/density" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountDensity",
+        "operationId" : "contributionsCountDensityUsingGET__contributions_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountDensity",
+        "operationId" : "contributionsCountDensityUsingPOST__contributions_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/count/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountDensityGroupByBoundary",
+        "operationId" : "contributionsCountDensityGroupByBoundaryUsingGET__contributions_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountDensityGroupByBoundary",
+        "operationId" : "contributionsCountDensityGroupByBoundaryUsingPOST__contributions_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/count/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountGroupByBoundary",
+        "operationId" : "contributionsCountGroupByBoundaryUsingGET__contributions_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsCountGroupByBoundary",
+        "operationId" : "contributionsCountGroupByBoundaryUsingPOST__contributions_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/latest/count" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsLatestCount",
+        "operationId" : "contributionsLatestCountUsingGET__contributions_latest_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsLatestCount",
+        "operationId" : "contributionsLatestCountUsingPOST__contributions_latest_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/latest/count/density" : {
+      "get" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsLatestCountDensity",
+        "operationId" : "contributionsLatestCountDensityUsingGET__contributions_latest_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-count-controller" ],
+        "summary" : "contributionsLatestCountDensity",
+        "operationId" : "contributionsLatestCountDensityUsingPOST__contributions_latest_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "area",
+        "operationId" : "areaUsingGET__elements_area",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "area",
+        "operationId" : "areaUsingPOST__elements_area",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/density" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensity",
+        "operationId" : "areaDensityUsingGET__elements_area_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensity",
+        "operationId" : "areaDensityUsingPOST__elements_area_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByBoundary",
+        "operationId" : "areaDensityGroupByBoundaryUsingGET__elements_area_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByBoundary",
+        "operationId" : "areaDensityGroupByBoundaryUsingPOST__elements_area_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/density/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByBoundaryGroupByTag",
+        "operationId" : "areaDensityGroupByBoundaryGroupByTagUsingGET__elements_area_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByBoundaryGroupByTag",
+        "operationId" : "areaDensityGroupByBoundaryGroupByTagUsingPOST__elements_area_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/density/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByTag",
+        "operationId" : "areaDensityGroupByTagUsingGET__elements_area_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByTag",
+        "operationId" : "areaDensityGroupByTagUsingPOST__elements_area_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/density/groupBy/type" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByType",
+        "operationId" : "areaDensityGroupByTypeUsingGET__elements_area_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaDensityGroupByType",
+        "operationId" : "areaDensityGroupByTypeUsingPOST__elements_area_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByBoundary",
+        "operationId" : "areaGroupByBoundaryUsingGET__elements_area_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByBoundary",
+        "operationId" : "areaGroupByBoundaryUsingPOST__elements_area_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByBoundaryGroupByTag",
+        "operationId" : "areaGroupByBoundaryGroupByTagUsingGET__elements_area_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByBoundaryGroupByTag",
+        "operationId" : "areaGroupByBoundaryGroupByTagUsingPOST__elements_area_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/groupBy/key" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByKey",
+        "operationId" : "areaGroupByKeyUsingGET__elements_area_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByKey",
+        "operationId" : "areaGroupByKeyUsingPOST__elements_area_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByTag",
+        "operationId" : "areaGroupByTagUsingGET__elements_area_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByTag",
+        "operationId" : "areaGroupByTagUsingPOST__elements_area_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/groupBy/type" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByType",
+        "operationId" : "areaGroupByTypeUsingGET__elements_area_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaGroupByType",
+        "operationId" : "areaGroupByTypeUsingPOST__elements_area_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/ratio" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaRatio",
+        "operationId" : "areaRatioUsingGET__elements_area_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaRatio",
+        "operationId" : "areaRatioUsingPOST__elements_area_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/area/ratio/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaRatioGroupByBoundary",
+        "operationId" : "areaRatioGroupByBoundaryUsingGET__elements_area_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "area-controller" ],
+        "summary" : "areaRatioGroupByBoundary",
+        "operationId" : "areaRatioGroupByBoundaryUsingPOST__elements_area_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "count",
+        "operationId" : "countUsingGET__elements_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "count",
+        "operationId" : "countUsingPOST__elements_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/density" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensity",
+        "operationId" : "countDensityUsingGET__elements_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensity",
+        "operationId" : "countDensityUsingPOST__elements_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByBoundary",
+        "operationId" : "countDensityGroupByBoundaryUsingGET__elements_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByBoundary",
+        "operationId" : "countDensityGroupByBoundaryUsingPOST__elements_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/density/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByBoundaryGroupByTag",
+        "operationId" : "countDensityGroupByBoundaryGroupByTagUsingGET__elements_count_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByBoundaryGroupByTag",
+        "operationId" : "countDensityGroupByBoundaryGroupByTagUsingPOST__elements_count_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/density/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByTag",
+        "operationId" : "countDensityGroupByTagUsingGET__elements_count_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByTag",
+        "operationId" : "countDensityGroupByTagUsingPOST__elements_count_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/density/groupBy/type" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByType",
+        "operationId" : "countDensityGroupByTypeUsingGET__elements_count_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countDensityGroupByType",
+        "operationId" : "countDensityGroupByTypeUsingPOST__elements_count_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByBoundary",
+        "operationId" : "countGroupByBoundaryUsingGET__elements_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByBoundary",
+        "operationId" : "countGroupByBoundaryUsingPOST__elements_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByBoundaryGroupByTag",
+        "operationId" : "countGroupByBoundaryGroupByTagUsingGET__elements_count_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByBoundaryGroupByTag",
+        "operationId" : "countGroupByBoundaryGroupByTagUsingPOST__elements_count_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/groupBy/key" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByKey",
+        "operationId" : "countGroupByKeyUsingGET__elements_count_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByKey",
+        "operationId" : "countGroupByKeyUsingPOST__elements_count_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByTag",
+        "operationId" : "countGroupByTagUsingGET__elements_count_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByTag",
+        "operationId" : "countGroupByTagUsingPOST__elements_count_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/groupBy/type" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByType",
+        "operationId" : "countGroupByTypeUsingGET__elements_count_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countGroupByType",
+        "operationId" : "countGroupByTypeUsingPOST__elements_count_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/ratio" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countRatio",
+        "operationId" : "countRatioUsingGET__elements_count_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countRatio",
+        "operationId" : "countRatioUsingPOST__elements_count_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/count/ratio/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countRatioGroupByBoundary",
+        "operationId" : "countRatioGroupByBoundaryUsingGET__elements_count_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "count-controller" ],
+        "summary" : "countRatioGroupByBoundary",
+        "operationId" : "countRatioGroupByBoundaryUsingPOST__elements_count_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "length",
+        "operationId" : "lengthUsingGET__elements_length",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "length",
+        "operationId" : "lengthUsingPOST__elements_length",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/density" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensity",
+        "operationId" : "lengthDensityUsingGET__elements_length_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensity",
+        "operationId" : "lengthDensityUsingPOST__elements_length_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByBoundary",
+        "operationId" : "lengthDensityGroupByBoundaryUsingGET__elements_length_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByBoundary",
+        "operationId" : "lengthDensityGroupByBoundaryUsingPOST__elements_length_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/density/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByBoundaryGroupByTag",
+        "operationId" : "lengthDensityGroupByBoundaryGroupByTagUsingGET__elements_length_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByBoundaryGroupByTag",
+        "operationId" : "lengthDensityGroupByBoundaryGroupByTagUsingPOST__elements_length_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/density/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByTag",
+        "operationId" : "lengthDensityGroupByTagUsingGET__elements_length_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByTag",
+        "operationId" : "lengthDensityGroupByTagUsingPOST__elements_length_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/density/groupBy/type" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByType",
+        "operationId" : "lengthDensityGroupByTypeUsingGET__elements_length_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthDensityGroupByType",
+        "operationId" : "lengthDensityGroupByTypeUsingPOST__elements_length_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByBoundary",
+        "operationId" : "lengthGroupByBoundaryUsingGET__elements_length_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByBoundary",
+        "operationId" : "lengthGroupByBoundaryUsingPOST__elements_length_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByBoundaryGroupByTag",
+        "operationId" : "lengthGroupByBoundaryGroupByTagUsingGET__elements_length_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByBoundaryGroupByTag",
+        "operationId" : "lengthGroupByBoundaryGroupByTagUsingPOST__elements_length_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/groupBy/key" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByKey",
+        "operationId" : "lengthGroupByKeyUsingGET__elements_length_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByKey",
+        "operationId" : "lengthGroupByKeyUsingPOST__elements_length_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByTag",
+        "operationId" : "lengthGroupByTagUsingGET__elements_length_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByTag",
+        "operationId" : "lengthGroupByTagUsingPOST__elements_length_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/groupBy/type" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByType",
+        "operationId" : "lengthGroupByTypeUsingGET__elements_length_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthGroupByType",
+        "operationId" : "lengthGroupByTypeUsingPOST__elements_length_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/ratio" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthRatio",
+        "operationId" : "lengthRatioUsingGET__elements_length_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthRatio",
+        "operationId" : "lengthRatioUsingPOST__elements_length_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/length/ratio/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthRatioGroupByBoundary",
+        "operationId" : "lengthRatioGroupByBoundaryUsingGET__elements_length_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "length-controller" ],
+        "summary" : "lengthRatioGroupByBoundary",
+        "operationId" : "lengthRatioGroupByBoundaryUsingPOST__elements_length_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeter",
+        "operationId" : "perimeterUsingGET__elements_perimeter",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeter",
+        "operationId" : "perimeterUsingPOST__elements_perimeter",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/density" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensity",
+        "operationId" : "perimeterDensityUsingGET__elements_perimeter_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensity",
+        "operationId" : "perimeterDensityUsingPOST__elements_perimeter_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByBoundary",
+        "operationId" : "perimeterDensityGroupByBoundaryUsingGET__elements_perimeter_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByBoundary",
+        "operationId" : "perimeterDensityGroupByBoundaryUsingPOST__elements_perimeter_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/density/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByBoundaryGroupByTag",
+        "operationId" : "perimeterDensityGroupByBoundaryGroupByTagUsingGET__elements_perimeter_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByBoundaryGroupByTag",
+        "operationId" : "perimeterDensityGroupByBoundaryGroupByTagUsingPOST__elements_perimeter_density_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/density/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByTag",
+        "operationId" : "perimeterDensityGroupByTagUsingGET__elements_perimeter_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByTag",
+        "operationId" : "perimeterDensityGroupByTagUsingPOST__elements_perimeter_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/density/groupBy/type" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByType",
+        "operationId" : "perimeterDensityGroupByTypeUsingGET__elements_perimeter_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterDensityGroupByType",
+        "operationId" : "perimeterDensityGroupByTypeUsingPOST__elements_perimeter_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByBoundary",
+        "operationId" : "perimeterGroupByBoundaryUsingGET__elements_perimeter_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByBoundary",
+        "operationId" : "perimeterGroupByBoundaryUsingPOST__elements_perimeter_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/groupBy/boundary/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByBoundaryGroupByTag",
+        "operationId" : "perimeterGroupByBoundaryGroupByTagUsingGET__elements_perimeter_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByBoundaryGroupByTag",
+        "operationId" : "perimeterGroupByBoundaryGroupByTagUsingPOST__elements_perimeter_groupBy_boundary_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/groupBy/key" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByKey",
+        "operationId" : "perimeterGroupByKeyUsingGET__elements_perimeter_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByKey",
+        "operationId" : "perimeterGroupByKeyUsingPOST__elements_perimeter_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByTag",
+        "operationId" : "perimeterGroupByTagUsingGET__elements_perimeter_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByTag",
+        "operationId" : "perimeterGroupByTagUsingPOST__elements_perimeter_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/groupBy/type" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByType",
+        "operationId" : "perimeterGroupByTypeUsingGET__elements_perimeter_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterGroupByType",
+        "operationId" : "perimeterGroupByTypeUsingPOST__elements_perimeter_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/ratio" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterRatio",
+        "operationId" : "perimeterRatioUsingGET__elements_perimeter_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterRatio",
+        "operationId" : "perimeterRatioUsingPOST__elements_perimeter_ratio",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/elements/perimeter/ratio/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterRatioGroupByBoundary",
+        "operationId" : "perimeterRatioGroupByBoundaryUsingGET__elements_perimeter_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "perimeter-controller" ],
+        "summary" : "perimeterRatioGroupByBoundary",
+        "operationId" : "perimeterRatioGroupByBoundaryUsingPOST__elements_perimeter_ratio_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "count",
+        "operationId" : "countUsingGET__users_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "count",
+        "operationId" : "countUsingPOST__users_count",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/density" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensity",
+        "operationId" : "countDensityUsingGET__users_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensity",
+        "operationId" : "countDensityUsingPOST__users_count_density",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/density/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByBoundary",
+        "operationId" : "countDensityGroupByBoundaryUsingGET__users_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByBoundary",
+        "operationId" : "countDensityGroupByBoundaryUsingPOST__users_count_density_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/density/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByTag",
+        "operationId" : "countDensityGroupByTagUsingGET__users_count_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByTag",
+        "operationId" : "countDensityGroupByTagUsingPOST__users_count_density_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/density/groupBy/type" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByType",
+        "operationId" : "countDensityGroupByTypeUsingGET__users_count_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countDensityGroupByType",
+        "operationId" : "countDensityGroupByTypeUsingPOST__users_count_density_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/groupBy/boundary" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByBoundary",
+        "operationId" : "countGroupByBoundaryUsingGET__users_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByBoundary",
+        "operationId" : "countGroupByBoundaryUsingPOST__users_count_groupBy_boundary",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/groupBy/key" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByKey",
+        "operationId" : "countGroupByKeyUsingGET__users_count_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByKey",
+        "operationId" : "countGroupByKeyUsingPOST__users_count_groupBy_key",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/groupBy/tag" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByTag",
+        "operationId" : "countGroupByTagUsingGET__users_count_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByTag",
+        "operationId" : "countGroupByTagUsingPOST__users_count_groupBy_tag",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/count/groupBy/type" : {
+      "get" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByType",
+        "operationId" : "countGroupByTypeUsingGET__users_count_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-controller" ],
+        "summary" : "countGroupByType",
+        "operationId" : "countGroupByTypeUsingPOST__users_count_groupBy_type",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions/geometry" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributions",
+        "operationId" : "contributionsUsingGET__contributions_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributions",
+        "operationId" : "contributionsUsingPOST__contributions_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/contributions/bbox" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsBbox",
+        "operationId" : "contributionsBboxUsingGET__contributions_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsBbox",
+        "operationId" : "contributionsBboxUsingPOST__contributions_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/contributions/latest/bbox" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsBboxLatest",
+        "operationId" : "contributionsBboxLatestUsingGET__contributions_latest_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsBboxLatest",
+        "operationId" : "contributionsBboxLatestUsingPOST__contributions_latest_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/contributions/centroid" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsCentroid",
+        "operationId" : "contributionsCentroidUsingGET__contributions_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsCentroid",
+        "operationId" : "contributionsCentroidUsingPOST__contributions_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/contributions/latest/centroid" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsCentroidLatest",
+        "operationId" : "contributionsCentroidLatestUsingGET__contributions_latest_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsCentroidLatest",
+        "operationId" : "contributionsCentroidLatestUsingPOST__contributions_latest_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/contributions/latest/geometry" : {
+      "get" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsLatest",
+        "operationId" : "contributionsLatestUsingGET__contributions_latest_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "contributions-controller" ],
+        "summary" : "contributionsLatest",
+        "operationId" : "contributionsLatestUsingPOST__contributions_latest_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elements/bbox" : {
+      "get" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsBbox",
+        "operationId" : "elementsBboxUsingGET__elements_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsBbox",
+        "operationId" : "elementsBboxUsingPOST__elements_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elements/centroid" : {
+      "get" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsCentroid",
+        "operationId" : "elementsCentroidUsingGET__elements_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsCentroid",
+        "operationId" : "elementsCentroidUsingPOST__elements_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elements/geometry" : {
+      "get" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsGeometry",
+        "operationId" : "elementsGeometryUsingGET__elements_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-controller" ],
+        "summary" : "elementsGeometry",
+        "operationId" : "elementsGeometryUsingPOST__elements_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elementsFullHistory/bbox" : {
+      "get" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsBboxFullHistory",
+        "operationId" : "elementsBboxFullHistoryUsingGET__elementsFullHistory_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsBboxFullHistory",
+        "operationId" : "elementsBboxFullHistoryUsingPOST__elementsFullHistory_bbox",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elementsFullHistory/centroid" : {
+      "get" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsCentroidFullHistory",
+        "operationId" : "elementsCentroidFullHistoryUsingGET__elementsFullHistory_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsCentroidFullHistory",
+        "operationId" : "elementsCentroidFullHistoryUsingPOST__elementsFullHistory_centroid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/elementsFullHistory/geometry" : {
+      "get" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsFullHistory",
+        "operationId" : "elementsFullHistoryUsingGET__elementsFullHistory_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "elements-full-history-controller" ],
+        "summary" : "elementsFullHistory",
+        "operationId" : "elementsFullHistoryUsingPOST__elementsFullHistory_geometry",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/metadata" : {
+      "get" : {
+        "tags" : [ "metadata-controller" ],
+        "summary" : "getMetadata",
+        "operationId" : "getMetadataUsingGET__metadata",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MetadataResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Response" : {
+        "type" : "object",
+        "properties" : {
+          "metadata" : {
+            "$ref" : "#/components/schemas/Metadata"
+          },
+          "apiVersion" : {
+            "type" : "string"
+          },
+          "attribution" : {
+            "$ref" : "#/components/schemas/Attribution"
+          }
+        }
+      },
+      "TemporalExtent" : {
+        "type" : "object",
+        "properties" : {
+          "fromTimestamp" : {
+            "type" : "string"
+          },
+          "toTimestamp" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MetadataResponse" : {
+        "type" : "object",
+        "properties" : {
+          "apiVersion" : {
+            "type" : "string"
+          },
+          "attribution" : {
+            "$ref" : "#/components/schemas/Attribution"
+          },
+          "extractRegion" : {
+            "$ref" : "#/components/schemas/ExtractRegion"
+          },
+          "timeout" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        }
+      },
+      "Metadata" : {
+        "type" : "object",
+        "properties" : {
+          "executionTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "requestUrl" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ExtractRegion" : {
+        "type" : "object",
+        "properties" : {
+          "replicationSequenceNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "spatialExtent" : {
+            "$ref" : "#/components/schemas/JsonNode"
+          },
+          "temporalExtent" : {
+            "$ref" : "#/components/schemas/TemporalExtent"
+          }
+        }
+      },
+      "JsonNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      },
+      "Attribution" : {
+        "type" : "object",
+        "properties" : {
+          "text" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

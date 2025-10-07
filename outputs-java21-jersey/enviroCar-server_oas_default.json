@@ -119,11 +119,11 @@
           "303" : {
             "description" : "See Other"
           },
-          "404" : {
-            "description" : "Not Found"
-          },
           "500" : {
             "description" : "Internal Server Error"
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -210,6 +210,9 @@
           },
           "500" : {
             "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       },
@@ -232,6 +235,9 @@
         "responses" : {
           "201" : {
             "description" : "Created"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -318,6 +324,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       },
@@ -340,6 +349,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -516,6 +528,9 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       },
@@ -538,6 +553,9 @@
         "responses" : {
           "201" : {
             "description" : "Created"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -603,6 +621,9 @@
           },
           "303" : {
             "description" : "See Other"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       },
@@ -614,6 +635,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -645,6 +669,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -787,6 +814,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       },
@@ -798,6 +828,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -818,6 +851,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       },
@@ -840,6 +876,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -919,6 +958,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -932,6 +974,9 @@
         "responses" : {
           "204" : {
             "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }

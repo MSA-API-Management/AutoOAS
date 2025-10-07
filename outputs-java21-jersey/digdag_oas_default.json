@@ -89,6 +89,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -146,6 +149,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       },
@@ -185,6 +191,12 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -352,6 +364,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       },
@@ -378,6 +393,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -425,6 +443,9 @@
               }
             }
           },
+          "404" : {
+            "description" : "Not Found"
+          },
           "500" : {
             "description" : "Internal Server Error"
           }
@@ -460,6 +481,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           },
           "500" : {
             "description" : "Internal Server Error"
@@ -511,6 +535,9 @@
           },
           "404" : {
             "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -538,6 +565,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -566,6 +596,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -616,6 +649,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       },
@@ -720,6 +756,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -763,6 +802,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -814,6 +856,12 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -856,6 +904,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -898,6 +949,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -940,6 +994,9 @@
                 }
               }
             }
+          },
+          "404" : {
+            "description" : "Not Found"
           }
         }
       }
@@ -979,6 +1036,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1046,6 +1106,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1141,6 +1204,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1213,6 +1279,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1249,6 +1318,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1331,6 +1403,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1465,6 +1540,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -1522,6 +1600,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
