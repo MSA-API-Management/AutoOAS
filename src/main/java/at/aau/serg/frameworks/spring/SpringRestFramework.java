@@ -28,10 +28,16 @@ import java.util.stream.Stream;
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
 public class SpringRestFramework implements RestFramework {
+    private boolean exceptionLoggingEnabled;
 
     @Override
     public String getIdentifier() {
         return "Spring";
+    }
+
+    @Override
+    public void setExceptionLoggingEnabled(boolean exceptionLoggingEnabled) {
+        this.exceptionLoggingEnabled = exceptionLoggingEnabled;
     }
 
     @Override

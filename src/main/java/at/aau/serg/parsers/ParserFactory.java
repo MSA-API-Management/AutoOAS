@@ -31,24 +31,28 @@ public class ParserFactory {
         return new RestApiParser(projectPath, outputFileName, framework);
     }
 
-    public RestApiParser createParserWithDetection(String projectPath, String restApiModulePath, String outputFileName) {
+    public RestApiParser createParserWithDetection(String projectPath, String restApiModulePath, String outputFileName, boolean exceptionLoggingEnabled) {
         FrameworkDetector frameworkDetector = new FrameworkDetector(frameworkInstances);
         RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
 
         if (detectedFramework == null) {
             throw new IllegalArgumentException("No rest framework could be detected");
         }
+
+        detectedFramework.setExceptionLoggingEnabled(exceptionLoggingEnabled);
 
         return new RestApiParser(projectPath, restApiModulePath, outputFileName, detectedFramework, frameworkDetector.getModel());
     }
 
-    public RestApiParser createParserWithDetection(String projectPath, String outputFileName) {
+    public RestApiParser createParserWithDetection(String projectPath, String outputFileName, boolean exceptionLoggingEnabled) {
         FrameworkDetector frameworkDetector = new FrameworkDetector(frameworkInstances);
         RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
 
         if (detectedFramework == null) {
             throw new IllegalArgumentException("No rest framework could be detected");
         }
+
+        detectedFramework.setExceptionLoggingEnabled(exceptionLoggingEnabled);
 
         return new RestApiParser(projectPath, outputFileName, detectedFramework, frameworkDetector.getModel());
     }

@@ -25,6 +25,14 @@ public interface RestFramework {
     String getIdentifier();
 
     /**
+     * Specifies if the exception path should be logged.
+     * Only relevant for JaxRS, might have a runtime impact.
+     *
+     * @param exceptionLoggingEnabled
+     */
+    void setExceptionLoggingEnabled(boolean exceptionLoggingEnabled);
+
+    /**
      * Returns a framework specific description for the OpenAPI documentation.
      *
      * @param profileName The profile name (if applicable to the framework)

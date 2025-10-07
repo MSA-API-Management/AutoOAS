@@ -18,10 +18,16 @@ import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
 public abstract class AbstractJaxRsFramework implements RestFramework {
+    protected boolean exceptionLoggingEnabled;
 
     @Override
     public String getIdentifier() {
         return "JAX-RS";
+    }
+
+    @Override
+    public void setExceptionLoggingEnabled(boolean exceptionLoggingEnabled) {
+        this.exceptionLoggingEnabled = exceptionLoggingEnabled;
     }
 
     //  Todo: We do not support profiles for JAX-RS implementations (eg. Quarkus) currently

@@ -41,6 +41,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     private static final MethodBodyAnalyser methodBodyAnalyser = new MethodBodyAnalyser();
     private final Map<CtMethod<?>, Set<CtType<?>>> methodExceptionCache = new HashMap<>();
     private String operationPath = "";
+    private final boolean exceptionLoggingEnabled;
 
     protected List<CtType<?>> globalExceptionHandlerClasses; // todo check for equivalent of controllerAdviceClasses
 
@@ -87,11 +88,13 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     public AbstractJaxRsOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                          DataTypeTransformer dataTypeTransformer,
                                                          SchemaGeneratorHelper schemaHelper,
-                                                         MethodResponseExtractor methodResponseExtractor) {
+                                                         MethodResponseExtractor methodResponseExtractor,
+                                                         boolean exceptionLoggingEnabled) {
         this.globalExceptionHandlerClasses = globalExceptionHandlerClasses;
         this.dataTypeTransformer = dataTypeTransformer;
         this.schemaHelper = schemaHelper;
         this.methodResponseExtractor = methodResponseExtractor;
+        this.exceptionLoggingEnabled = exceptionLoggingEnabled;
     }
 
     @Override
@@ -452,7 +455,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
-        methodExceptionCache.clear(); // clear after every endpoint, otherwise logging is incomplete
+        if(exceptionLoggingEnabled) methodExceptionCache.clear(); // clear after every endpoint, otherwise logging is incomplete
 
         CtType<?> rootClass = method.getDeclaringType();
         Map<CtType<?>, Integer> classDepthMap = new HashMap<>();
@@ -487,8 +490,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         if (visitedMethods.contains(method)) {
             return new HashSet<>();
         }
-        visitedMethods.add(method);
 
+        visitedMethods.add(method);
         Set<CtType<?>> thrownExceptions = new HashSet<>();
 
         int originalLength = callPath.length();
@@ -500,7 +503,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
             if (thrownType != null) {
                 thrownExceptions.add(thrownType);
-                logger.info("Exception Path {}: {} -> throw {}", this.operationPath, callPath, thrownType.getSimpleName());
+                if(exceptionLoggingEnabled) logger.info("Exception Path {}: {} -> throw {}", this.operationPath, callPath, thrownType.getSimpleName());
             } else {
                 logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
             }
