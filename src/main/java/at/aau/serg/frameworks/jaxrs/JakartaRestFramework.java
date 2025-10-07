@@ -43,7 +43,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                                                                     DataTypeTransformer dataTypeTransformer,
                                                                     SchemaGeneratorHelper schemaHelper,
                                                                     MethodResponseExtractor methodResponseExtractor) {
-        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
+        return new JakartaOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor, exceptionLoggingEnabled);
     }
 
     @Override

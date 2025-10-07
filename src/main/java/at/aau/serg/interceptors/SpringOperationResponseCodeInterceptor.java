@@ -33,7 +33,7 @@ public class SpringOperationResponseCodeInterceptor implements OperationIntercep
     }
 
     @Override
-    public void intercept(CtMethod<?> method, Operation transformedOperation) {
+    public void intercept(CtMethod<?> method, Operation transformedOperation, String operationPath) {
         // traverse the method's source code to identify additional statements containing response codes
         ArrayList<CtThrow> throwsStatements = new ArrayList<>();
         List<HttpStatus> statusCodesFromResponseEntities = new ArrayList<>();

@@ -18,8 +18,9 @@ public class JavaxOperationResponseCodeInterceptor extends AbstractJaxRsOperatio
     public JavaxOperationResponseCodeInterceptor(List<CtType<?>> globalExceptionHandlerClasses,
                                                  DataTypeTransformer dataTypeTransformer,
                                                  SchemaGeneratorHelper schemaHelper,
-                                                 MethodResponseExtractor methodResponseExtractor) {
-        super(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
+                                                 MethodResponseExtractor methodResponseExtractor,
+                                                 boolean exceptionLoggingEnabled) {
+        super(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor, exceptionLoggingEnabled);
     }
 
     @Override

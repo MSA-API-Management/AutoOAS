@@ -44,7 +44,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                                                                     DataTypeTransformer dataTypeTransformer,
                                                                     SchemaGeneratorHelper schemaHelper,
                                                                     MethodResponseExtractor methodResponseExtractor) {
-        return new JavaxOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
+        return new JavaxOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor, exceptionLoggingEnabled);
     }
 
     @Override
