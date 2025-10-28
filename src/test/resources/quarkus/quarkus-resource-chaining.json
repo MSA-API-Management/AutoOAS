@@ -19,6 +19,57 @@
         }
       }
     },
+    "/api/courses" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__api_courses",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Course"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{id}" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__api_courses_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/students" : {
       "get" : {
         "tags" : [ "student-resource" ],
@@ -70,11 +121,11 @@
         }
       }
     },
-    "/api/teachers/courses" : {
+    "/api/teachers/{id}/courses" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__api_teachers_courses",
+        "operationId" : "getUsingGET__api_teachers_id_courses",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -93,11 +144,11 @@
         }
       }
     },
-    "/api/teachers/courses/{id}" : {
+    "/api/teachers/{id}/courses/{id}" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_teachers_courses_id",
+        "operationId" : "getByIdUsingGET__api_teachers_id_courses_id",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -143,18 +194,6 @@
           }
         }
       },
-      "Student" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "age" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
-        }
-      },
       "Course" : {
         "type" : "object",
         "properties" : {
@@ -162,6 +201,18 @@
             "type" : "string"
           },
           "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "Student" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
             "type" : "integer",
             "format" : "int32"
           }

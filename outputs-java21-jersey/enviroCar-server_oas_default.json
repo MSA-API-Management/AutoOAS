@@ -883,6 +883,131 @@
         }
       }
     },
+    "/measurements/{measurement}/sensor" : {
+      "get" : {
+        "tags" : [ "sensor-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__measurements_measurement_sensor",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sensor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phenomenons/{phenomenon}/statistic" : {
+      "get" : {
+        "tags" : [ "statistic-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__phenomenons_phenomenon_statistic",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistic"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sensors/{sensor}/statistics" : {
+      "get" : {
+        "tags" : [ "statistics-resource" ],
+        "summary" : "statistics",
+        "operationId" : "statisticsUsingGET__sensors_sensor_statistics",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/measurements" : {
+      "get" : {
+        "tags" : [ "measurements-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_measurements",
+        "parameters" : [ {
+          "name" : "bbox",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/BoundingBox"
+          }
+        }, {
+          "name" : "nearPoint",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/NearPoint"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Measurements"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "measurements-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__tracks_track_measurements",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Measurement"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
     "/tracks/{track}/preview" : {
       "get" : {
         "tags" : [ "preview-resource" ],
@@ -905,6 +1030,26 @@
           },
           "500" : {
             "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tracks/{track}/sensor" : {
+      "get" : {
+        "tags" : [ "sensor-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_sensor",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sensor"
+                }
+              }
+            }
           }
         }
       }
@@ -965,6 +1110,26 @@
         }
       }
     },
+    "/tracks/{track}/statistics" : {
+      "get" : {
+        "tags" : [ "statistics-resource" ],
+        "summary" : "statistics",
+        "operationId" : "statisticsUsingGET__tracks_track_statistics",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/groups/{group}/members/{member}" : {
       "delete" : {
         "tags" : [ "group-member-resource" ],
@@ -977,6 +1142,140 @@
           },
           "500" : {
             "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/sensors/{sensor}/statistics/{phen}" : {
+      "get" : {
+        "tags" : [ "statistic-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__sensors_sensor_statistics_phen",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistic"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/measurements/{measurement}" : {
+      "get" : {
+        "tags" : [ "measurement-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_measurements_measurement",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Measurement"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "measurement-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__tracks_track_measurements_measurement",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tracks/{track}/statistics/{phen}" : {
+      "get" : {
+        "tags" : [ "statistic-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_statistics_phen",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistic"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/measurements/{measurement}/sensor" : {
+      "get" : {
+        "tags" : [ "sensor-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_measurements_measurement_sensor",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sensor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/measurements/{measurement}/sensor/statistics" : {
+      "get" : {
+        "tags" : [ "statistics-resource" ],
+        "summary" : "statistics",
+        "operationId" : "statisticsUsingGET__tracks_track_measurements_measurement_sensor_statistics",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{track}/measurements/{measurement}/sensor/statistics/{phen}" : {
+      "get" : {
+        "tags" : [ "statistic-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__tracks_track_measurements_measurement_sensor_statistics_phen",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Statistic"
+                }
+              }
+            }
           }
         }
       }

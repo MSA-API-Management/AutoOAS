@@ -93,6 +93,12 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
         return BeanParam.class;
     }
 
+    /**
+     * TODO de-duplicate this and JavaxRestFramework::getSubResourcesInController
+     *
+     * @param controllerType
+     * @return
+     */
     @Override
     public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
         var resultList = new ArrayList<SubResource>();
@@ -101,7 +107,9 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
             CtType<?> methodReturnType = method.getType().getTypeDeclaration();
             Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
 
-            if (pathAnnotation.isEmpty() || !containsHandlerMethodOrSubResource(methodReturnType))
+            if (pathAnnotation.isEmpty()
+                    || !classContainsHandlerMethodOrSubResource(methodReturnType)  // then its most probably a data class
+                    || controllerType.equals(methodReturnType)) // then its a recursive path providing the same class again
                 continue;
 
             // found a method with Path annotation providing a sub-resource

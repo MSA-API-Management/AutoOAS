@@ -194,7 +194,7 @@ public class RestApiParser {
         List<ControllerClassProcessingInformation> notProcessedControllerClasses =
                 controllerClasses.stream().map(t -> new ControllerClassProcessingInformation(t, t)).collect(Collectors.toList());
 
-        List<ControllerClassProcessingInformation> alreadyProcessedControllerClasses = new LinkedList<>();
+//        List<ControllerClassProcessingInformation> alreadyProcessedControllerClasses = new LinkedList<>();
 
         while (notProcessedControllerClasses.size() > 0) {
             var curControllerClasses = new ArrayList<>(notProcessedControllerClasses);
@@ -225,8 +225,9 @@ public class RestApiParser {
 
             // store all processed controller classes if they are referenced again (e.g., some loop or redirect)
             // fixme with this impl we effectively ignore all paths to a controller, other than the first encountered
-            alreadyProcessedControllerClasses.addAll(curControllerClasses);
-            notProcessedControllerClasses.removeAll(alreadyProcessedControllerClasses);
+//            alreadyProcessedControllerClasses.addAll(curControllerClasses);
+//            notProcessedControllerClasses.removeAll(alreadyProcessedControllerClasses);
+            notProcessedControllerClasses.removeAll(curControllerClasses);
         }
 
         operationsTransformer.fixDuplicateOperationIds(operationsMap);
@@ -241,6 +242,7 @@ public class RestApiParser {
                         new ControllerClassProcessingInformation(
                                 subResource.getType(),
                                 subResource.getType(),
+                                controllerType, // todo consider storing the whole chain in the information
                                 basePath + '/' + subResource.getPath()
                         )
                 )

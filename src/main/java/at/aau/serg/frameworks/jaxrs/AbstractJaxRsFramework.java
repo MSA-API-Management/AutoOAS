@@ -103,7 +103,7 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
      * @param controllerType
      * @return
      */
-    protected boolean containsHandlerMethodOrSubResource(CtType<?> controllerType) {
+    protected boolean classContainsHandlerMethodOrSubResource(CtType<?> controllerType) {
         return controllerType.getMethods().stream()
                 .anyMatch(method ->
                         method.getAnnotations().stream()
