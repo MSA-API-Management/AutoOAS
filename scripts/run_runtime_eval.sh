@@ -86,8 +86,8 @@ echo "2/8 Running enviroCar-server"
 echo "3/8 Running features-service"
 { time java -jar $JAR_DIRECTORY "$DATASET_DIR/features-service" "$OUTPUT_DIR/features-service_oas" ; } >> "$LOG_DIR/features-service.log" 2>&1
 
-echo "4/8 Running gravitee-api-management"
-{ time java -jar $JAR_DIRECTORY "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api" "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management" "$OUTPUT_DIR/gravitee-api-management_oas" ; } >> "$LOG_DIR/gravitee-api-management.log" 2>&1
+#echo "4/8 Running gravitee-api-management"
+#{ time java -jar $JAR_DIRECTORY "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api" "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management" "$OUTPUT_DIR/gravitee-api-management_oas" ; } >> "$LOG_DIR/gravitee-api-management.log" 2>&1
 echo "4/8 Running gravitee-api-management v4"
 { time java -jar $JAR_DIRECTORY "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api" "$DATASET_DIR/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4" "$OUTPUT_DIR/gravitee-api-management-v4_oas" ; } >> "$LOG_DIR/gravitee-api-management.log" 2>&1
 
