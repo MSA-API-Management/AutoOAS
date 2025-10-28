@@ -1352,12 +1352,6 @@
         "required" : [ "description", "name", "status", "type", "validation" ],
         "type" : "object",
         "properties" : {
-          "" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Flow"
-            }
-          },
           "characteristics" : {
             "type" : "array",
             "items" : {
@@ -1387,6 +1381,12 @@
           },
           "security" : {
             "$ref" : "#/components/schemas/PlanSecurity"
+          },
+          "flows" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Flow"
+            }
           },
           "commentRequired" : {
             "type" : "boolean"
@@ -1772,9 +1772,6 @@
       "PropertyEntity" : {
         "type" : "object",
         "properties" : {
-          "" : {
-            "type" : "string"
-          },
           "encrypted" : {
             "type" : "boolean"
           },
@@ -1783,6 +1780,12 @@
           },
           "dynamic" : {
             "type" : "boolean"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
           }
         },
         "description" : "",

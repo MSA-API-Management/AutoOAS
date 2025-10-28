@@ -243,6 +243,7 @@ public class ComponentSchemaTransformer {
 
     /**
      * Returns the properties for the schema component, either based on fields or getter methods.
+     *
      * @param clazz
      * @param requiredFields
      * @return
@@ -369,7 +370,7 @@ public class ComponentSchemaTransformer {
             if (annotation instanceof JsonProperty jsonProperty) {
                 String jsonPropertyValue = jsonProperty.value();
 
-                if (jsonPropertyValue != null) {
+                if (jsonPropertyValue != null && !jsonPropertyValue.isEmpty()) {
                     logger.info("Found @JsonProperty with value: {}, replacing original field name: {}", jsonPropertyValue, originalSimpleName);
                     newSimpleName = jsonPropertyValue;
                 }
