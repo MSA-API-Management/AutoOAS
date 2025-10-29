@@ -8,8 +8,8 @@ public class Main {
 
             // todo remove before production
             args = new String[]{
-                    "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api",
-                    "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4",
+                    "C:\\Users\\davidj\\Desktop\\Repos\\MSA-API-Management\\AutoOAS\\src\\test\\resources\\quarkus\\simple-quarkus-misc",
+                    "C:\\Users\\davidj\\Desktop\\Repos\\MSA-API-Management\\AutoOAS\\src\\test\\resources\\quarkus\\simple-quarkus-misc",
                     "target/openapi/swagger.json"
             };
         }
