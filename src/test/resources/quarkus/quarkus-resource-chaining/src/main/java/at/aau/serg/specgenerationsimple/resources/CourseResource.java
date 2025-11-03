@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-public class CourseResource {
+public class CourseResource extends AbstractResource {
 
     @GET
     @Path("/{id}")
@@ -20,6 +20,11 @@ public class CourseResource {
     @GET
     public Response get() {
         return Response.ok(List.of(new Course("Programming 101", 1))).build();
+    }
+
+    @Path("{id}/students")
+    public StudentResource getStudentsOfCourseById(@PathParam("id") int id) {
+        return new StudentResource();
     }
 
 }

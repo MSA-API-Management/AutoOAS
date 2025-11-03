@@ -5,7 +5,7 @@ import jakarta.ws.rs.*;
 
 import java.util.List;
 
-public class StudentResource {
+public class StudentResource extends AbstractResource {
 
     @GET
     public List<Student> getAll() {

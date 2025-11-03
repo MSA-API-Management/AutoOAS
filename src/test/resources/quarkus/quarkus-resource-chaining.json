@@ -93,27 +93,22 @@
         }
       }
     },
-    "/api/teachers/{id}" : {
+    "/api/courses/{id}/students" : {
       "get" : {
-        "tags" : [ "teacher-resource" ],
-        "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_teachers_id",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
-        } ],
+        "tags" : [ "student-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_courses_id_students",
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Teacher"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Student"
+                  }
                 }
               }
             }
@@ -171,6 +166,29 @@
           }
         }
       }
+    },
+    "/api/teachers/{id}/courses/{id}/students" : {
+      "get" : {
+        "tags" : [ "student-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_teachers_id_courses_id_students",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -180,18 +198,6 @@
         "externalDocs" : {
           "description" : "Unspecified return type, e.g., ResponseEntity<?>",
           "url" : "unspecified"
-        }
-      },
-      "Teacher" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
         }
       },
       "Course" : {

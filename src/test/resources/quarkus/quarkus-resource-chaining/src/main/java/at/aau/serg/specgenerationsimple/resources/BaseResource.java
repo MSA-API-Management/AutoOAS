@@ -5,7 +5,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api")
-public class BaseResource {
+public class BaseResource extends AbstractResource {
 
     @GET
     @Path("/alive")
