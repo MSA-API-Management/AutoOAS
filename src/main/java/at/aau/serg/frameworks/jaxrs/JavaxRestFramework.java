@@ -251,6 +251,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     @Override
     protected boolean isRestParameterAnnotation(String annotationName) {
         return annotationName.equals("javax.ws.rs.PathParam") ||
+                annotationName.equals("javax.ws.rs.FormParam") ||
                 annotationName.equals("javax.ws.rs.QueryParam") ||
                 annotationName.equals("javax.ws.rs.HeaderParam") ||
                 annotationName.equals("javax.ws.rs.CookieParam") ||
