@@ -1,24 +1,34 @@
 package at.aau.serg.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 
 public class ComplexJsonProperty {
-    @JsonProperty("full_name")
-    @NotNull
-    public String fullName;
-    @JsonProperty("user_age")
-    public int age;
+    private final String id;
+    private final String value;
+    private String name;
 
-    @JsonProperty("int_value")
-    @NotNull
-    public int value;
-
-    public ComplexJsonProperty(String fullName,
-                               int age,
-                               int value) {
-        this.fullName = fullName;
-        this.age = age;
+    @JsonCreator
+    public ComplexJsonProperty(@JsonProperty("json.id") String id,
+                               @JsonProperty("json.value") String value) {
+        this.id = id;
         this.value = value;
     }
+
+    @JsonProperty
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("json.name")
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty("json.value")
+    public String getValue() {
+        return value;
+    }
+
+
 }
