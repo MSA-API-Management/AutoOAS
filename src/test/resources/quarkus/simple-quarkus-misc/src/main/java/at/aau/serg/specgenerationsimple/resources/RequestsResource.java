@@ -1,4 +1,4 @@
-package at.aau.serg.specgenerationsimple.controllers;
+package at.aau.serg.specgenerationsimple.resources;
 
 import at.aau.serg.specgenerationsimple.models.LocalTimeOrInstant;
 import at.aau.serg.specgenerationsimple.models.SimpleObject;

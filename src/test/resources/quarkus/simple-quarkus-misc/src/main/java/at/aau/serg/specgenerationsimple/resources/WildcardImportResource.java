@@ -1,4 +1,4 @@
-package at.aau.serg.specgenerationsimple.controllers;
+package at.aau.serg.specgenerationsimple.resources;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
