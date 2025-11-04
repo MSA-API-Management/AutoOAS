@@ -6,7 +6,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
 @Path("/formparam")
-public class FormParamController {
+public class FormParamResource {
     @POST
     public Response post(@FormParam("name") String name) {
         return Response.ok().build();

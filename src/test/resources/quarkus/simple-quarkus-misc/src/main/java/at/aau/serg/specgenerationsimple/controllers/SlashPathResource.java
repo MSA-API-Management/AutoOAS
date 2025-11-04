@@ -7,7 +7,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
 @Path("/")
-public class SlashPathController {
+public class SlashPathResource {
     @GET
     public Response handleSlashClassPathAndNoSpecifiedMethodPath() {
         return Response.ok().build();

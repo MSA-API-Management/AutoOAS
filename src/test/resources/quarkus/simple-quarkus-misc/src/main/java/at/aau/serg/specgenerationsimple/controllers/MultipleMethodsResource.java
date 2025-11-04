@@ -7,7 +7,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
 @Path("")
-public class MultipleMethodsController {
+public class MultipleMethodsResource {
     /*   //** TODO does not work in quarkus
      * This allows all http methods
      *

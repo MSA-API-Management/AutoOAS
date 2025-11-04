@@ -2,14 +2,13 @@ package at.aau.serg.specgenerationsimple.controllers;
 
 import at.aau.serg.specgenerationsimple.models.LocalTimeOrInstant;
 import at.aau.serg.specgenerationsimple.models.SimpleObject;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 @Path("/requests")
-public class RequestsController {
+public class RequestsResource {
     @GET
     @Path("/header-param")
     public SimpleObject headerParam(@HeaderParam("req-test") String num) {

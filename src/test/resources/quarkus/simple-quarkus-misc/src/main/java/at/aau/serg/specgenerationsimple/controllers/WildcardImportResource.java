@@ -4,7 +4,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 @Path("/wildcard")
-public class WildcardImportController {
+public class WildcardImportResource {
     @GET
     @Path("/get-card")
     public Response getWildcard() {
