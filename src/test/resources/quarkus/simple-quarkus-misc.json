@@ -8,7 +8,7 @@
   "paths" : {
     "/potentially-unsupported" : {
       "get" : {
-        "tags" : [ "exceptions-controller" ],
+        "tags" : [ "exceptions-resource" ],
         "summary" : "potentiallyUnsupported",
         "operationId" : "potentiallyUnsupportedUsingGET__potentially-unsupported",
         "parameters" : [ ],
@@ -38,7 +38,7 @@
     },
     "/unsupported" : {
       "get" : {
-        "tags" : [ "exceptions-controller" ],
+        "tags" : [ "exceptions-resource" ],
         "summary" : "unsupported",
         "operationId" : "unsupportedUsingGET__unsupported",
         "parameters" : [ ],
@@ -56,9 +56,35 @@
         }
       }
     },
+    "/formparam" : {
+      "post" : {
+        "tags" : [ "form-param-resource" ],
+        "summary" : "post",
+        "operationId" : "postUsingPOST__formparam",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/formparam/multiple" : {
+      "post" : {
+        "tags" : [ "form-param-resource" ],
+        "summary" : "postMultiple",
+        "operationId" : "postMultipleUsingPOST__formparam_multiple",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
     "/get-and-post-method" : {
       "get" : {
-        "tags" : [ "multiple-methods-controller" ],
+        "tags" : [ "multiple-methods-resource" ],
         "summary" : "getMethod",
         "operationId" : "getMethodUsingGET__get-and-post-method",
         "parameters" : [ {
@@ -84,7 +110,7 @@
         }
       },
       "post" : {
-        "tags" : [ "multiple-methods-controller" ],
+        "tags" : [ "multiple-methods-resource" ],
         "summary" : "postMethod",
         "operationId" : "postMethodUsingPOST__get-and-post-method",
         "parameters" : [ {
@@ -112,7 +138,7 @@
     },
     "/get-and-post-method-reqmapping" : {
       "get" : {
-        "tags" : [ "multiple-methods-controller" ],
+        "tags" : [ "multiple-methods-resource" ],
         "summary" : "getRequestMethod",
         "operationId" : "getRequestMethodUsingGET__get-and-post-method-reqmapping",
         "parameters" : [ {
@@ -138,7 +164,7 @@
         }
       },
       "post" : {
-        "tags" : [ "multiple-methods-controller" ],
+        "tags" : [ "multiple-methods-resource" ],
         "summary" : "postRequestMethod",
         "operationId" : "postRequestMethodUsingPOST__get-and-post-method-reqmapping",
         "parameters" : [ {
@@ -166,7 +192,7 @@
     },
     "/requests/header-param" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "headerParam",
         "operationId" : "headerParamUsingGET__requests_header-param",
         "parameters" : [ {
@@ -193,7 +219,7 @@
     },
     "/requests/header-param-required-not-null" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "headerParamRequiredNotNull",
         "operationId" : "headerParamRequiredNotNullUsingGET__requests_header-param-required-not-null",
         "parameters" : [ {
@@ -220,7 +246,7 @@
     },
     "/requests/query-param" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "queryParam",
         "operationId" : "queryParamUsingGET__requests_query-param",
         "parameters" : [ {
@@ -247,7 +273,7 @@
     },
     "/requests/local-time-or-instant" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "queryParamLocalTimeOrInstantObject",
         "operationId" : "queryParamLocalTimeOrInstantObjectUsingGET__requests_local-time-or-instant",
         "parameters" : [ {
@@ -267,7 +293,7 @@
     },
     "/requests/query-param-required-not-null" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "queryParamRequiredNotNull",
         "operationId" : "queryParamRequiredNotNullUsingGET__requests_query-param-required-not-null",
         "parameters" : [ {
@@ -294,7 +320,7 @@
     },
     "/requests/regex-url/{lastname}/{firstname}" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "regexParam",
         "operationId" : "regexParamUsingGET__requests_regex-url_lastname_firstname",
         "parameters" : [ {
@@ -330,7 +356,7 @@
     },
     "/requests/regex-validation/{lastname}/{firstname}" : {
       "get" : {
-        "tags" : [ "requests-controller" ],
+        "tags" : [ "requests-resource" ],
         "summary" : "regexParamPath",
         "operationId" : "regexParamPathUsingGET__requests_regex-validation_lastname_firstname",
         "parameters" : [ {
@@ -366,7 +392,7 @@
     },
     "/simples/deferred-empty" : {
       "get" : {
-        "tags" : [ "simple-controller" ],
+        "tags" : [ "simple-resource" ],
         "summary" : "getAsyncResult",
         "operationId" : "getAsyncResultUsingGET__simples_deferred-empty",
         "parameters" : [ ],
@@ -386,7 +412,7 @@
     },
     "/simples/deferred-questionmark" : {
       "get" : {
-        "tags" : [ "simple-controller" ],
+        "tags" : [ "simple-resource" ],
         "summary" : "getAsyncResultGenericCapture",
         "operationId" : "getAsyncResultGenericCaptureUsingGET__simples_deferred-questionmark",
         "parameters" : [ ],
@@ -406,7 +432,7 @@
     },
     "/simples/deferred-response-entity-simple-object" : {
       "get" : {
-        "tags" : [ "simple-controller" ],
+        "tags" : [ "simple-resource" ],
         "summary" : "getAsyncResultResponseEntityStringCapture",
         "operationId" : "getAsyncResultResponseEntityStringCaptureUsingGET__simples_deferred-response-entity-simple-object",
         "parameters" : [ ],
@@ -426,7 +452,7 @@
     },
     "/simples/deferred-simple-object" : {
       "get" : {
-        "tags" : [ "simple-controller" ],
+        "tags" : [ "simple-resource" ],
         "summary" : "getAsyncResultStringCapture",
         "operationId" : "getAsyncResultStringCaptureUsingGET__simples_deferred-simple-object",
         "parameters" : [ ],
@@ -446,7 +472,7 @@
     },
     "/" : {
       "get" : {
-        "tags" : [ "slash-path-controller" ],
+        "tags" : [ "slash-path-resource" ],
         "summary" : "handleSlashClassPathAndNoSpecifiedMethodPath",
         "operationId" : "handleSlashClassPathAndNoSpecifiedMethodPathUsingGET__",
         "parameters" : [ ],
@@ -457,7 +483,7 @@
         }
       },
       "put" : {
-        "tags" : [ "slash-path-controller" ],
+        "tags" : [ "slash-path-resource" ],
         "summary" : "handleSlashClassPathAndSlashMethodPath",
         "operationId" : "handleSlashClassPathAndSlashMethodPathUsingPUT__",
         "parameters" : [ ],
@@ -468,7 +494,7 @@
         }
       },
       "post" : {
-        "tags" : [ "slash-path-controller" ],
+        "tags" : [ "slash-path-resource" ],
         "summary" : "handleSlashClassPathAndEmptyMethodPath",
         "operationId" : "handleSlashClassPathAndEmptyMethodPathUsingPOST__",
         "parameters" : [ ],
@@ -481,9 +507,35 @@
     },
     "/value" : {
       "get" : {
-        "tags" : [ "slash-path-controller" ],
+        "tags" : [ "slash-path-resource" ],
         "summary" : "handleSlashClassPathAndSpecifiedMethodPath",
         "operationId" : "handleSlashClassPathAndSpecifiedMethodPathUsingGET__value",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/wildcard/get-card" : {
+      "get" : {
+        "tags" : [ "wildcard-import-resource" ],
+        "summary" : "getWildcard",
+        "operationId" : "getWildcardUsingGET__wildcard_get-card",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/wildcard/post-card" : {
+      "post" : {
+        "tags" : [ "wildcard-import-resource" ],
+        "summary" : "postWildcard",
+        "operationId" : "postWildcardUsingPOST__wildcard_post-card",
         "parameters" : [ ],
         "responses" : {
           "200" : {
