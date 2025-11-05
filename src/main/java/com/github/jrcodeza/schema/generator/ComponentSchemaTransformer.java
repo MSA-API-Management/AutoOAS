@@ -2,6 +2,7 @@ package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -252,6 +253,33 @@ public class ComponentSchemaTransformer {
         Map<String, Schema> classPropertyMap = new HashMap<>();
         Set<String> processedFieldNames = new HashSet<>();
         Map<String, Schema> getterSchemas = new HashMap<>();
+        Map<String, Schema> constructorSchemas = new HashMap<>();
+
+        if(clazz instanceof CtClass<?> ctClass) {
+            for(CtConstructor<?> constructor : ctClass.getConstructors()) {
+                boolean hasJsonCreator = constructor.getAnnotations().stream().anyMatch(ann -> ann.getAnnotationType().getQualifiedName().equals("com.fasterxml.jackson.annotation.JsonCreator"));
+
+                if(!hasJsonCreator) continue;
+
+                for(CtParameter<?> param: constructor.getParameters()) {
+                    List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
+                    Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+
+                    String paramName = param.getSimpleName();
+                    String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
+
+                    if(!jsonPropertyName.equals(paramName)) {
+                        CtTypeReference<?> typeSignature = param.getType();
+
+                        getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent( schema -> {
+                            constructorSchemas.put(schema.getName(), schema);
+                            processedFieldNames.add(paramName);
+                        });
+                    }
+                }
+            }
+        }
+
 
         // Check for getter methods and json properties in getter methods
         for (CtMethod<?> method : clazz.getMethods()) {
@@ -264,6 +292,11 @@ public class ComponentSchemaTransformer {
                 continue;
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
+
+            // Skip if field was already processed via constructor method
+            if(processedFieldNames.contains(fieldName)) {
+                continue;
+            }
 
             getMethodSchema(method, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
@@ -288,6 +321,7 @@ public class ComponentSchemaTransformer {
             });
         }
 
+        classPropertyMap.putAll(constructorSchemas);
         classPropertyMap.putAll(getterSchemas);
 
         return classPropertyMap;
