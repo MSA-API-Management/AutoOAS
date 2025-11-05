@@ -250,11 +250,37 @@ public class ComponentSchemaTransformer {
      */
     private Map<String, Schema> getClassProperties(CtType<?> clazz, List<String> requiredFields) {
         Map<String, Schema> classPropertyMap = new HashMap<>();
+        Set<String> processedFieldNames = new HashSet<>();
+        Map<String, Schema> getterSchemas = new HashMap<>();
+
+        // Check for getter methods and json properties in getter methods
+        for (CtMethod<?> method : clazz.getMethods()) {
+            // dont consider static methods
+            if (method.isStatic())
+                continue;
+
+            // dont consider non-getter methods
+            if (!method.getSimpleName().startsWith("get"))
+                continue;
+
+            String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
+
+            getMethodSchema(method, requiredFields).ifPresent(schema -> {
+                schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
+                getterSchemas.put(schema.getName(), schema);
+                processedFieldNames.add(fieldName);
+            });
+        }
 
         for (CtField<?> field : clazz.getFields()) {
             // dont consider static fields
             if (field.isStatic())
                 continue;
+
+            // Skip if field was already processed via its getter method
+            if(processedFieldNames.contains(field.getSimpleName())) {
+                continue;
+            }
 
             getFieldSchema(field, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
@@ -262,24 +288,7 @@ public class ComponentSchemaTransformer {
             });
         }
 
-        // if no regular fields were found,
-        // consider getter methods, e.g., for interfaces with elaborate deserialization
-        if (classPropertyMap.isEmpty()) {
-            for (CtMethod<?> method : clazz.getMethods()) {
-                // dont consider static methods
-                if (method.isStatic())
-                    continue;
-
-                // dont consider non-getter methods
-                if (!method.getSimpleName().startsWith("get"))
-                    continue;
-
-                getMethodSchema(method, requiredFields).ifPresent(schema -> {
-                    schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
-                    classPropertyMap.put(schema.getName(), schema);
-                });
-            }
-        }
+        classPropertyMap.putAll(getterSchemas);
 
         return classPropertyMap;
     }
