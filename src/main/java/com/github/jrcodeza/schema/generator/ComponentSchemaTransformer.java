@@ -2,7 +2,6 @@ package com.github.jrcodeza.schema.generator;
 
 import at.aau.serg.annotations.Out;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jrcodeza.schema.generator.interceptors.SchemaFieldInterceptor;
 import com.github.jrcodeza.schema.generator.model.CustomComposedSchema;
@@ -267,12 +266,12 @@ public class ComponentSchemaTransformer {
             return;
         }
 
-        for(CtConstructor<?> constructor : ctClass.getConstructors()) {
-            if(!hasJsonCreatorAnnotation(constructor)) {
+        for (CtConstructor<?> constructor : ctClass.getConstructors()) {
+            if (!hasJsonCreatorAnnotation(constructor)) {
                 continue;
             }
 
-            for(CtParameter<?> param: constructor.getParameters()) {
+            for (CtParameter<?> param : constructor.getParameters()) {
                 List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
                 Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
 
@@ -280,13 +279,13 @@ public class ComponentSchemaTransformer {
                 String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
 
                 // Only process if renamed via @JsonProperty
-                if(jsonPropertyName.equals(paramName)) {
+                if (jsonPropertyName.equals(paramName)) {
                     continue;
                 }
 
                 CtTypeReference<?> typeSignature = param.getType();
 
-                getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent( schema -> {
+                getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
                     propertyMap.put(schema.getName(), schema);
                     processedFieldNames.add(paramName);
                 });
@@ -306,7 +305,7 @@ public class ComponentSchemaTransformer {
             }
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
-            if(processedFieldNames.contains(fieldName)) {
+            if (processedFieldNames.contains(fieldName)) {
                 continue;
             }
 
