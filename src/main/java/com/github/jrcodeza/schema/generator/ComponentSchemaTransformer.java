@@ -242,7 +242,7 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Returns the properties for the schema component, either based on fields or getter methods including JsonProperty mappings.
+     * Returns the properties for the schema component, either based on fields or getter methods including @JsonProperty mappings.
      *
      * @param clazz
      * @param requiredFields
@@ -261,6 +261,13 @@ public class ComponentSchemaTransformer {
         return classPropertyMap;
     }
 
+    /**
+     * Analyzes constructors annotated with @JsonCreator to check for @JsonProperty mappings.
+     * @param clazz
+     * @param requiredFields
+     * @param propertyMap
+     * @param processedFieldNames
+     */
     private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         if(!(clazz instanceof CtClass<?> ctClass)) {
             return;
@@ -293,10 +300,13 @@ public class ComponentSchemaTransformer {
         }
     }
 
-    private boolean hasJsonCreatorAnnotation(CtConstructor<?> constructor) {
-        return constructor.getAnnotations().stream().anyMatch(ann -> ann.getAnnotationType().getQualifiedName().equals("com.fasterxml.jackson.annotation.JsonCreator"));
-    }
-
+    /**
+     * Processes getter methods and check for @JsonProperty mappings.
+     * @param clazz
+     * @param requiredFields
+     * @param propertyMap
+     * @param processedFieldNames
+     */
     private void processGetterMethods(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         for (CtMethod<?> method : clazz.getMethods()) {
             // don't consider static methods or methods that are no getter
@@ -317,6 +327,13 @@ public class ComponentSchemaTransformer {
         }
     }
 
+    /**
+     * Process the actual fields of the clazz and handle @JsonProperty mappings.
+     * @param clazz
+     * @param requiredFields
+     * @param propertyMap
+     * @param processedFieldNames
+     */
     private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         for (CtField<?> field : clazz.getFields()) {
             // don't consider static fields or already processed fields
@@ -328,6 +345,10 @@ public class ComponentSchemaTransformer {
                 propertyMap.put(schema.getName(), schema);
             });
         }
+    }
+
+    private boolean hasJsonCreatorAnnotation(CtConstructor<?> constructor) {
+        return constructor.getAnnotations().stream().anyMatch(ann -> ann.getAnnotationType().getQualifiedName().equals("com.fasterxml.jackson.annotation.JsonCreator"));
     }
 
     private Optional<Schema> getFieldSchema(CtField<?> field, @Out List<String> requiredFields) {
