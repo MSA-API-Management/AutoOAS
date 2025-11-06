@@ -243,7 +243,7 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Returns the properties for the schema component, either based on fields or getter methods.
+     * Returns the properties for the schema component, either based on fields or getter methods including JsonProperty mappings.
      *
      * @param clazz
      * @param requiredFields
@@ -252,79 +252,83 @@ public class ComponentSchemaTransformer {
     private Map<String, Schema> getClassProperties(CtType<?> clazz, List<String> requiredFields) {
         Map<String, Schema> classPropertyMap = new HashMap<>();
         Set<String> processedFieldNames = new HashSet<>();
-        Map<String, Schema> getterSchemas = new HashMap<>();
-        Map<String, Schema> constructorSchemas = new HashMap<>();
 
-        if(clazz instanceof CtClass<?> ctClass) {
-            for(CtConstructor<?> constructor : ctClass.getConstructors()) {
-                boolean hasJsonCreator = constructor.getAnnotations().stream().anyMatch(ann -> ann.getAnnotationType().getQualifiedName().equals("com.fasterxml.jackson.annotation.JsonCreator"));
+        processJsonCreatorConstructors(clazz, requiredFields, classPropertyMap, processedFieldNames);
 
-                if(!hasJsonCreator) continue;
+        processGetterMethods(clazz, requiredFields, classPropertyMap, processedFieldNames);
 
-                for(CtParameter<?> param: constructor.getParameters()) {
-                    List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
-                    Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+        processFields(clazz, requiredFields, classPropertyMap, processedFieldNames);
 
-                    String paramName = param.getSimpleName();
-                    String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
+        return classPropertyMap;
+    }
 
-                    if(!jsonPropertyName.equals(paramName)) {
-                        CtTypeReference<?> typeSignature = param.getType();
-
-                        getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent( schema -> {
-                            constructorSchemas.put(schema.getName(), schema);
-                            processedFieldNames.add(paramName);
-                        });
-                    }
-                }
-            }
+    private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+        if(!(clazz instanceof CtClass<?> ctClass)) {
+            return;
         }
 
+        for(CtConstructor<?> constructor : ctClass.getConstructors()) {
+            if(!hasJsonCreatorAnnotation(constructor)) {
+                continue;
+            }
 
-        // Check for getter methods and json properties in getter methods
+            for(CtParameter<?> param: constructor.getParameters()) {
+                List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
+                Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+
+                String paramName = param.getSimpleName();
+                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
+
+                // Only process if renamed via @JsonProperty
+                if(jsonPropertyName.equals(paramName)) {
+                    continue;
+                }
+
+                CtTypeReference<?> typeSignature = param.getType();
+
+                getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent( schema -> {
+                    propertyMap.put(schema.getName(), schema);
+                    processedFieldNames.add(paramName);
+                });
+            }
+        }
+    }
+
+    private boolean hasJsonCreatorAnnotation(CtConstructor<?> constructor) {
+        return constructor.getAnnotations().stream().anyMatch(ann -> ann.getAnnotationType().getQualifiedName().equals("com.fasterxml.jackson.annotation.JsonCreator"));
+    }
+
+    private void processGetterMethods(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         for (CtMethod<?> method : clazz.getMethods()) {
-            // dont consider static methods
-            if (method.isStatic())
+            // don't consider static methods or methods that are no getter
+            if (method.isStatic() || !method.getSimpleName().startsWith("get")) {
                 continue;
-
-            // dont consider non-getter methods
-            if (!method.getSimpleName().startsWith("get"))
-                continue;
+            }
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
-
-            // Skip if field was already processed via constructor method
             if(processedFieldNames.contains(fieldName)) {
                 continue;
             }
 
             getMethodSchema(method, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
-                getterSchemas.put(schema.getName(), schema);
+                propertyMap.put(schema.getName(), schema);
                 processedFieldNames.add(fieldName);
             });
         }
+    }
 
+    private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         for (CtField<?> field : clazz.getFields()) {
-            // dont consider static fields
-            if (field.isStatic())
+            // don't consider static fields or already processed fields
+            if (field.isStatic() || processedFieldNames.contains(field.getSimpleName()))
                 continue;
-
-            // Skip if field was already processed via its getter method
-            if(processedFieldNames.contains(field.getSimpleName())) {
-                continue;
-            }
 
             getFieldSchema(field, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
-                classPropertyMap.put(schema.getName(), schema);
+                propertyMap.put(schema.getName(), schema);
             });
         }
-
-        classPropertyMap.putAll(constructorSchemas);
-        classPropertyMap.putAll(getterSchemas);
-
-        return classPropertyMap;
     }
 
     private Optional<Schema> getFieldSchema(CtField<?> field, @Out List<String> requiredFields) {
