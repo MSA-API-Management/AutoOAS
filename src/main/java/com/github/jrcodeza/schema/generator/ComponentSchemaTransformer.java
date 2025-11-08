@@ -242,7 +242,7 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Returns the properties for the schema component, either based on fields or getter methods including @JsonProperty mappings.
+     * Returns the properties for the schema component, either based on fields or getter methods including handling of @JsonProperty mappings.
      *
      * @param clazz
      * @param requiredFields
