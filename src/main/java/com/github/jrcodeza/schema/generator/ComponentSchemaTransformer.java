@@ -305,7 +305,7 @@ public class ComponentSchemaTransformer {
                 String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(fieldName, annotations);
 
                 if (!jsonPropertyName.equals(fieldName)) {
-                    Schema existingSchema = findSchemaByFieldName(propertyMap, fieldName);
+                    Schema existingSchema = propertyMap.get(fieldName);
                     if (existingSchema != null) {
                         propertyMap.remove(existingSchema.getName());
                         existingSchema.setName(jsonPropertyName);
@@ -350,7 +350,7 @@ public class ComponentSchemaTransformer {
                 // if field exists and constructor has other @JsonProperty mapping, update schema
                 if (processedFieldNames.contains(paramName)) {
                     if (!jsonPropertyName.equals(paramName)) {
-                        Schema existingSchema = findSchemaByFieldName(propertyMap, paramName);
+                        Schema existingSchema = propertyMap.get(paramName);
                         if (existingSchema != null) {
                             propertyMap.remove(existingSchema.getName());
                             existingSchema.setName(jsonPropertyName);
@@ -367,18 +367,6 @@ public class ComponentSchemaTransformer {
                 }
             }
         }
-    }
-
-    private Schema findSchemaByFieldName(Map<String, Schema> propertyMap, String fieldName) {
-        Schema schema = propertyMap.get(fieldName);
-        if (schema != null) {
-            return schema;
-        }
-
-        return propertyMap.values().stream()
-                .filter(s -> s.getName().equals(fieldName))
-                .findFirst()
-                .orElse(null);
     }
 
     private boolean hasJsonCreatorAnnotation(CtConstructor<?> constructor) {
