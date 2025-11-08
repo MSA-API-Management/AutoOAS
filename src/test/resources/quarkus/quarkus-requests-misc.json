@@ -146,6 +146,99 @@
         }
       }
     },
+    "/complex-json/property-getter" : {
+      "post" : {
+        "tags" : [ "complex-json-property-resource" ],
+        "summary" : "handleJsonPropertyGetter",
+        "operationId" : "handleJsonPropertyGetterUsingPOST__complex-json_property-getter",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ComplexJsonProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ComplexJsonProperty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getter-constraints/constraints" : {
+      "post" : {
+        "tags" : [ "getter-constraints-resource" ],
+        "summary" : "handleConstraintsInReturnValue",
+        "operationId" : "handleConstraintsInReturnValueUsingPOST__getter-constraints_constraints",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GetterConstraints"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getter-constraints/property-constraints-getter" : {
+      "post" : {
+        "tags" : [ "getter-constraints-resource" ],
+        "summary" : "handleConstraintsInReturnValueWithGetter",
+        "operationId" : "handleConstraintsInReturnValueWithGetterUsingPOST__getter-constraints_property-constraints-getter",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GetterConstraints"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/json-property" : {
       "get" : {
         "tags" : [ "json-property-resource" ],
@@ -206,7 +299,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/ComplexJsonProperty"
+                "$ref" : "#/components/schemas/JsonPropertyWithValidation"
               }
             }
           },
@@ -218,7 +311,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ComplexJsonProperty"
+                  "$ref" : "#/components/schemas/JsonPropertyWithValidation"
                 }
               }
             }
@@ -739,6 +832,23 @@
   },
   "components" : {
     "schemas" : {
+      "JsonPropertyWithValidation" : {
+        "required" : [ "full_name", "int_value" ],
+        "type" : "object",
+        "properties" : {
+          "full_name" : {
+            "type" : "string"
+          },
+          "user_age" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "int_value" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
       "OptionalSimple" : {
         "type" : "object",
         "properties" : {
@@ -785,19 +895,16 @@
         }
       },
       "ComplexJsonProperty" : {
-        "required" : [ "full_name", "int_value" ],
         "type" : "object",
         "properties" : {
-          "full_name" : {
+          "json.name" : {
             "type" : "string"
           },
-          "user_age" : {
-            "type" : "integer",
-            "format" : "int32"
+          "json.id" : {
+            "type" : "string"
           },
-          "int_value" : {
-            "type" : "integer",
-            "format" : "int32"
+          "json.value" : {
+            "type" : "string"
           }
         }
       },
@@ -828,6 +935,22 @@
           "user_age" : {
             "type" : "integer",
             "format" : "int32"
+          }
+        }
+      },
+      "GetterConstraints" : {
+        "required" : [ "otherType", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "otherType" : {
+            "maxLength" : 2147483647,
+            "minLength" : 1,
+            "type" : "string"
           }
         }
       },
