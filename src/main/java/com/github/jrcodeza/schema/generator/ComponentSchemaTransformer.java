@@ -252,11 +252,9 @@ public class ComponentSchemaTransformer {
         Map<String, Schema> classPropertyMap = new HashMap<>();
         Set<String> processedFieldNames = new HashSet<>();
 
-        processJsonCreatorConstructors(clazz, requiredFields, classPropertyMap, processedFieldNames);
-
-        processGetterMethods(clazz, requiredFields, classPropertyMap, processedFieldNames);
-
         processFields(clazz, requiredFields, classPropertyMap, processedFieldNames);
+        processGetterMethods(clazz, requiredFields, classPropertyMap, processedFieldNames);
+        processJsonCreatorConstructors(clazz, requiredFields, classPropertyMap, processedFieldNames);
 
         return classPropertyMap;
     }
@@ -285,17 +283,23 @@ public class ComponentSchemaTransformer {
                 String paramName = param.getSimpleName();
                 String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
 
-                // Only process if renamed via @JsonProperty
-                if (jsonPropertyName.equals(paramName)) {
-                    continue;
+                if(processedFieldNames.contains(paramName)) {
+                    if (!jsonPropertyName.equals(paramName)) {
+                        Schema existingSchema = findSchemaByFieldName(propertyMap, paramName);
+                        if(existingSchema != null) {
+                            propertyMap.remove(existingSchema.getName());
+                            existingSchema.setName(jsonPropertyName);
+                            propertyMap.put(jsonPropertyName, existingSchema);
+                        }
+                    }
+                } else {
+                    CtTypeReference<?> typeSignature = param.getType();
+
+                    getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
+                        propertyMap.put(schema.getName(), schema);
+                        processedFieldNames.add(paramName);
+                    });
                 }
-
-                CtTypeReference<?> typeSignature = param.getType();
-
-                getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
-                    propertyMap.put(schema.getName(), schema);
-                    processedFieldNames.add(paramName);
-                });
             }
         }
     }
@@ -315,16 +319,40 @@ public class ComponentSchemaTransformer {
             }
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
-            if (processedFieldNames.contains(fieldName)) {
-                continue;
-            }
 
-            getMethodSchema(method, requiredFields).ifPresent(schema -> {
-                schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
-                propertyMap.put(schema.getName(), schema);
-                processedFieldNames.add(fieldName);
-            });
+            if (processedFieldNames.contains(fieldName)) {
+                List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
+                Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(fieldName, annotations);
+
+                if (!jsonPropertyName.equals(fieldName)) {
+                    Schema existingSchema = findSchemaByFieldName(propertyMap, fieldName);
+                    if (existingSchema != null) {
+                        propertyMap.remove(existingSchema.getName());
+                        existingSchema.setName(jsonPropertyName);
+                        propertyMap.put(jsonPropertyName, existingSchema);
+                    }
+                }
+            } else {
+                getMethodSchema(method, requiredFields).ifPresent(schema -> {
+                    schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
+                    propertyMap.put(schema.getName(), schema);
+                    processedFieldNames.add(fieldName);
+                });
+            }
         }
+    }
+
+    private Schema findSchemaByFieldName(Map<String, Schema> propertyMap, String fieldName) {
+        Schema schema = propertyMap.get(fieldName);
+        if(schema != null) {
+            return schema;
+        }
+
+        return propertyMap.values().stream()
+                .filter(s -> s.getName().equals(fieldName))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -336,13 +364,14 @@ public class ComponentSchemaTransformer {
      */
     private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
         for (CtField<?> field : clazz.getFields()) {
-            // don't consider static fields or already processed fields
-            if (field.isStatic() || processedFieldNames.contains(field.getSimpleName()))
+            // don't consider static fields
+            if (field.isStatic())
                 continue;
 
             getFieldSchema(field, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
                 propertyMap.put(schema.getName(), schema);
+                processedFieldNames.add(field.getSimpleName());
             });
         }
     }
