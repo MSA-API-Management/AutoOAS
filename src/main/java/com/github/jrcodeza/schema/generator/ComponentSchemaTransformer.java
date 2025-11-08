@@ -260,52 +260,30 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Analyzes constructors annotated with @JsonCreator to check for @JsonProperty mappings.
+     * Process the actual fields of the clazz and handle @JsonProperty mappings.
+     *
      * @param clazz
      * @param requiredFields
      * @param propertyMap
      * @param processedFieldNames
      */
-    private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
-        if(!(clazz instanceof CtClass<?> ctClass)) {
-            return;
-        }
-
-        for (CtConstructor<?> constructor : ctClass.getConstructors()) {
-            if (!hasJsonCreatorAnnotation(constructor)) {
+    private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+        for (CtField<?> field : clazz.getFields()) {
+            // don't consider static fields
+            if (field.isStatic())
                 continue;
-            }
 
-            for (CtParameter<?> param : constructor.getParameters()) {
-                List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
-                Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
-
-                String paramName = param.getSimpleName();
-                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
-
-                if(processedFieldNames.contains(paramName)) {
-                    if (!jsonPropertyName.equals(paramName)) {
-                        Schema existingSchema = findSchemaByFieldName(propertyMap, paramName);
-                        if(existingSchema != null) {
-                            propertyMap.remove(existingSchema.getName());
-                            existingSchema.setName(jsonPropertyName);
-                            propertyMap.put(jsonPropertyName, existingSchema);
-                        }
-                    }
-                } else {
-                    CtTypeReference<?> typeSignature = param.getType();
-
-                    getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
-                        propertyMap.put(schema.getName(), schema);
-                        processedFieldNames.add(paramName);
-                    });
-                }
-            }
+            getFieldSchema(field, requiredFields).ifPresent(schema -> {
+                schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
+                propertyMap.put(schema.getName(), schema);
+                processedFieldNames.add(field.getSimpleName());
+            });
         }
     }
 
     /**
-     * Processes getter methods and check for @JsonProperty mappings.
+     * Process getter methods and check for @JsonProperty mappings.
+     *
      * @param clazz
      * @param requiredFields
      * @param propertyMap
@@ -320,6 +298,7 @@ public class ComponentSchemaTransformer {
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
 
+            // if field exists and getter has other @JsonProperty mapping, update schema
             if (processedFieldNames.contains(fieldName)) {
                 List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
                 Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
@@ -343,9 +322,56 @@ public class ComponentSchemaTransformer {
         }
     }
 
+    /**
+     * Analyzes constructors annotated with @JsonCreator to check for @JsonProperty mappings.
+     *
+     * @param clazz
+     * @param requiredFields
+     * @param propertyMap
+     * @param processedFieldNames
+     */
+    private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+        if (!(clazz instanceof CtClass<?> ctClass)) {
+            return;
+        }
+
+        for (CtConstructor<?> constructor : ctClass.getConstructors()) {
+            if (!hasJsonCreatorAnnotation(constructor)) {
+                continue;
+            }
+
+            for (CtParameter<?> param : constructor.getParameters()) {
+                List<CtAnnotation<?>> ctAnnotations = param.getAnnotations();
+                Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+
+                String paramName = param.getSimpleName();
+                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
+
+                // if field exists and constructor has other @JsonProperty mapping, update schema
+                if (processedFieldNames.contains(paramName)) {
+                    if (!jsonPropertyName.equals(paramName)) {
+                        Schema existingSchema = findSchemaByFieldName(propertyMap, paramName);
+                        if (existingSchema != null) {
+                            propertyMap.remove(existingSchema.getName());
+                            existingSchema.setName(jsonPropertyName);
+                            propertyMap.put(jsonPropertyName, existingSchema);
+                        }
+                    }
+                } else {
+                    CtTypeReference<?> typeSignature = param.getType();
+
+                    getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
+                        propertyMap.put(schema.getName(), schema);
+                        processedFieldNames.add(paramName);
+                    });
+                }
+            }
+        }
+    }
+
     private Schema findSchemaByFieldName(Map<String, Schema> propertyMap, String fieldName) {
         Schema schema = propertyMap.get(fieldName);
-        if(schema != null) {
+        if (schema != null) {
             return schema;
         }
 
@@ -353,27 +379,6 @@ public class ComponentSchemaTransformer {
                 .filter(s -> s.getName().equals(fieldName))
                 .findFirst()
                 .orElse(null);
-    }
-
-    /**
-     * Process the actual fields of the clazz and handle @JsonProperty mappings.
-     * @param clazz
-     * @param requiredFields
-     * @param propertyMap
-     * @param processedFieldNames
-     */
-    private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
-        for (CtField<?> field : clazz.getFields()) {
-            // don't consider static fields
-            if (field.isStatic())
-                continue;
-
-            getFieldSchema(field, requiredFields).ifPresent(schema -> {
-                schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
-                propertyMap.put(schema.getName(), schema);
-                processedFieldNames.add(field.getSimpleName());
-            });
-        }
     }
 
     private boolean hasJsonCreatorAnnotation(CtConstructor<?> constructor) {
