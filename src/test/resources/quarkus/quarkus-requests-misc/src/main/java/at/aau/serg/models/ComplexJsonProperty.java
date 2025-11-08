@@ -29,6 +29,4 @@ public class ComplexJsonProperty {
     public String getValue() {
         return value;
     }
-
-
 }
