@@ -323,7 +323,7 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Analyzes constructors annotated with @JsonCreator to check for @JsonProperty mappings.
+     * Process constructors annotated with @JsonCreator and check for @JsonProperty mappings.
      *
      * @param clazz
      * @param requiredFields
