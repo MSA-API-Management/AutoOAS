@@ -187,6 +187,7 @@ public class RestApiParser {
         System.out.println("Wrote OpenAPI to " + fileName);
     }
 
+    // fixme split superclass and subresource analysis into dedicated steps
     private Paths createPathsFromControllers(List<CtType<?>> controllerClasses) {
         Paths operationsMap = new Paths();
 
@@ -199,28 +200,50 @@ public class RestApiParser {
         while (notProcessedControllerClasses.size() > 0) {
             var curControllerClasses = new ArrayList<>(notProcessedControllerClasses);
 
-            for (ControllerClassProcessingInformation typeInfo : curControllerClasses) {
+            for (ControllerClassProcessingInformation currentControllerClassInfoUnderAnalysis : curControllerClasses) {
 
-                CtType<?> concreteType = typeInfo.getConcreteControllerType();
-                CtType<?> currentType = typeInfo.getCurrentSuperclassType();
+                CtType<?> concreteControllerClassType = currentControllerClassInfoUnderAnalysis.getConcreteControllerType();
+                CtType<?> currentControllerClassInHierarchyType = currentControllerClassInfoUnderAnalysis.getCurrentSuperclassType();
 
-                String controllerBasePath = typeInfo.getBasePath() + '/' + operationsTransformer.getBaseControllerPath(concreteType);
+                String controllerBasePath = currentControllerClassInfoUnderAnalysis.getBasePath() + '/' + operationsTransformer.getBaseControllerPath(concreteControllerClassType);
 
-                for (CtMethod<?> method : currentType.getMethods()) {
-                    // Adds the operation for the method to the operationsMap
+                for (CtMethod<?> method : currentControllerClassInHierarchyType.getMethods()) {
+                    // Adds the operation for the method to the operationsMap if it contains a corresponding annotation
                     operationsTransformer.createOperation(
                             method, controllerBasePath,
-                            operationsMap, concreteType.getSimpleName());
+                            operationsMap, concreteControllerClassType.getSimpleName());
                 }
 
-                // traversing down the controller's sub-resources
-                var subResources = findSubResourcesInController(currentType, controllerBasePath);
-                if (subResources != null)
-                    notProcessedControllerClasses.addAll(subResources);
+                //-Dlogback.configurationFile=src/main/resources/logback-verbose.xml
 
+                // todo handle sub resources !!!
+
+                // traversing down the controller's sub-resources
+                List<ControllerClassProcessingInformation> subResources = findSubResourcesInController(currentControllerClassInfoUnderAnalysis, controllerBasePath);
+                if (subResources != null) {
+                    // break cycles
+                    // todo report cycles as "see other endpoint"
+                    for (ControllerClassProcessingInformation subResource : subResources) {
+                        System.out.println(subResource.getConcreteControllerType().getQualifiedName() + " -> " + subResource.getSubResourceChainAsString());
+                        if (subResource.getParentResourceTypeChain().contains(subResource.getConcreteControllerType()))
+                            System.out.println("Endpoint call chain circle detected: " + subResource.getSubResourceChainAsString() + "-/->" + subResource.getConcreteControllerType().getSimpleName());
+                        else
+                            notProcessedControllerClasses.add(subResource);
+                    }
+
+//                    notProcessedControllerClasses.addAll(subResources);
+                }
+
+                // todo consider what to do for sub resource resolution (envirocar)
                 // traversing up the controller class's inheritance
-                if (currentType.getSuperclass() != null)
-                    notProcessedControllerClasses.add(new ControllerClassProcessingInformation(concreteType, currentType.getSuperclass().getTypeDeclaration()));
+                if (currentControllerClassInHierarchyType.getSuperclass() != null)
+                    notProcessedControllerClasses.add(
+                            new ControllerClassProcessingInformation(
+                                    concreteControllerClassType,
+                                    currentControllerClassInHierarchyType.getSuperclass().getTypeDeclaration(),
+                                    currentControllerClassInfoUnderAnalysis.getParentResourceTypeChain(),
+                                    currentControllerClassInfoUnderAnalysis.getBasePath())
+                    );
             }
 
             // store all processed controller classes if they are referenced again (e.g., some loop or redirect)
@@ -235,14 +258,15 @@ public class RestApiParser {
         return operationsMap;
     }
 
-    private List<ControllerClassProcessingInformation> findSubResourcesInController(CtType<?> controllerType, String basePath) {
-        return restFramework.getSubResourcesInController(controllerType)
+    private List<ControllerClassProcessingInformation> findSubResourcesInController(ControllerClassProcessingInformation controllerUnderAnalysis, String basePath) {
+        return restFramework.getSubResourcesInController(controllerUnderAnalysis.getCurrentSuperclassType())
                 .stream()
                 .map(subResource ->
                         new ControllerClassProcessingInformation(
                                 subResource.getType(),
                                 subResource.getType(),
-                                controllerType, // todo consider storing the whole chain in the information
+                                controllerUnderAnalysis.getParentResourceTypeChain(),
+                                controllerUnderAnalysis.getConcreteControllerType(),
                                 basePath + '/' + subResource.getPath()
                         )
                 )

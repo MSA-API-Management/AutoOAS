@@ -32,6 +32,24 @@ public class SpoonUtils {
         return ctType != null && ctType.equals(new TypeFactory().objectType());
     }
 
+    public static boolean areTypesEqual(CtType<?> type1, CtType<?> type2) {
+        if (type1 == null && type2 == null) {
+            return true;
+        }
+        if (type1 == null || type2 == null) {
+            return false;
+        }
+
+        if (type1.equals(type2)) {
+            return true;
+        }
+
+        String qualifiedName1 = type1.getQualifiedName();
+        String qualifiedName2 = type2.getQualifiedName();
+
+        return qualifiedName1 != null && qualifiedName1.equals(qualifiedName2);
+    }
+
     /**
      * Compares two CtTypeReference objects for equivalence.
      *

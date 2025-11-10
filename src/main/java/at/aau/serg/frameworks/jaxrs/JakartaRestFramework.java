@@ -8,6 +8,7 @@ import at.aau.serg.frameworks.jaxrs.adapters.parameters.JakartaQueryParamAdapter
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JakartaOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import at.aau.serg.util.SpoonUtils;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -109,7 +110,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
 
             if (pathAnnotation.isEmpty()
                     || !classContainsHandlerMethodOrSubResource(methodReturnType)  // then its most probably a data class
-                    || controllerType.equals(methodReturnType)) // then its a recursive path providing the same class again
+                    || SpoonUtils.areTypesEqual(controllerType, methodReturnType)) // then its a recursive path providing the same class again
                 continue;
 
             // found a method with Path annotation providing a sub-resource
