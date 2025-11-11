@@ -250,6 +250,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     @Override
     protected boolean isRestParameterAnnotation(String annotationName) {
         return annotationName.equals("jakarta.ws.rs.PathParam") ||
+                annotationName.equals("jakarta.ws.rs.FormParam") ||
                 annotationName.equals("jakarta.ws.rs.QueryParam") ||
                 annotationName.equals("jakarta.ws.rs.HeaderParam") ||
                 annotationName.equals("jakarta.ws.rs.CookieParam") ||

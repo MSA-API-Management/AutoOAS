@@ -1,12 +1,10 @@
-package at.aau.serg.specgenerationsimple.controllers;
+package at.aau.serg.specgenerationsimple.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 
 @Path("")
-public class ExceptionsController {
+public class ExceptionsResource {
     @GET
     @Path("/potentially-unsupported")
     public String potentiallyUnsupported() {

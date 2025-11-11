@@ -1,4 +1,4 @@
-package at.aau.serg.specgenerationsimple.controllers;
+package at.aau.serg.specgenerationsimple.resources;
 
 import at.aau.serg.specgenerationsimple.models.SimpleObject;
 import jakarta.ws.rs.GET;
@@ -7,7 +7,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
 @Path("")
-public class MultipleMethodsController {
+public class MultipleMethodsResource {
     /*   //** TODO does not work in quarkus
      * This allows all http methods
      *

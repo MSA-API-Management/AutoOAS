@@ -1,4 +1,4 @@
-package at.aau.serg.specgenerationsimple.controllers;
+package at.aau.serg.specgenerationsimple.resources;
 
 import at.aau.serg.specgenerationsimple.models.SimpleObject;
 import jakarta.ws.rs.GET;
@@ -12,7 +12,7 @@ import java.util.concurrent.CompletionStage;
 
 @Path("/simples")
 @Produces(MediaType.APPLICATION_JSON)
-public class SimpleController {
+public class SimpleResource {
     @GET
     @Path("/deferred-empty")
     public CompletionStage<SimpleObject> getAsyncResult() {

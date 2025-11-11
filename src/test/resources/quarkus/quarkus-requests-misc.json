@@ -64,17 +64,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -393,17 +382,6 @@
         "summary" : "handleFormParamRequestBody",
         "operationId" : "handleFormParamRequestBodyUsingPOST__body_formparam-body",
         "parameters" : [ ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "200" : {
             "description" : "OK",
