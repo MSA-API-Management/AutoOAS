@@ -1,11 +1,9 @@
-package at.aau.serg.controllers;
+package at.aau.serg.resources;
 
-import at.aau.serg.models.DtoWithGetters;
 import at.aau.serg.models.OptionalSimple;
 import at.aau.serg.models.Simple;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 

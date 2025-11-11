@@ -6,10 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The existing source code utilizes reference parameters as additional output values.
- * This annotation serves for documenting such (hacky) uses for clarity.
+ * Marks the parameter as a call-by-reference parameter that is expected to change after the method call,
+ * effectively making it an additional output value of the method.
+ *
  * <p>
- * E.g., {@code void someMethod(Object in, Object out)} should be changed to {@code @Out Object out}.
+ * E.g., {@code void someMethod(Object in, @Out Object out)} where {@code out} depends on the input {@code in}.
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.SOURCE)
