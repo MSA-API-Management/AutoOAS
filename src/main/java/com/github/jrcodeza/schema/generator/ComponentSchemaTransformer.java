@@ -267,7 +267,7 @@ public class ComponentSchemaTransformer {
      * @param propertyMap
      * @param processedFieldNames
      */
-    private void processFields(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+    private void processFields(CtType<?> clazz, List<String> requiredFields, @Out Map<String, Schema> propertyMap, @Out Set<String> processedFieldNames) {
         for (CtField<?> field : clazz.getFields()) {
             // don't consider static fields
             if (field.isStatic())
@@ -289,7 +289,7 @@ public class ComponentSchemaTransformer {
      * @param propertyMap
      * @param processedFieldNames
      */
-    private void processGetterMethods(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+    private void processGetterMethods(CtType<?> clazz, List<String> requiredFields, @Out Map<String, Schema> propertyMap, @Out Set<String> processedFieldNames) {
         for (CtMethod<?> method : clazz.getMethods()) {
             // don't consider static methods or methods that are no getter
             if (method.isStatic() || !method.getSimpleName().startsWith("get")) {
@@ -302,7 +302,7 @@ public class ComponentSchemaTransformer {
             if (processedFieldNames.contains(fieldName)) {
                 List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
                 Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
-                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(fieldName, annotations);
+                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(fieldName, annotations);
 
                 if (!jsonPropertyName.equals(fieldName)) {
                     Schema existingSchema = propertyMap.get(fieldName);
@@ -330,7 +330,7 @@ public class ComponentSchemaTransformer {
      * @param propertyMap
      * @param processedFieldNames
      */
-    private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, Map<String, Schema> propertyMap, Set<String> processedFieldNames) {
+    private void processJsonCreatorConstructors(CtType<?> clazz, List<String> requiredFields, @Out Map<String, Schema> propertyMap, @Out Set<String> processedFieldNames) {
         if (!(clazz instanceof CtClass<?> ctClass)) {
             return;
         }
@@ -345,7 +345,7 @@ public class ComponentSchemaTransformer {
                 Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
 
                 String paramName = param.getSimpleName();
-                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotations(paramName, annotations);
+                String jsonPropertyName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(paramName, annotations);
 
                 // if field exists and constructor has other @JsonProperty mapping, update schema
                 if (processedFieldNames.contains(paramName)) {
@@ -410,7 +410,7 @@ public class ComponentSchemaTransformer {
     private Optional<Schema> getFieldOrMethodSchema(String simpleName, CtTypeReference<?> typeSignature, List<CtAnnotation<?>> ctAnnotations, @Out List<String> requiredFields) {
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
 
-        simpleName = tryGetNameFromJsonPropertyAnnotations(simpleName, annotations);
+        simpleName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(simpleName, annotations);
 
         if (isRequired(annotations)) {
             requiredFields.add(simpleName);
@@ -446,13 +446,13 @@ public class ComponentSchemaTransformer {
     }
 
     /**
-     * Translate variable names if @JsonProperty annotation exists
+     * Translate variable names if @JsonProperty annotation exists, or return original name
      *
      * @param originalSimpleName
      * @param annotations
      * @return
      */
-    private String tryGetNameFromJsonPropertyAnnotations(String originalSimpleName, Annotation[] annotations) {
+    private String tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(String originalSimpleName, Annotation[] annotations) {
         String newSimpleName = originalSimpleName;
 
         for (Annotation annotation : annotations) {
