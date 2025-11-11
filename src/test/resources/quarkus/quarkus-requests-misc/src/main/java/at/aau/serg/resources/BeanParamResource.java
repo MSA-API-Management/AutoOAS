@@ -1,4 +1,4 @@
-package at.aau.serg.controllers;
+package at.aau.serg.resources;
 
 import at.aau.serg.models.ComplexBean;
 import at.aau.serg.models.Simple;
