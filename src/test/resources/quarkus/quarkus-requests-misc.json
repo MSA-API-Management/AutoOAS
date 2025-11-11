@@ -948,8 +948,8 @@
             "type" : "string"
           },
           "otherType" : {
-            "maxLength" : 2147483647,
-            "minLength" : 1,
+            "maxLength" : 1,
+            "minLength" : 0,
             "type" : "string"
           }
         }

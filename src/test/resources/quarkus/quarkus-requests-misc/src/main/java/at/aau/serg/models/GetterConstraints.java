@@ -9,7 +9,7 @@ public class GetterConstraints {
     private String type;
 
     @NotNull
-    @Size(min = 1)
+    @Size(max = 1)
     public String otherType;
 
     public GetterConstraints() {
