@@ -290,6 +290,8 @@ public class ComponentSchemaTransformer {
      * @param processedFieldNames
      */
     private void processGetterMethods(CtType<?> clazz, List<String> requiredFields, @Out Map<String, Schema> propertyMap, @Out Set<String> processedFieldNames) {
+        boolean detectedAnySimpleFields = !processedFieldNames.isEmpty();
+
         for (CtMethod<?> method : clazz.getMethods()) {
             // don't consider static methods or methods that are no getter
             if (method.isStatic() || !method.getSimpleName().startsWith("get")) {
@@ -298,10 +300,11 @@ public class ComponentSchemaTransformer {
 
             String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
 
+            List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
+            Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
+
             // if field exists and getter has other @JsonProperty mapping, update schema
             if (processedFieldNames.contains(fieldName)) {
-                List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
-                Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
                 String jsonPropertyName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(fieldName, annotations);
 
                 if (!jsonPropertyName.equals(fieldName)) {
@@ -312,7 +315,7 @@ public class ComponentSchemaTransformer {
                         propertyMap.put(jsonPropertyName, existingSchema);
                     }
                 }
-            } else {
+            } else if (!detectedAnySimpleFields || Arrays.stream(annotations).anyMatch(a -> a instanceof JsonProperty)) { // prioritize fields, but consider methods explicitly marked as JsonProperty
                 getMethodSchema(method, requiredFields).ifPresent(schema -> {
                     schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
                     propertyMap.put(schema.getName(), schema);

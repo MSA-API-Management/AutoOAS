@@ -820,9 +820,6 @@
             "type" : "integer",
             "format" : "int32"
           },
-          "loginId" : {
-            "type" : "string"
-          },
           "organizationName" : {
             "type" : "string"
           },

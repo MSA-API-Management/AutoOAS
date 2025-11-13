@@ -1610,6 +1610,17 @@
   },
   "components" : {
     "schemas" : {
+      "Config" : {
+        "type" : "object",
+        "properties" : {
+          "mapper" : {
+            "$ref" : "#/components/schemas/ObjectMapper"
+          },
+          "object" : {
+            "$ref" : "#/components/schemas/ObjectNode"
+          }
+        }
+      },
       "RestSession" : {
         "type" : "object",
         "properties" : {
@@ -1644,6 +1655,29 @@
           }
         }
       },
+      "RestSchedule" : {
+        "type" : "object",
+        "properties" : {
+          "nextRunTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "nextScheduleTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "workflow" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "disabledAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
+      },
       "StreamingOutput" : {
         "type" : "object",
         "externalDocs" : {
@@ -1651,11 +1685,57 @@
           "url" : "javax.ws.rs.core"
         }
       },
-      "JsonNode" : {
+      "RestProject" : {
         "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "com.fasterxml.jackson.databind"
+        "properties" : {
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "archiveType" : {
+            "type" : "string"
+          },
+          "deletedAt" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "archiveMd5" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "revision" : {
+            "type" : "string"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "RestLogFileHandle" : {
+        "type" : "object",
+        "properties" : {
+          "fileTime" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "agentId" : {
+            "type" : "string"
+          },
+          "fileName" : {
+            "type" : "string"
+          },
+          "fileSize" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "direct" : {
+            "$ref" : "#/components/schemas/Optional"
+          },
+          "taskName" : {
+            "type" : "string"
+          }
         }
       },
       "IdAndName" : {
@@ -1691,6 +1771,64 @@
           },
           "apiCompatible" : {
             "type" : "boolean"
+          }
+        }
+      },
+      "RestWorkflowDefinitionCollection" : {
+        "type" : "object",
+        "properties" : {
+          "workflows" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestWorkflowDefinition"
+            }
+          }
+        }
+      },
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      },
+      "RestWorkflowDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Id"
+          },
+          "config" : {
+            "$ref" : "#/components/schemas/Config"
+          },
+          "revision" : {
+            "type" : "string"
+          }
+        }
+      },
+      "RestWorkflowSessionTime" : {
+        "type" : "object",
+        "properties" : {
+          "timezone" : {
+            "$ref" : "#/components/schemas/ZoneId"
+          },
+          "project" : {
+            "$ref" : "#/components/schemas/IdAndName"
+          },
+          "sessionTime" : {
+            "$ref" : "#/components/schemas/OffsetDateTime"
+          },
+          "revision" : {
+            "type" : "string"
           }
         }
       },
@@ -1832,6 +1970,20 @@
           }
         }
       },
+      "ObjectNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind.node"
+        }
+      },
+      "ZoneId" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.time"
+        }
+      },
       "RestScheduleSummary" : {
         "type" : "object",
         "properties" : {
@@ -1859,6 +2011,13 @@
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
           }
+        }
+      },
+      "InputStream" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.io"
         }
       },
       "Instant" : {
@@ -1891,6 +2050,17 @@
       "SessionTimeTruncate" : {
         "type" : "string",
         "enum" : [ "SECOND", "MINUTE", "HOUR", "DAY", "SCHEDULE", "NEXT_SCHEDULE" ]
+      },
+      "NameOptionalId" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "$ref" : "#/components/schemas/Optional"
+          }
+        }
       },
       "RestRevisionCollection" : {
         "type" : "object",
@@ -1984,300 +2154,6 @@
           }
         }
       },
-      "Object" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
-        }
-      },
-      "RestLogFileHandleCollection" : {
-        "type" : "object",
-        "properties" : {
-          "files" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/RestLogFileHandle"
-            }
-          }
-        }
-      },
-      "Id" : {
-        "type" : "object",
-        "properties" : {
-          "unknown-param-name" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Iterable" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
-        }
-      },
-      "E" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "Generic parameter: E",
-          "url" : "io.digdag.client.config.Config"
-        }
-      },
-      "Config" : {
-        "type" : "object",
-        "properties" : {
-          "internalObjectNode" : {
-            "$ref" : "#/components/schemas/ObjectNode"
-          },
-          "factory" : {
-            "$ref" : "#/components/schemas/ConfigFactory"
-          },
-          "mapOrEmpty" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "$ref" : "#/components/schemas/V"
-            }
-          },
-          "keys" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "mapper" : {
-            "$ref" : "#/components/schemas/ObjectMapper"
-          },
-          "optional" : {
-            "$ref" : "#/components/schemas/Optional"
-          },
-          "list" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/E"
-            }
-          },
-          "optionalNested" : {
-            "$ref" : "#/components/schemas/Optional"
-          },
-          "unknown-param-name" : {
-            "$ref" : "#/components/schemas/E"
-          },
-          "nested" : {
-            "$ref" : "#/components/schemas/Config"
-          },
-          "node" : {
-            "$ref" : "#/components/schemas/JsonNode"
-          },
-          "entries" : {
-            "$ref" : "#/components/schemas/Iterable"
-          },
-          "nestedOrSetEmpty" : {
-            "$ref" : "#/components/schemas/Config"
-          },
-          "listOrEmpty" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/E"
-            }
-          },
-          "nestedOrGetEmpty" : {
-            "$ref" : "#/components/schemas/Config"
-          },
-          "nestedOrderedOrGetEmpty" : {
-            "$ref" : "#/components/schemas/Config"
-          },
-          "map" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "$ref" : "#/components/schemas/V"
-            }
-          },
-          "object" : {
-            "$ref" : "#/components/schemas/ObjectNode"
-          }
-        }
-      },
-      "RestSchedule" : {
-        "type" : "object",
-        "properties" : {
-          "nextRunTime" : {
-            "$ref" : "#/components/schemas/Instant"
-          },
-          "nextScheduleTime" : {
-            "$ref" : "#/components/schemas/OffsetDateTime"
-          },
-          "workflow" : {
-            "$ref" : "#/components/schemas/IdAndName"
-          },
-          "project" : {
-            "$ref" : "#/components/schemas/IdAndName"
-          },
-          "id" : {
-            "$ref" : "#/components/schemas/Id"
-          },
-          "disabledAt" : {
-            "$ref" : "#/components/schemas/Optional"
-          }
-        }
-      },
-      "RestProject" : {
-        "type" : "object",
-        "properties" : {
-          "createdAt" : {
-            "$ref" : "#/components/schemas/Instant"
-          },
-          "archiveType" : {
-            "type" : "string"
-          },
-          "deletedAt" : {
-            "$ref" : "#/components/schemas/Optional"
-          },
-          "archiveMd5" : {
-            "$ref" : "#/components/schemas/Optional"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "$ref" : "#/components/schemas/Id"
-          },
-          "revision" : {
-            "type" : "string"
-          },
-          "updatedAt" : {
-            "$ref" : "#/components/schemas/Instant"
-          }
-        }
-      },
-      "RestLogFileHandle" : {
-        "type" : "object",
-        "properties" : {
-          "fileTime" : {
-            "$ref" : "#/components/schemas/Instant"
-          },
-          "agentId" : {
-            "type" : "string"
-          },
-          "fileName" : {
-            "type" : "string"
-          },
-          "fileSize" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "direct" : {
-            "$ref" : "#/components/schemas/Optional"
-          },
-          "taskName" : {
-            "type" : "string"
-          }
-        }
-      },
-      "RestWorkflowDefinitionCollection" : {
-        "type" : "object",
-        "properties" : {
-          "workflows" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/RestWorkflowDefinition"
-            }
-          }
-        }
-      },
-      "UNSPECIFIED_TYPE" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
-          "url" : "unspecified"
-        }
-      },
-      "V" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "Generic parameter: V"
-        }
-      },
-      "RestWorkflowDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "timezone" : {
-            "$ref" : "#/components/schemas/ZoneId"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "project" : {
-            "$ref" : "#/components/schemas/IdAndName"
-          },
-          "id" : {
-            "$ref" : "#/components/schemas/Id"
-          },
-          "config" : {
-            "$ref" : "#/components/schemas/Config"
-          },
-          "revision" : {
-            "type" : "string"
-          }
-        }
-      },
-      "RestWorkflowSessionTime" : {
-        "type" : "object",
-        "properties" : {
-          "timezone" : {
-            "$ref" : "#/components/schemas/ZoneId"
-          },
-          "project" : {
-            "$ref" : "#/components/schemas/IdAndName"
-          },
-          "sessionTime" : {
-            "$ref" : "#/components/schemas/OffsetDateTime"
-          },
-          "revision" : {
-            "type" : "string"
-          }
-        }
-      },
-      "ObjectNode" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "com.fasterxml.jackson.databind.node"
-        }
-      },
-      "ZoneId" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.time"
-        }
-      },
-      "InputStream" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.io"
-        }
-      },
-      "NameOptionalId" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "$ref" : "#/components/schemas/Optional"
-          }
-        }
-      },
-      "ConfigFactory" : {
-        "type" : "object",
-        "properties" : {
-          "objectMapper" : {
-            "$ref" : "#/components/schemas/ObjectMapper"
-          }
-        }
-      },
       "RestSecretList" : {
         "type" : "object",
         "properties" : { }
@@ -2310,6 +2186,32 @@
             "items" : {
               "$ref" : "#/components/schemas/RestSessionAttempt"
             }
+          }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "RestLogFileHandleCollection" : {
+        "type" : "object",
+        "properties" : {
+          "files" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RestLogFileHandle"
+            }
+          }
+        }
+      },
+      "Id" : {
+        "type" : "object",
+        "properties" : {
+          "unknown-param-name" : {
+            "type" : "string"
           }
         }
       },

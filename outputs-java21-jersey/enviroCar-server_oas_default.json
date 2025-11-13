@@ -20948,17 +20948,10 @@
           "last" : {
             "$ref" : "#/components/schemas/Pagination"
           },
-          "previous" : {
-            "$ref" : "#/components/schemas/Pagination"
-          },
           "prev" : {
             "$ref" : "#/components/schemas/Pagination"
           },
           "elements" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "totalCount" : {
             "type" : "integer",
             "format" : "int64"
           },
@@ -21219,12 +21212,6 @@
         "properties" : {
           "date" : {
             "$ref" : "#/components/schemas/DateTime"
-          },
-          "acceptanceDate" : {
-            "$ref" : "#/components/schemas/DateTime"
-          },
-          "termsOfUseVersion" : {
-            "type" : "string"
           },
           "version" : {
             "type" : "string"

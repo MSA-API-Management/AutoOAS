@@ -944,17 +944,40 @@
       "PlanEntity" : {
         "type" : "object",
         "properties" : {
-          "description" : {
+          "characteristics" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "needRedeployAt" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "publishedAt" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "generalConditions" : {
             "type" : "string"
           },
-          "planStatus" : {
-            "$ref" : "#/components/schemas/PlanStatus"
+          "description" : {
+            "type" : "string"
           },
           "type" : {
             "$ref" : "#/components/schemas/PlanType"
           },
           "commentMessage" : {
             "type" : "string"
+          },
+          "tags" : {
+            "$ref" : "#/components/schemas/Set"
+          },
+          "excludedGroups" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           },
           "createdAt" : {
             "type" : "string",
@@ -969,10 +992,13 @@
               "$ref" : "#/components/schemas/Flow"
             }
           },
-          "planSecurity" : {
-            "$ref" : "#/components/schemas/PlanSecurity"
+          "commentRequired" : {
+            "type" : "boolean"
           },
           "crossId" : {
+            "type" : "string"
+          },
+          "name" : {
             "type" : "string"
           },
           "id" : {
@@ -991,51 +1017,16 @@
           "apiId" : {
             "type" : "string"
           },
-          "planValidation" : {
-            "$ref" : "#/components/schemas/PlanValidationType"
-          },
           "updatedAt" : {
             "type" : "string",
             "format" : "date"
           },
+          "status" : {
+            "$ref" : "#/components/schemas/PlanStatus"
+          },
           "order" : {
             "type" : "integer",
             "format" : "int32"
-          },
-          "characteristics" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "needRedeployAt" : {
-            "type" : "string",
-            "format" : "date"
-          },
-          "publishedAt" : {
-            "type" : "string",
-            "format" : "date"
-          },
-          "generalConditions" : {
-            "type" : "string"
-          },
-          "tags" : {
-            "$ref" : "#/components/schemas/Set"
-          },
-          "excludedGroups" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "commentRequired" : {
-            "type" : "boolean"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "status" : {
-            "$ref" : "#/components/schemas/PlanStatus"
           }
         },
         "description" : "",
