@@ -12,9 +12,9 @@ import java.util.List;
 public class CourseResource extends AbstractResource {
 
     @GET
-    @Path("/{id}")
-    public Response getById(@PathParam("id") int id) {
-        return Response.ok(new Course("Programming", id)).build();
+    @Path("/{courseId}")
+    public Response getById(@PathParam("courseId") long id) {
+        return Response.ok(new Course("Programming", (int)id)).build();
     }
 
     @GET
@@ -24,6 +24,12 @@ public class CourseResource extends AbstractResource {
 
     @Path("{id}/students")
     public StudentResource getStudentsOfCourseById(@PathParam("id") int id) {
+        if (id == 1) {
+            throw new IllegalArgumentException("Invalid course id");
+        } else if (id == 2) {
+            throw new RuntimeException("Something went wrong");
+        }
+
         return new StudentResource();
     }
 

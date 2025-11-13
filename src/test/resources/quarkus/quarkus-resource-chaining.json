@@ -42,18 +42,18 @@
         }
       }
     },
-    "/api/courses/{id}" : {
+    "/api/courses/{courseId}" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_courses_id",
+        "operationId" : "getByIdUsingGET__api_courses_courseId",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "courseId",
           "in" : "path",
           "required" : true,
           "schema" : {
             "type" : "integer",
-            "format" : "int32"
+            "format" : "int64"
           }
         } ],
         "responses" : {
@@ -98,7 +98,15 @@
         "tags" : [ "student-resource" ],
         "summary" : "getAll",
         "operationId" : "getAllUsingGET__api_courses_id_students",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -112,6 +120,12 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       }
@@ -121,7 +135,15 @@
         "tags" : [ "course-resource" ],
         "summary" : "get",
         "operationId" : "getUsingGET__api_teachers_id_courses",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -139,12 +161,20 @@
         }
       }
     },
-    "/api/teachers/{id}/courses/{id}" : {
+    "/api/teachers/{id}/courses/{courseId}" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_teachers_id_courses_id",
+        "operationId" : "getByIdUsingGET__api_teachers_id_courses_courseId",
         "parameters" : [ {
+          "name" : "courseId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
           "name" : "id",
           "in" : "path",
           "required" : true,
@@ -172,7 +202,23 @@
         "tags" : [ "student-resource" ],
         "summary" : "getAll",
         "operationId" : "getAllUsingGET__api_teachers_id_courses_id_students",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -186,6 +232,12 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       }
