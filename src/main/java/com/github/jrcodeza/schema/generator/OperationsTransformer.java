@@ -12,6 +12,7 @@ import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
@@ -325,9 +326,14 @@ public class OperationsTransformer {
 
 	private void updateOperationWithPreviouslyDetectedParamsAndResponses(@Out Operation operation,
 																		 DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
-		previouslyDetectedApiParamsAndResponses.getDetectedApiParameters().forEach(operation::addParametersItem);
-		operation.getResponses().putAll(previouslyDetectedApiParamsAndResponses.getDetectedApiResponses());
-	}
+        for (Parameter parameter : previouslyDetectedApiParamsAndResponses.getDetectedApiParameters()) {
+            if (operation.getParameters().stream().noneMatch(p -> p.getName().equals(parameter.getName()) && p.getIn().equals(parameter.getIn()))) {
+                operation.addParametersItem(parameter);
+            }
+        }
+
+        operation.getResponses().putAll(previouslyDetectedApiParamsAndResponses.getDetectedApiResponses());
+    }
 
 	private void updateOperationsMap(String url, @Out Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
 		if (existingMap.containsKey(url)) {
