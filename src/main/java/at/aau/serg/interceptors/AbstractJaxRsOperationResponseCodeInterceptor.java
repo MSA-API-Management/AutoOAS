@@ -32,7 +32,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      *  Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes (-1 for unlimited analysis)
      */
     @Setter
-    private int maxCrossClassDepth = 2;
+    private int maxCrossClassDepth = 1;
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
