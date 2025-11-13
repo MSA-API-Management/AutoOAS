@@ -8,7 +8,7 @@
   "paths" : {
     "/" : {
       "get" : {
-        "tags" : [ "root-resource" ],
+        "tags" : [ "friend-resource" ],
         "summary" : "get",
         "operationId" : "getUsingGET__",
         "parameters" : [ ],
@@ -18,10 +18,59 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/JsonNode"
+                  "$ref" : "#/components/schemas/User"
                 }
               }
             }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "friend-resource" ],
+        "summary" : "modify",
+        "operationId" : "modifyUsingPUT__",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "303" : {
+            "description" : "See Other"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "friend-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__",
+        "parameters" : [ {
+          "name" : "deleteContent",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -560,6 +609,51 @@
         }
       }
     },
+    "/users" : {
+      "get" : {
+        "tags" : [ "users-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__users",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__users",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
     "/announcements/{id}" : {
       "get" : {
         "tags" : [ "announcement-resource" ],
@@ -831,6 +925,129 @@
           },
           "500" : {
             "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{username}" : {
+      "get" : {
+        "tags" : [ "user-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__users_username",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "user-resource" ],
+        "summary" : "modify",
+        "operationId" : "modifyUsingPUT__users_username",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "303" : {
+            "description" : "See Other"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__users_username",
+        "parameters" : [ {
+          "name" : "deleteContent",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/groups/{group}/activities" : {
+      "get" : {
+        "tags" : [ "activities-resource" ],
+        "summary" : "activities",
+        "operationId" : "activitiesUsingGET__groups_group_activities",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ActivityType"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{group}/activities/{id}" : {
+      "get" : {
+        "tags" : [ "activities-resource" ],
+        "summary" : "activity",
+        "operationId" : "activityUsingGET__groups_group_activities_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activity"
+                }
+              }
+            }
           }
         }
       }
@@ -1110,11 +1327,140 @@
         }
       }
     },
-    "/tracks/{track}/statistics" : {
+    "/users/{username}/activities" : {
       "get" : {
-        "tags" : [ "statistics-resource" ],
-        "summary" : "statistics",
-        "operationId" : "statisticsUsingGET__tracks_track_statistics",
+        "tags" : [ "activities-resource" ],
+        "summary" : "activities",
+        "operationId" : "activitiesUsingGET__users_username_activities",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ActivityType"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/activities/{id}" : {
+      "get" : {
+        "tags" : [ "activities-resource" ],
+        "summary" : "activity",
+        "operationId" : "activityUsingGET__users_username_activities_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/avatar" : {
+      "get" : {
+        "tags" : [ "avatar-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__users_username_avatar",
+        "parameters" : [ {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "307" : {
+            "description" : "Temporary Redirect"
+          }
+        }
+      }
+    },
+    "/users/{username}/friendActivities" : {
+      "get" : {
+        "tags" : [ "friends-activities-resource" ],
+        "summary" : "activities",
+        "operationId" : "activitiesUsingGET__users_username_friendActivities",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ActivityType"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/friendActivities/{id}" : {
+      "get" : {
+        "tags" : [ "friends-activities-resource" ],
+        "summary" : "activity",
+        "operationId" : "activityUsingGET__users_username_friendActivities_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/friends" : {
+      "get" : {
+        "tags" : [ "friends-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__users_username_friends",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -1122,7 +1468,224 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Statistics"
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "friends-resource" ],
+        "summary" : "add",
+        "operationId" : "addUsingPOST__users_username_friends",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserReference"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{username}/friends/declineRequest" : {
+      "post" : {
+        "tags" : [ "friends-resource" ],
+        "summary" : "decline",
+        "operationId" : "declineUsingPOST__users_username_friends_declineRequest",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserReference"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      }
+    },
+    "/users/{username}/friends/incomingRequests" : {
+      "get" : {
+        "tags" : [ "friends-resource" ],
+        "summary" : "pendingIncomingFriendRequests",
+        "operationId" : "pendingIncomingFriendRequestsUsingGET__users_username_friends_incomingRequests",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{username}/friends/outgoingRequests" : {
+      "get" : {
+        "tags" : [ "friends-resource" ],
+        "summary" : "pendingOutgoingFriendRequests",
+        "operationId" : "pendingOutgoingFriendRequestsUsingGET__users_username_friends_outgoingRequests",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{username}/fuelings" : {
+      "get" : {
+        "tags" : [ "fuelings-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__users_username_fuelings",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Fuelings"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "fuelings-resource" ],
+        "summary" : "create",
+        "operationId" : "createUsingPOST__users_username_fuelings",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Fueling"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/users/{username}/fuelings/{id}" : {
+      "get" : {
+        "tags" : [ "fuelings-resource" ],
+        "summary" : "getFueling",
+        "operationId" : "getFuelingUsingGET__users_username_fuelings_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Fueling"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "fuelings-resource" ],
+        "summary" : "delete",
+        "operationId" : "deleteUsingDELETE__users_username_fuelings_id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{username}/userStatistic" : {
+      "get" : {
+        "tags" : [ "user-statistic-resource" ],
+        "summary" : "UserStatistics",
+        "operationId" : "UserStatisticsUsingGET__users_username_userStatistic",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserStatistic"
                 }
               }
             }
@@ -1146,49 +1709,11 @@
         }
       }
     },
-    "/sensors/{sensor}/statistics/{phen}" : {
-      "get" : {
-        "tags" : [ "statistic-resource" ],
-        "summary" : "get",
-        "operationId" : "getUsingGET__sensors_sensor_statistics_phen",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Statistic"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tracks/{track}/measurements/{measurement}" : {
-      "get" : {
-        "tags" : [ "measurement-resource" ],
-        "summary" : "get",
-        "operationId" : "getUsingGET__tracks_track_measurements_measurement",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Measurement"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/users/{username}/friends/{friend}" : {
       "delete" : {
-        "tags" : [ "measurement-resource" ],
+        "tags" : [ "friend-resource" ],
         "summary" : "delete",
-        "operationId" : "deleteUsingDELETE__tracks_track_measurements_measurement",
+        "operationId" : "deleteUsingDELETE__users_username_friends_friend",
         "parameters" : [ ],
         "responses" : {
           "204" : {
@@ -1199,90 +1724,302 @@
           }
         }
       }
-    },
-    "/tracks/{track}/statistics/{phen}" : {
-      "get" : {
-        "tags" : [ "statistic-resource" ],
-        "summary" : "get",
-        "operationId" : "getUsingGET__tracks_track_statistics_phen",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Statistic"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tracks/{track}/measurements/{measurement}/sensor" : {
-      "get" : {
-        "tags" : [ "sensor-resource" ],
-        "summary" : "get",
-        "operationId" : "getUsingGET__tracks_track_measurements_measurement_sensor",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Sensor"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tracks/{track}/measurements/{measurement}/sensor/statistics" : {
-      "get" : {
-        "tags" : [ "statistics-resource" ],
-        "summary" : "statistics",
-        "operationId" : "statisticsUsingGET__tracks_track_measurements_measurement_sensor_statistics",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Statistics"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tracks/{track}/measurements/{measurement}/sensor/statistics/{phen}" : {
-      "get" : {
-        "tags" : [ "statistic-resource" ],
-        "summary" : "get",
-        "operationId" : "getUsingGET__tracks_track_measurements_measurement_sensor_statistics_phen",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Statistic"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components" : {
     "schemas" : {
+      "UserStatistic" : {
+        "type" : "object",
+        "properties" : {
+          "duration" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "distanceBelow60kmh" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "trackSummaries" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TrackSummary"
+            }
+          },
+          "distance" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "durationNaN" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "distanceNaN" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "durationAbove130kmh" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "distanceAbove130kmh" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "durationBelow60kmh" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "numTracks" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "DimensionedNumber" : {
+        "type" : "object",
+        "properties" : {
+          "unit" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        }
+      },
+      "Phenomenons" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Activity" : {
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "type" : "string"
+          },
+          "time" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/ActivityType"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          }
+        }
+      },
+      "JsonNode" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "com.fasterxml.jackson.databind"
+        }
+      },
+      "Users" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Gender" : {
+        "type" : "string",
+        "enum" : [ "MALE", "FEMALE" ]
+      },
+      "DateTime" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.joda.time"
+        }
+      },
+      "Fueling" : {
+        "type" : "object",
+        "properties" : {
+          "volume" : {
+            "$ref" : "#/components/schemas/DimensionedNumber"
+          },
+          "identifier" : {
+            "type" : "string"
+          },
+          "cost" : {
+            "$ref" : "#/components/schemas/DimensionedNumber"
+          },
+          "fuelType" : {
+            "type" : "string"
+          },
+          "car" : {
+            "$ref" : "#/components/schemas/Sensor"
+          },
+          "comment" : {
+            "type" : "string"
+          },
+          "time" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          },
+          "mileage" : {
+            "$ref" : "#/components/schemas/DimensionedNumber"
+          }
+        }
+      },
+      "Pagination" : {
+        "type" : "object",
+        "properties" : {
+          "limit" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "end" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "page" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "begin" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "Paginated" : {
+        "type" : "object",
+        "properties" : {
+          "next" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "current" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "last" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "previous" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "prev" : {
+            "$ref" : "#/components/schemas/Pagination"
+          },
+          "elements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalCount" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "first" : {
+            "$ref" : "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "MeasurementValues" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Sensors" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "PrivacyStatement" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "TermsOfUse" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "UserReference" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Coordinate" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "org.locationtech.jts.geom"
+        }
+      },
+      "NearPoint" : {
+        "type" : "object",
+        "properties" : {
+          "distance" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "point" : {
+            "$ref" : "#/components/schemas/Point"
+          }
+        }
+      },
+      "Phenomenon" : {
+        "type" : "object",
+        "properties" : {
+          "unit" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Announcements" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpCastingIterable"
+        }, {
+          "type" : "object",
+          "properties" : { }
+        } ]
+      },
+      "Sensor" : {
+        "type" : "object",
+        "properties" : {
+          "identifier" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Object"
+            }
+          }
+        }
+      },
       "Measurement" : {
         "type" : "object",
         "properties" : {
@@ -1438,43 +2175,15 @@
           "date" : {
             "$ref" : "#/components/schemas/DateTime"
           },
+          "acceptanceDate" : {
+            "$ref" : "#/components/schemas/DateTime"
+          },
+          "termsOfUseVersion" : {
+            "type" : "string"
+          },
           "version" : {
             "type" : "string"
           }
-        }
-      },
-      "Phenomenons" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/UpCastingIterable"
-        }, {
-          "type" : "object",
-          "properties" : { }
-        } ]
-      },
-      "JsonNode" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "com.fasterxml.jackson.databind"
-        }
-      },
-      "Users" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/UpCastingIterable"
-        }, {
-          "type" : "object",
-          "properties" : { }
-        } ]
-      },
-      "Gender" : {
-        "type" : "string",
-        "enum" : [ "MALE", "FEMALE" ]
-      },
-      "DateTime" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "org.joda.time"
         }
       },
       "URL" : {
@@ -1482,51 +2191,6 @@
         "externalDocs" : {
           "description" : "external package",
           "url" : "java.net"
-        }
-      },
-      "Pagination" : {
-        "type" : "object",
-        "properties" : {
-          "limit" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "end" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "page" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "begin" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        }
-      },
-      "Paginated" : {
-        "type" : "object",
-        "properties" : {
-          "next" : {
-            "$ref" : "#/components/schemas/Pagination"
-          },
-          "current" : {
-            "$ref" : "#/components/schemas/Pagination"
-          },
-          "last" : {
-            "$ref" : "#/components/schemas/Pagination"
-          },
-          "prev" : {
-            "$ref" : "#/components/schemas/Pagination"
-          },
-          "elements" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "first" : {
-            "$ref" : "#/components/schemas/Pagination"
-          }
         }
       },
       "ResetPasswordRequest" : {
@@ -1644,25 +2308,13 @@
           }
         } ]
       },
-      "MeasurementValues" : {
+      "Activities" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/UpCastingIterable"
         }, {
           "type" : "object",
           "properties" : { }
         } ]
-      },
-      "Sensors" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/UpCastingIterable"
-        }, {
-          "type" : "object",
-          "properties" : { }
-        } ]
-      },
-      "PrivacyStatement" : {
-        "type" : "object",
-        "properties" : { }
       },
       "Tracks" : {
         "allOf" : [ {
@@ -1680,21 +2332,9 @@
           "properties" : { }
         } ]
       },
-      "TermsOfUse" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/UpCastingIterable"
-        }, {
-          "type" : "object",
-          "properties" : { }
-        } ]
-      },
-      "UserReference" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          }
-        }
+      "ActivityType" : {
+        "type" : "string",
+        "enum" : [ "CHANGED_PROFILE", "CREATED_GROUP", "CHANGED_GROUP", "JOINED_GROUP", "LEFT_GROUP", "DELETED_GROUP", "FRIENDED_USER", "UNFRIENDED_USER", "CREATED_TRACK" ]
       },
       "Point" : {
         "type" : "object",
@@ -1711,14 +2351,7 @@
           "properties" : { }
         } ]
       },
-      "Geometry" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "org.locationtech.jts.geom"
-        }
-      },
-      "Badges" : {
+      "Fuelings" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/UpCastingIterable"
         }, {
@@ -1726,44 +2359,28 @@
           "properties" : { }
         } ]
       },
-      "Coordinate" : {
+      "Geometry" : {
         "type" : "object",
         "externalDocs" : {
           "description" : "external package",
           "url" : "org.locationtech.jts.geom"
         }
       },
-      "NearPoint" : {
+      "TrackSummary" : {
         "type" : "object",
         "properties" : {
-          "distance" : {
-            "type" : "number",
-            "format" : "double"
+          "identifier" : {
+            "type" : "string"
           },
-          "point" : {
-            "$ref" : "#/components/schemas/Point"
+          "endPosition" : {
+            "$ref" : "#/components/schemas/Geometry"
+          },
+          "startPosition" : {
+            "$ref" : "#/components/schemas/Geometry"
           }
         }
       },
-      "Phenomenon" : {
-        "type" : "object",
-        "properties" : {
-          "unit" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Object" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
-        }
-      },
-      "Announcements" : {
+      "Badges" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/UpCastingIterable"
         }, {
@@ -1816,23 +2433,6 @@
           },
           "status" : {
             "$ref" : "#/components/schemas/TrackStatus"
-          }
-        }
-      },
-      "Sensor" : {
-        "type" : "object",
-        "properties" : {
-          "identifier" : {
-            "type" : "string"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "properties" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "$ref" : "#/components/schemas/Object"
-            }
           }
         }
       }

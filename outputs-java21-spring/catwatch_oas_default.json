@@ -545,19 +545,19 @@
       "ContributorStats" : {
         "type" : "object",
         "properties" : {
-          "organizationName" : {
+          "personal_commit_counts" : {
             "type" : "array",
             "items" : {
-              "type" : "string"
+              "type" : "integer"
             }
           },
-          "snapshotDates" : {
+          "organization_project_counts" : {
             "type" : "array",
             "items" : {
-              "type" : "string"
+              "type" : "integer"
             }
           },
-          "personalProjectsCounts" : {
+          "personal_project_counts" : {
             "type" : "array",
             "items" : {
               "type" : "integer"
@@ -566,22 +566,22 @@
           "name" : {
             "type" : "string"
           },
-          "organizationalCommitsCounts" : {
+          "organization_commit_counts" : {
             "type" : "array",
             "items" : {
               "type" : "integer"
             }
           },
-          "organizationalProjectsCounts" : {
+          "organization_name" : {
             "type" : "array",
             "items" : {
-              "type" : "integer"
+              "type" : "string"
             }
           },
-          "personalCommitsCounts" : {
+          "snapshot_dates" : {
             "type" : "array",
             "items" : {
-              "type" : "integer"
+              "type" : "string"
             }
           },
           "url" : {
@@ -702,20 +702,11 @@
       "ProjectStats" : {
         "type" : "object",
         "properties" : {
-          "commitCounts" : {
+          "fork_counts" : {
             "type" : "array",
             "items" : {
               "type" : "integer"
             }
-          },
-          "forkCounts" : {
-            "type" : "array",
-            "items" : {
-              "type" : "integer"
-            }
-          },
-          "organizationName" : {
-            "type" : "string"
           },
           "scores" : {
             "type" : "array",
@@ -723,28 +714,37 @@
               "type" : "integer"
             }
           },
-          "snapshotDates" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "contributorsCounts" : {
+          "contributors_counts" : {
             "type" : "array",
             "items" : {
               "type" : "integer"
             }
           },
-          "url" : {
+          "name" : {
             "type" : "string"
           },
-          "primaryLanguage" : {
+          "commit_counts" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          },
+          "primary_language" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "organization_name" : {
+            "type" : "string"
+          },
+          "snapshot_dates" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "url" : {
             "type" : "string"
           }
         }
@@ -752,20 +752,20 @@
       "LanguageStats" : {
         "type" : "object",
         "properties" : {
-          "projectCounts" : {
-            "type" : "array",
-            "items" : {
-              "type" : "integer"
-            }
+          "name" : {
+            "type" : "string"
           },
-          "snapshotDates" : {
+          "snapshot_dates" : {
             "type" : "array",
             "items" : {
               "type" : "string"
             }
           },
-          "languageName" : {
-            "type" : "string"
+          "project_counts" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
           }
         }
       },
@@ -808,9 +808,20 @@
       "Contributor" : {
         "type" : "object",
         "properties" : {
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "snapshotDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
           "personalCommitsCount" : {
             "type" : "integer",
             "format" : "int32"
+          },
+          "loginId" : {
+            "type" : "string"
           },
           "organizationName" : {
             "type" : "string"
@@ -830,6 +841,10 @@
             "type" : "integer",
             "format" : "int32"
           },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
           "key" : {
             "$ref" : "#/components/schemas/ContributorKey"
           },
@@ -844,6 +859,10 @@
           "publicProjectCount" : {
             "type" : "integer",
             "format" : "int32"
+          },
+          "snapshotDate" : {
+            "type" : "string",
+            "format" : "date"
           },
           "tagsCount" : {
             "type" : "integer",
@@ -887,6 +906,10 @@
           "teamsCount" : {
             "type" : "integer",
             "format" : "int32"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
           },
           "key" : {
             "$ref" : "#/components/schemas/StatisticsKey"

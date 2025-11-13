@@ -2415,27 +2415,27 @@
         "required" : [ "format" ],
         "type" : "object",
         "properties" : {
-          "requestWaitMs" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "responseMinBytes" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
           "name" : {
             "type" : "string"
           },
           "format" : {
             "$ref" : "#/components/schemas/EmbeddedFormat"
           },
+          "consumer.request.timeout.ms" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "fetch.min.bytes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
           "id" : {
             "type" : "string"
           },
-          "autoCommitEnable" : {
+          "auto.offset.reset" : {
             "type" : "string"
           },
-          "autoOffsetReset" : {
+          "auto.commit.enable" : {
             "type" : "string"
           }
         }
@@ -2685,7 +2685,7 @@
       "ConsumerSubscriptionRecord" : {
         "type" : "object",
         "properties" : {
-          "topicPattern" : {
+          "topic_pattern" : {
             "type" : "string"
           },
           "topics" : {
@@ -2745,10 +2745,10 @@
       "CreateConsumerInstanceResponse" : {
         "type" : "object",
         "properties" : {
-          "instanceId" : {
+          "instance_id" : {
             "type" : "string"
           },
-          "baseUri" : {
+          "base_uri" : {
             "type" : "string"
           }
         }
