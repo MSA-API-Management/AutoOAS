@@ -219,17 +219,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "201" : {
             "description" : "Created"
@@ -250,17 +239,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "201" : {
             "description" : "Created"
@@ -316,17 +294,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -359,17 +326,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "requestBody",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "201" : {
             "description" : "Created"
@@ -585,10 +541,7 @@
       "Product" : {
         "type" : "object",
         "properties" : {
-          "productFeatures" : {
-            "$ref" : "#/components/schemas/Set"
-          },
-          "productFeatureConstraints" : {
+          "features" : {
             "$ref" : "#/components/schemas/Set"
           },
           "name" : {
@@ -597,6 +550,9 @@
           "id" : {
             "type" : "integer",
             "format" : "int64"
+          },
+          "constraints" : {
+            "$ref" : "#/components/schemas/Set"
           }
         }
       },

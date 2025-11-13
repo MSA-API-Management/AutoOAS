@@ -2143,10 +2143,17 @@
             "type" : "integer",
             "format" : "int64"
           },
+          "rolesSet" : {
+            "$ref" : "#/components/schemas/Set"
+          },
           "username" : {
             "type" : "string"
           }
         }
+      },
+      "CoverType" : {
+        "type" : "string",
+        "enum" : [ "CRISTAL_ACETATE", "PVC_TRANSPARENT", "PVC_OPAQUE" ]
       },
       "Set" : {
         "type" : "object",
@@ -2154,6 +2161,21 @@
           "description" : "external package",
           "url" : "java.util"
         }
+      },
+      "CoverItem" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Item"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "coverType" : {
+              "$ref" : "#/components/schemas/CoverType"
+            },
+            "format" : {
+              "$ref" : "#/components/schemas/Format"
+            }
+          }
+        } ]
       },
       "FileSystemResource" : {
         "type" : "object",
@@ -2180,6 +2202,9 @@
       "Notification" : {
         "type" : "object",
         "properties" : {
+          "readStatus" : {
+            "type" : "boolean"
+          },
           "read" : {
             "type" : "boolean"
           },
@@ -2196,9 +2221,33 @@
           }
         }
       },
+      "PaperItem" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Item"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "format" : {
+              "$ref" : "#/components/schemas/Format"
+            },
+            "sides" : {
+              "$ref" : "#/components/schemas/Sides"
+            },
+            "paperSpecs" : {
+              "type" : "string"
+            },
+            "colors" : {
+              "$ref" : "#/components/schemas/Colors"
+            }
+          }
+        } ]
+      },
       "Money" : {
         "type" : "object",
         "properties" : {
+          "moneyAsString" : {
+            "type" : "string"
+          },
           "currency" : {
             "type" : "string"
           },
@@ -2209,8 +2258,24 @@
           "fractionalPart" : {
             "type" : "integer",
             "format" : "int32"
+          },
+          "moneyAsDouble" : {
+            "type" : "number",
+            "format" : "double"
           }
         }
+      },
+      "Item" : {
+        "type" : "object",
+        "properties" : { }
+      },
+      "Colors" : {
+        "type" : "string",
+        "enum" : [ "BW", "GREY_TONES", "COLOR" ]
+      },
+      "Format" : {
+        "type" : "string",
+        "enum" : [ "A4", "A3" ]
       },
       "UNSPECIFIED_TYPE" : {
         "type" : "object",
@@ -2268,14 +2333,46 @@
           "url" : "org.springframework.web.servlet.mvc.method.annotation"
         }
       },
+      "BindingItem" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Item"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "ringThicknessInfLim" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "ringThicknessSupLim" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "ringsType" : {
+              "$ref" : "#/components/schemas/RingType"
+            }
+          }
+        } ]
+      },
       "PrintingSchema" : {
         "type" : "object",
         "properties" : {
           "coverSpecs" : {
             "type" : "string"
           },
+          "paperItem" : {
+            "$ref" : "#/components/schemas/PaperItem"
+          },
+          "coverItem" : {
+            "$ref" : "#/components/schemas/CoverItem"
+          },
+          "bindingItem" : {
+            "$ref" : "#/components/schemas/BindingItem"
+          },
           "deleted" : {
             "type" : "boolean"
+          },
+          "presentationString" : {
+            "type" : "string"
           },
           "name" : {
             "type" : "string"
@@ -2310,6 +2407,14 @@
             "type" : "string"
           }
         }
+      },
+      "RingType" : {
+        "type" : "string",
+        "enum" : [ "PLASTIC", "SPIRAL", "WIRE", "STEELMAT", "STAPLING", "BINDING" ]
+      },
+      "Sides" : {
+        "type" : "string",
+        "enum" : [ "SIMPLEX", "DUPLEX" ]
       }
     }
   }
