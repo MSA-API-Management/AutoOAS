@@ -29,7 +29,7 @@ import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
     /**
-     *  Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes (-1 for unlimited analysis)
+     * Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes (-1 for unlimited analysis)
      */
     @Setter
     private int maxCrossClassDepth = 1;
@@ -50,18 +50,19 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     protected SchemaGeneratorHelper schemaHelper;
     protected MethodResponseExtractor methodResponseExtractor;
 
-    private static final Map<String, HttpStatus> EXCEPTION_STATUS_MAP = Map.of(
-            "BadRequestException", HttpStatus.BAD_REQUEST,
-            "NotAuthorizedException", HttpStatus.UNAUTHORIZED,
-            "ForbiddenException", HttpStatus.FORBIDDEN,
-            "ForbiddenAccessException", HttpStatus.FORBIDDEN,
-            "NotFoundException", HttpStatus.NOT_FOUND,
-            "NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED,
-            "NotAcceptableException", HttpStatus.NOT_ACCEPTABLE,
-            "NotSupportedException", HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+    private static final Map<String, HttpStatus> EXCEPTION_STATUS_MAP = Map.ofEntries(
+            Map.entry("BadRequestException", HttpStatus.BAD_REQUEST),
+            Map.entry("NotAuthorizedException", HttpStatus.UNAUTHORIZED),
+            Map.entry("UnauthorizedException", HttpStatus.UNAUTHORIZED),
+            Map.entry("ForbiddenException", HttpStatus.FORBIDDEN),
+            Map.entry("ForbiddenAccessException", HttpStatus.FORBIDDEN),
+            Map.entry("NotFoundException", HttpStatus.NOT_FOUND),
+            Map.entry("NotAllowedException", HttpStatus.METHOD_NOT_ALLOWED),
+            Map.entry("NotAcceptableException", HttpStatus.NOT_ACCEPTABLE),
+            Map.entry("NotSupportedException", HttpStatus.UNSUPPORTED_MEDIA_TYPE),
 
-            "InternalServerErrorException", HttpStatus.INTERNAL_SERVER_ERROR,
-            "ServiceUnavailableException", HttpStatus.SERVICE_UNAVAILABLE
+            Map.entry("InternalServerErrorException", HttpStatus.INTERNAL_SERVER_ERROR),
+            Map.entry("ServiceUnavailableException", HttpStatus.SERVICE_UNAVAILABLE)
     );
 
     private static final Map<String, HttpStatus> HTTP_STATUS_CONSTANTS = Map.ofEntries(

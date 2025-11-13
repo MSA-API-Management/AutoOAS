@@ -237,7 +237,8 @@ public class RestApiParser {
 
                 // todo consider what to do for sub resource resolution (envirocar)
                 /// traversing up the controller class's inheritance ///
-                if (currentControllerClassInHierarchyType.getSuperclass() != null)
+                if (currentControllerClassInHierarchyType.getSuperclass() != null
+                        && currentControllerClassInfoUnderAnalysis.getParentResourceTypeChain().size() < 2) // fixme temp solution for envirocar to stop generation
                     notProcessedControllerClasses.add(
                             new ControllerClassProcessingInformation(
                                     concreteControllerClassType,
