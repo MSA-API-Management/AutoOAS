@@ -8,6 +8,7 @@ import at.aau.serg.frameworks.jaxrs.adapters.parameters.JavaxQueryParamAdapter;
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
 import at.aau.serg.interceptors.JavaxOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
+import at.aau.serg.util.SpoonUtils;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
@@ -94,6 +95,12 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
         return BeanParam.class;
     }
 
+    /**
+     * TODO de-duplicate this and JakartaRestFramework::getSubResourcesInController
+     *
+     * @param controllerType
+     * @return
+     */
     @Override
     public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
         var resultList = new ArrayList<SubResource>();
@@ -102,12 +109,14 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
             CtType<?> methodReturnType = method.getType().getTypeDeclaration();
             Optional<Path> pathAnnotation = getAnnotation(method, Path.class);
 
-            if (pathAnnotation.isEmpty() || !containsHandlerMethodOrSubResource(methodReturnType))
+            if (pathAnnotation.isEmpty()
+                    || !classContainsHandlerMethodOrSubResource(methodReturnType)  // then its most probably a data class
+                    || SpoonUtils.areTypesEqual(controllerType, methodReturnType)) // then its a recursive path providing the same class again
                 continue;
 
             // found a method with Path annotation providing a sub-resource
             String subResourcePath = pathAnnotation.get().value();
-            resultList.add(new SubResource(methodReturnType, subResourcePath));
+            resultList.add(new SubResource(methodReturnType, subResourcePath, method));
         }
 
         return resultList;

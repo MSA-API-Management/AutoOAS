@@ -1,6 +1,5 @@
 package at.aau.serg.parsers;
 
-import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.OutputType;
 import spoon.reflect.CtModel;

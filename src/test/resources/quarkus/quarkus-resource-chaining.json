@@ -19,6 +19,57 @@
         }
       }
     },
+    "/api/courses" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "get",
+        "operationId" : "getUsingGET__api_courses",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Course"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}" : {
+      "get" : {
+        "tags" : [ "course-resource" ],
+        "summary" : "getById",
+        "operationId" : "getByIdUsingGET__api_courses_courseId",
+        "parameters" : [ {
+          "name" : "courseId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/students" : {
       "get" : {
         "tags" : [ "student-resource" ],
@@ -42,11 +93,11 @@
         }
       }
     },
-    "/api/teachers/{id}" : {
+    "/api/courses/{id}/students" : {
       "get" : {
-        "tags" : [ "teacher-resource" ],
-        "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_teachers_id",
+        "tags" : [ "student-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_courses_id_students",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -62,20 +113,37 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Teacher"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Student"
+                  }
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         }
       }
     },
-    "/api/teachers/courses" : {
+    "/api/teachers/{id}/courses" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "get",
-        "operationId" : "getUsingGET__api_teachers_courses",
-        "parameters" : [ ],
+        "operationId" : "getUsingGET__api_teachers_id_courses",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -93,12 +161,20 @@
         }
       }
     },
-    "/api/teachers/courses/{id}" : {
+    "/api/teachers/{id}/courses/{courseId}" : {
       "get" : {
         "tags" : [ "course-resource" ],
         "summary" : "getById",
-        "operationId" : "getByIdUsingGET__api_teachers_courses_id",
+        "operationId" : "getByIdUsingGET__api_teachers_id_courses_courseId",
         "parameters" : [ {
+          "name" : "courseId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
           "name" : "id",
           "in" : "path",
           "required" : true,
@@ -120,6 +196,43 @@
           }
         }
       }
+    },
+    "/api/teachers/{id}/courses/{id}/students" : {
+      "get" : {
+        "tags" : [ "student-resource" ],
+        "summary" : "getAll",
+        "operationId" : "getAllUsingGET__api_teachers_id_courses_id_students",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -131,7 +244,7 @@
           "url" : "unspecified"
         }
       },
-      "Teacher" : {
+      "Course" : {
         "type" : "object",
         "properties" : {
           "name" : {
@@ -150,18 +263,6 @@
             "type" : "string"
           },
           "age" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
-        }
-      },
-      "Course" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
             "type" : "integer",
             "format" : "int32"
           }

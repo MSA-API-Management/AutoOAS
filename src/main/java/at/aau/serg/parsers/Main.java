@@ -8,9 +8,9 @@ public class Main {
 
             // todo remove before production
             args = new String[]{
-                    "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api",
-                    "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4",
-                    "target/openapi/swagger.json"
+                    "/Users/alelercher/IdeaProjects/Respector/dataset/enviroCar-server",
+//                    "/Users/alelercher/IdeaProjects/Respector/dataset/gravitee-api-management/gravitee-apim-rest-api/gravitee-apim-rest-api-management-v4",
+                    "target/openapi/envirocar.json"
             };
         }
 

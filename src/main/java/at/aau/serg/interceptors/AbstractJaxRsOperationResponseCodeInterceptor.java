@@ -1,5 +1,6 @@
 package at.aau.serg.interceptors;
 
+import at.aau.serg.annotations.Out;
 import at.aau.serg.codeanalysis.MethodBodyAnalyser;
 import at.aau.serg.util.SpoonUtils;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
@@ -27,8 +28,11 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
+    /**
+     *  Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes (-1 for unlimited analysis)
+     */
     @Setter
-    private int maxCrossClassDepth = 1; // Analyze current class + X level hierarchically deeper classes (-1 for unlimited analysis)
+    private int maxCrossClassDepth = 1;
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
@@ -448,10 +452,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param method the method to analyze for thrown exceptions
      * @return an ApiResponses object containing all resolved exception responses
      */
-    private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
+    public ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
-        if(exceptionLoggingEnabled) methodExceptionCache.clear(); // clear after every endpoint, otherwise logging is incomplete
+        if (exceptionLoggingEnabled)
+            methodExceptionCache.clear(); // clear after every endpoint, otherwise logging is incomplete
 
         CtType<?> rootClass = method.getDeclaringType();
         Map<CtType<?>, Integer> classDepthMap = new HashMap<>();
@@ -478,7 +483,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param callPath          the current call path as a StringBuilder
      * @return a set of all exception types that can be thrown by the method
      */
-    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods, Map<CtType<?>,Integer> classDepthMap, int currentClassDepth, StringBuilder callPath) {
+    private Set<CtType<?>> collectAllThrownExceptions(CtMethod<?> method, Set<CtMethod<?>> visitedMethods, Map<CtType<?>, Integer> classDepthMap, int currentClassDepth, StringBuilder callPath) {
         if (methodExceptionCache.containsKey(method)) {
             return methodExceptionCache.get(method);
         }
@@ -491,18 +496,21 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         Set<CtType<?>> thrownExceptions = new HashSet<>();
 
         int originalLength = callPath.length();
-        if (originalLength > 0)  callPath.append(" -> ");
+        if (originalLength > 0) callPath.append(" -> ");
         callPath.append(method.getSimpleName()).append("()");
 
+        // todo handle conditional throws (envirocar)
         // direct throw statements
-        for (var throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
-            CtType<?> thrownType = throwsStatement.getThrownExpression().getType().getTypeDeclaration();
-            if (thrownType != null) {
-                thrownExceptions.add(thrownType);
-                if(exceptionLoggingEnabled) logger.info("Exception Path {}: {} -> throw {}", this.operationPath, callPath, thrownType.getSimpleName());
-            } else {
-                logger.error("Cannot resolve type from CtTypeReference: {}", throwsStatement.getThrownExpression().getType().toString());
+        for (CtThrow throwsStatement : method.getElements(new TypeFilter<>(CtThrow.class))) {
+
+            CtExpression<? extends Throwable> throwsExpression = throwsStatement.getThrownExpression();
+            if (throwsExpression instanceof CtConditional<?> conditionalThrows) {
+                tryRecordThrownType(callPath, conditionalThrows.getThenExpression(), thrownExceptions);
+                tryRecordThrownType(callPath, conditionalThrows.getElseExpression(), thrownExceptions);
+            } else { // regular statement
+                tryRecordThrownType(callPath, throwsExpression, thrownExceptions);
             }
+
         }
 
         // exceptions from method calls
@@ -515,6 +523,17 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         callPath.setLength(originalLength);
 
         return thrownExceptions;
+    }
+
+    private void tryRecordThrownType(StringBuilder callPath, CtExpression<?> throwsExpression, @Out Set<CtType<?>> thrownExceptions) {
+        CtType<?> thrownType = throwsExpression.getType().getTypeDeclaration();
+        if (thrownType != null) {
+            thrownExceptions.add(thrownType);
+            if (exceptionLoggingEnabled)
+                logger.info("Exception Path {}: {} -> throw {}", this.operationPath, callPath, thrownType.getSimpleName());
+        } else {
+            logger.error("Cannot resolve type from CtTypeReference: {}", throwsExpression.getType().toString());
+        }
     }
 
     /**

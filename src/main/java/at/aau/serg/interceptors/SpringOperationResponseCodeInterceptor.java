@@ -87,6 +87,11 @@ public class SpringOperationResponseCodeInterceptor implements OperationIntercep
     // region throws statement to http status code transformation
     //  todo extract
 
+    @Override
+    public ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
+        throw new NotImplementedException();
+    }
+
     /**
      * Handling single Java method with contained throws statements,
      * converts to HttpStatus codes.
@@ -275,7 +280,7 @@ public class SpringOperationResponseCodeInterceptor implements OperationIntercep
                                           @Out @NotNull List<CtThrow> ctThrows,
                                           @Out @NotNull List<HttpStatus> responseEntityDefinedStatusCodes,
                                           @Out AtomicInteger numStatements) {
-        
+
         if (statement instanceof CtBlock) {
             for (CtStatement innerStatement : ((CtBlock<?>) statement).getStatements()) {
                 recordRelevantStatements(innerStatement, ctThrows, responseEntityDefinedStatusCodes, numStatements);

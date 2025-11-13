@@ -57,6 +57,11 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
     }
 
     @Override
+    public boolean supportsSubResourceResolution() {
+        return true;
+    }
+
+    @Override
     public Optional<? extends Annotation> findRequestMappingAnnotation(CtMethod<?> method) {
         return Optional.empty(); // no generic request mapping exists
     }
@@ -103,7 +108,7 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
      * @param controllerType
      * @return
      */
-    protected boolean containsHandlerMethodOrSubResource(CtType<?> controllerType) {
+    protected boolean classContainsHandlerMethodOrSubResource(CtType<?> controllerType) {
         return controllerType.getMethods().stream()
                 .anyMatch(method ->
                         method.getAnnotations().stream()

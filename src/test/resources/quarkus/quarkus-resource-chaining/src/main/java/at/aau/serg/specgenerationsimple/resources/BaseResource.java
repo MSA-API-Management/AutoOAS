@@ -5,7 +5,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api")
-public class BaseResource {
+public class BaseResource extends AbstractResource {
 
     @GET
     @Path("/alive")
@@ -21,6 +21,11 @@ public class BaseResource {
     @Path("/students")
     public StudentResource getStudentResource() {
         return new StudentResource();
+    }
+
+    @Path("/courses")
+    public CourseResource getCourseResource() {
+        return new CourseResource();
     }
 
     // this effectively allows the pattern /api/(base)*/endpoint
