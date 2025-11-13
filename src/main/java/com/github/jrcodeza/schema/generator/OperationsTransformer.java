@@ -77,32 +77,37 @@ public class OperationsTransformer {
 	 * @param operationsMap
 	 * @param controllerClassName Used as tag in OpenAPI spec.
 	 */
-	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName) {
-		logger.debug("Transforming {} controller method", method.getSimpleName());
-		restFramework.findPostMappingAnnotation(method).ifPresent(postMapping -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.findPutMappingAnnotation(method).ifPresent(putMapping -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping -> mapPatch(patchMapping, method, operationsMap, controllerClassName,
-				baseControllerPath));
-		restFramework.findGetMappingAnnotation(method).ifPresent(getMapping -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath));
-		restFramework.findDeleteMappingAnnotation(method).ifPresent(deleteMapping -> mapDelete(deleteMapping, method, operationsMap, controllerClassName,
-				baseControllerPath));
-		restFramework.findRequestMappingAnnotation(method).ifPresent(requestMapping -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName,
-				baseControllerPath));
+	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+        logger.debug("Transforming {} controller method", method.getSimpleName());
+        restFramework.findPostMappingAnnotation(method).ifPresent(postMapping
+                -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+        restFramework.findPutMappingAnnotation(method).ifPresent(putMapping
+                -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+        restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping
+                -> mapPatch(patchMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+        restFramework.findGetMappingAnnotation(method).ifPresent(getMapping
+                -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+        restFramework.findDeleteMappingAnnotation(method).ifPresent(deleteMapping
+                -> mapDelete(deleteMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+        restFramework.findRequestMappingAnnotation(method).ifPresent(requestMapping
+                -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
 
-		// todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
-	}
+        // todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
+    }
 
 	/**
 	 * Handling the @RequestMapping annotation with its http methods.
 	 * e.g., @RequestMapping(value = "/get-and-post-method", method = {RequestMethod.GET, RequestMethod.POST})
+	 *
 	 * @param annotation
 	 * @param method
 	 * @param operationsMap
 	 * @param controllerClassName
 	 * @param baseControllerPath
+	 * @param previouslyDetectedApiParamsAndResponses
 	 */
 	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
-								   String baseControllerPath) {
+								   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -129,6 +134,8 @@ public class OperationsTransformer {
 			operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 			operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+			updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
 
 			updateOperationsMap(cleanedPath, operationsMap,
 					pathItem -> setContentBasedOnHttpMethod(pathItem, httpMethod, operation)
@@ -181,7 +188,7 @@ public class OperationsTransformer {
 	}
 
 	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
-						   String baseControllerPath) {
+						   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -196,6 +203,9 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+		updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
+
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getDelete() != null)
                 logger.error("Found duplicate DELETE mapping for path: {} /// {}", pathItem.getDelete().getOperationId(), operation.getOperationId());
@@ -203,11 +213,11 @@ public class OperationsTransformer {
         });
 	}
 
-	private ApiResponses createApiResponses(CtMethod<?> method, String firstFromArray) {
-		return methodResponseExtractor.createApiResponses(method, firstFromArray);
+	public ApiResponses createApiResponses(CtMethod<?> method, String produces) {
+		return methodResponseExtractor.createApiResponses(method, produces);
 	}
 
-	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		logger.debug("Called mapGet with annotation name \"{}\", path {}, method {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.produces()));
 
@@ -225,6 +235,9 @@ public class OperationsTransformer {
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+		updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
+
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getGet() != null)
                 logger.error("Found duplicate GET mapping for path: {} /// {}", pathItem.getGet().getOperationId(), operation.getOperationId());
@@ -232,7 +245,7 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation,method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -248,6 +261,9 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+		updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
+
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPatch() != null)
                 logger.error("Found duplicate PATCH mapping for path: {} /// {}", pathItem.getPatch().getOperationId(), operation.getOperationId());
@@ -255,7 +271,7 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -271,6 +287,9 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+		updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
+
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPut() != null)
                 logger.error("Found duplicate PUT mapping for path: {} /// {}", pathItem.getPut().getOperationId(), operation.getOperationId());
@@ -278,7 +297,7 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath) {
+	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -294,11 +313,20 @@ public class OperationsTransformer {
 		operation.setParameters(transformParameters(fullPath, method));
 
 		operationInterceptors.forEach(interceptor -> interceptor.intercept(method, operation, cleanedPath));
+
+		updateOperationWithPreviouslyDetectedParamsAndResponses(operation, previouslyDetectedApiParamsAndResponses);
+
 		updateOperationsMap(cleanedPath, operationsMap, pathItem -> {
             if (pathItem.getPost() != null)
                 logger.error("Found duplicate POST mapping for path: {} /// {}", pathItem.getPost().getOperationId(), operation.getOperationId());
             pathItem.setPost(operation);
         });
+	}
+
+	private void updateOperationWithPreviouslyDetectedParamsAndResponses(@Out Operation operation,
+																		 DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+		previouslyDetectedApiParamsAndResponses.getDetectedApiParameters().forEach(operation::addParametersItem);
+		operation.getResponses().putAll(previouslyDetectedApiParamsAndResponses.getDetectedApiResponses());
 	}
 
 	private void updateOperationsMap(String url, @Out Map<String, PathItem> existingMap, Consumer<PathItem> pathItemUpdater) {
@@ -317,7 +345,7 @@ public class OperationsTransformer {
 	 * @param method
 	 * @return
 	 */
-	private List<io.swagger.v3.oas.models.parameters.Parameter> transformParameters(String endpointPath, CtMethod<?> method) {
+	public List<io.swagger.v3.oas.models.parameters.Parameter> transformParameters(String endpointPath, CtMethod<?> method) {
 		List<CtParameter<?>> parameters = method.getParameters();
 		List<io.swagger.v3.oas.models.parameters.Parameter> result = new ArrayList<>();
 		addGlobalHeaders(result);

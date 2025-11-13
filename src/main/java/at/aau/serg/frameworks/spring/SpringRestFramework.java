@@ -152,6 +152,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public boolean supportsSubResourceResolution() {
+        return false;
+    }
+
+    @Override
     public List<SubResource> getSubResourcesInController(CtType<?> controllerType) {
         return List.of();
     }

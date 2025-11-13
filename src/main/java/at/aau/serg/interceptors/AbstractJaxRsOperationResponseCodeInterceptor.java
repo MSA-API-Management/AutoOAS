@@ -452,7 +452,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param method the method to analyze for thrown exceptions
      * @return an ApiResponses object containing all resolved exception responses
      */
-    private ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
+    public ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method) {
         ApiResponses apiResponses = new ApiResponses();
 
         if (exceptionLoggingEnabled)

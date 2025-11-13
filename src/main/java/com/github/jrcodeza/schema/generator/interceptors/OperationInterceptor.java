@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator.interceptors;
 
 import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.apache.commons.lang3.NotImplementedException;
 import spoon.reflect.declaration.CtMethod;
 
@@ -14,4 +15,10 @@ public interface OperationInterceptor {
         throw new NotImplementedException();
     }
 
+    /**
+     * Detects exceptions and maps them to HTTP status codes.
+     * @param method
+     * @return
+     */
+    ApiResponses tryDetectExceptionsInMethod(CtMethod<?> method);
 }

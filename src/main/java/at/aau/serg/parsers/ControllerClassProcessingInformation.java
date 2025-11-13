@@ -1,5 +1,7 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.frameworks.DetectedApiParamsAndResponses;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 import lombok.Getter;
 import spoon.reflect.declaration.CtType;
 
@@ -18,6 +20,8 @@ public class ControllerClassProcessingInformation {
 
     /**
      * The type of the superclass used during processing, e.g., C extends S -> S
+     * <p>
+     * todo best rename this to currentClassForAnalysisInHierarchyChain
      */
     private CtType<?> currentSuperclassType;
 
@@ -31,32 +35,35 @@ public class ControllerClassProcessingInformation {
      */
     private String basePath;
 
+    /**
+     * Previously detected API parameters and responses for the controller C, e.g., during analysis of methods serving the subresource C.
+     */
+    private DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses;
+
+
     public ControllerClassProcessingInformation(CtType<?> concreteControllerType, CtType<?> currentSuperclassType) {
-        this(concreteControllerType, currentSuperclassType, "");
+        this(concreteControllerType, currentSuperclassType, List.of(), "", null);
     }
 
-    public ControllerClassProcessingInformation(CtType<?> concreteControllerType, CtType<?> currentSuperclassType, String basePath) {
-        this(concreteControllerType, currentSuperclassType, List.of(), basePath);
-    }
-
-    public ControllerClassProcessingInformation(CtType<?> concreteControllerType, CtType<?> currentSuperclassType, List<CtType<?>> parentResourceTypeChain, CtType<?> nextResourceTypeInChain, String basePath) {
-        this(concreteControllerType, currentSuperclassType, parentResourceTypeChain, basePath);
-
-        this.parentResourceTypeChain.add(nextResourceTypeInChain);
-    }
-
-    public ControllerClassProcessingInformation(CtType<?> concreteControllerType, CtType<?> currentSuperclassType, List<CtType<?>> parentResourceTypeChain, String basePath) {
+    public ControllerClassProcessingInformation(CtType<?> concreteControllerType,
+                                                CtType<?> currentSuperclassType,
+                                                List<CtType<?>> parentResourceTypeChain,
+                                                String basePath,
+                                                DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
         this.concreteControllerType = concreteControllerType;
         this.currentSuperclassType = currentSuperclassType;
         this.parentResourceTypeChain = new ArrayList<>(parentResourceTypeChain);
         this.basePath = basePath;
+        this.previouslyDetectedApiParamsAndResponses = previouslyDetectedApiParamsAndResponses != null
+                ? previouslyDetectedApiParamsAndResponses
+                : new DetectedApiParamsAndResponses(new ArrayList<>(), new ApiResponses());
     }
 
     public String getSubResourceChainAsString() {
         return parentResourceTypeChain.stream().map(ctType -> ctType.getQualifiedName() + " - ").collect(Collectors.joining());
     }
 
-    
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ControllerClassProcessingInformation that)) return false;

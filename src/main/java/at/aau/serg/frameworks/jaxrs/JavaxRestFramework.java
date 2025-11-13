@@ -116,7 +116,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
 
             // found a method with Path annotation providing a sub-resource
             String subResourcePath = pathAnnotation.get().value();
-            resultList.add(new SubResource(methodReturnType, subResourcePath));
+            resultList.add(new SubResource(methodReturnType, subResourcePath, method));
         }
 
         return resultList;

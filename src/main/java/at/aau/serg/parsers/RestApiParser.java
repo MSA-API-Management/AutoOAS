@@ -1,5 +1,6 @@
 package at.aau.serg.parsers;
 
+import at.aau.serg.frameworks.DetectedApiParamsAndResponses;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.frameworks.validation.ValidationAnnotationProviderFactory;
@@ -8,6 +9,7 @@ import com.github.jrcodeza.schema.generator.ComponentSchemaTransformer;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
 import com.github.jrcodeza.schema.generator.MethodResponseExtractor;
 import com.github.jrcodeza.schema.generator.OperationsTransformer;
+import com.github.jrcodeza.schema.generator.interceptors.OperationInterceptor;
 import com.github.jrcodeza.schema.generator.model.InheritanceInfo;
 import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Components;
@@ -15,6 +17,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 import spoon.reflect.CtModel;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
@@ -34,6 +38,7 @@ public class RestApiParser {
     private DataTypeTransformer dataTypeTransformer;
     private ComponentSchemaTransformer schemaTransformer;
     private SchemaGeneratorHelper schemaHelper;
+    private OperationInterceptor operationResponseCodeInterceptor;
 
     private final OpenApiGenerator openApiGen = new OpenApiGenerator();
 
@@ -130,8 +135,9 @@ public class RestApiParser {
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework, annotationProvider); // just provide all packages of the project's module
         dataTypeTransformer = new DataTypeTransformer(restFramework, schemaHelper);
         MethodResponseExtractor methodResponseExtractor = new MethodResponseExtractor(restFramework, dataTypeTransformer);
+        operationResponseCodeInterceptor = restFramework.getOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor);
         operationsTransformer = new OperationsTransformer(schemaHelper, dataTypeTransformer, methodResponseExtractor,
-                new ArrayList<>(), Collections.singletonList(restFramework.getOperationResponseCodeInterceptor(globalExceptionHandlerClasses, dataTypeTransformer, schemaHelper, methodResponseExtractor)),
+                new ArrayList<>(), Collections.singletonList(operationResponseCodeInterceptor),
                 new ArrayList<>(), new ArrayList<>(), new AtomicReference<>(), restFramework);
         schemaTransformer = new ComponentSchemaTransformer(new ArrayList<>(), schemaHelper, annotationProvider);
 
@@ -188,6 +194,7 @@ public class RestApiParser {
     }
 
     // fixme split superclass and subresource analysis into dedicated steps
+    //  e.g., for each (sub-)resource run the superclass hierarchy then continue
     private Paths createPathsFromControllers(List<CtType<?>> controllerClasses) {
         Paths operationsMap = new Paths();
 
@@ -195,61 +202,52 @@ public class RestApiParser {
         List<ControllerClassProcessingInformation> notProcessedControllerClasses =
                 controllerClasses.stream().map(t -> new ControllerClassProcessingInformation(t, t)).collect(Collectors.toList());
 
-//        List<ControllerClassProcessingInformation> alreadyProcessedControllerClasses = new LinkedList<>();
-
         while (notProcessedControllerClasses.size() > 0) {
             var curControllerClasses = new ArrayList<>(notProcessedControllerClasses);
 
             for (ControllerClassProcessingInformation currentControllerClassInfoUnderAnalysis : curControllerClasses) {
-
                 CtType<?> concreteControllerClassType = currentControllerClassInfoUnderAnalysis.getConcreteControllerType();
                 CtType<?> currentControllerClassInHierarchyType = currentControllerClassInfoUnderAnalysis.getCurrentSuperclassType();
 
                 String controllerBasePath = currentControllerClassInfoUnderAnalysis.getBasePath() + '/' + operationsTransformer.getBaseControllerPath(concreteControllerClassType);
+                DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses = currentControllerClassInfoUnderAnalysis.getPreviouslyDetectedApiParamsAndResponses();
 
+                /// REST API detection ///
                 for (CtMethod<?> method : currentControllerClassInHierarchyType.getMethods()) {
                     // Adds the operation for the method to the operationsMap if it contains a corresponding annotation
                     operationsTransformer.createOperation(
                             method, controllerBasePath,
-                            operationsMap, concreteControllerClassType.getSimpleName());
+                            operationsMap, concreteControllerClassType.getSimpleName(),
+                            previouslyDetectedApiParamsAndResponses);
                 }
 
-                //-Dlogback.configurationFile=src/main/resources/logback-verbose.xml
-
-                // todo handle sub resources !!!
-
-                // traversing down the controller's sub-resources
+                /// traversing down the controller's sub-resources ///
                 List<ControllerClassProcessingInformation> subResources = findSubResourcesInController(currentControllerClassInfoUnderAnalysis, controllerBasePath);
                 if (subResources != null) {
                     // break cycles
                     // todo report cycles as "see other endpoint"
                     for (ControllerClassProcessingInformation subResource : subResources) {
-                        System.out.println(subResource.getConcreteControllerType().getQualifiedName() + " -> " + subResource.getSubResourceChainAsString());
+//                        System.out.println(subResource.getConcreteControllerType().getQualifiedName() + " -> " + subResource.getSubResourceChainAsString());
                         if (subResource.getParentResourceTypeChain().contains(subResource.getConcreteControllerType()))
-                            System.out.println("Endpoint call chain circle detected: " + subResource.getSubResourceChainAsString() + "-/->" + subResource.getConcreteControllerType().getSimpleName());
+                            System.out.println("Endpoint call chain circle detected, and ignored: " + subResource.getSubResourceChainAsString() + "-/->" + subResource.getConcreteControllerType().getSimpleName());
                         else
                             notProcessedControllerClasses.add(subResource);
                     }
-
-//                    notProcessedControllerClasses.addAll(subResources);
                 }
 
                 // todo consider what to do for sub resource resolution (envirocar)
-                // traversing up the controller class's inheritance
+                /// traversing up the controller class's inheritance ///
                 if (currentControllerClassInHierarchyType.getSuperclass() != null)
                     notProcessedControllerClasses.add(
                             new ControllerClassProcessingInformation(
                                     concreteControllerClassType,
                                     currentControllerClassInHierarchyType.getSuperclass().getTypeDeclaration(),
                                     currentControllerClassInfoUnderAnalysis.getParentResourceTypeChain(),
-                                    currentControllerClassInfoUnderAnalysis.getBasePath())
+                                    currentControllerClassInfoUnderAnalysis.getBasePath(),
+                                    currentControllerClassInfoUnderAnalysis.getPreviouslyDetectedApiParamsAndResponses())
                     );
             }
 
-            // store all processed controller classes if they are referenced again (e.g., some loop or redirect)
-            // fixme with this impl we effectively ignore all paths to a controller, other than the first encountered
-//            alreadyProcessedControllerClasses.addAll(curControllerClasses);
-//            notProcessedControllerClasses.removeAll(alreadyProcessedControllerClasses);
             notProcessedControllerClasses.removeAll(curControllerClasses);
         }
 
@@ -259,18 +257,33 @@ public class RestApiParser {
     }
 
     private List<ControllerClassProcessingInformation> findSubResourcesInController(ControllerClassProcessingInformation controllerUnderAnalysis, String basePath) {
-        return restFramework.getSubResourcesInController(controllerUnderAnalysis.getCurrentSuperclassType())
-                .stream()
-                .map(subResource ->
-                        new ControllerClassProcessingInformation(
-                                subResource.getType(),
-                                subResource.getType(),
-                                controllerUnderAnalysis.getParentResourceTypeChain(),
-                                controllerUnderAnalysis.getConcreteControllerType(),
-                                basePath + '/' + subResource.getPath()
-                        )
-                )
-                .collect(Collectors.toList());
+        List<ControllerClassProcessingInformation> detectedSubResources = new LinkedList<>();
+
+        for (var subResource : restFramework.getSubResourcesInController(controllerUnderAnalysis.getCurrentSuperclassType())) {
+            var fullPath = basePath + '/' + subResource.getPath();
+
+            // identify parameters and responses that might be resolved at this level
+            List<Parameter> parameters = operationsTransformer.transformParameters(fullPath, subResource.getServingMethod());
+            ApiResponses responses = operationResponseCodeInterceptor.tryDetectExceptionsInMethod(subResource.getServingMethod());
+            DetectedApiParamsAndResponses detectedApiParamsAndResponses = new DetectedApiParamsAndResponses(parameters, responses);
+
+            detectedApiParamsAndResponses.addAllDetected(controllerUnderAnalysis.getPreviouslyDetectedApiParamsAndResponses());
+
+            var updatedResourceResolutionChain = new ArrayList<>(controllerUnderAnalysis.getParentResourceTypeChain());
+            updatedResourceResolutionChain.add(controllerUnderAnalysis.getConcreteControllerType());
+
+            var subResourceProcessingInformation = new ControllerClassProcessingInformation(
+                    subResource.getType(),
+                    subResource.getType(),
+                    updatedResourceResolutionChain,
+                    fullPath,
+                    detectedApiParamsAndResponses
+            );
+
+            detectedSubResources.add(subResourceProcessingInformation);
+        }
+
+        return detectedSubResources;
     }
 
     /**

@@ -168,6 +168,12 @@ public interface RestFramework {
     Class<? extends Annotation> getRequestBodyAnnotation();
 
     /**
+     * Reports if the framework supports sub-resource resolution. If not, {@code getSubResourcesInController} is always null.
+     * @return
+     */
+    boolean supportsSubResourceResolution();
+
+    /**
      * If not-null, this framework marks sub-resources returned by controllers with this annotation,
      * e.g., JAX RS's sub-resource locators with {@code @Path}.
      *
