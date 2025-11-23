@@ -1,9 +1,4 @@
-FROM  ubuntu:24.10
-# --platform=linux/amd64
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-RUN apt-get install maven -y
+FROM eclipse-temurin:17-jdk-alpine
 
 ARG JAR_FILE="./target/auto-oas-1.2.0-jar-with-dependencies.jar"
 
