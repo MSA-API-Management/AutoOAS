@@ -281,7 +281,8 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/LocalTimeOrInstant"
+            "type" : "string",
+            "example" : "#/components/schemas/LocalTimeOrInstant"
           }
         } ],
         "responses" : {

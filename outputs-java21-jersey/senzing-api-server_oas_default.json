@@ -169,7 +169,8 @@
           "in" : "header",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/MediaType"
+            "type" : "string",
+            "example" : "#/components/schemas/MediaType"
           }
         }, {
           "name" : "progressPeriod",
@@ -256,7 +257,8 @@
           "in" : "header",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/MediaType"
+            "type" : "string",
+            "example" : "#/components/schemas/MediaType"
           }
         }, {
           "name" : "progressPeriod",
@@ -1122,7 +1124,8 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Set"
+            "type" : "string",
+            "example" : "#/components/schemas/Set"
           }
         }, {
           "name" : "forceMinimal",
@@ -1204,7 +1207,8 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Set"
+            "type" : "string",
+            "example" : "#/components/schemas/Set"
           }
         }, {
           "name" : "forceMinimal",

@@ -223,10 +223,17 @@ public class SchemaGeneratorHelper {
         return this.parseClassRefTypeSignature(typeClass, annotations, this.modelPackages);
     }
 
-    @SuppressWarnings("squid:S3776") // no other solution
     public Schema parseClassRefTypeSignature(CtTypeReference<?> typeClass,
                                              Annotation[] annotations,
                                              List<String> modelPackages) {
+        return parseClassRefTypeSignature(typeClass, annotations, modelPackages, false);
+    }
+
+    @SuppressWarnings("squid:S3776") // no other solution
+    public Schema parseClassRefTypeSignature(CtTypeReference<?> typeClass,
+                                             Annotation[] annotations,
+                                             List<String> modelPackages,
+                                             boolean forcePrimitiveType) {
         // unwrap Optional first
         if (this.isTypeEquivalent(typeClass, this.restFramework.getOptionalWrapper())) {
             typeClass = unwrapGenericWrapper(typeClass, getGenericParams(typeClass)).getValue0();
@@ -259,6 +266,15 @@ public class SchemaGeneratorHelper {
             resultSchema = createStringSchema("date-time", annotations);
         } else {
             resultSchema = createRefSchema(typeClass, modelPackages);
+        }
+
+        if (forcePrimitiveType) {
+            if (resultSchema.get$ref() != null && !typeClass.isEnum()) {
+                // complex schema not allowed here
+                resultSchema.setType("string");
+                resultSchema.setExample(resultSchema.get$ref());
+                resultSchema.set$ref(null);
+            }
         }
 
         return resultSchema;

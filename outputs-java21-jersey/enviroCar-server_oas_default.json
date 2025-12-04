@@ -211,14 +211,16 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "nearPoint",
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/NearPoint"
+            "type" : "string",
+            "example" : "#/components/schemas/NearPoint"
           }
         } ],
         "responses" : {
@@ -577,7 +579,8 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "status",
@@ -1475,14 +1478,16 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "nearPoint",
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/NearPoint"
+            "type" : "string",
+            "example" : "#/components/schemas/NearPoint"
           }
         }, {
           "name" : "track",
@@ -2338,14 +2343,16 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "nearPoint",
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/NearPoint"
+            "type" : "string",
+            "example" : "#/components/schemas/NearPoint"
           }
         }, {
           "name" : "username",
@@ -2534,7 +2541,8 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "status",
@@ -3691,14 +3699,16 @@
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/BoundingBox"
+            "type" : "string",
+            "example" : "#/components/schemas/BoundingBox"
           }
         }, {
           "name" : "nearPoint",
           "in" : "query",
           "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/NearPoint"
+            "type" : "string",
+            "example" : "#/components/schemas/NearPoint"
           }
         }, {
           "name" : "track",

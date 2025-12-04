@@ -545,7 +545,7 @@ public class OperationsTransformer {
 			}
 		}
 
-		oasParameter.setSchema(createSchemaFromParameter(parameter, parameterName));
+		oasParameter.setSchema(createSchemaFromParameter(parameter, true));
 		schemaGeneratorHelper.enrichWithTypeAnnotations(oasParameter, getActualAnnotations(parameter));
 		return oasParameter;
 	}
@@ -591,14 +591,18 @@ public class OperationsTransformer {
 		return schemaGeneratorHelper.getGenericParam(type);
 	}
 
-	private Schema createSchemaFromParameter(CtParameter<?> parameter, String parameterName) {
+	private Schema createSchemaFromParameter(CtParameter<?> parameter, boolean forcePrimitiveSchema) {
 		CtTypeReference<?> clazz = parameter.getType();
 		Annotation[] annotations = getActualAnnotations(parameter);
 
-		return createSchema(clazz, annotations);
+		return createSchema(clazz, annotations, forcePrimitiveSchema);
 	}
 
 	private Schema createSchema(CtTypeReference<?> parameterClass, Annotation[] annotations) {
+		return createSchema(parameterClass, annotations, false);
+	}
+
+	private Schema createSchema(CtTypeReference<?> parameterClass, Annotation[] annotations, boolean forcePrimitiveSchema) {
 		Schema schema;
 		if (parameterClass.isPrimitive()) {
 			schema = schemaGeneratorHelper.parseBaseTypeSignature(parameterClass, annotations);
@@ -608,7 +612,7 @@ public class OperationsTransformer {
 			var listGenericParameter = getGenericParam(parameterClass);
 			schema = schemaGeneratorHelper.parseArraySignature(listGenericParameter, null, annotations);
 		} else {
-			schema = schemaGeneratorHelper.parseClassRefTypeSignature(parameterClass, annotations, null);
+			schema = schemaGeneratorHelper.parseClassRefTypeSignature(parameterClass, annotations, null, forcePrimitiveSchema);
 		}
 		return schema;
 	}
