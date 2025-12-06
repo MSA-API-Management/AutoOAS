@@ -55,6 +55,26 @@
           "required" : true
         },
         "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
           "400" : {
             "description" : "Bad Request",
             "content" : {
@@ -71,26 +91,6 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          },
-          "201" : {
-            "description" : "Created",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
-                }
-              }
-            }
-          },
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
                 }
               }
             }
@@ -534,6 +534,16 @@
         "operationId" : "getVariousResponsesUsingGET__sophisticated-simple-responses_various-responses",
         "parameters" : [ ],
         "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
           "201" : {
             "description" : "Created",
             "content" : {
@@ -546,16 +556,6 @@
           },
           "204" : {
             "description" : "No Content"
-          },
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
           }
         }
       }

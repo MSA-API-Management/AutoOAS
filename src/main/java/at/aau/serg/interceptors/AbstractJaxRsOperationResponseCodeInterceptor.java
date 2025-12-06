@@ -130,6 +130,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             }
         }
 
+        // sort the responses
+        transformedOperation.setResponses(
+                transformedOperation.getResponses().entrySet().stream().sorted(Map.Entry.comparingByKey(String.CASE_INSENSITIVE_ORDER)).collect(
+                        ApiResponses::new,
+                        (m, e) -> m.put(e.getKey(), e.getValue()),
+                        Map::putAll
+                )
+        );
+
     }
 
     private boolean hasRegularReturns(CtMethod<?> method) {
@@ -154,8 +163,24 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @return
      */
     private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method) {
+        return tryDetectJaxRSResponsesInMethod(method, 0);
+    }
+
+    private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method, int currentMethodDepth) {
         ApiResponses apiResponses = new ApiResponses();
         ApiResponses otherObjectApiResponses = new ApiResponses();
+
+//        if (currentMethodDepth <= maxCrossClassDepth) {
+//            for (var methodInvocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
+//                if (SpoonUtils.isTypeEquivalent(methodInvocation.getType(), this.getResponseClass())) {
+//                    // handle additional methods that return responses
+//                    CtMethod<?> actualSubMethod = SpoonUtils.getMethodDeclaration(methodInvocation.getExecutable());
+//                    if (actualSubMethod != null) {
+//                        apiResponses.putAll(tryDetectJaxRSResponsesInMethod(actualSubMethod, currentMethodDepth + 1));
+//                    }
+//                }
+//            }
+//        }
 
         boolean methodHasObjectReturnType = SpoonUtils.isObjectType(method.getType());
 
