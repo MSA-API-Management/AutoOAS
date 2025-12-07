@@ -209,6 +209,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         return tryDetectJaxRSResponsesInMethod(method, 0);
     }
 
+    // todo: consider also ResponseBuilder invocations
     private ApiResponses tryDetectJaxRSResponsesInMethod(CtMethod<?> method, int currentMethodDepth) {
         ApiResponses apiResponses = new ApiResponses();
         ApiResponses otherObjectApiResponses = new ApiResponses();
@@ -222,7 +223,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             CtExpression<?> returned = returnStatement.getReturnedExpression();
 
             if (returned instanceof CtInvocation<?> inv
-                    && SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+                    && (SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass()))) {
+//                || SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseBuilderClass())
                 // analyzing JAX-RS responses
                 var responses = analyzeResponseInvocation(inv, ignoreUnknownStatusCodes);
 
@@ -250,6 +252,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         if (currentMethodDepth < maxMethodCallDepth) {
             for (var methodInvocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
                 if (SpoonUtils.isTypeEquivalent(methodInvocation.getType(), this.getResponseClass())) {
+//                    || SpoonUtils.isTypeEquivalent(methodInvocation.getType(), this.getResponseBuilderClass())
                     // handle additional methods that return responses
                     CtMethod<?> actualSubMethod = SpoonUtils.getMethodDeclaration(methodInvocation.getExecutable());
                     if (actualSubMethod != null) {
@@ -271,6 +274,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      */
     private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv, boolean ignoreUnknown) {
         if (!SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
+//        && !SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseBuilderClass())
             return null;
         }
 
