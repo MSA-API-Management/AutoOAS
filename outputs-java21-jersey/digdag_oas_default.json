@@ -182,6 +182,9 @@
               }
             }
           },
+          "404" : {
+            "description" : "Not Found"
+          },
           "409" : {
             "description" : "Conflict",
             "content" : {
@@ -194,9 +197,6 @@
           },
           "500" : {
             "description" : "Internal Server Error"
-          },
-          "404" : {
-            "description" : "Not Found"
           }
         }
       }
@@ -520,18 +520,18 @@
           }
         } ],
         "responses" : {
-          "303" : {
-            "description" : "See Other"
-          },
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "application/gzip" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StreamingOutput"
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }
+          },
+          "303" : {
+            "description" : "See Other"
           },
           "404" : {
             "description" : "Not Found"
@@ -857,11 +857,11 @@
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
-          },
           "404" : {
             "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }

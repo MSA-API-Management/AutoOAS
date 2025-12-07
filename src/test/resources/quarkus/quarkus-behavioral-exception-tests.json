@@ -24,11 +24,11 @@
           "required" : true
         },
         "responses" : {
-          "403" : {
-            "description" : "Forbidden"
-          },
           "400" : {
             "description" : "Bad Request"
+          },
+          "403" : {
+            "description" : "Forbidden"
           },
           "500" : {
             "description" : "Internal Server Error"
@@ -54,14 +54,14 @@
           "required" : true
         },
         "responses" : {
-          "500" : {
-            "description" : "Internal Server Error"
-          },
           "200" : {
             "description" : "OK"
           },
           "403" : {
             "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
@@ -172,9 +172,6 @@
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error"
-          },
           "400" : {
             "description" : "Bad Request",
             "content" : {
@@ -184,6 +181,9 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
           }
         }
       }
