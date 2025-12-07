@@ -1575,12 +1575,9 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "image/png" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "integer"
-                  }
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }
@@ -1654,12 +1651,9 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "image/png" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "integer"
-                  }
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }
@@ -3817,12 +3811,9 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "image/png" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "integer"
-                  }
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }
@@ -3910,12 +3901,9 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "image/png" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "integer"
-                  }
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }

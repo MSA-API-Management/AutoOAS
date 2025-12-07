@@ -523,9 +523,9 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "application/json" : {
+              "application/gzip" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StreamingOutput"
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
                 }
               }
             }

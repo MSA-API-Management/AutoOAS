@@ -29,10 +29,16 @@ import java.util.*;
 
 public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements OperationInterceptor {
     /**
-     * Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes (-1 for unlimited analysis)
+     * Analyze current class + {@code maxCrossClassDepth} level hierarchically deeper classes for throw statements (-1 for unlimited analysis)
      */
     @Setter
     private int maxCrossClassDepth = 1;
+
+    /**
+     * Analyze current method + {@code maxMethodCallDepth} called methods for response codes
+     */
+    @Setter
+    private int maxMethodCallDepth = 1;
 
     protected static final List<String> KNOWN_AND_IGNORED_RESPONSE_BUILDER_METHODS = List.of("lastModified", "tag", "entity");
 
@@ -109,28 +115,50 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         this.operationPath = operationPath;
 
         //// Response detection ////
-        var responses = tryDetectJaxRSResponsesInMethod(method);
+        var detectedResponses = tryDetectJaxRSResponsesInMethod(method);
 
-        if (!responses.isEmpty()) {
-            // found some Jax-RS Response obj, overwrite og responses
-            transformedOperation.setResponses(responses);
+        if (responsesContainSuccessResponses(detectedResponses)) {
+            // found some Jax-RS Response obj, overwrite og response if it is more descriptive
+            ApiResponse originalSuccessCodeResponse = transformedOperation.getResponses().get("200");
+            ApiResponse detectedSuccessCodeResponse = detectedResponses.get("200");
+
+            if (originalSuccessCodeResponse != null && detectedSuccessCodeResponse != null) {
+                String orig200ContentType = tryGetFirstContentType(originalSuccessCodeResponse);
+                String det200ContentType = tryGetFirstContentType(detectedSuccessCodeResponse);
+
+                if (orig200ContentType != null && det200ContentType != null && !Objects.equals(orig200ContentType, det200ContentType) && !orig200ContentType.equals("text/plain")) {
+                    // keep original if it described a special content type
+                    detectedResponses.forEach(transformedOperation.getResponses()::putIfAbsent);
+                } else {
+                    // else: basic content type, used detected one
+                    transformedOperation.setResponses(detectedResponses);
+                }
+            } else {
+                // no 200 code in detection, overwrite
+                transformedOperation.setResponses(detectedResponses);
+            }
+
+        } else if (!detectedResponses.isEmpty()) {
+            // only detected error responses
+            transformedOperation.setResponses(detectedResponses);
         }
         // else: keep the original responses, assuming the method has another return type than jakarta.ws.rs.core.Response or javax.ws.rs.core.Response
+
 
         //// Exception Detection ////
         var exceptionResponses = tryDetectExceptionsInMethod(method);
 
         if (!exceptionResponses.isEmpty()) {
             if (hasRegularReturns(method)) {
-                // append exceptions to regular responses
+                // append exceptions to regular detectedResponses
                 transformedOperation.getResponses().putAll(exceptionResponses);
             } else {
-                // overwrite any non-error default responses
+                // overwrite any non-error default detectedResponses
                 transformedOperation.setResponses(exceptionResponses);
             }
         }
 
-        // sort the responses
+        // sort the detectedResponses
         transformedOperation.setResponses(
                 transformedOperation.getResponses().entrySet().stream().sorted(Map.Entry.comparingByKey(String.CASE_INSENSITIVE_ORDER)).collect(
                         ApiResponses::new,
@@ -138,7 +166,22 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                         Map::putAll
                 )
         );
+    }
 
+    private String tryGetFirstContentType(ApiResponse response) {
+        if (response == null || response.getContent() == null || response.getContent().isEmpty()) {
+            return null;
+        }
+        return response.getContent().keySet().iterator().next();
+    }
+
+    private boolean responsesContainSuccessResponses(ApiResponses responses) {
+        for (var response : responses.entrySet()) {
+            if (response.getKey().startsWith("2")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean hasRegularReturns(CtMethod<?> method) {
@@ -170,18 +213,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         ApiResponses apiResponses = new ApiResponses();
         ApiResponses otherObjectApiResponses = new ApiResponses();
 
-//        if (currentMethodDepth <= maxCrossClassDepth) {
-//            for (var methodInvocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
-//                if (SpoonUtils.isTypeEquivalent(methodInvocation.getType(), this.getResponseClass())) {
-//                    // handle additional methods that return responses
-//                    CtMethod<?> actualSubMethod = SpoonUtils.getMethodDeclaration(methodInvocation.getExecutable());
-//                    if (actualSubMethod != null) {
-//                        apiResponses.putAll(tryDetectJaxRSResponsesInMethod(actualSubMethod, currentMethodDepth + 1));
-//                    }
-//                }
-//            }
-//        }
-
+        boolean isRootMethod = currentMethodDepth == 0;
+        boolean ignoreUnknownStatusCodes = !isRootMethod;
         boolean methodHasObjectReturnType = SpoonUtils.isObjectType(method.getType());
 
         // fixme limitation: only handle direct invocation at return statement
@@ -191,7 +224,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             if (returned instanceof CtInvocation<?> inv
                     && SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
                 // analyzing JAX-RS responses
-                var responses = analyzeResponseInvocation(inv);
+                var responses = analyzeResponseInvocation(inv, ignoreUnknownStatusCodes);
 
                 if (responses != null && !responses.isEmpty()) {
                     for (var response : responses) {
@@ -199,7 +232,8 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
                     }
                 }
             } else if (methodHasObjectReturnType &&
-                    (returned instanceof CtVariableAccess<?> || returned instanceof CtInvocation<?>)) {
+                    (returned instanceof CtVariableAccess<?> || returned instanceof CtInvocation<?>)
+                    && !ignoreUnknownStatusCodes) {
                 // handling other returned types in methods returning generic Objects
                 var apiResponse = dataTypeTransformer.detectAndCreateApiResponseContent(returned.getType());
                 var status = FALLBACK_STATUS_CODE;
@@ -213,6 +247,19 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             apiResponses.putAll(otherObjectApiResponses);
         }
 
+        if (currentMethodDepth < maxMethodCallDepth) {
+            for (var methodInvocation : method.getElements(new TypeFilter<>(CtInvocation.class))) {
+                if (SpoonUtils.isTypeEquivalent(methodInvocation.getType(), this.getResponseClass())) {
+                    // handle additional methods that return responses
+                    CtMethod<?> actualSubMethod = SpoonUtils.getMethodDeclaration(methodInvocation.getExecutable());
+                    if (actualSubMethod != null) {
+                        var responses = tryDetectJaxRSResponsesInMethod(actualSubMethod, currentMethodDepth + 1);
+                        responses.forEach(apiResponses::putIfAbsent);
+                    }
+                }
+            }
+        }
+
         return apiResponses;
     }
 
@@ -222,7 +269,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param inv
      * @return
      */
-    private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv) {
+    private List<Pair<String, ApiResponse>> analyzeResponseInvocation(CtInvocation<?> inv, boolean ignoreUnknown) {
         if (!SpoonUtils.isTypeEquivalent(inv.getType(), this.getResponseClass())) {
             return null;
         }
@@ -233,7 +280,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
         if (methodName.equals("build")) {
             // detect Response builder call
             if (inv.getTarget() instanceof CtInvocation<?> baseInvocation) {
-                return traceResponseCreationBackFromBuildCall(baseInvocation);
+                return traceResponseCreationBackFromBuildCall(baseInvocation, ignoreUnknown);
 
             } else {
                 // eg., builder.build()
@@ -277,7 +324,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
      * @param buildCallTarget starting before the build call, in the example from ::entity
      * @return a list of response codes and response type pairs
      */
-    private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget) {
+    private List<Pair<String, ApiResponse>> traceResponseCreationBackFromBuildCall(CtInvocation<?> buildCallTarget, boolean ignoreUnknown) {
         List<HttpStatus> responseStatuses = new ArrayList<>();
         ApiResponse baseResponseSchema = new ApiResponse();
 
@@ -303,7 +350,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             curMethodInChain = method.getTarget();
         }
 
-        if (responseStatuses.isEmpty()) {
+        if (responseStatuses.isEmpty() && !ignoreUnknown) {
             responseStatuses = List.of(FALLBACK_STATUS_CODE); // fallback!
         }
 
