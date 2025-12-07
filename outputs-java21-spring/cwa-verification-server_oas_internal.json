@@ -16,7 +16,8 @@
           "in" : "header",
           "required" : true,
           "schema" : {
-            "$ref" : "#/components/schemas/AuthorizationToken"
+            "type" : "string",
+            "example" : "#/components/schemas/AuthorizationToken"
           }
         }, {
           "name" : "X-CWA-TELETAN-TYPE",

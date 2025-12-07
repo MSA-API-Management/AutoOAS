@@ -116,10 +116,11 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
         //// Response detection ////
         var detectedResponses = tryDetectJaxRSResponsesInMethod(method);
+        var originalResponses = transformedOperation.getResponses();
 
         if (responsesContainSuccessResponses(detectedResponses)) {
             // found some Jax-RS Response obj, overwrite og response if it is more descriptive
-            ApiResponse originalSuccessCodeResponse = transformedOperation.getResponses().get("200");
+            ApiResponse originalSuccessCodeResponse = originalResponses.get("200");
             ApiResponse detectedSuccessCodeResponse = detectedResponses.get("200");
 
             if (originalSuccessCodeResponse != null && detectedSuccessCodeResponse != null) {
@@ -128,15 +129,22 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
 
                 if (orig200ContentType != null && det200ContentType != null && !Objects.equals(orig200ContentType, det200ContentType) && !orig200ContentType.equals("text/plain")) {
                     // keep original if it described a special content type
-                    detectedResponses.forEach(transformedOperation.getResponses()::putIfAbsent);
+                    detectedResponses.forEach(originalResponses::putIfAbsent);
                 } else {
-                    // else: basic content type, used detected one
+                    // else: basic content type, used only detected one
                     transformedOperation.setResponses(detectedResponses);
                 }
-            } else {
-                // no 200 code in detection, overwrite
+            } else if (detectedSuccessCodeResponse == null) {
+                // no 200 code in detection, overwrite original 200
                 transformedOperation.setResponses(detectedResponses);
+            } else {
+                // success code other than 200 in original
+                detectedResponses.forEach(originalResponses::putIfAbsent);
             }
+
+        } else if (responsesContainSuccessResponsesOtherThanOK(originalResponses)) {
+            // keep original success responses != 200
+            detectedResponses.forEach(originalResponses::putIfAbsent);
 
         } else if (!detectedResponses.isEmpty()) {
             // only detected error responses
@@ -178,6 +186,15 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
     private boolean responsesContainSuccessResponses(ApiResponses responses) {
         for (var response : responses.entrySet()) {
             if (response.getKey().startsWith("2")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean responsesContainSuccessResponsesOtherThanOK(ApiResponses responses) {
+        for (var response : responses.entrySet()) {
+            if (response.getKey().startsWith("2") && !response.getKey().equals("200")) {
                 return true;
             }
         }

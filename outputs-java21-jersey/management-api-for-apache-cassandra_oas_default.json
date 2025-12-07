@@ -1798,6 +1798,16 @@
           }
         } ],
         "responses" : {
+          "202" : {
+            "description" : "Accepted",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
           "500" : {
             "description" : "Internal Server Error",
             "content" : {
@@ -1825,6 +1835,16 @@
           }
         } ],
         "responses" : {
+          "202" : {
+            "description" : "Accepted",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UNSPECIFIED_TYPE"
+                }
+              }
+            }
+          },
           "500" : {
             "description" : "Internal Server Error",
             "content" : {
