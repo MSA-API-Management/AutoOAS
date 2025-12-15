@@ -84,6 +84,7 @@ public abstract class AbstractJaxRsOperationResponseCodeInterceptor implements O
             Map.entry("NOT_FOUND", HttpStatus.NOT_FOUND),
             Map.entry("METHOD_NOT_ALLOWED", HttpStatus.METHOD_NOT_ALLOWED),
             Map.entry("NOT_ACCEPTABLE", HttpStatus.NOT_ACCEPTABLE),
+            Map.entry("PRECONDITION_FAILED", HttpStatus.PRECONDITION_FAILED),
             Map.entry("UNSUPPORTED_MEDIA_TYPE", HttpStatus.UNSUPPORTED_MEDIA_TYPE),
             Map.entry("FAILURE", HttpStatus.METHOD_FAILURE),
 
