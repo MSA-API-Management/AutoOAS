@@ -4762,8 +4762,14 @@
           "car" : {
             "$ref" : "#/components/schemas/Sensor"
           },
+          "partialFueling" : {
+            "type" : "boolean"
+          },
           "comment" : {
             "type" : "string"
+          },
+          "missedFuelStop" : {
+            "type" : "boolean"
           },
           "time" : {
             "$ref" : "#/components/schemas/DateTime"
@@ -4962,6 +4968,9 @@
       "User" : {
         "type" : "object",
         "properties" : {
+          "acceptedTermsOfUse" : {
+            "type" : "boolean"
+          },
           "confirmationCode" : {
             "type" : "string"
           },
@@ -4977,6 +4986,12 @@
           "mail" : {
             "type" : "string"
           },
+          "acceptedPrivacyStatement" : {
+            "type" : "boolean"
+          },
+          "admin" : {
+            "type" : "boolean"
+          },
           "language" : {
             "type" : "string"
           },
@@ -4985,6 +5000,9 @@
             "items" : {
               "$ref" : "#/components/schemas/TermsHistoryItem"
             }
+          },
+          "confirmed" : {
+            "type" : "boolean"
           },
           "url" : {
             "$ref" : "#/components/schemas/URL"

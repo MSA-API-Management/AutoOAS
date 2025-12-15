@@ -2296,6 +2296,9 @@
           "virtualEntityId" : {
             "type" : "string"
           },
+          "singleton" : {
+            "type" : "boolean"
+          },
           "records" : {
             "$ref" : "#/components/schemas/Set"
           }
@@ -2570,8 +2573,14 @@
           "attributeCode" : {
             "type" : "string"
           },
+          "internal" : {
+            "type" : "boolean"
+          },
           "attributeClass" : {
             "$ref" : "#/components/schemas/SzAttributeClass"
+          },
+          "advanced" : {
+            "type" : "boolean"
           },
           "defaultValue" : {
             "type" : "string"
@@ -2662,6 +2671,9 @@
             "items" : {
               "type" : "string"
             }
+          },
+          "partial" : {
+            "type" : "boolean"
           },
           "addressData" : {
             "type" : "array",
@@ -2906,6 +2918,12 @@
         "properties" : {
           "relationType" : {
             "$ref" : "#/components/schemas/SzRelationshipType"
+          },
+          "disclosed" : {
+            "type" : "boolean"
+          },
+          "ambiguous" : {
+            "type" : "boolean"
           }
         }
       },
@@ -3197,6 +3215,18 @@
           "activeConfigId" : {
             "type" : "integer",
             "format" : "int64"
+          },
+          "adminEnabled" : {
+            "type" : "boolean"
+          },
+          "infoQueueConfigured" : {
+            "type" : "boolean"
+          },
+          "readOnly" : {
+            "type" : "boolean"
+          },
+          "dynamicConfig" : {
+            "type" : "boolean"
           },
           "webSocketsMessageMaxSize" : {
             "type" : "integer",

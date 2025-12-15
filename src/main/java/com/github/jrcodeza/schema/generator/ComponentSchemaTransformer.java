@@ -294,11 +294,11 @@ public class ComponentSchemaTransformer {
 
         for (CtMethod<?> method : clazz.getMethods()) {
             // don't consider static methods or methods that are no getter
-            if (method.isStatic() || !method.getSimpleName().startsWith("get")) {
+            if (method.isStatic() || !isGetterMethod(method)) {
                 continue;
             }
 
-            String fieldName = convertGetterMethodToPropertyName(method.getSimpleName());
+            String fieldName = convertGetterMethodToPropertyName(method);
 
             List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
             Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
@@ -385,27 +385,49 @@ public class ComponentSchemaTransformer {
     }
 
     private Optional<Schema> getMethodSchema(CtMethod<?> method, @Out List<String> requiredFields) {
-        String simpleName = convertGetterMethodToPropertyName(method.getSimpleName());
+        String simpleName = convertGetterMethodToPropertyName(method);
         CtTypeReference<?> typeSignature = method.getType();
         List<CtAnnotation<?>> ctAnnotations = method.getAnnotations();
 
         return getFieldOrMethodSchema(simpleName, typeSignature, ctAnnotations, requiredFields);
     }
 
+    private boolean isGetterMethod(CtMethod<?> method) {
+        if (method == null || method.getSimpleName() == null)
+            return false;
+
+        return method.getSimpleName().startsWith("get")
+                || method.getSimpleName().startsWith("is")
+                || method.getSimpleName().startsWith("has");
+    }
+
     /**
-     * Converts getSomeParam() -> "someParam".
+     * Converts getSomeParam() or isSomeParam() or hasSomeParam() -> "someParam".
      * This method does not handle JsonProperty annotations. This happens during schema generation.
      *
-     * @param getterMethodName
+     * @param getterMethod
      * @return
      */
-    private String convertGetterMethodToPropertyName(String getterMethodName) {
-        if (getterMethodName == null || !getterMethodName.startsWith("get") || getterMethodName.length() == 3) {
+    private String convertGetterMethodToPropertyName(CtMethod<?> getterMethod) {
+        if (!isGetterMethod(getterMethod)) {
             return "unknown-param-name";
         }
 
-        // remove "get"
-        String base = getterMethodName.substring(3);
+        String methodName = getterMethod.getSimpleName();
+
+        // remove "prefix"
+        String base = "";
+
+        if (methodName.startsWith("get") && methodName.length() > 3) {
+            base = methodName.substring(3);
+        } else if (methodName.startsWith("is") && methodName.length() > 2) {
+            base = methodName.substring(2);
+        } else if (methodName.startsWith("has") && methodName.length() > 3) {
+            base = methodName.substring(3);
+        } else {
+            return "unknown-param-name";
+        }
+
         // Lowercase first character of the property name
         return Character.toLowerCase(base.charAt(0)) + base.substring(1);
     }

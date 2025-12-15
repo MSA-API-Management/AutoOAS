@@ -1968,6 +1968,9 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "group" : {
+            "type" : "boolean"
           }
         }
       },
