@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 ARG JAR_FILE="./target/auto-oas-1.2.0-jar-with-dependencies.jar"
 
