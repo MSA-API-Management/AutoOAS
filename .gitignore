@@ -86,3 +86,6 @@ fabric.properties
 
 # log files from OpenAPI generation
 outputs*/logs/**
+
+# OpenAPI generation
+outputs-**

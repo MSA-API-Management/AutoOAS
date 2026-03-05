@@ -25,8 +25,8 @@ Execute the runtime evaluation script with the following commands. The script al
 ```shell
 mvn clean package -Dmaven.test.skip=true
 
-dataset_dir="/home/alex/Respector-fork/dataset"
-output_dir="outputs-20260107"
+dataset_dir="path/to/dataset"
+output_dir="outputs"
 rm -r $output_dir
 for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jersey -spring ; done
 ```
@@ -35,14 +35,14 @@ for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jers
 ## Docker image
 We provide a Docker image for easier integration into GitHub and GitLab workflows.
 ```shell
-docker build -t alexx882/auto-oas:1.0 .
+docker build -t alexx882/auto-oas:1.2 .
 # or
-docker buildx build --push --platform=linux/amd64,linux/arm64 -t alexx882/auto-oas:1.0 .
+docker buildx build --push --platform=linux/amd64,linux/arm64 -t alexx882/auto-oas:1.2 .
 ```
 
 ```shell
-docker run -v <path-to-mvn-project>:/project alexx882/auto-oas:1.0 /project /project/<oas-output-path-prefix>
+docker run -v <path-to-mvn-project>:/project alexx882/auto-oas:1.2 /project /project/<oas-output-path-prefix>
 
 # e.g., analyze current directory and write to target/docker-output/
-docker run -v `pwd`:/project alexx882/auto-oas:1.0 /project /project/target/docker-output/oas
+docker run -v `pwd`:/project alexx882/auto-oas:1.2 /project /project/target/docker-output/oas
 ```
