@@ -107,6 +107,11 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public String getApplicationPathAnnotation() {
+        return null;
+    }
+
+    @Override
     public Set<String> getKeyAnnotations() {
         return Set.of(
                 "org.springframework.web.bind.annotation.RestController",
@@ -117,6 +122,11 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public boolean isGlobalExceptionHandler(String annotationName, CtType<?> type) {
         return getControllerAdviceAnnotations().contains(annotationName);
+    }
+
+    @Override
+    public boolean isApplicationPath(String annotationName, CtType<?> type) {
+        return false;
     }
 
     @Override

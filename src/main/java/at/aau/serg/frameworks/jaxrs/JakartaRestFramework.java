@@ -62,6 +62,11 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
+    public String getApplicationPathAnnotation() {
+        return "jakarta.ws.rs.ApplicationPath";
+    }
+
+    @Override
     public Set<String> getKeyAnnotations() {
         return Set.of("jakarta.ws.rs.Path");
     }
@@ -74,6 +79,19 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                 if (qualifiedName.equals("jakarta.ws.rs.ext.ExceptionMapper")) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isApplicationPath(String annotationName, CtType<?> type) {
+        if(getApplicationPathAnnotation().equals(annotationName)) {
+            CtTypeReference<?> superclassRef = type.getSuperclass();
+
+            if(superclassRef != null) {
+                String qualifiedName = superclassRef.getQualifiedName();
+                return qualifiedName.equals("jakarta.ws.rs.core.Application");
             }
         }
         return false;

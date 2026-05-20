@@ -63,6 +63,11 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
+    public String getApplicationPathAnnotation() {
+        return "javax.ws.rs.ApplicationPath";
+    }
+
+    @Override
     public Set<String> getKeyAnnotations() {
         return Set.of("javax.ws.rs.Path");
     }
@@ -80,6 +85,18 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
         return false;
     }
 
+    @Override
+    public boolean isApplicationPath(String annotationName, CtType<?> type) {
+        if(getApplicationPathAnnotation().equals(annotationName)) {
+            CtTypeReference<?> superclassRef = type.getSuperclass();
+
+            if(superclassRef != null) {
+                String qualifiedName = superclassRef.getQualifiedName();
+                return qualifiedName.equals("javax.ws.rs.core.Application");
+            }
+        }
+        return false;
+    }
     @Override
     public Class<?> getResponseWrapper() {
         return Response.class;
