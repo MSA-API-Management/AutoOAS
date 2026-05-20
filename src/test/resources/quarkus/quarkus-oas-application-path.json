@@ -1,0 +1,56 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "C:\\Users\\davidj\\Desktop\\Repos\\MSA-API-Management\\AutoOAS\\src\\test\\resources\\quarkus\\quarkus-oas-application-path",
+    "description" : "JAX-RS (Jakarta EE) Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/api/items" : {
+      "get" : {
+        "tags" : [ "application-path-resource" ],
+        "summary" : "getItems",
+        "operationId" : "getItemsUsingGET__api_items",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "application-path-resource" ],
+        "summary" : "createItem",
+        "operationId" : "createItemUsingPOST__api_items",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UNSPECIFIED_TYPE" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "Unspecified return type, e.g., ResponseEntity<?>",
+          "url" : "unspecified"
+        }
+      }
+    }
+  }
+}
