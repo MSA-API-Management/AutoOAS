@@ -19,7 +19,9 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.servers.Server;
 import spoon.reflect.CtModel;
+import spoon.reflect.code.CtLiteral;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
@@ -131,6 +133,8 @@ public class RestApiParser {
         List<CtType<?>> applicationPathClasses = relevantClasses.getApplicationPathClasses();
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
+        List<String> basePaths = extractPathValues(applicationPathClasses);
+
 
         ValidationAnnotationProvider annotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework, annotationProvider); // just provide all packages of the project's module
@@ -148,7 +152,7 @@ public class RestApiParser {
         var res = new ArrayList<OpenAPI>(controllerClassesPerProfile.size());
 
         for (var profile : controllerClassesPerProfile.entrySet()) {
-            OpenAPI openApiForProfile = createOpenAPIFromProfile(profile, explicitModelClasses);
+            OpenAPI openApiForProfile = createOpenAPIFromProfile(profile, explicitModelClasses, basePaths);
 
             if (openApiForProfile != null) {
                 res.add(openApiForProfile);
@@ -158,7 +162,7 @@ public class RestApiParser {
         return res;
     }
 
-    private OpenAPI createOpenAPIFromProfile(Map.Entry<String, List<CtType<?>>> profile, List<CtType<?>> explicitModelClasses) {
+    private OpenAPI createOpenAPIFromProfile(Map.Entry<String, List<CtType<?>>> profile, List<CtType<?>> explicitModelClasses, List<String> basePaths) {
         String currentProfileName = profile.getKey();
         var controllerClassesForCurrentProfile = profile.getValue();
 
@@ -166,11 +170,11 @@ public class RestApiParser {
             System.out.println("Skipping empty profile: " + currentProfileName);
             return null;
         } else
-            return createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses);
+            return createOpenAPIFromControllers(currentProfileName, controllerClassesForCurrentProfile, explicitModelClasses, basePaths);
 
     }
 
-    private OpenAPI createOpenAPIFromControllers(String profileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses) {
+    private OpenAPI createOpenAPIFromControllers(String profileName, List<CtType<?>> controllerClasses, List<CtType<?>> explicitModelClasses, List<String> basePaths) {
         Paths paths = createPathsFromControllers(controllerClasses);
 
         // after all the paths are generated, we know about the referenced models
@@ -182,6 +186,18 @@ public class RestApiParser {
         Info info = openApiGen.getDummyInfo(projectName, restFramework.getOpenApiInfoDescription(profileName));
 
         OpenAPI openApi = openApiGen.createOpenApi(info, paths, components);
+
+        if (basePaths != null && !basePaths.isEmpty()) {
+            List<Server> servers = new ArrayList<>();
+            for (String basePath : basePaths) {
+                String normalizedPath = basePath.startsWith("/") ? basePath : "/" + basePath;
+
+                Server server = new Server();
+                server.setUrl("http://localhost:8080" + normalizedPath);
+                servers.add(server);
+            }
+            openApi.setServers(servers);
+        }
 
         writeOpenApiToFile(openApi, profileName);
 
@@ -384,5 +400,24 @@ public class RestApiParser {
         Path restApiModule = Path.of(restApiModulePath).toAbsolutePath().normalize();
 
         return file.startsWith(restApiModule);
+    }
+
+    private List<String> extractPathValues(List<CtType<?>> applicationPathClasses) {
+        List<String> paths = new ArrayList<>();
+
+        for(CtType<?> type : applicationPathClasses) {
+            for(CtAnnotation<?> annotation : type.getAnnotations()) {
+                if(this.restFramework.isApplicationPath(annotation.getAnnotationType().toString(), type)) {
+                    Object valueExpr = annotation.getValue("value");
+                    if (valueExpr instanceof CtLiteral) {
+                        Object value = ((CtLiteral<?>) valueExpr).getValue();
+                        if (value != null) {
+                            paths.add(value.toString());
+                        }
+                    }
+                }
+            }
+        }
+        return paths;
     }
 }
