@@ -128,6 +128,7 @@ public class RestApiParser {
         RelevantClasses relevantClasses = getRelevantClassesFromPackages(packages);
         List<CtType<?>> controllerClasses = relevantClasses.getControllerClasses();
         List<CtType<?>> globalExceptionHandlerClasses = relevantClasses.getGlobalExceptionHandlerClasses();
+        List<CtType<?>> applicationPathClasses = relevantClasses.getApplicationPathClasses();
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
 
@@ -339,6 +340,7 @@ public class RestApiParser {
     protected RelevantClasses getRelevantClassesFromPackages(Collection<CtPackage> packages) {
         List<CtType<?>> controllerClasses = new LinkedList<>();
         List<CtType<?>> globalExceptionHandlerClasses = new LinkedList<>();
+        List<CtType<?>> applicationPathClasses = new LinkedList<>();
         List<CtType<?>> explicitModelClasses = new LinkedList<>();
 
         for (CtPackage pkg : packages) {
@@ -357,6 +359,11 @@ public class RestApiParser {
                         break; // annotations
                     }
 
+                    if (annotationName != null && this.restFramework.isApplicationPath(annotationName, type)) {
+                        applicationPathClasses.add(type);
+                        break; // annotations
+                    }
+
                     if (annotationName != null && this.restFramework.getModelSchemaAnnotations().contains(annotationName)) {
                         explicitModelClasses.add(type);
                         break; // annotations
@@ -365,7 +372,7 @@ public class RestApiParser {
             }
         }
 
-        return new RelevantClasses(controllerClasses, globalExceptionHandlerClasses, explicitModelClasses);
+        return new RelevantClasses(controllerClasses, globalExceptionHandlerClasses, applicationPathClasses, explicitModelClasses);
     }
 
     // fixme performance intensive operation
