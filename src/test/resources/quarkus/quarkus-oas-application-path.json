@@ -1,10 +1,13 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "C:\\Users\\davidj\\Desktop\\Repos\\MSA-API-Management\\AutoOAS\\src\\test\\resources\\quarkus\\quarkus-oas-application-path",
+    "title" : "quarkus-oas-application-path",
     "description" : "JAX-RS (Jakarta EE) Profile: default",
     "version" : ""
   },
+  "servers" : [ {
+    "url" : "http://localhost:8080/rest"
+  } ],
   "paths" : {
     "/api/items" : {
       "get" : {
