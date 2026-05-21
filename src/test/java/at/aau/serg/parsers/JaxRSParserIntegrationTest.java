@@ -40,7 +40,8 @@ public class JaxRSParserIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "quarkus-behavioral-exception-tests,quarkus-behavioral-exception-tests.json",
-            "quarkus-complex-exception-tests,quarkus-complex-exception-tests.json"
+            "quarkus-complex-exception-tests,quarkus-complex-exception-tests.json",
+            "quarkus-oas-application-path,quarkus-oas-application-path.json"
     })
     public void integrationTest_OpenApiGeneration_ExceptionalBehavior(String projectFolder, String docsPath) throws IOException {
         assertOpenApiGeneration(projectFolder, docsPath);
