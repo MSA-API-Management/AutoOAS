@@ -3,7 +3,7 @@ package at.aau.serg.parsers;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2 || args.length > 4) {
-            System.err.println("Usage: java -jar parser.jar <projectPath> [restApiModulePath] [enableExceptionLogging] <outputPath>");
+            System.err.println("Usage: java -jar parser.jar <projectPath> [restApiModulePath [enableExceptionLogging]] <outputPath>");
             System.exit(1);
         }
 

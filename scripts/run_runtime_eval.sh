@@ -54,7 +54,7 @@ echo "2/7 Running cwa"
 { time java -jar $JAR_DIRECTORY "$DATASET_DIR/cwa-verification-server" "$OUTPUT_DIR/cwa-verification-server_oas" ; } >> $LOG_DIR/cwa.log 2>&1
 
 echo "3/7 Running ocvn"
-{ time java -jar $JAR_DIRECTORY "$DATASET_DIR/ocvn/web" "$OUTPUT_DIR/ocvn_oas" ; } >> $LOG_DIR/ocvn.log 2>&1
+{ time java -jar $JAR_DIRECTORY "$DATASET_DIR/ocvn" "$DATASET_DIR/ocvn/web" "$OUTPUT_DIR/ocvn_oas" ; } >> $LOG_DIR/ocvn.log 2>&1
 
 echo "4/7 Running ohsome"
 { time java -jar $JAR_DIRECTORY "$DATASET_DIR/ohsome-api" "$OUTPUT_DIR/ohsome-api_oas" ; } >> $LOG_DIR/ohsome-api.log 2>&1
