@@ -91,6 +91,15 @@ public interface RestFramework {
     List<String> getControllerAdviceAnnotations();
 
     /**
+     * Returns the framework-specific annotation identifier used to define
+     * an application-wide base path for REST endpoints.
+     *
+     * @return The fully qualified annotation name or configuration property
+     * used to configure the application path
+     */
+    String getApplicationPathAnnotation();
+
+    /**
      * Returns a list of annotations that indicate a specific Rest Framework.
      *
      * <p>Examples: </p>
@@ -109,13 +118,23 @@ public interface RestFramework {
     Set<String> getKeyAnnotations();
 
     /**
-     * Determines if a class type represents a global exception handler for this REST framework
+     * Determines if a class type represents a global exception handler for this REST framework.
      *
      * @param annotationName the name of the annotation found on the type
      * @param type           the class type to check
      * @return true if the type is a global exception handler, false otherwise
      */
     boolean isGlobalExceptionHandler(String annotationName, CtType<?> type);
+
+    /**
+     * Determines if the combination of annotation and class type
+     * represents an application path definition for this REST framework.
+     *
+     * @param annotationName the name of the annotation found on the type
+     * @param type           the class type to check
+     * @return true if the type defines an application path, false otherwise
+     */
+    boolean isApplicationPath(String annotationName, CtType<?> type);
 
     /**
      * Returns a list of fully qualified class names for annotations that mark a class
