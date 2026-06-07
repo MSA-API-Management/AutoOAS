@@ -71,7 +71,14 @@ public class ComponentSchemaTransformer {
             schema.setDiscriminator(discriminator);
             enrichWithDiscriminatorProperty(schema, discriminator);
         }
-        if (clazz.getSuperclass() != null) {
+
+        if (clazz.isInterface() && !clazz.getSuperInterfaces().isEmpty()) {
+            // if the first dto is an interface, iterate the extends hierarchy of those
+            CtTypeReference<?> firstParent = clazz.getSuperInterfaces().iterator().next();
+            // TODO: support multi-inheritance of interfaces
+            return traverseAndAddProperties(schema, inheritanceMap, firstParent.getTypeDeclaration(), clazz);
+
+        } else if (clazz.getSuperclass() != null) {
             return traverseAndAddProperties(schema, inheritanceMap, clazz.getSuperclass().getTypeDeclaration(), clazz);
         }
 

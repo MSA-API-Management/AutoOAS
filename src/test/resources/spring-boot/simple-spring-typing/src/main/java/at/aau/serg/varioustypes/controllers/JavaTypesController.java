@@ -1,5 +1,7 @@
 package at.aau.serg.varioustypes.controllers;
 
+import at.aau.serg.varioustypes.models.Response;
+import at.aau.serg.varioustypes.models.ResponseImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,6 +95,11 @@ public class JavaTypesController {
     @PostMapping("/echoNativeInt")
     public int getNativeInt(@RequestBody int i) {
         return i;
+    }
+
+    @GetMapping("/getInterfaceInheritance")
+    public ResponseEntity<Response> getInterfaceInheritance() {
+        return ResponseEntity.ok().body(new ResponseImpl(125, "test"));
     }
 
 }

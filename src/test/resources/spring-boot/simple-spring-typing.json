@@ -6,6 +6,26 @@
     "version" : ""
   },
   "paths" : {
+    "/types/getInterfaceInheritance" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getInterfaceInheritance",
+        "operationId" : "getInterfaceInheritanceUsingGET__types_getInterfaceInheritance",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/types/getList" : {
       "get" : {
         "tags" : [ "java-types-controller" ],
@@ -248,6 +268,36 @@
     }
   },
   "components" : {
-    "schemas" : { }
+    "schemas" : {
+      "Response" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/BaseResponse"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "otherValue" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "BaseResponse" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Dto"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "baseValue" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        } ]
+      },
+      "Dto" : {
+        "type" : "object",
+        "properties" : { }
+      }
+    }
   }
 }
