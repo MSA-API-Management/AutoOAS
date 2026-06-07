@@ -6,7 +6,7 @@
     "version" : ""
   },
   "servers" : [ {
-    "url" : "http://localhost:8080/rest"
+    "url" : "/rest"
   } ],
   "paths" : {
     "/api/items" : {

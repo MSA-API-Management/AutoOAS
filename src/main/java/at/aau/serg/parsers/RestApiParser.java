@@ -133,8 +133,7 @@ public class RestApiParser {
         List<CtType<?>> applicationPathClasses = relevantClasses.getApplicationPathClasses();
         List<CtType<?>> explicitModelClasses = relevantClasses.getExplicitModelClasses();
 
-        List<String> basePaths = extractPathValues(applicationPathClasses);
-
+        List<String> basePaths = extractApplicationPathAnnotationValues(applicationPathClasses);
 
         ValidationAnnotationProvider annotationProvider = new ValidationAnnotationProviderFactory().getCompositeProvider();
         schemaHelper = new SchemaGeneratorHelper(packageNames, restFramework, annotationProvider); // just provide all packages of the project's module
@@ -187,17 +186,9 @@ public class RestApiParser {
 
         OpenAPI openApi = openApiGen.createOpenApi(info, paths, components);
 
-        if (basePaths != null && !basePaths.isEmpty()) {
-            List<Server> servers = new ArrayList<>();
-            for (String basePath : basePaths) {
-                String normalizedPath = basePath.startsWith("/") ? basePath : "/" + basePath;
-
-                Server server = new Server();
-                server.setUrl("http://localhost:8080" + normalizedPath);
-                servers.add(server);
-            }
+        var servers = createServersFromBasePaths(basePaths);
+        if (servers != null && !servers.isEmpty())
             openApi.setServers(servers);
-        }
 
         writeOpenApiToFile(openApi, profileName);
 
@@ -208,6 +199,21 @@ public class RestApiParser {
         var fileName = outputFileName.replace(".json", "") + "_" + profileName + ".json";
         openApiGen.writeOpenApiToFile(openApi, fileName);
         System.out.println("Wrote OpenAPI to " + fileName);
+    }
+
+    private List<Server> createServersFromBasePaths(List<String> basePaths) {
+        List<Server> servers = new ArrayList<>();
+        if (basePaths != null && !basePaths.isEmpty()) {
+            for (String basePath : basePaths) {
+                String normalizedPath = basePath.startsWith("/") ? basePath : "/" + basePath;
+                normalizedPath = normalizedPath.endsWith("/") ? normalizedPath.substring(0, normalizedPath.length()-1) : normalizedPath;
+
+                Server server = new Server();
+                server.setUrl(normalizedPath);
+                servers.add(server);
+            }
+        }
+        return servers;
     }
 
     // fixme split superclass and subresource analysis into dedicated steps
@@ -402,7 +408,7 @@ public class RestApiParser {
         return file.startsWith(restApiModule);
     }
 
-    private List<String> extractPathValues(List<CtType<?>> applicationPathClasses) {
+    private List<String> extractApplicationPathAnnotationValues(List<CtType<?>> applicationPathClasses) {
         List<String> paths = new ArrayList<>();
 
         for(CtType<?> type : applicationPathClasses) {

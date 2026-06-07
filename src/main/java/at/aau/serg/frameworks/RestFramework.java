@@ -91,7 +91,7 @@ public interface RestFramework {
     List<String> getControllerAdviceAnnotations();
 
     /**
-     * Returns the framework-specific identifier used to define
+     * Returns the framework-specific annotation identifier used to define
      * an application-wide base path for REST endpoints.
      *
      * @return The fully qualified annotation name or configuration property
@@ -127,8 +127,8 @@ public interface RestFramework {
     boolean isGlobalExceptionHandler(String annotationName, CtType<?> type);
 
     /**
-     * Determines if a class type represents an application path definition
-     * for this REST framework.
+     * Determines if the combination of annotation and class type
+     * represents an application path definition for this REST framework.
      *
      * @param annotationName the name of the annotation found on the type
      * @param type           the class type to check
