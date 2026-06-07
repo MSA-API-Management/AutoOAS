@@ -63,6 +63,7 @@ public class SpringParserIntegrationTest {
             "spring-exceptions-advice-project,spring-exceptions-advice-response-codes.json"
             , "spring-advanced-response-codes,spring-advanced-response-codes.json"
             , "spring-advanced-behaviors,spring-advanced-behaviors.json"
+            , "simple-spring-typing,simple-spring-typing.json"
     })
     public void integrationTest_OpenApiGeneration_AdvancedBehaviors_SingleProfile(String projectFolder, String docsPath) throws IOException {
         var genOutputPath = "target/openapi/" + projectFolder + ".json";

@@ -1,0 +1,197 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "simple-spring-typing",
+    "description" : "Spring Profile: default",
+    "version" : ""
+  },
+  "paths" : {
+    "/types/getList" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getList",
+        "operationId" : "getListUsingGET__types_getList",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getMapOfList" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getMapOfList",
+        "operationId" : "getMapOfListUsingGET__types_getMapOfList",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "list"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getMapOfMap" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getMapOfMap",
+        "operationId" : "getMapOfMapUsingGET__types_getMapOfMap",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "$ref" : "#/components/schemas/Map"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getMapOfObj" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getMapOfObj",
+        "operationId" : "getMapOfObjUsingGET__types_getMapOfObj",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "$ref" : "#/components/schemas/Object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getObj" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getObj",
+        "operationId" : "getObjUsingGET__types_getObj",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getOptionalInt" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getOptionalInt",
+        "operationId" : "getOptionalIntUsingGET__types_getOptionalInt",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getSet" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getSet",
+        "operationId" : "getSetUsingGET__types_getSet",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getVoid" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getVoid",
+        "operationId" : "getVoidUsingGET__types_getVoid",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Object" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.lang"
+        }
+      },
+      "Map" : {
+        "type" : "object",
+        "externalDocs" : {
+          "description" : "external package",
+          "url" : "java.util"
+        }
+      }
+    }
+  }
+}
