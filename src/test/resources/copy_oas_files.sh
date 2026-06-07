@@ -40,3 +40,5 @@ mv target/openapi/spring-exceptions-advice-project_default.json src/test/resourc
 mv target/openapi/swagger-profiles_default.json src/test/resources/spring-boot/spring-profiles_default.json
 mv target/openapi/swagger-profiles_dev.json src/test/resources/spring-boot/spring-profiles_dev.json
 mv target/openapi/swagger-profiles_prod.json src/test/resources/spring-boot/spring-profiles_prod.json
+
+mv target/openapi/simple-spring-typing_default.json src/test/resources/spring-boot/simple-spring-typing.json

@@ -19,11 +19,11 @@ import java.util.Set;
 public class JavaTypesController {
 
     @GetMapping("/getList")
-    public ResponseEntity<List<Integer>> getList() {
-        List<Integer> retVal = new ArrayList<Integer>();
-        retVal.add(1);
-        retVal.add(1);
-        retVal.add(2);
+    public ResponseEntity<List<Optional<Integer>>> getList() {
+        List<Optional<Integer>> retVal = new ArrayList<>();
+        retVal.add(Optional.of(1));
+        retVal.add(Optional.of(1));
+        retVal.add(Optional.of(2));
         return ResponseEntity.ok().body(retVal);
     }
 
@@ -63,10 +63,10 @@ public class JavaTypesController {
     }
 
     @GetMapping("/getMapOfMap")
-    public ResponseEntity<Map<String, Map<String, Integer>>> getMapOfMap() {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("test", 1);
-        HashMap<String, Map<String, Integer>> retVal = new HashMap<>();
+    public ResponseEntity<Map<String, Map<String, Double>>> getMapOfMap() {
+        HashMap<String, Double> map = new HashMap<>();
+        map.put("test", 1.2);
+        HashMap<String, Map<String, Double>> retVal = new HashMap<>();
         retVal.put("test", map);
         return ResponseEntity.ok().body(retVal);
     }
@@ -76,6 +76,17 @@ public class JavaTypesController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("test", new Object());
         return ResponseEntity.ok().body(map);
+    }
+
+    @GetMapping("/getListOfList")
+    public ResponseEntity<List<List<Integer>>> getListOfList() {
+        List<Integer> retVal = new ArrayList<Integer>();
+        retVal.add(1);
+        retVal.add(1);
+        retVal.add(2);
+        List<List<Integer>> list = new ArrayList<>();
+        list.add(retVal);
+        return ResponseEntity.ok().body(list);
     }
 
 }

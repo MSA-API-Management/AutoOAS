@@ -20,7 +20,35 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "type" : "integer"
+                    "type" : "integer",
+                    "format" : "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types/getListOfList" : {
+      "get" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getListOfList",
+        "operationId" : "getListOfListUsingGET__types_getListOfList",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "integer",
+                      "format" : "int32"
+                    }
                   }
                 }
               }
@@ -43,7 +71,11 @@
                 "schema" : {
                   "type" : "object",
                   "additionalProperties" : {
-                    "type" : "list"
+                    "type" : "array",
+                    "items" : {
+                      "type" : "integer",
+                      "format" : "int32"
+                    }
                   }
                 }
               }
@@ -66,7 +98,11 @@
                 "schema" : {
                   "type" : "object",
                   "additionalProperties" : {
-                    "$ref" : "#/components/schemas/Map"
+                    "type" : "object",
+                    "additionalProperties" : {
+                      "type" : "number",
+                      "format" : "double"
+                    }
                   }
                 }
               }
@@ -89,7 +125,7 @@
                 "schema" : {
                   "type" : "object",
                   "additionalProperties" : {
-                    "$ref" : "#/components/schemas/Object"
+                    "type" : "object"
                   }
                 }
               }
@@ -110,7 +146,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Object"
+                  "type" : "object"
                 }
               }
             }
@@ -151,9 +187,11 @@
             "content" : {
               "application/json" : {
                 "schema" : {
+                  "uniqueItems" : true,
                   "type" : "array",
                   "items" : {
-                    "type" : "integer"
+                    "type" : "integer",
+                    "format" : "int32"
                   }
                 }
               }
@@ -177,21 +215,6 @@
     }
   },
   "components" : {
-    "schemas" : {
-      "Object" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
-        }
-      },
-      "Map" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.util"
-        }
-      }
-    }
+    "schemas" : { }
   }
 }
