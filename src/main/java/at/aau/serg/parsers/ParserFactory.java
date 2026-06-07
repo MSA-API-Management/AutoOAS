@@ -21,19 +21,9 @@ public class ParserFactory {
         frameworkInstances.put(framework.getIdentifier().toLowerCase(), framework);
     }
 
-    public RestApiParser createParser(String frameworkIdentifier, String projectPath, String outputFileName) {
-        RestFramework framework = frameworkInstances.get(frameworkIdentifier.toLowerCase());
-
-        if (framework == null) {
-            throw new IllegalArgumentException("Unsupported framework: " + frameworkIdentifier);
-        }
-
-        return new RestApiParser(projectPath, outputFileName, framework);
-    }
-
     public RestApiParser createParserWithDetection(String projectPath, String restApiModulePath, String outputFileName, boolean exceptionLoggingEnabled) {
         FrameworkDetector frameworkDetector = new FrameworkDetector(frameworkInstances);
-        RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
+        RestFramework detectedFramework = frameworkDetector.detectFramework(restApiModulePath);
 
         if (detectedFramework == null) {
             throw new IllegalArgumentException("No rest framework could be detected");
@@ -41,19 +31,6 @@ public class ParserFactory {
 
         detectedFramework.setExceptionLoggingEnabled(exceptionLoggingEnabled);
 
-        return new RestApiParser(projectPath, restApiModulePath, outputFileName, detectedFramework, frameworkDetector.getModel());
-    }
-
-    public RestApiParser createParserWithDetection(String projectPath, String outputFileName, boolean exceptionLoggingEnabled) {
-        FrameworkDetector frameworkDetector = new FrameworkDetector(frameworkInstances);
-        RestFramework detectedFramework = frameworkDetector.detectFramework(projectPath);
-
-        if (detectedFramework == null) {
-            throw new IllegalArgumentException("No rest framework could be detected");
-        }
-
-        detectedFramework.setExceptionLoggingEnabled(exceptionLoggingEnabled);
-
-        return new RestApiParser(projectPath, outputFileName, detectedFramework, frameworkDetector.getModel());
+        return new RestApiParser(projectPath, restApiModulePath, outputFileName, detectedFramework);
     }
 }

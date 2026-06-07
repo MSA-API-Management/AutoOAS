@@ -340,7 +340,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Object"
+                  "type" : "object"
                 }
               }
             }
@@ -863,13 +863,6 @@
           "name" : {
             "type" : "string"
           }
-        }
-      },
-      "Object" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
         }
       },
       "ComplexJsonProperty" : {

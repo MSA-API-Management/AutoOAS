@@ -731,13 +731,6 @@
           }
         }
       },
-      "Object" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.lang"
-        }
-      },
       "Simple" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/SimpleBase"

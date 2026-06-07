@@ -575,15 +575,9 @@
             "format" : "date-time"
           },
           "instant" : {
-            "$ref" : "#/components/schemas/Instant"
+            "type" : "string",
+            "format" : "date-time"
           }
-        }
-      },
-      "Instant" : {
-        "type" : "object",
-        "externalDocs" : {
-          "description" : "external package",
-          "url" : "java.time"
         }
       }
     }

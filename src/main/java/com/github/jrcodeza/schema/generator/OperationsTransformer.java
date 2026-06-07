@@ -11,6 +11,7 @@ import com.github.jrcodeza.schema.generator.util.SchemaGeneratorHelper;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.media.Content;
+import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
@@ -568,12 +569,21 @@ public class OperationsTransformer {
 
 		Content content = new Content();
 		AtomicBoolean isOptionalParameter = new AtomicBoolean(false);
+
+		var parameterType = requestBodyParameter.getParameter().getType();
+		MediaType mediaType;
+		if (parameterType.isPrimitive()) {
+			mediaType = new MediaType();
+			mediaType.setSchema(schemaGeneratorHelper.parseBaseTypeSignature(parameterType, new Annotation[0]));
+		} else {
+			mediaType = schemaGeneratorHelper.createMediaType(
+					requestBodyParameter.getParameter().getType(),
+					requestBodyParameter.getName(),
+					isOptionalParameter
+			);
+		}
 		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
-				schemaGeneratorHelper.createMediaType(
-						requestBodyParameter.getParameter().getType(),
-						requestBodyParameter.getName(),
-						isOptionalParameter
-				)
+				mediaType
 		);
 
 		RequestBody requestBody = new RequestBody();
@@ -612,6 +622,10 @@ public class OperationsTransformer {
 		} else if (parameterClass.isSubtypeOf(new TypeFactory().get(List.class).getReference())) {
 			var listGenericParameter = getGenericParam(parameterClass);
 			schema = schemaGeneratorHelper.parseArraySignature(listGenericParameter, null, annotations);
+		} else if (parameterClass.isSubtypeOf(new TypeFactory().get(Set.class).getReference())) {
+			var listGenericParameter = getGenericParam(parameterClass);
+			schema = schemaGeneratorHelper.parseArraySignature(listGenericParameter, null, annotations);
+			schema.setUniqueItems(true);
 		} else {
 			schema = schemaGeneratorHelper.parseClassRefTypeSignature(parameterClass, annotations, null, forcePrimitiveSchema);
 		}

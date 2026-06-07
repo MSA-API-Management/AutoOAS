@@ -71,7 +71,14 @@ public class ComponentSchemaTransformer {
             schema.setDiscriminator(discriminator);
             enrichWithDiscriminatorProperty(schema, discriminator);
         }
-        if (clazz.getSuperclass() != null) {
+
+        if (clazz.isInterface() && !clazz.getSuperInterfaces().isEmpty()) {
+            // if the first dto is an interface, iterate the extends hierarchy of those
+            CtTypeReference<?> firstParent = clazz.getSuperInterfaces().iterator().next();
+            // TODO: support multi-inheritance of interfaces
+            return traverseAndAddProperties(schema, inheritanceMap, firstParent.getTypeDeclaration(), clazz);
+
+        } else if (clazz.getSuperclass() != null) {
             return traverseAndAddProperties(schema, inheritanceMap, clazz.getSuperclass().getTypeDeclaration(), clazz);
         }
 
@@ -451,7 +458,12 @@ public class ComponentSchemaTransformer {
             ObjectSchema objectSchema = new ObjectSchema();
             objectSchema.setName(simpleName);
             resultSchema = Optional.of(objectSchema);
-        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, List.class)) {
+        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, Set.class)) {
+            // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
+            CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParam(typeSignature);
+            resultSchema = Optional.of(schemaGeneratorHelper.parseArraySignature(listGenericParameter, annotations));
+            resultSchema.ifPresent(schema -> schema.setUniqueItems(true));
+        } else if (schemaGeneratorHelper.isTypeEquivalent(typeSignature, Collection.class)) {
             // if no parameterized types are available the getGenericParam returns null and parseSignature uses object as parameterized type
             CtTypeReference<?> listGenericParameter = schemaGeneratorHelper.getGenericParam(typeSignature);
             resultSchema = Optional.of(schemaGeneratorHelper.parseArraySignature(listGenericParameter, annotations));
