@@ -64,7 +64,7 @@ public class DataTypeTransformer {
             responseType = stripReturnValueWrapper(responseType);
         }
 
-        if ("void".equals(responseType.getSimpleName())) {
+        if ("void".equals(responseType.getSimpleName()) || "Void".equals(responseType.getSimpleName())) {
             // dont add a content
 
         } else if (responseType.isPrimitive() ||

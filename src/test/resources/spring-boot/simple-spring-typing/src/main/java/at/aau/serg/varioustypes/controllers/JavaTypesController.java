@@ -1,7 +1,6 @@
 package at.aau.serg.varioustypes.controllers;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,7 @@ public class JavaTypesController {
 
     @GetMapping("/getSet")
     public ResponseEntity<Set<Integer>> getSet() {
-        HashSet<Integer> retVal = new HashSet<Integer>();
+        Set<Integer> retVal = new HashSet<>();
         retVal.add(1);
         retVal.add(1);
         retVal.add(2);

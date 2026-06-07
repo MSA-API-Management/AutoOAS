@@ -1,6 +1,7 @@
 package com.github.jrcodeza.schema.generator.util;
 
 import at.aau.serg.annotations.Out;
+import at.aau.serg.annotations.Unused;
 import at.aau.serg.frameworks.RestFramework;
 import at.aau.serg.frameworks.ValidationAnnotationProvider;
 import at.aau.serg.util.SpoonUtils;
@@ -58,7 +59,21 @@ public class SchemaGeneratorHelper {
     public MediaType createMediaType(CtTypeReference<?> parameterType,
                                      String parameterName,
                                      @Out AtomicBoolean isOptionalParameter) {
+        Schema rootMediaSchema = parseSchema(parameterType, parameterName, isOptionalParameter);
 
+        if (rootMediaSchema == null) {
+            return null;
+        }
+        else {
+            MediaType mediaType = new MediaType();
+            mediaType.setSchema(rootMediaSchema);
+            return mediaType;
+        }
+    }
+
+    protected Schema parseSchema(CtTypeReference<?> parameterType,
+                                 String parameterName,
+                                 @Out AtomicBoolean isOptionalParameter){
         List<CtTypeReference<?>> genericParams = this.getGenericParams(parameterType);
 
         if (this.isTypeEquivalent(parameterType, this.restFramework.getAsyncResultWrapper())) {
@@ -111,8 +126,12 @@ public class SchemaGeneratorHelper {
                 rootMediaSchema.setProperties(properties);
             }
 
-        } else if (isCollection(parameterType, genericParams)) {
-            rootMediaSchema = parseArraySignature(getFirstOrNull(genericParams), null, new Annotation[]{});
+        } else if (isTypeEquivalent(parameterType, Set.class)) {
+            rootMediaSchema = parseArraySignature(getGenericParamAt(parameterType, 0), null, new Annotation[]{});
+            rootMediaSchema.setUniqueItems(true);
+
+        } else if (isCollection(parameterType)) {
+            rootMediaSchema = parseArraySignature(getGenericParamAt(parameterType, 0), null, new Annotation[]{});
 
         } else if (parameterType instanceof CtArrayTypeReference<?>) {
             rootMediaSchema = parseArraySignature(((CtArrayTypeReference<?>) parameterType).getComponentType(), null, new Annotation[]{});
@@ -128,9 +147,7 @@ public class SchemaGeneratorHelper {
             return null;
         }
 
-        MediaType mediaType = new MediaType();
-        mediaType.setSchema(rootMediaSchema);
-        return mediaType;
+        return rootMediaSchema;
     }
 
     /**
@@ -153,9 +170,8 @@ public class SchemaGeneratorHelper {
         return genericParams.get(0);
     }
 
-    private boolean isCollection(CtTypeReference<?> requestBodyParameter, List<CtTypeReference<?>> genericTypes) {
-        var potentialListType = tryUnwrapFrameworkWrapper(requestBodyParameter, genericTypes);
-        return isTypeEquivalent(potentialListType, Collection.class);
+    private boolean isCollection(CtTypeReference<?> type) {
+        return isTypeEquivalent(type, Collection.class);
     }
 
     /**
@@ -180,7 +196,7 @@ public class SchemaGeneratorHelper {
      * @param genericTypes
      * @return
      */
-    private Pair<CtTypeReference<?>, List<CtTypeReference<?>>> unwrapGenericWrapper(CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
+    private Pair<CtTypeReference<?>, List<CtTypeReference<?>>> unwrapGenericWrapper(@Unused CtTypeReference<?> type, List<CtTypeReference<?>> genericTypes) {
         if (!Utils.isEmpty(genericTypes)) {
             return new Pair<>(
                     genericTypes.get(genericTypes.size() - 1),
@@ -195,6 +211,9 @@ public class SchemaGeneratorHelper {
         return type.isSubtypeOf(new TypeFactory().get(restFramework.getSupportedFileType()).getReference());
     }
 
+    public Schema parseBaseTypeSignature(CtTypeReference<?> type) {
+        return parseBaseTypeSignature(type, new Annotation[0]);
+    }
 
     @SuppressWarnings("squid:S1192") // better in-place defined for better readability
     public Schema parseBaseTypeSignature(CtTypeReference<?> type, Annotation[] annotations) {
@@ -215,6 +234,10 @@ public class SchemaGeneratorHelper {
         }
         logger.info("Ignoring unsupported type=[{}]", type.getSimpleName());
         return null;
+    }
+
+    public Schema parseClassRefTypeSignature(CtTypeReference<?> typeClass) {
+        return this.parseClassRefTypeSignature(typeClass, new Annotation[0]);
     }
 
     @SuppressWarnings("squid:S3776") // no other solution
@@ -258,12 +281,17 @@ public class SchemaGeneratorHelper {
             resultSchema = createStringSchema(null, annotations);
         } else if (typeName.equals("Boolean")) {
             resultSchema = createBooleanSchema();
-        } else if (typeName.equals("List")) {
-            resultSchema = createListSchema(typeClass, modelPackages, annotations);
-        } else if (typeName.equals("LocalDate") || typeName.equals("Date")) {
+        } else if (typeName.equals("LocalDate")) {
             resultSchema = createStringSchema("date", annotations);
-        } else if (typeName.equals("LocalDateTime") || typeName.equals("LocalTime")) {
+        } else if (typeName.equals("Instant") || typeName.equals("LocalDateTime") || typeName.equals("OffsetDateTime")
+                || typeName.equals("ZonedDateTime") || typeName.equals("LocalTime") || typeName.equals("Date")) {
             resultSchema = createStringSchema("date-time", annotations);
+        } else if (typeName.equals("URI") || typeName.equals("URL")) {
+            resultSchema = createStringSchema("uri", annotations);
+        } else if (typeName.equals("UUID")) {
+            resultSchema = createStringSchema("uuid", annotations);
+        } else if (typeName.equals("Object")) {
+            resultSchema = createObjectSchema();
         } else {
             resultSchema = createRefSchema(typeClass, modelPackages);
         }
@@ -293,26 +321,18 @@ public class SchemaGeneratorHelper {
             arraySchema.setItems(createObjectSchema());
             return arraySchema;
         }
+
         enrichWithTypeAnnotations(arraySchema, annotations);
         Stream.of(annotations).forEach(annotation -> applyArrayAnnotations(arraySchema, annotation));
+
         if (elementTypeSignature.isPrimitive()) {
             // primitive type like int
-            Schema<?> itemSchema = new Schema<>();
-            itemSchema.setType(mapBaseType(elementTypeSignature));
+            Schema itemSchema = parseBaseTypeSignature(elementTypeSignature);
             arraySchema.setItems(itemSchema);
             return arraySchema;
+
         } else {
-            String basicLangItemsType = mapBasicLangItemsType(elementTypeSignature);
-            // basic types like Integer or String
-            if (basicLangItemsType != null) {
-                Schema<?> itemSchema = new Schema<>();
-                itemSchema.setType(basicLangItemsType);
-                arraySchema.setItems(itemSchema);
-                return arraySchema;
-            }
-            // else do ref
-            Schema<?> itemSchema = new Schema<>();
-            itemSchema.set$ref(prepareSchemaReference(elementTypeSignature));
+            Schema itemSchema = parseSchema(elementTypeSignature, null, null);
             arraySchema.setItems(itemSchema);
             return arraySchema;
         }
@@ -338,23 +358,12 @@ public class SchemaGeneratorHelper {
 
         if (elementTypeSignature.isPrimitive()) {
             // primitive type like int
-            Schema<?> addPropSchema = new Schema<>();
-            addPropSchema.setType(mapBaseType(elementTypeSignature));
+            Schema addPropSchema = parseBaseTypeSignature(elementTypeSignature);
             dictSchema.setAdditionalProperties(addPropSchema);
             return dictSchema;
 
         } else {
-            String basicLangItemsType = mapBasicLangItemsType(elementTypeSignature);
-            // basic types like Integer or String
-            if (basicLangItemsType != null) {
-                Schema<?> addPropSchema = new Schema<>();
-                addPropSchema.setType(basicLangItemsType);
-                dictSchema.setAdditionalProperties(addPropSchema);
-                return dictSchema;
-            }
-            // else do ref
-            Schema<?> addPropSchema = new Schema<>();
-            addPropSchema.set$ref(prepareSchemaReference(elementTypeSignature));
+            Schema addPropSchema = parseSchema(elementTypeSignature, null, null);
             dictSchema.setAdditionalProperties(addPropSchema);
             return dictSchema;
         }
@@ -417,15 +426,11 @@ public class SchemaGeneratorHelper {
         return schema;
     }
 
-    protected ComposedSchema createRefSchema(CtTypeReference<?> typeSignature, List<String> modelPackages) {
+    protected ComposedSchema createRefSchema(CtTypeReference<?> typeSignature, @Unused List<String> modelPackages) {
         ComposedSchema composedSchema = new ComposedSchema();
 
         composedSchema.set$ref(prepareSchemaReference(typeSignature));
         return composedSchema;
-    }
-
-    protected Schema createListSchema(CtTypeReference<?> typeSignature, List<String> modelPackages, Annotation[] annotations) {
-        return parseArraySignature(typeSignature, modelPackages, annotations);
     }
 
     protected void applyStringAnnotations(Schema<?> schema, Annotation annotation) {
@@ -465,44 +470,6 @@ public class SchemaGeneratorHelper {
             validationAnnotationProvider.getSizeMaxIfPresent(annotation)
                     .ifPresent(schema::maxItems);
         }
-    }
-
-    protected String mapBasicLangItemsType(CtTypeReference<?> classRefTypeSignature) {
-        String typeName = classRefTypeSignature.getSimpleName();
-        if (typeName.equals("Byte") || typeName.equals("Short") || typeName.equals("Integer")
-                || typeName.equals("Long") || typeName.equals("BigInteger")) {
-            return "integer";
-        } else if (typeName.equals("Float") || typeName.equals("Double") || typeName.equals("BigDecimal")) {
-            return "number";
-        } else if (typeName.equals("Character") || typeName.equals("String") || typeName.equals("LocalDate")
-                || typeName.equals("Date") || typeName.equals("LocalDateTime")
-                || typeName.equals("LocalTime")) {
-            return "string";
-        } else if (typeName.equals("Boolean")) {
-            return "boolean";
-        } else if (typeName.equals("List")) {
-//            throw new IllegalArgumentException("Nested List types are not supported"
-//                    + classRefTypeSignature.getSimpleName()
-//            );
-            // todo support nested lists
-            return "list";
-        }
-        return null;
-    }
-
-    protected String mapBaseType(CtTypeReference<?> elementTypeSignature) {
-        String typeName = elementTypeSignature.getSimpleName();
-        if (typeName.equals("byte") || typeName.equals("short")
-                || typeName.equals("int") || typeName.equals("long")) {
-            return "integer";
-        } else if (typeName.equals("float") || typeName.equals("double")) {
-            return "number";
-        } else if (typeName.equals("char")) {
-            return "string";
-        } else if (typeName.equals("boolean")) {
-            return "boolean";
-        }
-        throw new IllegalArgumentException(format("Unsupported base type=[%s]", elementTypeSignature.getSimpleName()));
     }
 
     public boolean isInPackagesToBeScanned(CtTypeReference<?> clazz, List<String> modelPackages) {
