@@ -134,6 +134,39 @@
         }
       }
     },
+    "/types/echoNativeInt" : {
+      "post" : {
+        "tags" : [ "java-types-controller" ],
+        "summary" : "getNativeInt",
+        "operationId" : "getNativeIntUsingPOST__types_echoNativeInt",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "requestBody",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/types/getObj" : {
       "get" : {
         "tags" : [ "java-types-controller" ],

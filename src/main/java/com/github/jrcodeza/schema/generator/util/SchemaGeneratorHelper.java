@@ -50,7 +50,7 @@ public class SchemaGeneratorHelper {
     }
 
     /**
-     * Creates the media type for request bodies and responses.
+     * Creates the media type for request bodies and responses. Fixme: Only works for complex types!
      *
      * @param parameterType the type of the request body or response
      * @param parameterName its name
