@@ -280,6 +280,12 @@ public class ComponentSchemaTransformer {
             if (field.isStatic())
                 continue;
 
+            var fieldAnnotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
+            if (schemaGeneratorHelper.hasJsonIgnore(fieldAnnotations)) {
+                processedFieldNames.add(field.getSimpleName());
+                continue;
+            }
+
             getFieldSchema(field, requiredFields).ifPresent(schema -> {
                 schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, field, schema));
                 propertyMap.put(schema.getName(), schema);
@@ -312,6 +318,11 @@ public class ComponentSchemaTransformer {
 
             // if field exists and getter has other @JsonProperty mapping, update schema
             if (processedFieldNames.contains(fieldName)) {
+                if (hasJsonIgnore(annotations)) {
+                    propertyMap.remove(fieldName);
+                    return;
+                }
+
                 String jsonPropertyName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(fieldName, annotations);
 
                 if (!jsonPropertyName.equals(fieldName)) {
@@ -323,6 +334,11 @@ public class ComponentSchemaTransformer {
                     }
                 }
             } else if (!detectedAnySimpleFields || Arrays.stream(annotations).anyMatch(a -> a instanceof JsonProperty)) { // prioritize fields, but consider methods explicitly marked as JsonProperty
+                if (hasJsonIgnore(annotations)) {
+                    processedFieldNames.add(fieldName);
+                    return;
+                }
+
                 getMethodSchema(method, requiredFields).ifPresent(schema -> {
                     schemaFieldInterceptors.forEach(modelClassFieldInterceptor -> modelClassFieldInterceptor.intercept(clazz, method, schema));
                     propertyMap.put(schema.getName(), schema);
@@ -359,6 +375,11 @@ public class ComponentSchemaTransformer {
 
                 // if field exists and constructor has other @JsonProperty mapping, update schema
                 if (processedFieldNames.contains(paramName)) {
+                    if (hasJsonIgnore(annotations)) {
+                        propertyMap.remove(paramName);
+                        return;
+                    }
+
                     if (!jsonPropertyName.equals(paramName)) {
                         Schema existingSchema = propertyMap.get(paramName);
                         if (existingSchema != null) {
@@ -368,6 +389,10 @@ public class ComponentSchemaTransformer {
                         }
                     }
                 } else {
+                    if (hasJsonIgnore(annotations)) {
+                        processedFieldNames.add(paramName);
+                        return;
+                    }
                     CtTypeReference<?> typeSignature = param.getType();
 
                     getFieldOrMethodSchema(jsonPropertyName, typeSignature, ctAnnotations, requiredFields).ifPresent(schema -> {
@@ -439,9 +464,10 @@ public class ComponentSchemaTransformer {
         return Character.toLowerCase(base.charAt(0)) + base.substring(1);
     }
 
+    // todo extract to SchemaGeneratorHelper
     private Optional<Schema> getFieldOrMethodSchema(String simpleName, CtTypeReference<?> typeSignature, List<CtAnnotation<?>> ctAnnotations, @Out List<String> requiredFields) {
         Annotation[] annotations = schemaGeneratorHelper.getActualAnnotations(ctAnnotations);
-
+        
         simpleName = tryGetNameFromJsonPropertyAnnotationsOrGetOriginalName(simpleName, annotations);
 
         if (isRequired(annotations)) {
@@ -480,6 +506,15 @@ public class ComponentSchemaTransformer {
             resultSchema.get().setName(simpleName);
 
         return resultSchema;
+    }
+
+    /**
+     * Returns True if the annotations contain a @JsonIgnore annotation.
+     * @param annotations
+     * @return
+     */
+    private boolean hasJsonIgnore(Annotation[] annotations) {
+        return schemaGeneratorHelper.hasJsonIgnore(annotations);
     }
 
     /**

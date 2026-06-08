@@ -607,4 +607,20 @@ public class SchemaGeneratorHelper {
                 }
         ).toArray(Annotation[]::new);
     }
+
+    /**
+     * Returns True if the annotations contain a @JsonIgnore annotation.
+     * @param annotations
+     * @return
+     */
+    public boolean hasJsonIgnore(Annotation[] annotations) {
+        for (Annotation annotation : annotations) {
+            if (annotation != null &&
+                    annotation.annotationType() != null &&
+                    "com.fasterxml.jackson.annotation.JsonIgnore".equals(annotation.annotationType().getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

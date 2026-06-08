@@ -387,6 +387,8 @@ public class OperationsTransformer {
 			else if (actualParameter.getAnnotation(restFramework.getParameterGroupAnnotation()) != null){
 				List<CtField<?>> flattenedFields = flattenParameterFields(actualParameter);
 				for (CtField<?> flattenedField : flattenedFields) {
+					// todo use ComponentSchemaTransformer::getClassProperties and sub-methods here
+
 					// currently not supporting translation from annotations!
 					io.swagger.v3.oas.models.parameters.Parameter fieldOasParameter = new io.swagger.v3.oas.models.parameters.Parameter();
 					fieldOasParameter.setName(flattenedField.getSimpleName());
@@ -418,6 +420,12 @@ public class OperationsTransformer {
 				// dont consider static fields
 				if (field.isStatic())
 					continue;
+
+				// check if @JsonIgnore-d
+				var fieldAnnotations = schemaGeneratorHelper.getActualAnnotations(field.getAnnotations());
+				if (schemaGeneratorHelper.hasJsonIgnore(fieldAnnotations)) {
+					continue;
+				}
 
 				fields.add(field);
 			}
