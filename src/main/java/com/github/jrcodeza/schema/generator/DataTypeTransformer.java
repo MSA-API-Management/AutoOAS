@@ -76,7 +76,7 @@ public class DataTypeTransformer {
                             ? schemaGeneratorHelper.parseBaseTypeSignature(responseType, new Annotation[0])
                             : schemaGeneratorHelper.parseClassRefTypeSignature(responseType, new Annotation[0], null)
             );
-            content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, simpleMediaType);
+            content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : stripMediaType(produces), simpleMediaType);
             apiResponse.setContent(content);
 
         } else {
@@ -91,12 +91,18 @@ public class DataTypeTransformer {
             MediaType mediaType = schemaGeneratorHelper.createMediaType(responseType, null, null);
             if (mediaType != null) { // mediaType might be null, e.g., if the returnType is not part of the project (e.g., java.util.Map for delete).
                 Content content = new Content();
-                content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : produces, mediaType);
+                content.addMediaType(StringUtils.isBlank(produces) ? resolveDefaultContentType(responseType) : stripMediaType(produces), mediaType);
                 apiResponse.setContent(content);
             }
         }
 
         return apiResponse;
+    }
+
+    private String stripMediaType(String produces){
+        if (produces == null)
+            return null;
+        return produces.split(";")[0];
     }
 
     /**

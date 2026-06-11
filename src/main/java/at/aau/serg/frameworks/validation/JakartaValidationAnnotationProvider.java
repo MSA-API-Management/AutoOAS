@@ -14,7 +14,7 @@ public class JakartaValidationAnnotationProvider implements ValidationAnnotation
 
     @Override
     public boolean isNotEmptyAnnotation(Annotation annotation) {
-        return NotEmpty.class.equals(annotation.annotationType());
+        return NotEmpty.class.equals(annotation.annotationType()) || NotBlank.class.equals(annotation.annotationType());
     }
 
     @Override
