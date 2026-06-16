@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
@@ -145,6 +146,20 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
                 .filter(param -> !hasAnyAnnotationDisqualifyingParameterAsRequestBody(param))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters) {
+        return parameters.stream().filter(this::isFormParam).collect(Collectors.toList());
+    }
+
+    private boolean isFormParam(CtParameter<?> parameter) {
+        return parameter.getAnnotations().stream().anyMatch(a -> a.getAnnotationType().getQualifiedName().equals("jakarta.ws.rs.FormParam"));
+    }
+
+    @Override
+    public String getFormParamName(CtParameter<?> parameter) {
+        return parameter.getAnnotation(jakarta.ws.rs.FormParam.class).value();
     }
 
     @Override

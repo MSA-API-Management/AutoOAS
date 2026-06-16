@@ -180,6 +180,16 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
+    public List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters) {
+        return List.of();
+    }
+
+    @Override
+    public String getFormParamName(CtParameter<?> parameter) {
+        return "";
+    }
+
+    @Override
     public Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, PostMapping.class);
     }

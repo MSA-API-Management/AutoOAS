@@ -208,6 +208,11 @@ public interface RestFramework {
      */
     CtParameter<?> findRequestBody(List<CtParameter<?>> parameters);
 
+//    TODO JD, better name
+    List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters);
+
+    String getFormParamName(CtParameter<?> parameter);
+
 
 // endregion framework-specific classes
 
