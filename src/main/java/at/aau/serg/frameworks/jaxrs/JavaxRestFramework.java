@@ -150,7 +150,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
 
     //TODO maybe only string in concrete impl?
     @Override
-    public List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters) {
+    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
         return parameters.stream().filter(this::isFormParam).collect(Collectors.toList());
     }
 
@@ -159,7 +159,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormParamName(CtParameter<?> parameter) {
+    public String getFormFieldName(CtParameter<?> parameter) {
         return parameter.getAnnotation(javax.ws.rs.FormParam.class).value();
     }
 

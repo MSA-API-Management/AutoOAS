@@ -569,7 +569,7 @@ public class OperationsTransformer {
 	}
 
 	private RequestBody createRequestBody(CtMethod<?> method, String userDefinedContentType) {
-		List<CtParameter<?>> formParams = restFramework.findFormParams(method.getParameters());
+		List<CtParameter<?>> formParams = restFramework.findFormFields(method.getParameters());
 
 		if(formParams != null && !formParams.isEmpty()) {
 			return createFormRequestBody(formParams, userDefinedContentType);
@@ -621,7 +621,7 @@ public class OperationsTransformer {
 		formSchema.setType("object");
 
 		for(CtParameter<?> param: formParams) {
-			String formFieldName = restFramework.getFormParamName(param);
+			String formFieldName = restFramework.getFormFieldName(param);
 			var parameterType = param.getType();
 
 			Schema<?> propertySchema;

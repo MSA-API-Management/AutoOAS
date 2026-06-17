@@ -149,7 +149,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters) {
+    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
         return parameters.stream().filter(this::isFormParam).collect(Collectors.toList());
     }
 
@@ -158,7 +158,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormParamName(CtParameter<?> parameter) {
+    public String getFormFieldName(CtParameter<?> parameter) {
         return parameter.getAnnotation(jakarta.ws.rs.FormParam.class).value();
     }
 

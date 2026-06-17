@@ -180,12 +180,12 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public List<CtParameter<?>> findFormParams(List<CtParameter<?>> parameters) {
+    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
         return List.of();
     }
 
     @Override
-    public String getFormParamName(CtParameter<?> parameter) {
+    public String getFormFieldName(CtParameter<?> parameter) {
         return "";
     }
 
