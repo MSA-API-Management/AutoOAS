@@ -569,6 +569,12 @@ public class OperationsTransformer {
 	}
 
 	private RequestBody createRequestBody(CtMethod<?> method, String userDefinedContentType) {
+		List<CtParameter<?>> formParams = restFramework.findFormParams(method.getParameters());
+
+		if(formParams != null && !formParams.isEmpty()) {
+			return createFormRequestBody(formParams, userDefinedContentType);
+		}
+
 		ParameterNamePair requestBodyParameter = getRequestBody(method);
 
 		if (requestBodyParameter == null) {
@@ -590,7 +596,10 @@ public class OperationsTransformer {
 					isOptionalParameter
 			);
 		}
-		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
+
+		String contentType = StringUtils.isBlank(userDefinedContentType) ? "application/json" : userDefinedContentType;
+
+		content.addMediaType(dataTypeTransformer.resolveContentType(contentType, requestBodyParameter.getParameter()),
 				mediaType
 		);
 
@@ -606,6 +615,53 @@ public class OperationsTransformer {
 		return requestBody;
 	}
 
+	// TODO generalize FormParams
+	private RequestBody createFormRequestBody(List<CtParameter<?>> formParams, String userDefinedContentType) {
+		Schema<Object> formSchema = new Schema<>();
+		formSchema.setType("object");
+
+		for(CtParameter<?> param: formParams) {
+			String formFieldName = restFramework.getFormParamName(param);
+			var parameterType = param.getType();
+
+			Schema<?> propertySchema;
+
+			if(parameterType.isPrimitive()) {
+				propertySchema  = schemaGeneratorHelper.parseBaseTypeSignature(param.getType(), new Annotation[0]);
+				formSchema.addRequiredItem(formFieldName);
+			} else {
+				AtomicBoolean isOptional = new AtomicBoolean(false);
+
+				propertySchema = schemaGeneratorHelper.parseSchema(parameterType, null, isOptional);
+				if (!isOptional.get()) {
+					formSchema.addRequiredItem(formFieldName);
+				}
+			}
+
+			if(propertySchema != null) {
+				formSchema.addProperties(formFieldName, propertySchema);
+			} else {
+				logger.warn("Could not resolve schema for FormParam '{}' of type '{}'. Falling back to string.", formFieldName, parameterType.getSimpleName());
+				Schema<String> fallbackSchema = new Schema<>();
+				fallbackSchema.setType("string");
+				formSchema.addProperties(formFieldName, fallbackSchema);
+			}
+		}
+
+		MediaType mediaType = new MediaType();
+		mediaType.setSchema(formSchema);
+
+		String contentType = StringUtils.isBlank(userDefinedContentType) ? "application/x-www-form-urlencoded" : userDefinedContentType;
+
+		Content content = new Content();
+		content.addMediaType(contentType, mediaType);
+
+		RequestBody requestBody = new RequestBody();
+		requestBody.setContent(content);
+		requestBody.setRequired(true);
+
+		return requestBody;
+	}
 	private CtTypeReference<?> getGenericParam(CtTypeReference<?> type) {
 		return schemaGeneratorHelper.getGenericParam(type);
 	}
