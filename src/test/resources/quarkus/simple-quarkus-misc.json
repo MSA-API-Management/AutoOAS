@@ -62,6 +62,22 @@
         "summary" : "post",
         "operationId" : "postUsingPOST__formparam",
         "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "required" : [ "name" ],
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "OK"
@@ -75,6 +91,58 @@
         "summary" : "postMultiple",
         "operationId" : "postMultipleUsingPOST__formparam_multiple",
         "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "required" : [ "name", "name2" ],
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "name2" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/formparam/multiple-different-names" : {
+      "post" : {
+        "tags" : [ "form-param-resource" ],
+        "summary" : "postMultipleFormParamsWithDifferentNames",
+        "operationId" : "postMultipleFormParamsWithDifferentNamesUsingPOST__formparam_multiple-different-names",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "required" : [ "age", "different-name" ],
+                "type" : "object",
+                "properties" : {
+                  "different-name" : {
+                    "type" : "string"
+                  },
+                  "age" : {
+                    "type" : "integer",
+                    "format" : "int32"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "OK"
