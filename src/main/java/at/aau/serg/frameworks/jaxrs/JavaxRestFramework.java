@@ -148,19 +148,14 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
                 .orElse(null);
     }
 
-    //TODO maybe only string in concrete impl?
-    @Override
-    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
-        return parameters.stream().filter(this::isFormParam).collect(Collectors.toList());
-    }
-
-    private boolean isFormParam(CtParameter<?> parameter) {
-        return parameter.getAnnotations().stream().anyMatch(a -> a.getAnnotationType().getQualifiedName().equals("javax.ws.rs.FormParam"));
-    }
-
     @Override
     public String getFormFieldName(CtParameter<?> parameter) {
         return parameter.getAnnotation(javax.ws.rs.FormParam.class).value();
+    }
+
+    @Override
+    public String getFormFieldAnnotationName() {
+        return "javax.ws.rs.FormParam";
     }
 
     @Override

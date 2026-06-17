@@ -149,17 +149,13 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
-        return parameters.stream().filter(this::isFormParam).collect(Collectors.toList());
-    }
-
-    private boolean isFormParam(CtParameter<?> parameter) {
-        return parameter.getAnnotations().stream().anyMatch(a -> a.getAnnotationType().getQualifiedName().equals("jakarta.ws.rs.FormParam"));
+    public String getFormFieldName(CtParameter<?> parameter) {
+        return parameter.getAnnotation(jakarta.ws.rs.FormParam.class).value();
     }
 
     @Override
-    public String getFormFieldName(CtParameter<?> parameter) {
-        return parameter.getAnnotation(jakarta.ws.rs.FormParam.class).value();
+    public String getFormFieldAnnotationName() {
+        return "jakarta.ws.rs.FormParam";
     }
 
     @Override

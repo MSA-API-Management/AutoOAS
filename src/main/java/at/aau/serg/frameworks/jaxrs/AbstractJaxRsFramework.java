@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractJaxRsFramework implements RestFramework {
@@ -59,6 +60,20 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
     @Override
     public boolean supportsSubResourceResolution() {
         return true;
+    }
+
+    protected abstract String getFormFieldAnnotationName();
+
+    @Override
+    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(this::isFormParam)
+                .collect(Collectors.toList());
+    }
+
+    private boolean isFormParam(CtParameter<?> parameter) {
+        return parameter.getAnnotations().stream()
+                .anyMatch(a -> a.getAnnotationType().getQualifiedName().equals(getFormFieldAnnotationName()));
     }
 
     @Override

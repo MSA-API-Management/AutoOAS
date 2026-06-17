@@ -186,7 +186,7 @@ public class SpringRestFramework implements RestFramework {
 
     @Override
     public String getFormFieldName(CtParameter<?> parameter) {
-        return "";
+        return null;
     }
 
     @Override
