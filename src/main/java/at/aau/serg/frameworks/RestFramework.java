@@ -208,9 +208,21 @@ public interface RestFramework {
      */
     CtParameter<?> findRequestBody(List<CtParameter<?>> parameters);
 
-//    TODO JD
+
+    /**
+     * Filters the provided method parameters to find those representing form fields.
+     *
+     * @param parameters the complete list of method parameters
+     * @return a list of parameters identified as form fields
+     */
     List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters);
 
+    /**
+     * Extracts the explicitly defined form field name from the parameter's annotation.
+     *
+     * @param parameter the parameter to evaluate
+     * @return the name of the form field
+     */
     String getFormFieldName(CtParameter<?> parameter);
 
 
