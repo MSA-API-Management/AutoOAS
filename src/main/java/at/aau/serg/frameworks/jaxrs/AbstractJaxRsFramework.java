@@ -62,7 +62,10 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
         return true;
     }
 
-    protected abstract String getFormFieldAnnotationName();
+    /**
+     * @return The fully qualified name of the FormParam annotation (e.g., "jakarta.ws.rs.FormParam")
+     */
+    protected abstract String getFormParamAnnotationName();
 
     @Override
     public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
@@ -73,7 +76,7 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
 
     private boolean isFormParam(CtParameter<?> parameter) {
         return parameter.getAnnotations().stream()
-                .anyMatch(a -> a.getAnnotationType().getQualifiedName().equals(getFormFieldAnnotationName()));
+                .anyMatch(a -> a.getAnnotationType().getQualifiedName().equals(getFormParamAnnotationName()));
     }
 
     @Override

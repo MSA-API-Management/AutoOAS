@@ -154,7 +154,7 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormFieldAnnotationName() {
+    public String getFormParamAnnotationName() {
         return "jakarta.ws.rs.FormParam";
     }
 

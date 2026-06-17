@@ -154,7 +154,7 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormFieldAnnotationName() {
+    public String getFormParamAnnotationName() {
         return "javax.ws.rs.FormParam";
     }
 
