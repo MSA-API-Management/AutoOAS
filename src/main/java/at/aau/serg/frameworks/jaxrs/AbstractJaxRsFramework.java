@@ -68,7 +68,7 @@ public abstract class AbstractJaxRsFramework implements RestFramework {
     protected abstract String getFormParamAnnotationName();
 
     @Override
-    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
+    public List<CtParameter<?>> findFormProperties(List<CtParameter<?>> parameters) {
         return parameters.stream()
                 .filter(this::isFormParam)
                 .collect(Collectors.toList());

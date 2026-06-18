@@ -149,8 +149,13 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormFieldName(CtParameter<?> parameter) {
+    public String getFormPropertyName(CtParameter<?> parameter) {
         return parameter.getAnnotation(jakarta.ws.rs.FormParam.class).value();
+    }
+
+    @Override
+    public boolean requiresMultipart(CtParameter<?> parameter) {
+        return false;
     }
 
     @Override
@@ -253,6 +258,11 @@ public class JakartaRestFramework extends AbstractJaxRsFramework {
             return adapter;
         }
 
+        return null;
+    }
+
+    @Override
+    public MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter) {
         return null;
     }
 

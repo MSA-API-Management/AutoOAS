@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
 
@@ -149,8 +148,13 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
-    public String getFormFieldName(CtParameter<?> parameter) {
+    public String getFormPropertyName(CtParameter<?> parameter) {
         return parameter.getAnnotation(javax.ws.rs.FormParam.class).value();
+    }
+
+    @Override
+    public boolean requiresMultipart(CtParameter<?> parameter) {
+        return false;
     }
 
     @Override
@@ -253,6 +257,11 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
             return adapter;
         }
 
+        return null;
+    }
+
+    @Override
+    public MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter) {
         return null;
     }
 

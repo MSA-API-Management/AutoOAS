@@ -5,6 +5,7 @@ import at.aau.serg.frameworks.spring.adapters.mappings.*;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringPathVariableAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestHeaderAdapter;
 import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestParamAdapter;
+import at.aau.serg.frameworks.spring.adapters.parameters.SpringRequestPartAdapter;
 import at.aau.serg.interceptors.SpringOperationResponseCodeInterceptor;
 import at.aau.serg.parsers.HttpMethod;
 import com.github.jrcodeza.schema.generator.DataTypeTransformer;
@@ -23,6 +24,7 @@ import spoon.reflect.declaration.CtType;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static at.aau.serg.frameworks.utils.AnnotationUtils.getAnnotation;
@@ -180,13 +182,27 @@ public class SpringRestFramework implements RestFramework {
     }
 
     @Override
-    public List<CtParameter<?>> findFormFields(List<CtParameter<?>> parameters) {
-        return List.of();
+    public List<CtParameter<?>> findFormProperties(List<CtParameter<?>> parameters) {
+        return parameters.stream()
+                .filter(p -> tryConvertRequestPartAnnotation(p) != null)
+                .collect(Collectors.toList());
+    }
+
+    // TODO check
+    @Override
+    public String getFormPropertyName(CtParameter<?> parameter) {
+        MultipartParameterAnnotation requestPart = tryConvertRequestPartAnnotation(parameter);
+
+        if(requestPart != null && !requestPart.value().isEmpty()) {
+            return requestPart.value();
+        }
+
+        return parameter.getSimpleName();
     }
 
     @Override
-    public String getFormFieldName(CtParameter<?> parameter) {
-        return null;
+    public boolean requiresMultipart(CtParameter<?> parameter) {
+        return tryConvertRequestPartAnnotation(parameter) != null;
     }
 
     @Override
@@ -267,6 +283,13 @@ public class SpringRestFramework implements RestFramework {
     public RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter) {
         RequestHeader annotation = parameter.getAnnotation(RequestHeader.class);
         return annotation != null ? new SpringRequestHeaderAdapter(annotation) : null;
+    }
+
+    @Override
+    public MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter) {
+        RequestPart annotation = parameter.getAnnotation(RequestPart.class);
+
+        return annotation != null ? new SpringRequestPartAdapter(annotation) : null;
     }
 
     @Override
