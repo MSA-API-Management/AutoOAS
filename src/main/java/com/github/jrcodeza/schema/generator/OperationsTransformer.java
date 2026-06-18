@@ -569,7 +569,7 @@ public class OperationsTransformer {
 	}
 
 	private RequestBody createRequestBody(CtMethod<?> method, String userDefinedContentType) {
-		List<CtParameter<?>> formParams = restFramework.findFormFields(method.getParameters());
+		List<CtParameter<?>> formParams = restFramework.findFormProperties(method.getParameters());
 		if(formParams != null && !formParams.isEmpty()) {
 			return createFormRequestBody(formParams, userDefinedContentType);
 		}
@@ -602,11 +602,16 @@ public class OperationsTransformer {
 		formSchema.setType("object");
 
 		boolean isFormBodyRequired = false;
+		boolean requiresMultiPart = false; // todo naming
 
 		for(CtParameter<?> param: formParams) {
-			String formFieldName = restFramework.getFormFieldName(param);
-
+			String formFieldName = restFramework.getFormPropertyName(param);
 			AtomicBoolean isOptional = new AtomicBoolean(false);
+
+			if(restFramework.requiresMultipart(param) || schemaGeneratorHelper.isFile(param.getType())) {
+				requiresMultiPart = true;
+			}
+
 			Schema<?> propertySchema = resolveParameterSchema(param.getType(), null, isOptional);
 
 			if (propertySchema != null) {
@@ -627,7 +632,8 @@ public class OperationsTransformer {
 			MediaType mediaType = new MediaType();
 			mediaType.setSchema(formSchema);
 
-			String contentType = StringUtils.isBlank(userDefinedContentType) ? "application/x-www-form-urlencoded" : userDefinedContentType;
+			String defaultFormType = requiresMultiPart ? "multipart/form-data" : "application/x-www-form-urlencoded";
+			String contentType = StringUtils.isBlank(userDefinedContentType) ? defaultFormType : userDefinedContentType;
 
 			return assembleRequestBody(mediaType, contentType, isFormBodyRequired, null);
 	}
