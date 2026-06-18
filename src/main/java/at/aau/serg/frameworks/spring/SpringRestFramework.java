@@ -188,7 +188,6 @@ public class SpringRestFramework implements RestFramework {
                 .collect(Collectors.toList());
     }
 
-    // TODO check
     @Override
     public String getFormPropertyName(CtParameter<?> parameter) {
         MultipartParameterAnnotation requestPart = tryConvertRequestPartAnnotation(parameter);
@@ -288,7 +287,6 @@ public class SpringRestFramework implements RestFramework {
     @Override
     public MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter) {
         RequestPart annotation = parameter.getAnnotation(RequestPart.class);
-
         return annotation != null ? new SpringRequestPartAdapter(annotation) : null;
     }
 
