@@ -569,9 +569,10 @@ public class OperationsTransformer {
 	}
 
 	private RequestBody createRequestBody(CtMethod<?> method, String userDefinedContentType) {
-		List<CtParameter<?>> formParams = restFramework.findFormProperties(method.getParameters());
-		if(formParams != null && !formParams.isEmpty()) {
-			return createFormRequestBody(formParams, userDefinedContentType);
+		List<CtParameter<?>> formProperties = restFramework.findFormProperties(method.getParameters());
+
+		if (formProperties != null && !formProperties.isEmpty()) {
+			return createFormDataRequestBody(formProperties, userDefinedContentType);
 		}
 
 		ParameterNamePair requestBodyParameter = getRequestBody(method);
@@ -597,45 +598,45 @@ public class OperationsTransformer {
 		return requestBody;
 	}
 
-	private RequestBody createFormRequestBody(List<CtParameter<?>> formParams, String userDefinedContentType) {
+	private RequestBody createFormDataRequestBody(List<CtParameter<?>> formProperties, String userDefinedContentType) {
 		Schema<Object> formSchema = new Schema<>();
 		formSchema.setType("object");
 
-		boolean isFormBodyRequired = false;
-		boolean requiresMultiPart = false; // todo naming
+		boolean isBodyRequired = false;
+		boolean isMultipartRequired = false;
 
-		for(CtParameter<?> param: formParams) {
-			String formFieldName = restFramework.getFormPropertyName(param);
+		for (CtParameter<?> param : formProperties) {
+			String propertyName = restFramework.getFormPropertyName(param);
 			AtomicBoolean isOptional = new AtomicBoolean(false);
 
-			if(restFramework.requiresMultipart(param) || schemaGeneratorHelper.isFile(param.getType())) {
-				requiresMultiPart = true;
+			if (restFramework.requiresMultipart(param) || schemaGeneratorHelper.isFile(param.getType())) {
+				isMultipartRequired = true;
 			}
 
 			Schema<?> propertySchema = resolveParameterSchema(param.getType(), null, isOptional);
 
 			if (propertySchema != null) {
-				formSchema.addProperties(formFieldName, propertySchema);
+				formSchema.addProperties(propertyName, propertySchema);
 
 				if (!isOptional.get()) {
-					formSchema.addRequiredItem(formFieldName);
-					isFormBodyRequired = true;
+					formSchema.addRequiredItem(propertyName);
+					isBodyRequired = true;
 				}
 			} else {
-				logger.warn("Could not resolve schema for FormField '{}' of type '{}'. Falling back to string.", formFieldName, param.getType().getSimpleName());
+				logger.warn("Could not resolve schema for Form Property '{}' of type '{}'. Falling back to string.", propertyName, param.getType().getSimpleName());
 				Schema<String> fallbackSchema = new Schema<>();
 				fallbackSchema.setType("string");
-				formSchema.addProperties(formFieldName, fallbackSchema);
+				formSchema.addProperties(propertyName, fallbackSchema);
 			}
 		}
 
-			MediaType mediaType = new MediaType();
-			mediaType.setSchema(formSchema);
+		MediaType mediaType = new MediaType();
+		mediaType.setSchema(formSchema);
 
-			String defaultFormType = requiresMultiPart ? "multipart/form-data" : "application/x-www-form-urlencoded";
-			String contentType = StringUtils.isBlank(userDefinedContentType) ? defaultFormType : userDefinedContentType;
+		String defaultContentType = isMultipartRequired ? "multipart/form-data" : "application/x-www-form-urlencoded";
+		String finalContentType = StringUtils.isBlank(userDefinedContentType) ? defaultContentType : userDefinedContentType;
 
-			return assembleRequestBody(mediaType, contentType, isFormBodyRequired, null);
+		return assembleRequestBody(mediaType, finalContentType, isBodyRequired, null);
 	}
 
 	private RequestBody assembleRequestBody(MediaType mediaType, String contentType, boolean isRequired, String description) {
