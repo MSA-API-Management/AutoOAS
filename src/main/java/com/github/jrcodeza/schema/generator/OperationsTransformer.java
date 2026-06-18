@@ -597,10 +597,11 @@ public class OperationsTransformer {
 		return requestBody;
 	}
 
-	// TODO check proper required handling
 	private RequestBody createFormRequestBody(List<CtParameter<?>> formParams, String userDefinedContentType) {
 		Schema<Object> formSchema = new Schema<>();
 		formSchema.setType("object");
+
+		boolean isFormBodyRequired = false;
 
 		for(CtParameter<?> param: formParams) {
 			String formFieldName = restFramework.getFormFieldName(param);
@@ -611,7 +612,10 @@ public class OperationsTransformer {
 			if (propertySchema != null) {
 				formSchema.addProperties(formFieldName, propertySchema);
 
-				if (!isOptional.get()) formSchema.addRequiredItem(formFieldName);
+				if (!isOptional.get()) {
+					formSchema.addRequiredItem(formFieldName);
+					isFormBodyRequired = true;
+				}
 			} else {
 				logger.warn("Could not resolve schema for FormField '{}' of type '{}'. Falling back to string.", formFieldName, param.getType().getSimpleName());
 				Schema<String> fallbackSchema = new Schema<>();
@@ -625,7 +629,7 @@ public class OperationsTransformer {
 
 			String contentType = StringUtils.isBlank(userDefinedContentType) ? "application/x-www-form-urlencoded" : userDefinedContentType;
 
-			return assembleRequestBody(mediaType, contentType, true, null);
+			return assembleRequestBody(mediaType, contentType, isFormBodyRequired, null);
 	}
 
 	private RequestBody assembleRequestBody(MediaType mediaType, String contentType, boolean isRequired, String description) {
