@@ -17,4 +17,10 @@ public class FormParamResource {
     public Response postMultiple(@FormParam("name") String name, @FormParam("name2") String name2) {
         return Response.ok().build();
     }
+
+    @POST
+    @Path("/multiple-different-names")
+    public Response postMultipleFormParamsWithDifferentNames(@FormParam("different-name") String name, @FormParam("age") int age) {
+        return Response.ok().build();
+    }
 }

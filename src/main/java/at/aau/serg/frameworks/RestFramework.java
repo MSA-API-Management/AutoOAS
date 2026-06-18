@@ -209,6 +209,33 @@ public interface RestFramework {
     CtParameter<?> findRequestBody(List<CtParameter<?>> parameters);
 
 
+    /**
+     * Filters the provided method parameters to find those that act as properties
+     * within a form or multipart request body.
+     *
+     * @param parameters the complete list of method parameters
+     * @return a list of parameters identified as form or multipart properties
+     */
+    List<CtParameter<?>> findFormProperties(List<CtParameter<?>> parameters);
+
+    /**
+     * Extracts the explicit property name for the form or multipart field from the parameter's annotation.
+     *
+     * @param parameter the parameter to evaluate
+     * @return the name to be used as the schema property key
+     */
+    String getFormPropertyName(CtParameter<?> parameter);
+
+    /**
+     * Evaluates whether the given parameter mandates that the overall HTTP request body
+     * must be formatted as multipart/form-data.
+     *
+     * @param parameter The method parameter to evaluate
+     * @return true if the parameter requires a multipart request body, false otherwise
+     */
+    boolean requiresMultipart(CtParameter<?> parameter);
+
+
 // endregion framework-specific classes
 
 // region framework-specific REST functionality conversions
@@ -303,6 +330,15 @@ public interface RestFramework {
      * @return A standardized RequestHeaderAnnotation if found, or null otherwise
      */
     RequestHeaderAnnotation tryConvertRequestHeaderAnnotation(CtParameter<?> parameter);
+
+    /**
+     * Attempts to convert a parameter's multipart payload annotation (e.g., @RequestPart in Spring)
+     * to a standardized representation.
+     *
+     * @param parameter The method parameter to check for multipart part annotations
+     * @return A standardized RequestPartAnnotation if found, or null otherwise
+     */
+    MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter);
 
 // endregion framework-specific REST functionality conversions
 

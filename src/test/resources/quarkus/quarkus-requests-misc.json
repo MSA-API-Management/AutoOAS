@@ -64,6 +64,22 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "required" : [ "id" ],
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -475,6 +491,22 @@
         "summary" : "handleFormParamRequestBody",
         "operationId" : "handleFormParamRequestBodyUsingPOST__body_formparam-body",
         "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "required" : [ "str" ],
+                "type" : "object",
+                "properties" : {
+                  "str" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "OK",

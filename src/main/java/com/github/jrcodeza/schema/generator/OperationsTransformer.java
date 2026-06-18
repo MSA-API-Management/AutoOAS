@@ -569,41 +569,96 @@ public class OperationsTransformer {
 	}
 
 	private RequestBody createRequestBody(CtMethod<?> method, String userDefinedContentType) {
-		ParameterNamePair requestBodyParameter = getRequestBody(method);
+		List<CtParameter<?>> formProperties = restFramework.findFormProperties(method.getParameters());
 
+		if (formProperties != null && !formProperties.isEmpty()) {
+			return createFormDataRequestBody(formProperties, userDefinedContentType);
+		}
+
+		ParameterNamePair requestBodyParameter = getRequestBody(method);
 		if (requestBodyParameter == null) {
 			return null;
 		}
 
-		Content content = new Content();
-		AtomicBoolean isOptionalParameter = new AtomicBoolean(false);
+		AtomicBoolean isOptional = new AtomicBoolean(false);
+		Schema<?> schema = resolveParameterSchema(requestBodyParameter.getParameter().getType(), requestBodyParameter.getName(), isOptional);
 
-		var parameterType = requestBodyParameter.getParameter().getType();
-		MediaType mediaType;
-		if (parameterType.isPrimitive()) {
-			mediaType = new MediaType();
-			mediaType.setSchema(schemaGeneratorHelper.parseBaseTypeSignature(parameterType, new Annotation[0]));
-		} else {
-			mediaType = schemaGeneratorHelper.createMediaType(
-					requestBodyParameter.getParameter().getType(),
-					requestBodyParameter.getName(),
-					isOptionalParameter
-			);
-		}
-		content.addMediaType(dataTypeTransformer.resolveContentType(userDefinedContentType, requestBodyParameter.getParameter()),
-				mediaType
-		);
+		MediaType mediaType = new MediaType();
+		mediaType.setSchema(schema);
 
-		RequestBody requestBody = new RequestBody();
-		requestBody.setRequired(!isOptionalParameter.get());
-		requestBody.setContent(content);
-		requestBody.setDescription("requestBody");
+		String baseContentType = StringUtils.isBlank(userDefinedContentType) ? "application/json" : userDefinedContentType;
+		String finalContentType = dataTypeTransformer.resolveContentType(baseContentType, requestBodyParameter.getParameter());
+
+		RequestBody requestBody = assembleRequestBody(mediaType, finalContentType, !isOptional.get(), "requestBody");
 
 		requestBodyInterceptors.forEach(interceptor ->
 				interceptor.intercept(method, requestBodyParameter.getParameter(), requestBodyParameter.getName(), requestBody)
 		);
 
 		return requestBody;
+	}
+
+	private RequestBody createFormDataRequestBody(List<CtParameter<?>> formProperties, String userDefinedContentType) {
+		Schema<Object> formSchema = new Schema<>();
+		formSchema.setType("object");
+
+		boolean isBodyRequired = false;
+		boolean isMultipartRequired = false;
+
+		for (CtParameter<?> param : formProperties) {
+			String propertyName = restFramework.getFormPropertyName(param);
+			AtomicBoolean isOptional = new AtomicBoolean(false);
+
+			if (restFramework.requiresMultipart(param) || schemaGeneratorHelper.isFile(param.getType())) {
+				isMultipartRequired = true;
+			}
+
+			Schema<?> propertySchema = resolveParameterSchema(param.getType(), null, isOptional);
+
+			if (propertySchema != null) {
+				formSchema.addProperties(propertyName, propertySchema);
+
+				if (!isOptional.get()) {
+					formSchema.addRequiredItem(propertyName);
+					isBodyRequired = true;
+				}
+			} else {
+				logger.warn("Could not resolve schema for Form Property '{}' of type '{}'. Falling back to string.", propertyName, param.getType().getSimpleName());
+				Schema<String> fallbackSchema = new Schema<>();
+				fallbackSchema.setType("string");
+				formSchema.addProperties(propertyName, fallbackSchema);
+			}
+		}
+
+		MediaType mediaType = new MediaType();
+		mediaType.setSchema(formSchema);
+
+		String defaultContentType = isMultipartRequired ? "multipart/form-data" : "application/x-www-form-urlencoded";
+		String finalContentType = StringUtils.isBlank(userDefinedContentType) ? defaultContentType : userDefinedContentType;
+
+		return assembleRequestBody(mediaType, finalContentType, isBodyRequired, null);
+	}
+
+	private RequestBody assembleRequestBody(MediaType mediaType, String contentType, boolean isRequired, String description) {
+		Content content = new Content();
+		content.addMediaType(contentType, mediaType);
+
+		RequestBody requestBody = new RequestBody();
+		requestBody.setContent(content);
+		requestBody.setRequired(isRequired);
+
+		if(description != null) {
+			requestBody.setDescription(description);
+		}
+
+		return requestBody;
+	}
+
+	private Schema<?> resolveParameterSchema(CtTypeReference<?> parameterType, String parameterName, AtomicBoolean isOptional) {
+		if (parameterType.isPrimitive()) {
+			return schemaGeneratorHelper.parseBaseTypeSignature(parameterType, new Annotation[0]);
+		}
+		return schemaGeneratorHelper.parseSchema(parameterType, parameterName, isOptional);
 	}
 
 	private CtTypeReference<?> getGenericParam(CtTypeReference<?> type) {

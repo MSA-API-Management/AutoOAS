@@ -148,6 +148,21 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
     }
 
     @Override
+    public String getFormPropertyName(CtParameter<?> parameter) {
+        return parameter.getAnnotation(javax.ws.rs.FormParam.class).value();
+    }
+
+    @Override
+    public boolean requiresMultipart(CtParameter<?> parameter) {
+        return false;
+    }
+
+    @Override
+    public String getFormParamAnnotationName() {
+        return "javax.ws.rs.FormParam";
+    }
+
+    @Override
     public Optional<? extends Annotation> findPostMappingAnnotation(CtMethod<?> method) {
         return getAnnotation(method, POST.class);
     }
@@ -242,6 +257,11 @@ public class JavaxRestFramework extends AbstractJaxRsFramework {
             return adapter;
         }
 
+        return null;
+    }
+
+    @Override
+    public MultipartParameterAnnotation tryConvertRequestPartAnnotation(CtParameter<?> parameter) {
         return null;
     }
 

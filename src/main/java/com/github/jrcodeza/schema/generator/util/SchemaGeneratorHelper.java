@@ -71,7 +71,7 @@ public class SchemaGeneratorHelper {
         }
     }
 
-    protected Schema parseSchema(CtTypeReference<?> parameterType,
+    public Schema parseSchema(CtTypeReference<?> parameterType,
                                  String parameterName,
                                  @Out AtomicBoolean isOptionalParameter){
         List<CtTypeReference<?>> genericParams = this.getGenericParams(parameterType);
