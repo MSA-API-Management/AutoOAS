@@ -473,6 +473,159 @@
         }
       }
     },
+    "/request-part/dto" : {
+      "post" : {
+        "tags" : [ "request-part-controller" ],
+        "summary" : "handleDto",
+        "operationId" : "handleDtoUsingPOST__request-part_dto",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "required" : [ "dto" ],
+                "type" : "object",
+                "properties" : {
+                  "dto" : {
+                    "$ref" : "#/components/schemas/SimpleRequestPartDto"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleRequestPartDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/request-part/integer" : {
+      "post" : {
+        "tags" : [ "request-part-controller" ],
+        "summary" : "handleInteger",
+        "operationId" : "handleIntegerUsingPOST__request-part_integer",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "required" : [ "age" ],
+                "type" : "object",
+                "properties" : {
+                  "age" : {
+                    "type" : "integer",
+                    "format" : "int32"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/request-part/mixed" : {
+      "post" : {
+        "tags" : [ "request-part-controller" ],
+        "summary" : "handleMixed",
+        "operationId" : "handleMixedUsingPOST__request-part_mixed",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "required" : [ "comment", "dto", "file" ],
+                "type" : "object",
+                "properties" : {
+                  "dto" : {
+                    "$ref" : "#/components/schemas/SimpleRequestPartDto"
+                  },
+                  "comment" : {
+                    "type" : "string"
+                  },
+                  "file" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SimpleRequestPartDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/request-part/string" : {
+      "post" : {
+        "tags" : [ "request-part-controller" ],
+        "summary" : "handleString",
+        "operationId" : "handleStringUsingPOST__request-part_string",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "required" : [ "name" ],
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/requests/header-param" : {
       "get" : {
         "tags" : [ "requests-controller" ],
@@ -706,6 +859,18 @@
         }
       },
       "SimpleObject" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "SimpleRequestPartDto" : {
         "type" : "object",
         "properties" : {
           "name" : {
