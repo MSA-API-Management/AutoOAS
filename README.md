@@ -34,7 +34,7 @@ for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jers
 ```
 
 ## Docker image
-We provide a Docker image for easier integration into GitHub and GitLab workflows.
+We provide a [Docker image](https://hub.docker.com/r/alexx882/auto-oas) for easier integration into GitHub and GitLab workflows.
 ```shell
 docker build -t alexx882/auto-oas:1.2 .
 # or
