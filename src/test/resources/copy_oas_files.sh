@@ -22,6 +22,11 @@ mv target/openapi/quarkus-multi-module-ignored-rest-api_default.json src/test/re
 
 mv target/openapi/quarkus-complex-exception-tests_default.json src/test/resources/quarkus/quarkus-complex-exception-tests.json
 
+mv target/openapi/quarkus-async-behavior_default.json src/test/resources/quarkus/quarkus-async-behavior.json
+
+mv target/openapi/quarkus-oas-application-path_default.json src/test/resources/quarkus/quarkus-oas-application-path.json
+
+
 # Spring Boot
 mv target/openapi/swagger-2cc389_default.json src/test/resources/spring-boot/simple-spring-2cc389.json
 
