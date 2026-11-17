@@ -54,7 +54,8 @@
               }
             }
           }
-        }
+        },
+        "deprecated" : true
       }
     },
     "/othersimples/{id}/{ssn}" : {
@@ -252,7 +253,8 @@
               }
             }
           }
-        }
+        },
+        "deprecated" : true
       }
     },
     "/simples" : {

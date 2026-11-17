@@ -60,6 +60,7 @@ public class SimpleController extends SimpleControllerBase {
         return ResponseEntity.ok(s);
     }
 
+    @Deprecated
     @PostMapping("request-body-list")
     public ResponseEntity<Collection<Simple>> create(@RequestBody List<Simple> simples) { //throws IllegalResourceException {
         return ResponseEntity.ok(simples);

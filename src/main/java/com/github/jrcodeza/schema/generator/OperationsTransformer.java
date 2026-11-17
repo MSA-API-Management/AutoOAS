@@ -81,18 +81,21 @@ public class OperationsTransformer {
 	 */
 	public void createOperation(CtMethod<?> method, String baseControllerPath, @Out Map<String, PathItem> operationsMap, String controllerClassName, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
         logger.debug("Transforming {} controller method", method.getSimpleName());
+
+		boolean isDeprecated = method.hasAnnotation(Deprecated.class);
+
         restFramework.findPostMappingAnnotation(method).ifPresent(postMapping
-                -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapPost(postMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
         restFramework.findPutMappingAnnotation(method).ifPresent(putMapping
-                -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapPut(putMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
         restFramework.findPatchMappingAnnotation(method).ifPresent(patchMapping
-                -> mapPatch(patchMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapPatch(patchMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
         restFramework.findGetMappingAnnotation(method).ifPresent(getMapping
-                -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapGet(getMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
         restFramework.findDeleteMappingAnnotation(method).ifPresent(deleteMapping
-                -> mapDelete(deleteMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapDelete(deleteMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
         restFramework.findRequestMappingAnnotation(method).ifPresent(requestMapping
-                -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses));
+                -> mapRequestMapping(requestMapping, method, operationsMap, controllerClassName, baseControllerPath, previouslyDetectedApiParamsAndResponses, isDeprecated));
 
         // todo handle RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.TRACE
     }
@@ -109,7 +112,7 @@ public class OperationsTransformer {
 	 * @param previouslyDetectedApiParamsAndResponses
 	 */
 	private void mapRequestMapping(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
-								   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+								   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -128,6 +131,7 @@ public class OperationsTransformer {
 			operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.valueOf(httpMethod.name())));
 			operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 			operation.setTags(singletonList(classNameToTag(controllerClassName)));
+			if (isMethodDeprecated) operation.setDeprecated(true);
 
 			if (restFramework.isAnyHttpMethodWithRequestBody(httpMethod)) {
 				operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
@@ -190,7 +194,7 @@ public class OperationsTransformer {
 	}
 
 	private void mapDelete(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
-						   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+						   String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -200,6 +204,7 @@ public class OperationsTransformer {
 		operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.DELETE));
 		operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
+		if (isMethodDeprecated) operation.setDeprecated(true);
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
@@ -219,7 +224,8 @@ public class OperationsTransformer {
 		return methodResponseExtractor.createApiResponses(method, produces);
 	}
 
-	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+	private void mapGet(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+						String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		logger.debug("Called mapGet with annotation name \"{}\", path {}, method {}, produces {}", restOperationAnnotation.name(), getFirstFromArray(restOperationAnnotation.path()), Arrays.toString(restOperationAnnotation.method()), getFirstFromArray(restOperationAnnotation.produces()));
 
@@ -232,6 +238,7 @@ public class OperationsTransformer {
 		operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.GET));
 		operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
+		if (isMethodDeprecated) operation.setDeprecated(true);
 
 		operation.setParameters(transformParameters(fullPath, method));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
@@ -247,7 +254,8 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+	private void mapPatch(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+						  String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation,method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -257,6 +265,7 @@ public class OperationsTransformer {
 		operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.PATCH));
 		operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
+		if (isMethodDeprecated) operation.setDeprecated(true);
 
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
@@ -273,7 +282,8 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+	private void mapPut(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+						String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -283,6 +293,7 @@ public class OperationsTransformer {
 		operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.PUT));
 		operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
+		if (isMethodDeprecated) operation.setDeprecated(true);
 
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));
@@ -299,7 +310,8 @@ public class OperationsTransformer {
         });
 	}
 
-	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName, String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses) {
+	private void mapPost(Annotation annotation, CtMethod<?> method, Map<String, PathItem> operationsMap, String controllerClassName,
+						 String baseControllerPath, DetectedApiParamsAndResponses previouslyDetectedApiParamsAndResponses, boolean isMethodDeprecated) {
 		RestOperationAnnotation restOperationAnnotation = restFramework.convertToRequestAnnotation(annotation, method);
 		String path = getFirstFromArray(restOperationAnnotation.path());
 		String fullPath = prepareUrl(baseControllerPath, "/", path);
@@ -309,6 +321,7 @@ public class OperationsTransformer {
 		operation.setOperationId(getOperationId(cleanedPath, restOperationAnnotation.name(), method, HttpMethod.POST));
 		operation.setSummary(!StringUtils.isBlank(restOperationAnnotation.name()) ? restOperationAnnotation.name() : method.getSimpleName());
 		operation.setTags(singletonList(classNameToTag(controllerClassName)));
+		if (isMethodDeprecated) operation.setDeprecated(true);
 
 		operation.setRequestBody(createRequestBody(method, getFirstFromArray(restOperationAnnotation.consumes())));
 		operation.setResponses(createApiResponses(method, getFirstFromArray(restOperationAnnotation.produces())));

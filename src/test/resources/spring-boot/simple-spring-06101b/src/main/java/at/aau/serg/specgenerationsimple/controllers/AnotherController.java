@@ -21,6 +21,7 @@ public class AnotherController {
     }
 
     @GetMapping("/{id}")
+    @Deprecated
     @ApiResponse(responseCode = "204")
     public ResponseEntity<AnotherSimple> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(new AnotherSimple().withSsn("2511").withId(1));

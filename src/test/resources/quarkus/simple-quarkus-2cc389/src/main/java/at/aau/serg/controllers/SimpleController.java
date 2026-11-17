@@ -64,6 +64,7 @@ public class SimpleController extends SimpleControllerBase {
         return Response.ok(s).build();
     }
 
+    @Deprecated
     @POST
     @Path("request-body-list")
     public Response create(List<Simple> simples) {

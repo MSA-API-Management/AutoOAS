@@ -20,6 +20,7 @@ public class AnotherController {
         return Response.ok(al).build();
     }
 
+    @Deprecated
     @GET
     @Path("/{id}")
     @APIResponse(responseCode = "204")
