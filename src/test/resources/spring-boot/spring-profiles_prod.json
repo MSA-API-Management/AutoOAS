@@ -3,7 +3,7 @@
   "info" : {
     "title" : "spring-profiles-project",
     "description" : "Spring Profile: prod",
-    "version" : ""
+    "version" : "0.0.1-SNAPSHOT"
   },
   "paths" : {
     "/api/all-profiles" : {

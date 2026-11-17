@@ -3,7 +3,7 @@
   "info" : {
     "title" : "spring-exceptions-advice-project",
     "description" : "Spring Profile: default",
-    "version" : ""
+    "version" : "0.0.1-SNAPSHOT"
   },
   "paths" : {
     "/local-exception-handler" : {

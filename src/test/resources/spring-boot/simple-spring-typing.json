@@ -3,7 +3,7 @@
   "info" : {
     "title" : "simple-spring-typing",
     "description" : "Spring Profile: default",
-    "version" : ""
+    "version" : "0.0.1-SNAPSHOT"
   },
   "paths" : {
     "/types/getInterfaceInheritance" : {
