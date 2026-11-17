@@ -15,14 +15,14 @@ import java.nio.file.Path;
 public class OpenApiGenerator {
 
     public Info getDummyInfo(String title) {
-        return getDummyInfo(title, "Test description");
+        return getInfo(title, "Test description", "unknown");
     }
 
-    public Info getDummyInfo(String title, String description) {
+    public Info getInfo(String title, String description, String version) {
         return new Info()
                 .title(title)
                 .description(description)
-                .version("");
+                .version(version);
     }
 
     public void writeOpenApiToFile(OpenAPI openApi, String outputFileName) {

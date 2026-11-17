@@ -45,6 +45,7 @@ public class RestApiParser {
     private final OpenApiGenerator openApiGen = new OpenApiGenerator();
 
     protected CtModel model;
+    protected String projectVersion;
     protected String projectName;
     protected String restApiModulePath;
     private String restApiModulePathWithTrailingSeparator;
@@ -59,7 +60,7 @@ public class RestApiParser {
      * @param restFramework
      */
     protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework) {
-        this(projectPath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
+        this(projectPath, outputFileName, restFramework, new SpoonModelLoader().loadModelAndVersion(projectPath));
     }
 
     /**
@@ -72,7 +73,7 @@ public class RestApiParser {
      * @param restFramework
      */
     protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework) {
-        this(projectPath, restApiModulePath, outputFileName, restFramework, new SpoonModelLoader().loadModel(projectPath));
+        this(projectPath, restApiModulePath, outputFileName, restFramework, new SpoonModelLoader().loadModelAndVersion(projectPath));
     }
 
     /**
@@ -81,10 +82,10 @@ public class RestApiParser {
      * @param projectPath    The path to the project under analysis
      * @param outputFileName
      * @param restFramework
-     * @param model          The model of the project in {@code projectPath}
+     * @param modelAndVersion          The model of the project in {@code projectPath}
      */
-    protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, CtModel model) {
-        this(projectPath, projectPath, outputFileName, restFramework, model);
+    protected RestApiParser(String projectPath, String outputFileName, RestFramework restFramework, SpoonModelAndVersion modelAndVersion) {
+        this(projectPath, projectPath, outputFileName, restFramework, modelAndVersion);
     }
 
     /**
@@ -95,9 +96,9 @@ public class RestApiParser {
      * @param restApiModulePath The path to the API module in the multi-module project in {@code projectPath}
      * @param outputFileName
      * @param restFramework
-     * @param model             The model of the project in {@code projectPath}
+     * @param modelAndVersion             The model of the project in {@code projectPath}
      */
-    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework, CtModel model) {
+    protected RestApiParser(String projectPath, String restApiModulePath, String outputFileName, RestFramework restFramework, SpoonModelAndVersion modelAndVersion) {
         this.projectName = projectPath.substring(projectPath.lastIndexOf('/') + 1);
         this.restApiModulePath = restApiModulePath;
         this.restApiModulePathWithTrailingSeparator = restApiModulePath.endsWith(File.separator)
@@ -106,7 +107,8 @@ public class RestApiParser {
         this.outputFileName = outputFileName;
         this.restFramework = restFramework;
 
-        this.model = model;
+        this.model = modelAndVersion.getModel();
+        this.projectVersion = modelAndVersion.getProjectVersion();
     }
 
     public void run() {
@@ -125,7 +127,6 @@ public class RestApiParser {
                 .filter(p -> !p.isEmpty())
                 .map(p -> p.toString())
                 .collect(Collectors.toList());
-
 
         RelevantClasses relevantClasses = getRelevantClassesFromPackages(packages);
         List<CtType<?>> controllerClasses = relevantClasses.getControllerClasses();
@@ -182,7 +183,7 @@ public class RestApiParser {
         modelClasses.addAll(explicitModelClasses.stream().map(CtType::getReference).collect(Collectors.toUnmodifiableSet()));
         Components components = createComponentsSchemasFromModels(modelClasses);
 
-        Info info = openApiGen.getDummyInfo(projectName, restFramework.getOpenApiInfoDescription(profileName));
+        Info info = openApiGen.getInfo(projectName, restFramework.getOpenApiInfoDescription(profileName), this.projectVersion);
 
         OpenAPI openApi = openApiGen.createOpenApi(info, paths, components);
 
