@@ -19,9 +19,9 @@ public class SpoonModelLoader {
     protected boolean deleteSpoonTmpFile = true;
 
     /**
-     * @author Christian
+     * @author Christian, Alexander
      */
-    public CtModel loadModel(String path) {
+    public SpoonModelAndVersion loadModelAndVersion(String path) {
         System.out.println("Loading model: " + path);
 
         if (deleteSpoonTmpFile) {
@@ -48,7 +48,10 @@ public class SpoonModelLoader {
         launcher.getEnvironment().setNoClasspath(true);
         launcher.buildModel();
 
-        return launcher.getModel();
+        return new SpoonModelAndVersion(
+                launcher.getModel(),
+                launcher.getPomFile().getModel().getVersion()
+        );
     }
 
     private boolean isMavenProject(String path) {

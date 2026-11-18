@@ -15,7 +15,7 @@ public class FrameworkDetector {
     private final Map<String, RestFramework> annotationToFramework = new HashMap<>();
 
     @Getter
-    private CtModel model;
+    private SpoonModelAndVersion modelAndVersion;
 
     public FrameworkDetector(Map<String, RestFramework> frameworkInstances) {
         for (RestFramework framework : frameworkInstances.values()) {
@@ -26,7 +26,8 @@ public class FrameworkDetector {
     }
 
     public RestFramework detectFramework(String projectPath) {
-        this.model = new SpoonModelLoader().loadModel(projectPath);
+        this.modelAndVersion = new SpoonModelLoader().loadModelAndVersion(projectPath);
+        CtModel model = modelAndVersion.getModel();
 
         for (CtPackage pkg : model.getAllPackages()) {
             for (CtType<?> type : pkg.getTypes()) {

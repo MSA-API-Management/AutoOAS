@@ -3,7 +3,7 @@
   "info" : {
     "title" : "simple-spring-06101b",
     "description" : "Spring Profile: default",
-    "version" : ""
+    "version" : "7.2.0"
   },
   "paths" : {
     "/othersimples" : {

@@ -10,7 +10,7 @@
     </parent>
     <groupId>at.aau.serg</groupId>
     <artifactId>simple-spring-project</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>7.2.0</version>
     <name>simple-spring-project</name>
     <description>A simple Spring project used to showcase a few possibilities for REST endpoints</description>
     <properties>

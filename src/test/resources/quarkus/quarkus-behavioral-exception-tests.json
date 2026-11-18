@@ -3,7 +3,7 @@
   "info" : {
     "title" : "quarkus-behavioral-exception-tests",
     "description" : "JAX-RS (Jakarta EE) Profile: default",
-    "version" : ""
+    "version" : "1.0.0-SNAPSHOT"
   },
   "paths" : {
     "/exceptions/complex-throw" : {

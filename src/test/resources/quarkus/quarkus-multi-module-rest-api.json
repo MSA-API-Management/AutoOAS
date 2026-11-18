@@ -3,7 +3,7 @@
   "info" : {
     "title" : "quarkus-multi-module",
     "description" : "JAX-RS (Jakarta EE) Profile: default",
-    "version" : ""
+    "version" : "1.0.0-SNAPSHOT"
   },
   "paths" : {
     "/rest-api-module" : {
