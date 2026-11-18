@@ -15,10 +15,27 @@ Compile and run:
 ```shell
 mvn clean package
 
-java -jar target/auto-oas-1.2.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
+java -jar target/auto-oas-1.3.0-jar-with-dependencies.jar <path-to-mvn-project> <oas-output-name>
 ```
 
-## Evaluation
+## Docker image
+We provide a [Docker image](https://hub.docker.com/r/alexx882/auto-oas) for easier integration into GitHub and GitLab workflows.
+```shell
+docker build -t alexx882/auto-oas:1.3 .
+# or
+docker buildx build --push --platform=linux/amd64,linux/arm64 -t alexx882/auto-oas:1.3 .
+```
+
+```shell
+docker run -v <path-to-mvn-project>:/project alexx882/auto-oas:1.3 /project /project/<oas-output-path-prefix>
+
+# e.g., analyze current directory and write to target/docker-output/
+docker run -v `pwd`:/project alexx882/auto-oas:1.3 /project /project/target/docker-output/oas
+```
+
+## Scientific Evaluation
+> In our paper, we evaluated AutoOAS version 1.2.0. Please use the respective git tag ("v1.2" or "published").
+
 The script for the evaluation is located in [scripts](./scripts).
 
 ### Runtime evaluation
@@ -31,21 +48,6 @@ dataset_dir="path/to/dataset"
 output_dir="outputs"
 rm -r $output_dir
 for _ in {1..5}; do ./scripts/run_runtime_eval.sh $dataset_dir $output_dir -jersey -spring ; done
-```
-
-## Docker image
-We provide a [Docker image](https://hub.docker.com/r/alexx882/auto-oas) for easier integration into GitHub and GitLab workflows.
-```shell
-docker build -t alexx882/auto-oas:1.2 .
-# or
-docker buildx build --push --platform=linux/amd64,linux/arm64 -t alexx882/auto-oas:1.2 .
-```
-
-```shell
-docker run -v <path-to-mvn-project>:/project alexx882/auto-oas:1.2 /project /project/<oas-output-path-prefix>
-
-# e.g., analyze current directory and write to target/docker-output/
-docker run -v `pwd`:/project alexx882/auto-oas:1.2 /project /project/target/docker-output/oas
 ```
 
 ## Academic Use
